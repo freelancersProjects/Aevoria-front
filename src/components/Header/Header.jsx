@@ -18,7 +18,7 @@ const HeaderComponent = () => {
             </div>
             <div className='header-right'>
                 <Link to="/cart" className="cart-icon">🛒</Link>
-                <Link to="/profile" className="profile-icon">👤</Link>
+                <Link to="/login" className="profile-icon">👤</Link>
             </div>
         </div>
     )
