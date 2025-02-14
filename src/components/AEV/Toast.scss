@@ -1,0 +1,18 @@
+.toast {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    color: white;
+}
+
+.toast.success {
+    background-color: green;
+}
+
+.toast.error {
+    background-color: red;
+}
+
+.toast.info {
+    background-color: blue;
+} 
