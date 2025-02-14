@@ -1,7 +1,6 @@
 import React from "react";
 import "./Login.scss";
 import { FaFacebookF, FaGoogle, FaApple, FaDiscord } from "react-icons/fa";
-import { signInWithGoogle } from "../../firebase";
 
 const LoginPage = () => {
   const handleGoogleLogin = async () => {

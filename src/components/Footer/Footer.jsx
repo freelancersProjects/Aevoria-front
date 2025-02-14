@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.scss';
-import { link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -10,4 +10,4 @@ const Footer = () => {
     );
 };
 
-export default Footer; 
+export default Footer;
