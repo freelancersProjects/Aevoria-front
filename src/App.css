@@ -5,7 +5,7 @@
     height: 100vh;
     background: hsl(0, 0%, 7%);
   }
-  
+
 
 .main-content {
     flex: 1;
@@ -28,4 +28,4 @@
     border-radius: 5px;
     flex: 1; /* Éléments flexibles */
     text-align: center; /* Centrer le texte */
-} 
+}
