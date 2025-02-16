@@ -1,6 +1,6 @@
 :root {
   --background-black: #00050d;
-  --transparent-white: rgba(255, 255, 255, 0.60);
+  --transparent-white: rgba(255, 255, 255, 0.6);
   --second-background: #000711;
   --gray-background: #111111;
   --blue: rgba(0, 123, 255, 1);
@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--background-black);
@@ -26,11 +26,15 @@ h3,
 h4,
 h5,
 h6 {
-  color: white;
+  color: var(--white);
 }
 
 p {
-  color: white;
+  color: var(--white);
+}
+
+.blue {
+  color: var(--blue);
 }
 
 .container {
@@ -52,3 +56,13 @@ p {
   gap: 20px;
 }
 
+.title-center {
+  text-align: center;
+  font-family: "Instrument Sans", sans-serif;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.6) 0%, #fff 100%);
+  background-clip: text;
+  font-size: 56px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import "./TabSwitcher.scss";
 
 const TabSwitcher = ({ tabs }) => {
@@ -21,6 +22,10 @@ const TabSwitcher = ({ tabs }) => {
             ></div>
         </div>
     );
+};
+
+TabSwitcher.propTypes = {
+    tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TabSwitcher;

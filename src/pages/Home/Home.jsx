@@ -18,7 +18,10 @@ const sampleGame = {
 const Home = () => {
   return (
     <>
+
       <div className='container'>
+        <p class="title-center">Une sélection infinie de jeux à portée de clic,
+          pour chaque envie et chaque joueur.</p>
           <TabSwitcher tabs={tabs} />
       </div>
 

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./Button.scss";
 
 const Button = ({ text, variant = "solid", size = "medium", onClick }) => {
@@ -7,6 +8,13 @@ const Button = ({ text, variant = "solid", size = "medium", onClick }) => {
             {text}
         </button>
     );
+};
+
+Button.propTypes = {
+    text: PropTypes.string.isRequired,
+    variant: PropTypes.oneOf(["solid", "outline"]),
+    size: PropTypes.oneOf(["small", "medium", "large"]),
+    onClick: PropTypes.func,
 };
 
 export default Button;

@@ -1,6 +1,7 @@
 // GameCard.jsx
 import React from "react";
 import "./GameCard.scss";
+import PropTypes from 'prop-types';
 import SteamIcon from "../../../../public/assets/svg/steam.svg?react";
 import EpicIcon from "../../../../public/assets/svg/epic-games.svg?react";
 import PlaystationIcon from "../../../../public/assets/svg/playstation.svg?react";
@@ -37,6 +38,16 @@ const GameCard = ({
             </div>
         </div>
     );
+};
+GameCard.propTypes = {
+    image: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+    discount: PropTypes.number,
+    isSteam: PropTypes.bool,
+    isEpic: PropTypes.bool,
+    isPlaystation: PropTypes.bool,
 };
 
 export default GameCard;
