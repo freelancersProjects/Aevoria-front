@@ -1,12 +1,31 @@
+.game-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .game-card {
   background: var(--gray-background);
   border-radius: 10px;
   overflow: hidden;
-  width: 472px;
   color: var(--white);
   font-family: 'Montserrat', sans-serif;
   transition: transform 0.2s ease-in-out;
-  margin: 0 20px 20px 0;
+  flex: 0 0 calc(33.333% - 14px);
+  max-width: calc(33.333% - 14px);
+  margin: 0;
+
+  @media (max-width: 1024px) {
+    flex: 0 0 calc(50% - 10px);
+    max-width: calc(50% - 10px);
+  }
+
+  @media (max-width: 768px) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 
   svg {
     cursor: pointer;
