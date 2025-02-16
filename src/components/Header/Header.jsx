@@ -1,27 +1,44 @@
-import React from 'react';
-import './Header.scss';
-import { Link } from 'react-router-dom';
-import Logo from '/Logo.png';
+// Header.jsx
+import React from "react";
+import "./Header.scss";
+import Logo from "/Logo.png";
+import { useState, useEffect } from "react";
+import CartIcon from "../../../public/assets/svg/cart.svg?react";
+import UserIcon from "../../../public/assets/svg/user.svg?react";
 
-const HeaderComponent = () => {
+const Header = () => {
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <div className='header-main'>
-            <div className='header-left'>
-                <img src={Logo} alt="Aevoria Logo" className="logo-image" />
-                <nav className='header-menu'>
-                    <Link to="/">Accueil</Link>
-                    <Link to="/jeux">Jeux</Link>
-                    <Link to="/nouveautes">Nouveautés</Link>
-                    <Link to="/contact">Contact</Link>
-                    <Link to="/apropos">À propos</Link>
-                </nav>
+        <header className={`header ${scrolled ? "scrolled" : ""}`}>
+            <div className="header-left">
+                <img src={Logo} alt="Aevoria Logo" className="logo" />
+                <span className="brand-name">Aevoria<sup>®</sup></span>
             </div>
-            <div className='header-right'>
-                <Link to="/cart" className="cart-icon">🛒</Link>
-                <Link to="/login" className="profile-icon">👤</Link>
-            </div>
-        </div>
-    )
-}
 
-export default HeaderComponent
+            <nav className="nav">
+                <a href="#">Accueil</a>
+                <a href="#">Contact</a>
+                <a href="#">À Propos</a>
+                <a href="#">À Propos</a>
+                <a href="#">À Propos</a>
+            </nav>
+
+            <div className="header-icons">
+                <CartIcon className="icon" />
+                <UserIcon className="icon" />
+            </div>
+        </header>
+    );
+};
+
+export default Header;

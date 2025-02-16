@@ -1,8 +1,10 @@
 import React from 'react';
+import Login from '../../components/Login/login';
 import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
+import DefaultImage from '/assets/images/photo-test.webp';
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
 const sampleGame = {
@@ -15,12 +17,27 @@ const sampleGame = {
   isEpic: true,
   isPlaystation: false,
 };
+
+const featuredGames = [
+  {
+    title: "LEGO Horizon Adventures",
+    genres: ["Action", "Aventure"],
+    price: 49.99,
+    originalPrice: 59.99,
+    tag: "Dernière Sortie",
+    image: DefaultImage,
+    onButtonClick: () => console.log("Voir plus clicked")
+  },
+  // Ajoutez d'autres jeux en vedette ici
+];
+
 const Home = () => {
   return (
     <>
+      <Slider slides={featuredGames} />
 
       <div className='container'>
-        <p class="title-center">Une sélection infinie de jeux à portée de clic,
+        <p className="title-center">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
           <TabSwitcher tabs={tabs} />
       </div>
@@ -28,12 +45,13 @@ const Home = () => {
     <div className='container-fluid'>
       <SectionTitle text="Meilleure Vente" />
 
-     <div className="row">
+     <div className="game-cards-container">
       {Array.from({ length: 8 }).map((_, index) => (
         <GameCard key={index} {...sampleGame} />
       ))}
       </div>
         <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+
 
 
     </div>

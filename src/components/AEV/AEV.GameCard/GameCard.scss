@@ -7,6 +7,19 @@
   font-family: 'Montserrat', sans-serif;
   transition: transform 0.2s ease-in-out;
   margin: 0 20px 20px 0;
+
+  svg {
+    cursor: pointer;
+    fill: var(--white);
+    transition: color 0.15s ease-in-out;
+    opacity: 0.6;
+
+    &:hover {
+      color: var(--blue);
+      transition: color 0.15s ease-in-out;
+      opacity: 1;
+    }
+  }
 }
 
 .game-card:hover {
