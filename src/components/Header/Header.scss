@@ -9,8 +9,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px 30px;
-  background: rgba(0, 0, 0, 1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--white);
   font-family: 'Instrument Sans', sans-serif;
   transition: all 0.3s ease-in-out;
@@ -22,6 +24,7 @@
   padding: 10px 25px;
   border-radius: 15px;
   width: 80%;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .header.expanded {

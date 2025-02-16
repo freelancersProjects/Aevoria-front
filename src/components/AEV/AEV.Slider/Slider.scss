@@ -1,0 +1,109 @@
+.aev-slider {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  margin: 80px 0;
+  overflow: hidden;
+
+  .slider-container {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .slide {
+    position: relative;
+    min-width: 100%;
+    height: 600px;
+    
+    .slide-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      color: var(--white);
+
+      .slide-tag {
+        display: inline-block;
+        padding: 8px 16px;
+        background: var(--blue);
+        border-radius: 20px;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      h2 {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+
+      .slide-genres {
+        font-size: 18px;
+        color: var(--transparent-white);
+        margin-bottom: 24px;
+      }
+
+      .slide-price {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+
+        .current-price {
+          font-size: 32px;
+          font-weight: bold;
+        }
+
+        .original-price {
+          font-size: 24px;
+          color: var(--transparent-white);
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+
+  .slider-arrow {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 2;
+    
+    &.prev {
+      left: 20px;
+    }
+    
+    &.next {
+      right: 20px;
+    }
+  }
+
+  .slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+
+      &.active {
+        background: var(--blue);
+      }
+    }
+  }
+} 
