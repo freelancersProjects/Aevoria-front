@@ -1,0 +1,55 @@
+.btn {
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid transparent;
+
+  &-solid {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  &-outline {
+    background-color: transparent;
+    color: var(--white);
+    border: 1px solid var(--white);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &-transparent {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &-small {
+    font-size: 12px;
+    padding: 6px 42px;
+  }
+
+  &-medium {
+    font-size: 14px;
+    padding: 10px 50px;
+  }
+
+  &-large {
+    font-size: 16px;
+    padding: 14px 58px;
+  }
+}

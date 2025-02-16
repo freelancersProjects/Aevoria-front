@@ -1,0 +1,64 @@
+.game-card {
+  background: var(--gray-background);
+  border-radius: 10px;
+  overflow: hidden;
+  width: 472px;
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  transition: transform 0.2s ease-in-out;
+  margin: 0 20px 20px 0;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-image {
+  width: 100%;
+  height: 267px;
+  object-fit: cover;
+}
+
+.game-info {
+  padding: 15px;
+}
+
+.game-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.game-genres {
+  font-size: 16px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.game-icons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.game-pricing {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.current-price {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--white)
+}
+
+.old-price {
+  font-size: 24px;
+  color: var(--transparent-white);
+  text-decoration: line-through;
+}
