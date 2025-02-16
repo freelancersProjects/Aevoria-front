@@ -1,13 +1,15 @@
 // Header.jsx
 import React from "react";
 import "./Header.scss";
-import Logo from "/Logo.png";
+import Logo from "../../../public/assets/images/Logo.png";
 import { useState, useEffect } from "react";
 import CartIcon from "../../../public/assets/svg/cart.svg?react";
 import UserIcon from "../../../public/assets/svg/user.svg?react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,6 +19,10 @@ const Header = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const handleUserClick = () => {
+        navigate('/login');
+    };
 
     return (
         <header className={`header ${scrolled ? "scrolled" : ""}`}>
@@ -35,7 +41,7 @@ const Header = () => {
 
             <div className="header-icons">
                 <CartIcon className="icon" />
-                <UserIcon className="icon" />
+                <UserIcon className="icon" onClick={handleUserClick} />
             </div>
         </header>
     );
