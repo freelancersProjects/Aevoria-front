@@ -4,6 +4,7 @@ import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
+import Slider from '../../components/AEV/AEV.Slider/Slider';
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
 const sampleGame = {
@@ -16,10 +17,38 @@ const sampleGame = {
   isEpic: true,
   isPlaystation: false,
 };
+
+const sliderData = [
+  {
+    title: "EA SPORTS FC™ 24",
+    genres: ["Sport", "Football", "Simulation"],
+    price: 69.99,
+    originalPrice: 79.99,
+    tag: "Nouveauté",
+    onButtonClick: () => console.log("EA FC 24 clicked")
+  },
+  {
+    title: "Red Dead Redemption",
+    genres: ["Action", "Aventure", "Open World"],
+    price: 49.99,
+    originalPrice: 59.99,
+    tag: "Promotion",
+    onButtonClick: () => console.log("RDR clicked")
+  },
+  {
+    title: "Resident Evil 4 Remake",
+    genres: ["Horreur", "Action", "Survival"],
+    price: 59.99,
+    tag: "Tendance",
+    onButtonClick: () => console.log("RE4 clicked")
+  }
+];
+
 const Home = () => {
   return (
     <>
-
+      <Slider slides={sliderData} />
+      
       <div className='container'>
         <p className="title-center">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
