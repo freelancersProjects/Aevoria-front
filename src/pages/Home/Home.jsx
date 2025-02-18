@@ -7,6 +7,58 @@ import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import Slider from '../../components/AEV/AEV.Slider/Slider';
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
+
+const categories = [
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Action",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Aventure",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Fighting",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "RPG",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "FPS",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Jeux solo",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Stratégie",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Simulation",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Sport",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Jeux Multijoueur",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Horreur",
+  },
+  {
+    image: "/assets/images/photo-test.webp",
+    title: "Course",
+  },
+];
+
 const sampleGame = {
   // image: "https://via.placeholder.com/300x180",
   title: "Kingdom Come Deliverance II",
@@ -20,27 +72,36 @@ const sampleGame = {
 
 const sliderData = [
   {
+    image: "/assets/images/photo-test.webp",
     title: "EA SPORTS FC™ 24",
     genres: ["Sport", "Football", "Simulation"],
     price: 69.99,
     originalPrice: 79.99,
     tag: "Nouveauté",
-    onButtonClick: () => console.log("EA FC 24 clicked")
+    isSteam: true,
+    isEpic: true,
+    isPlaystation: true,
   },
   {
+    image: "/assets/images/photo-test.webp",
     title: "Red Dead Redemption",
     genres: ["Action", "Aventure", "Open World"],
     price: 49.99,
     originalPrice: 59.99,
     tag: "Promotion",
-    onButtonClick: () => console.log("RDR clicked")
+    isSteam: true,
+    isEpic: false,
+    isPlaystation: true,
   },
   {
+    image: "/assets/images/photo-test.webp",
     title: "Resident Evil 4 Remake",
     genres: ["Horreur", "Action", "Survival"],
     price: 59.99,
     tag: "Tendance",
-    onButtonClick: () => console.log("RE4 clicked")
+    isSteam: true,
+    isEpic: true,
+    isPlaystation: true,
   }
 ];
 
@@ -52,22 +113,42 @@ const Home = () => {
       <div className='container'>
         <p className="title-center">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
-          <TabSwitcher tabs={tabs} />
+        <TabSwitcher tabs={tabs} />
       </div>
 
-    <div className='container-fluid'>
-      <SectionTitle text="Meilleure Vente" />
+      <div className='container-fluid'>
+        <SectionTitle text="Meilleure Vente" />
 
-     <div className="game-cards-container">
-      {Array.from({ length: 8 }).map((_, index) => (
-        <GameCard key={index} {...sampleGame} />
-      ))}
-      </div>
+        <div className="game-cards-container">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <GameCard key={index} {...sampleGame} />
+          ))}
+        </div>
         <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+      </div>
 
+      <div className='container-fluid'>
+        <SectionTitle text="Catégories" />
+        <div className="game-cards-container">
+          {categories.map((category, index) => (
+            <GameCard 
+              key={index} 
+              image={category.image} 
+              title={category.title} 
+              genres={[]}
+              isSteam={false} 
+              isEpic={false} 
+              isPlaystation={false} 
+            />
+          ))}
+        </div>
+        <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+      </div>
 
-
-    </div>
+      <div className='container'>
+        <p className="title-center">Des promotions exceptionnelles sur une sélection de jeux 
+        Découvrez vos futurs favoris à prix réduit</p>
+      </div>
     </>
   );
 };
