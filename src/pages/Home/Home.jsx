@@ -20,27 +20,36 @@ const sampleGame = {
 
 const sliderData = [
   {
+    image: "/assets/images/photo-test.webp",
     title: "EA SPORTS FC™ 24",
     genres: ["Sport", "Football", "Simulation"],
     price: 69.99,
     originalPrice: 79.99,
     tag: "Nouveauté",
-    onButtonClick: () => console.log("EA FC 24 clicked")
+    isSteam: true,
+    isEpic: true,
+    isPlaystation: true,
   },
   {
+    image: "/assets/images/photo-test.webp",
     title: "Red Dead Redemption",
     genres: ["Action", "Aventure", "Open World"],
     price: 49.99,
     originalPrice: 59.99,
     tag: "Promotion",
-    onButtonClick: () => console.log("RDR clicked")
+    isSteam: true,
+    isEpic: false,
+    isPlaystation: true,
   },
   {
+    image: "/assets/images/photo-test.webp",
     title: "Resident Evil 4 Remake",
     genres: ["Horreur", "Action", "Survival"],
     price: 59.99,
     tag: "Tendance",
-    onButtonClick: () => console.log("RE4 clicked")
+    isSteam: true,
+    isEpic: true,
+    isPlaystation: true,
   }
 ];
 

@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
+import SteamIcon from "../../../../public/assets/svg/steam.svg?react";
+import EpicIcon from "../../../../public/assets/svg/epic-games.svg?react";
+import PlaystationIcon from "../../../../public/assets/svg/playstation.svg?react";
+import DefaultImage from "../../../../public/assets/images/photo-test.webp";
 import "./Slider.scss";
 import Button from "../AEV.Button/Button";
 
@@ -26,7 +30,13 @@ const Slider = ({ slides }) => {
             >
                 {slides.map((slide, index) => (
                     <div key={index} className="slide">
-                        <img src={slide.image} alt={slide.title} className="slide-image" />
+                        <div className="slide-image-container">
+                            <img 
+                                src={slide.image || DefaultImage} 
+                                alt={slide.title} 
+                                className="slide-image" 
+                            />
+                        </div>
                         <div className="slide-info">
                             <div className="slide-tag">{slide.tag}</div>
                             <h2>{slide.title}</h2>
@@ -37,31 +47,39 @@ const Slider = ({ slides }) => {
                                     <span className="original-price">{slide.originalPrice}€</span>
                                 )}
                             </div>
+                            <div className="slide-platforms">
+                                {slide.isSteam && <SteamIcon className="platform-icon" />}
+                                {slide.isEpic && <EpicIcon className="platform-icon" />}
+                                {slide.isPlaystation && <PlaystationIcon className="platform-icon" />}
+                            </div>
                             <Button 
                                 text="Voir plus" 
                                 variant="transparent" 
                                 size="medium" 
-                                onClick={slide.onButtonClick}
                             />
                         </div>
                     </div>
                 ))}
             </div>
 
-            <Button 
-                text="←" 
-                variant="transparent" 
-                size="small" 
-                onClick={prevSlide}
-                className="slider-arrow prev"
-            />
-            <Button 
-                text="→" 
-                variant="transparent" 
-                size="small" 
-                onClick={nextSlide}
-                className="slider-arrow next"
-            />
+            <button
+                className="slider__btn-next"
+                onClick={(e) => {
+                    e.preventDefault();
+                    nextSlide();
+                }}
+            >
+                {">"}
+            </button>
+            <button
+                className="slider__btn-prev"
+                onClick={(e) => {
+                    e.preventDefault();
+                    prevSlide();
+                }}
+            >
+                {"<"}
+            </button>
 
             <div className="slider-dots">
                 {slides.map((_, index) => (
@@ -85,7 +103,9 @@ Slider.propTypes = {
             price: PropTypes.number.isRequired,
             originalPrice: PropTypes.number,
             tag: PropTypes.string,
-            onButtonClick: PropTypes.func
+            isSteam: PropTypes.bool,
+            isEpic: PropTypes.bool,
+            isPlaystation: PropTypes.bool
         })
     ).isRequired
 };
