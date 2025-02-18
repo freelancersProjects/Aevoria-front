@@ -24,17 +24,17 @@ const Slider = ({ slides }) => {
 
     return (
         <div className="aev-slider">
-            <div 
-                className="slider-container" 
+            <div
+                className="slider-container"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
                 {slides.map((slide, index) => (
                     <div key={index} className="slide">
                         <div className="slide-image-container">
-                            <img 
-                                src={slide.image || DefaultImage} 
-                                alt={slide.title} 
-                                className="slide-image" 
+                            <img
+                                src={slide.image || DefaultImage}
+                                alt={slide.title}
+                                className="slide-image"
                             />
                         </div>
                         <div className="slide-info">
@@ -52,34 +52,38 @@ const Slider = ({ slides }) => {
                                 {slide.isEpic && <EpicIcon className="platform-icon" />}
                                 {slide.isPlaystation && <PlaystationIcon className="platform-icon" />}
                             </div>
-                            <Button 
-                                text="Voir plus" 
-                                variant="transparent" 
-                                size="medium" 
+                            <Button
+                                text="Voir plus"
+                                variant="transparent"
+                                size="medium"
                             />
                         </div>
                     </div>
                 ))}
             </div>
 
-            <button
-                className="slider__btn-next"
-                onClick={(e) => {
-                    e.preventDefault();
-                    nextSlide();
-                }}
-            >
-                {">"}
-            </button>
-            <button
-                className="slider__btn-prev"
-                onClick={(e) => {
-                    e.preventDefault();
-                    prevSlide();
-                }}
-            >
-                {"<"}
-            </button>
+            {currentSlide < slides.length - 1 && (
+                <button
+                    className="slider__btn-next"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        nextSlide();
+                    }}
+                >
+                    {">"}
+                </button>
+            )}
+            {currentSlide > 0 && (
+                <button
+                    className="slider__btn-prev"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        prevSlide();
+                    }}
+                >
+                    {"<"}
+                </button>
+            )}
 
             <div className="slider-dots">
                 {slides.map((_, index) => (
@@ -110,4 +114,4 @@ Slider.propTypes = {
     ).isRequired
 };
 
-export default Slider; 
+export default Slider;

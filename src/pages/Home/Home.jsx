@@ -8,56 +8,12 @@ import Slider from '../../components/AEV/AEV.Slider/Slider';
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
 
-const categories = [
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Action",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Aventure",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Fighting",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "RPG",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "FPS",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Jeux solo",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Stratégie",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Simulation",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Sport",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Jeux Multijoueur",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Horreur",
-  },
-  {
-    image: "/assets/images/photo-test.webp",
-    title: "Course",
-  },
-];
+const categories = {
+  // image: "https://via.placeholder.com/300x180",
+  title: "Action",
+  genres: [],
+  isCategorie: true,
+};
 
 const sampleGame = {
   // image: "https://via.placeholder.com/300x180",
@@ -109,7 +65,7 @@ const Home = () => {
   return (
     <>
       <Slider slides={sliderData} />
-      
+
       <div className='container'>
         <p className="title-center">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
@@ -130,23 +86,15 @@ const Home = () => {
       <div className='container-fluid'>
         <SectionTitle text="Catégories" />
         <div className="game-cards-container">
-          {categories.map((category, index) => (
-            <GameCard 
-              key={index} 
-              image={category.image} 
-              title={category.title} 
-              genres={[]}
-              isSteam={false} 
-              isEpic={false} 
-              isPlaystation={false} 
-            />
+          {Array.from({ length: 8 }).map((_, index) => (
+            <GameCard key={index} {...categories} />
           ))}
         </div>
         <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
       </div>
 
       <div className='container'>
-        <p className="title-center">Des promotions exceptionnelles sur une sélection de jeux 
+        <p className="title-center">Des promotions exceptionnelles sur une sélection de jeux
         Découvrez vos futurs favoris à prix réduit</p>
       </div>
     </>
