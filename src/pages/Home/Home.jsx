@@ -5,15 +5,9 @@ import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import Slider from '../../components/AEV/AEV.Slider/Slider';
+import Categories from "../Home/Categories";
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
-
-const categories = {
-  // image: "https://via.placeholder.com/300x180",
-  title: "Action",
-  genres: [],
-  isCategorie: true,
-};
 
 const sampleGame = {
   // image: "https://via.placeholder.com/300x180",
@@ -33,7 +27,7 @@ const sliderData = [
     genres: ["Sport", "Football", "Simulation"],
     price: 69.99,
     originalPrice: 79.99,
-    tag: "Nouveauté",
+    tag: "Dernière Sortie",
     isSteam: true,
     isEpic: true,
     isPlaystation: true,
@@ -44,7 +38,7 @@ const sliderData = [
     genres: ["Action", "Aventure", "Open World"],
     price: 49.99,
     originalPrice: 59.99,
-    tag: "Promotion",
+    tag: "Dernière Sortie",
     isSteam: true,
     isEpic: false,
     isPlaystation: true,
@@ -54,7 +48,7 @@ const sliderData = [
     title: "Resident Evil 4 Remake",
     genres: ["Horreur", "Action", "Survival"],
     price: 59.99,
-    tag: "Tendance",
+    tag: "Dernière Sortie",
     isSteam: true,
     isEpic: true,
     isPlaystation: true,
@@ -84,15 +78,11 @@ const Home = () => {
       </div>
 
       <div className='container-fluid'>
-        <SectionTitle text="Catégories" />
-        <div className="game-cards-container">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <GameCard key={index} {...categories} />
-          ))}
-        </div>
-        <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
-      </div>
-
+        <SectionTitle text="Par Categories" />
+      <Categories />
+      <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+    </div>
+        
       <div className='container'>
         <p className="title-center">Des promotions exceptionnelles sur une sélection de jeux
         Découvrez vos futurs favoris à prix réduit</p>

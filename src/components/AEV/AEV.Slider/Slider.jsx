@@ -24,67 +24,55 @@ const Slider = ({ slides }) => {
 
     return (
         <div className="aev-slider">
-            <div
-                className="slider-container"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
-                {slides.map((slide, index) => (
-                    <div key={index} className="slide">
-                        <div className="slide-image-container">
-                            <img
-                                src={slide.image || DefaultImage}
-                                alt={slide.title}
-                                className="slide-image"
-                            />
-                        </div>
-                        <div className="slide-info">
-                            <div className="slide-tag">{slide.tag}</div>
+            {slides.map((slide, index) => (
+                <div 
+                    key={index} 
+                    className={`slide ${index === currentSlide ? 'active' : ''}`}
+                >
+                    {/* Image Part*/}
+                    <div className="slide-image-container">
+                        <img
+                            src={slide.image || DefaultImage}
+                            alt={slide.title}
+                            className="slide-image"
+                        />
+                    </div>
+
+                    {/* Information Parts */}
+                    <div className="slide-info">
+                        <div className="slide-info-content">
+                            <span className="slide-tag">{slide.tag}</span>
                             <h2>{slide.title}</h2>
                             <div className="slide-genres">{slide.genres.join(" - ")}</div>
+
                             <div className="slide-price">
                                 <span className="current-price">{slide.price}€</span>
                                 {slide.originalPrice && (
                                     <span className="original-price">{slide.originalPrice}€</span>
                                 )}
                             </div>
+
                             <div className="slide-platforms">
                                 {slide.isSteam && <SteamIcon className="platform-icon" />}
                                 {slide.isEpic && <EpicIcon className="platform-icon" />}
                                 {slide.isPlaystation && <PlaystationIcon className="platform-icon" />}
                             </div>
-                            <Button
-                                text="Voir plus"
-                                variant="transparent"
-                                size="medium"
-                            />
+
+                            <Button text="Voir plus" variant="transparent" size="medium" />
                         </div>
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
 
-            {currentSlide < slides.length - 1 && (
-                <button
-                    className="slider__btn-next"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        nextSlide();
-                    }}
-                >
-                    {">"}
-                </button>
-            )}
-            {currentSlide > 0 && (
-                <button
-                    className="slider__btn-prev"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        prevSlide();
-                    }}
-                >
-                    {"<"}
-                </button>
-            )}
+            {/* Button of navigation */}
+            <button className="slider__btn-prev" onClick={prevSlide}>
+                <img src="/assets/svg/chevron-left.svg" alt="Précédent" />
+            </button>
+            <button className="slider__btn-next" onClick={nextSlide}>
+                <img src="/assets/svg/chevron-right.svg" alt="Suivant" />
+            </button>
 
+            {/* dots */}
             <div className="slider-dots">
                 {slides.map((_, index) => (
                     <div
