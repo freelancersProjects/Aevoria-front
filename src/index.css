@@ -7,6 +7,9 @@
   --gray-background: #111111;
   --blue: rgba(0, 123, 255, 1);
   --white: #ffffff;
+  --color-background: #00050D;
+  --color-transparent: rgba(0, 5, 13, 0.00);
+  --color-white: #FFFFFF;
 }
 
 * {
