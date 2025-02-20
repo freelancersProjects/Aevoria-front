@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .category-card {
     position: relative;
     width: 100%;
@@ -24,11 +26,11 @@
       width: 100%;
       height: 100%;
       padding: 20px;
-      background: linear-gradient(74deg, #00050D 13.04%, rgba(0, 5, 13, 0.00) 49.71%);
+      background: linear-gradient(74deg, var(--color-background) 13.04%, var(--color-transparent) 49.71%);
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      color: white;
+      color: var(--color-white);
       
       h3 {
         font-size: 24px;

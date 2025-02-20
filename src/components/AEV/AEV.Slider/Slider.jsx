@@ -29,7 +29,7 @@ const Slider = ({ slides }) => {
                     key={index} 
                     className={`slide ${index === currentSlide ? 'active' : ''}`}
                 >
-                    {/* Partie Image */}
+                    {/* Image Part*/}
                     <div className="slide-image-container">
                         <img
                             src={slide.image || DefaultImage}
@@ -38,7 +38,7 @@ const Slider = ({ slides }) => {
                         />
                     </div>
 
-                    {/* Partie Informations */}
+                    {/* Information Parts */}
                     <div className="slide-info">
                         <div className="slide-info-content">
                             <span className="slide-tag">{slide.tag}</span>
@@ -64,11 +64,15 @@ const Slider = ({ slides }) => {
                 </div>
             ))}
 
-            {/* Boutons de navigation */}
-            <button className="slider__btn-prev" onClick={prevSlide}>{"<"}</button>
-            <button className="slider__btn-next" onClick={nextSlide}>{">"}</button>
+            {/* Button of navigation */}
+            <button className="slider__btn-prev" onClick={prevSlide}>
+                <img src="/assets/svg/chevron-left.svg" alt="Précédent" />
+            </button>
+            <button className="slider__btn-next" onClick={nextSlide}>
+                <img src="/assets/svg/chevron-right.svg" alt="Suivant" />
+            </button>
 
-            {/* Indicateurs (dots) */}
+            {/* dots */}
             <div className="slider-dots">
                 {slides.map((_, index) => (
                     <div
