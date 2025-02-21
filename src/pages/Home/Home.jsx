@@ -81,12 +81,18 @@ const Home = () => {
         <SectionTitle text="Par Categories" />
       <Categories />
       <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
-    </div>
+      </div>
         
       <div className='container'>
         <p className="title-center">Des promotions exceptionnelles sur une sélection de jeux
         Découvrez vos futurs favoris à prix réduit</p>
       </div>
+
+      <div className='container-fluid'>
+        <SectionTitle text="Les offres du moments" />
+
+        
+
     </>
   );
 };
