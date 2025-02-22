@@ -1,0 +1,11 @@
+:root {
+  --background-black: #00050d;
+  --transparent-white: rgba(255, 255, 255, 0.6);
+  --second-background: #000711;
+  --gray-background: #111111;
+  --blue: rgba(0, 123, 255, 1);
+  --white: #ffffff;
+  --color-background: #00050D;
+  --color-transparent: rgba(0, 5, 13, 0.00);
+  --color-white: #FFFFFF;
+}
