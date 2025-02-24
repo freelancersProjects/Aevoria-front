@@ -6,8 +6,10 @@ const CategoryCard = ({ image, title }) => {
     <div className="category-card">
       <img src={image} alt={title} className="category-image" />
       <div className="category-overlay">
-        <h3>{title}</h3>
-        <span>→</span>
+        <div className="category-title">
+          <h3>{title}</h3>
+          <span>→</span>
+        </div>
       </div>
     </div>
   );

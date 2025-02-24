@@ -26,18 +26,24 @@
       padding: 20px;
       background: linear-gradient(74deg, var(--color-background) 13.04%, var(--color-transparent) 49.71%);
       display: flex;
-      justify-content: space-between;
       align-items: flex-end;
       color: var(--color-white);
 
-      h3 {
-        font-size: 24px;
-        font-weight: 500;
-      }
+      .category-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
 
-      span {
-        font-size: 24px;
-        opacity: 0.8;
+        h3 {
+          font-size: 24px;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        span {
+          font-size: 24px;
+          opacity: 0.8;
+        }
       }
     }
   }

@@ -5,9 +5,10 @@ import EpicIcon from "../../../../public/assets/svg/epic-games.svg?react";
 import PlaystationIcon from "../../../../public/assets/svg/playstation.svg?react";
 import DefaultImage from "../../../../public/assets/images/photo-test.webp";
 import "./Slider.scss";
-import Button from "../AEV.Button/Button";
+import Button from "../../../components/AEV/AEV.Button/Button";
 
-const Slider = ({ slides }) => {
+
+const HomeSlider = ({ slides }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const nextSlide = () => {
@@ -23,7 +24,7 @@ const Slider = ({ slides }) => {
     };
 
     return (
-        <div className="aev-slider">
+        <div className="home-slider">
             {slides.map((slide, index) => (
                 <div 
                     key={index} 
@@ -86,7 +87,7 @@ const Slider = ({ slides }) => {
     );
 };
 
-Slider.propTypes = {
+HomeSlider.propTypes = {
     slides: PropTypes.arrayOf(
         PropTypes.shape({
             image: PropTypes.string.isRequired,
@@ -102,4 +103,4 @@ Slider.propTypes = {
     ).isRequired
 };
 
-export default Slider;
+export default HomeSlider;
