@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryCard from "../../components/AEV/AEV.CategoriesCard/CategoryCard";
+import CategoryCard from "../../../components/AEV/AEV.CategoriesCard/CategoryCard";
 import "./Categories.scss";
 
 const categories = [
@@ -11,6 +11,10 @@ const categories = [
   { title: "Jeux Multijoueur", image: "/assets/images/photo-test.webp" },
   { title: "Horreur", image: "/assets/images/photo-test.webp" },
   { title: "Course", image: "/assets/images/photo-test.webp" },
+  { title: "RPG", image: "/assets/images/photo-test.webp" },
+  { title: "Aventure", image: "/assets/images/photo-test.webp" },
+  { title: "Action", image: "/assets/images/photo-test.webp" },
+  { title: "Combat", image: "/assets/images/photo-test.webp" },
 ];
 
 const Categories = () => {

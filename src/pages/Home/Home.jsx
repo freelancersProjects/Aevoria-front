@@ -4,8 +4,9 @@ import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
-import Slider from '../../components/AEV/AEV.Slider/Slider';
-import Categories from "../Home/Categories";
+import HomeSlider from './Slider/Slider';
+import Categories from "./Categories/Categories";
+import Promotions from "./Promotions/Promotions";
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
 
@@ -58,7 +59,7 @@ const sliderData = [
 const Home = () => {
   return (
     <>
-      <Slider slides={sliderData} />
+      <HomeSlider slides={sliderData} />
 
       <div className='container'>
         <p className="title-center">Une sélection infinie de jeux à portée de clic,
@@ -84,17 +85,21 @@ const Home = () => {
       </div>
 
       <div className='container'>
-        <p className="title-center">Des promotions exceptionnelles sur une sélection de jeux
-        Découvrez vos futurs favoris à prix réduit</p>
+        <p className="title-center">
+          Des promotions exceptionnelles sur une sélection de jeux
+          <br />
+          Découvrez vos futurs favoris à prix réduit
+        </p>
+        <span>Jusqu'au 25 Janvier 2003</span>
       </div>
 
       <div className='container-fluid'>
-          <SectionTitle text="Les offres du moments" />
-        </div>
+        <SectionTitle text="Les offres du moment" />
+        <Promotions />
+      </div>
 
-
-        </>
-      );
-    };
+    </>
+  );
+};
 
 export default Home;
