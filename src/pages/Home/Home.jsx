@@ -8,7 +8,10 @@ import HomeSlider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
 
+import './Home.scss';
+
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
+
 
 const sampleGame = {
   // image: "https://via.placeholder.com/300x180",
@@ -69,19 +72,22 @@ const Home = () => {
 
       <div className='container-fluid'>
         <SectionTitle text="Meilleure Vente" />
-
         <div className="game-cards-container">
           {Array.from({ length: 8 }).map((_, index) => (
             <GameCard key={index} {...sampleGame} />
           ))}
         </div>
-        <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+        <div className="btn-container">
+          <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+        </div>
       </div>
 
       <div className='container-fluid'>
         <SectionTitle text="Par Categories" />
-      <Categories />
-      <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+        <Categories />
+        <div className="btn-container">
+          <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
+        </div>
       </div>
 
       <div className='container'>
@@ -90,11 +96,11 @@ const Home = () => {
           <br />
           Découvrez vos futurs favoris à prix réduit
         </p>
-        <span>Jusqu'au 25 Janvier 2003</span>
+        <span style={{ fontFamily: 'Montserrat', fontSize: '40px' }}><span style={{ color: '#0D6EFD' }}>Jusqu'au 25 Janvier 2003</span></span>
       </div>
 
       <div className='container-fluid'>
-        <SectionTitle text="Les offres du moment" />
+        <SectionTitle text="Promotions" />
         <Promotions />
       </div>
 
