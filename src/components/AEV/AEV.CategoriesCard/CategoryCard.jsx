@@ -1,6 +1,6 @@
 import React from "react";
 import "./CategoryCard.scss";
-import ArrowCategorie from "../../../../dist/assets/svg/arrowCategorie.svg";
+import ArrowCategorie from "../../../../public/assets/svg/arrowCategorie.svg?react";
 
 const CategoryCard = ({ image, title }) => {
   return (
