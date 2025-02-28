@@ -98,12 +98,8 @@ const Home = () => {
         </p>
         <span style={{ fontFamily: 'Montserrat', fontSize: '40px' }}><span style={{ color: '#0D6EFD' }}>Jusqu'au 25 Janvier 2003</span></span>
       </div>
-
-      <div className='container-fluid'>
-        <SectionTitle text="Promotions" />
-        <Promotions />
-      </div>
-
+      <SectionTitle text="Promotions" />
+      <Promotions />
     </>
   );
 };
