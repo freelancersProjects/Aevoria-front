@@ -1,5 +1,6 @@
 import React from "react";
 import "./CategoryCard.scss";
+import ArrowCategorie from "../../../../dist/assets/svg/arrowCategorie.svg";
 
 const CategoryCard = ({ image, title }) => {
   return (
@@ -8,7 +9,7 @@ const CategoryCard = ({ image, title }) => {
       <div className="category-overlay">
         <div className="category-title">
           <h3>{title}</h3>
-          <span>→</span>
+          <img src={ArrowCategorie} alt="Arrow" className="arrow-icon" />
         </div>
       </div>
     </div>

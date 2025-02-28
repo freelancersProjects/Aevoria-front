@@ -107,7 +107,6 @@ const Home = () => {
           <Promotions />
         </div>
       </div>
-
     </>
   );
 };
