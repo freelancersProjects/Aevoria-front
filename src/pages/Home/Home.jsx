@@ -90,18 +90,22 @@ const Home = () => {
         </div>
       </div>
 
-      <div className='container'>
-        <p className="title-center">
-          Des promotions exceptionnelles sur une sélection de jeux
-          <br />
-          Découvrez vos futurs favoris à prix réduit
-        </p>
-        <span style={{ fontFamily: 'Montserrat', fontSize: '40px' }}><span style={{ color: '#0D6EFD' }}>Jusqu'au 25 Janvier 2003</span></span>
-      </div>
+      <div className='container-promo'>
+        <div className='container container-promo-text'>
+          <p className="title-center text-up-promo">
+            Des promotions exceptionnelles sur une sélection de jeux
+          </p>
+          <p className="title-center text-down-promo">
+            Découvrez vos futurs favoris à prix réduit
+          </p>
 
-      <div className='container-fluid'>
-        <SectionTitle text="Promotions" />
-        <Promotions />
+          <p className="text-light text-to-date font-montserrat">Jusqu'au <span className="blue text-bold">25 Janvier 2003</span></p>
+        </div>
+
+        <div className='container-fluid'>
+          <SectionTitle text="Promotions" />
+          <Promotions />
+        </div>
       </div>
 
     </>

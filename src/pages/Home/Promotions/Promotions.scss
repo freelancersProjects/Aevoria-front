@@ -2,7 +2,6 @@
   width: 100%;
   padding: 20px 0;
   position: relative;
-  background: var(--color-background);
 
   .game-cards-container {
     display: flex;
@@ -96,7 +95,7 @@
     @media (max-width: 1024px) {
       gap: 30px;
       padding: 0 40px;
-      
+
       .game-card {
         flex: 0 0 calc(50% - 15px);
         max-width: calc(50% - 15px);
@@ -106,7 +105,7 @@
     @media (max-width: 768px) {
       gap: 20px;
       padding: 0 20px;
-      
+
       .game-card {
         flex: 0 0 100%;
         max-width: 100%;
@@ -117,4 +116,4 @@
 
 .promotions-header {
   display: none;
-} 
+}

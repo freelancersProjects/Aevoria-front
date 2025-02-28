@@ -4,8 +4,69 @@
   --second-background: #000711;
   --gray-background: #111111;
   --blue: rgba(0, 123, 255, 1);
+  --dark-blue: #000C1F;
   --white: #ffffff;
   --color-background: #00050D;
   --color-transparent: rgba(0, 5, 13, 0.00);
   --color-white: #FFFFFF;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--white);
+}
+
+p {
+  color: var(--white);
+}
+
+.text-light {
+  font-weight: 300;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.font-montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-fluid {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.title-center {
+  text-align: center;
+  font-family: "Instrument Sans", sans-serif;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.6) 0%, #fff 100%);
+  background-clip: text;
+  font-size: 56px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
