@@ -28,14 +28,14 @@
   margin-top: 20px;
 
   .game-card {
-    flex: 0 0 calc(25% - 20px); // 4 cartes par ligne
-    max-width: calc(25% - 20px);
+    flex: 0 0 calc(33.333% - 20px); // 3 cartes par ligne
+    max-width: calc(33.333% - 20px);
   }
 
   @media (max-width: 1024px) {
     .game-card {
-      flex: 0 0 calc(33.333% - 20px); // 3 cartes par ligne
-      max-width: calc(33.333% - 20px);
+      flex: 0 0 calc(50% - 10px); // 2 cartes par ligne
+      max-width: calc(50% - 10px);
     }
   }
 

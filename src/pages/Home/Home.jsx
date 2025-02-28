@@ -73,7 +73,7 @@ const Home = () => {
       <div className='container-fluid'>
         <SectionTitle text="Meilleure Vente" />
         <div className="game-cards-container">
-          {Array.from({ length: 8 }).map((_, index) => (
+          {Array.from({ length: 9 }).map((_, index) => (
             <GameCard key={index} {...sampleGame} />
           ))}
         </div>
