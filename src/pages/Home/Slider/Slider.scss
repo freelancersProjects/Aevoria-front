@@ -41,7 +41,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 20px 30px;
-    color: white;
+    color: var(--white);
     position: relative;
     background-size: cover;
     background-position: center;
@@ -50,7 +50,7 @@
     overflow-y: hidden;
     box-sizing: border-box;
 
-    background: lightgray 50% / cover no-repeat;
+    background: var(--lightgray) 50% / cover no-repeat;
     background-blend-mode: darken;
 
     .content {
@@ -90,7 +90,7 @@
         .icon {
             width: 30px;
             height: 30px;
-            fill: white;
+            fill: var(--white);
             opacity: 0.7;
             transition: opacity 0.3s;
 
@@ -106,13 +106,13 @@
 
         .current-price {
             font-weight: bold;
-            color: white;
+            color: var(--white);
         }
 
         .old-price {
             margin-left: 10px;
             text-decoration: line-through;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--transparent-white);
         }
     }
 
@@ -131,7 +131,7 @@
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.5);
     border: none;
-    color: white;
+    color: var(--white);
     font-size: 2rem;
     cursor: pointer;
     border-radius: 50%;
@@ -159,13 +159,13 @@
     .indicator {
         width: 30px;
         height: 5px;
-        background: rgba(255, 255, 255, 0.5);
+        background: var(--transparent-white);
         border-radius: 3px;
         cursor: pointer;
         transition: background 0.1s ease-in-out;
 
         &.active {
-            background: white;
+            background: var(--white);
         }
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import SteamIcon from "../../../../public/assets/svg/steam.svg?react";
 import EpicIcon from "../../../../public/assets/svg/epic-games.svg?react";
 import PlaystationIcon from "../../../../public/assets/svg/playstation.svg?react";
@@ -9,11 +9,12 @@ import DefaultImageSlider from "../../../../public/assets/images/photo-test.webp
 import Button from "../../../components/AEV/AEV.Button/Button";
 import "./Slider.scss";
 
-const Slider = ({ slides, autoPlayInterval = 3000 }) => {
-    const [currentIndex, setCurrentIndex] = useState(1);
+const Slider = ({ slides, autoPlayInterval = 5000 }) => {
+    const [currentIndex, setCurrentIndex] = useState(1); // Utilisation de slides étendues
     const [isTransitioning, setIsTransitioning] = useState(false);
     const autoPlayRef = useRef(null);
 
+    // Création d'une liste étendue pour l'effet de boucle infinie
     const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
 
     useEffect(() => {
@@ -22,8 +23,9 @@ const Slider = ({ slides, autoPlayInterval = 3000 }) => {
     }, []);
 
     useEffect(() => {
-        if (isTransitioning) return;
-        startAutoPlay();
+        if (!isTransitioning) {
+            startAutoPlay();
+        }
     }, [currentIndex]);
 
     const startAutoPlay = () => {
@@ -40,54 +42,52 @@ const Slider = ({ slides, autoPlayInterval = 3000 }) => {
     const handlePrevClick = () => {
         if (isTransitioning) return;
         setIsTransitioning(true);
-        setCurrentIndex((prev) => prev - 1);
-
-        setTimeout(() => {
-            if (currentIndex === 1) {
-                setIsTransitioning(false);
-                setCurrentIndex(slides.length);
-            } else {
-                setIsTransitioning(false);
-            }
-        }, 500);
+        setCurrentIndex((prevIndex) => prevIndex - 1);
     };
 
     const handleNextClick = () => {
         if (isTransitioning) return;
         setIsTransitioning(true);
-        setCurrentIndex((prev) => prev + 1);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+    };
 
-        setTimeout(() => {
-            if (currentIndex === slides.length) {
-                setIsTransitioning(false);
-                setCurrentIndex(1);
-            } else {
-                setIsTransitioning(false);
-            }
-        }, 500);
+    const handleTransitionEnd = () => {
+        setIsTransitioning(false);
+
+        if (currentIndex === 0) {
+            setCurrentIndex(slides.length);
+        } else if (currentIndex === extendedSlides.length - 1) {
+            setCurrentIndex(1);
+        }
     };
 
     const handleIndicatorClick = (index) => {
         if (isTransitioning) return;
-        setIsTransitioning(true);
-        setCurrentIndex(index + 1);
-        setTimeout(() => setIsTransitioning(false), 500);
+        setCurrentIndex(index + 1); // Ajustement pour l'effet de boucle
     };
 
     return (
         <>
-            <div className="slider-container" onMouseEnter={stopAutoPlay} onMouseLeave={startAutoPlay}>
+            <div
+                className="slider-container"
+                onMouseEnter={stopAutoPlay}
+                onMouseLeave={startAutoPlay}
+            >
                 <div
                     className="slider-wrapper"
                     style={{
                         transform: `translateX(-${currentIndex * 100}%)`,
                         transition: isTransitioning ? "transform 0.5s ease" : "none",
                     }}
+                    onTransitionEnd={handleTransitionEnd}
                 >
                     {extendedSlides.map((slide, index) => (
                         <div className="slider-slide" key={index}>
                             <div className="slider-image">
-                                <img src={slide.image || DefaultImageSlider} alt={slide.title} />
+                                <img
+                                    src={slide.image || DefaultImageSlider}
+                                    alt={slide.title}
+                                />
                             </div>
 
                             <div
