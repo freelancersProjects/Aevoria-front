@@ -1,106 +1,163 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
 import SteamIcon from "../../../../public/assets/svg/steam.svg?react";
 import EpicIcon from "../../../../public/assets/svg/epic-games.svg?react";
 import PlaystationIcon from "../../../../public/assets/svg/playstation.svg?react";
-import DefaultImage from "../../../../public/assets/images/photo-test.webp";
-import "./Slider.scss";
+import ArrowRightSlider from "../../../../public/assets/svg/chevron-right.svg?react";
+import ArrowLeftSlider from "../../../../public/assets/svg/chevron-left.svg?react";
+import DefaultImageSlider from "../../../../public/assets/images/photo-test.webp";
 import Button from "../../../components/AEV/AEV.Button/Button";
+import "./Slider.scss";
 
+const Slider = ({ slides, autoPlayInterval = 3000 }) => {
+    const [currentIndex, setCurrentIndex] = useState(1);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const autoPlayRef = useRef(null);
 
-const HomeSlider = ({ slides }) => {
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
 
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
+    useEffect(() => {
+        startAutoPlay();
+        return () => stopAutoPlay();
+    }, []);
+
+    useEffect(() => {
+        if (isTransitioning) return;
+        startAutoPlay();
+    }, [currentIndex]);
+
+    const startAutoPlay = () => {
+        stopAutoPlay();
+        autoPlayRef.current = setInterval(() => {
+            handleNextClick();
+        }, autoPlayInterval);
     };
 
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    const stopAutoPlay = () => {
+        if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
 
-    const goToSlide = (index) => {
-        setCurrentSlide(index);
+    const handlePrevClick = () => {
+        if (isTransitioning) return;
+        setIsTransitioning(true);
+        setCurrentIndex((prev) => prev - 1);
+
+        setTimeout(() => {
+            if (currentIndex === 1) {
+                setIsTransitioning(false);
+                setCurrentIndex(slides.length);
+            } else {
+                setIsTransitioning(false);
+            }
+        }, 500);
+    };
+
+    const handleNextClick = () => {
+        if (isTransitioning) return;
+        setIsTransitioning(true);
+        setCurrentIndex((prev) => prev + 1);
+
+        setTimeout(() => {
+            if (currentIndex === slides.length) {
+                setIsTransitioning(false);
+                setCurrentIndex(1);
+            } else {
+                setIsTransitioning(false);
+            }
+        }, 500);
+    };
+
+    const handleIndicatorClick = (index) => {
+        if (isTransitioning) return;
+        setIsTransitioning(true);
+        setCurrentIndex(index + 1);
+        setTimeout(() => setIsTransitioning(false), 500);
     };
 
     return (
-        <div className="home-slider">
-            {slides.map((slide, index) => (
-                <div 
-                    key={index} 
-                    className={`slide ${index === currentSlide ? 'active' : ''}`}
+        <>
+            <div className="slider-container" onMouseEnter={stopAutoPlay} onMouseLeave={startAutoPlay}>
+                <div
+                    className="slider-wrapper"
+                    style={{
+                        transform: `translateX(-${currentIndex * 100}%)`,
+                        transition: isTransitioning ? "transform 0.5s ease" : "none",
+                    }}
                 >
-                    {/* Image Part*/}
-                    <div className="slide-image-container">
-                        <img
-                            src={slide.image || DefaultImage}
-                            alt={slide.title}
-                            className="slide-image"
-                        />
-                    </div>
-
-                    {/* Information Parts */}
-                    <div className="slide-info">
-                        <div className="slide-info-content">
-                            <span className="slide-tag">{slide.tag}</span>
-                            <h2>{slide.title}</h2>
-                            <div className="slide-genres">{slide.genres.join(" - ")}</div>
-
-                            <div className="slide-price">
-                                <span className="current-price">{slide.price}€</span>
-                                {slide.originalPrice && (
-                                    <span className="original-price">{slide.originalPrice}€</span>
-                                )}
+                    {extendedSlides.map((slide, index) => (
+                        <div className="slider-slide" key={index}>
+                            <div className="slider-image">
+                                <img src={slide.image || DefaultImageSlider} alt={slide.title} />
                             </div>
 
-                            <div className="slide-platforms">
-                                {slide.isSteam && <SteamIcon className="platform-icon" />}
-                                {slide.isEpic && <EpicIcon className="platform-icon" />}
-                                {slide.isPlaystation && <PlaystationIcon className="platform-icon" />}
+                            <div
+                                className="slider-info"
+                                style={{
+                                    backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(14, 46, 105, 0.9)), url(${slide.image || DefaultImageSlider})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                }}
+                            >
+                                <p className="release">Dernière Sortie</p>
+                                <h2 className="game-title">{slide.title}</h2>
+                                <p className="genres">{slide.genres.join(" - ")}</p>
+                                <div className="game-icons">
+                                    {slide.isSteam && <SteamIcon className="icon" />}
+                                    {slide.isEpic && <EpicIcon className="icon" />}
+                                    {slide.isPlaystation && <PlaystationIcon className="icon" />}
+                                </div>
+                                <div className="game-pricing">
+                                    <span className="current-price">{slide.price}€</span>
+                                    {slide.discount > 0 && (
+                                        <span className="old-price">{slide.oldPrice}€</span>
+                                    )}
+                                </div>
+                                <Button
+                                    text="Voir plus"
+                                    variant="outline"
+                                    size="medium"
+                                    className="button-more-slider"
+                                />
                             </div>
-
-                            <Button text="Voir plus" variant="transparent" size="medium" />
                         </div>
-                    </div>
+                    ))}
                 </div>
-            ))}
+                <button className="prev-button" onClick={handlePrevClick}>
+                    <ArrowLeftSlider />
+                </button>
+                <button className="next-button" onClick={handleNextClick}>
+                    <ArrowRightSlider />
+                </button>
+            </div>
 
-            {/* Button of navigation */}
-            <button className="slider__btn-prev" onClick={prevSlide}>
-                <img src="/assets/svg/chevron-left.svg" alt="Précédent" />
-            </button>
-            <button className="slider__btn-next" onClick={nextSlide}>
-                <img src="/assets/svg/chevron-right.svg" alt="Suivant" />
-            </button>
-
-            {/* dots */}
-            <div className="slider-dots">
+            <div className="slider-indicators">
                 {slides.map((_, index) => (
                     <div
                         key={index}
-                        className={`dot ${currentSlide === index ? 'active' : ''}`}
-                        onClick={() => goToSlide(index)}
+                        className={`indicator ${index === (currentIndex - 1) % slides.length ? "active" : ""}`}
+                        onClick={() => handleIndicatorClick(index)}
                     />
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 
-HomeSlider.propTypes = {
+Slider.propTypes = {
     slides: PropTypes.arrayOf(
         PropTypes.shape({
-            image: PropTypes.string.isRequired,
+            image: PropTypes.string,
             title: PropTypes.string.isRequired,
             genres: PropTypes.arrayOf(PropTypes.string).isRequired,
             price: PropTypes.number.isRequired,
-            originalPrice: PropTypes.number,
-            tag: PropTypes.string,
+            oldPrice: PropTypes.number,
+            discount: PropTypes.number,
             isSteam: PropTypes.bool,
             isEpic: PropTypes.bool,
-            isPlaystation: PropTypes.bool
+            isPlaystation: PropTypes.bool,
         })
-    ).isRequired
+    ).isRequired,
+    autoPlayInterval: PropTypes.number,
 };
 
-export default HomeSlider;
+export default Slider;

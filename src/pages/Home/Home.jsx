@@ -4,7 +4,7 @@ import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
-import HomeSlider from './Slider/Slider';
+import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
 
@@ -24,48 +24,46 @@ const sampleGame = {
   isPlaystation: false,
 };
 
-const sliderData = [
+const slideData = [
   {
-    image: "/assets/images/photo-test.webp",
-    title: "EA SPORTS FC™ 24",
-    genres: ["Sport", "Football", "Simulation"],
-    price: 69.99,
-    originalPrice: 79.99,
-    tag: "Dernière Sortie",
+    title: "LEGO Horizon Adventures",
+    genres: ["Action", "Aventure"],
+    price: 49.99,
+    oldPrice: 59.99,
+    discount: 20,
     isSteam: true,
     isEpic: true,
     isPlaystation: true,
   },
   {
-    image: "/assets/images/photo-test.webp",
-    title: "Red Dead Redemption",
-    genres: ["Action", "Aventure", "Open World"],
-    price: 49.99,
-    originalPrice: 59.99,
-    tag: "Dernière Sortie",
+    title: "Cyberpunk 2077",
+    genres: ["RPG", "Action"],
+    price: 39.99,
+    oldPrice: 59.99,
+    discount: 33,
     isSteam: true,
     isEpic: false,
     isPlaystation: true,
   },
   {
-    image: "/assets/images/photo-test.webp",
-    title: "Resident Evil 4 Remake",
-    genres: ["Horreur", "Action", "Survival"],
-    price: 59.99,
-    tag: "Dernière Sortie",
+    title: "Assassins Creed Valhalla",
+    genres: ["RPG", "Action"],
+    price: 79.99,
+    oldPrice: 99.99,
+    discount: 33,
     isSteam: true,
-    isEpic: true,
+    isEpic: false,
     isPlaystation: true,
-  }
+  },
 ];
 
 const Home = () => {
   return (
     <>
-      <HomeSlider slides={sliderData} />
+      <Slider slides={slideData} />
 
       <div className='container'>
-        <p className="title-center">Une sélection infinie de jeux à portée de clic,
+        <p className="title-center mt-3">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
         <TabSwitcher tabs={tabs} />
       </div>
