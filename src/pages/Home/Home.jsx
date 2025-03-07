@@ -7,6 +7,7 @@ import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
+import Toast from '../../components/AEV/AEV.Toast/Toast';
 
 import './Home.scss';
 
@@ -60,6 +61,7 @@ const slideData = [
 const Home = () => {
   return (
     <>
+      {/* <Toast message="Bienvenue sur notre site" type="info" duration={3000} /> */}
       <Slider slides={slideData} />
 
       <div className='container'>
