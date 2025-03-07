@@ -7,6 +7,7 @@ import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
+import FirstSection from './FirstSection/FirstSection';
 
 import './Home.scss';
 
@@ -60,6 +61,7 @@ const slideData = [
 const Home = () => {
   return (
     <>
+      <FirstSection />
       <Slider slides={slideData} />
 
       <div className='container'>

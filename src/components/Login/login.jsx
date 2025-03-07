@@ -6,7 +6,6 @@ const LoginPage = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithGoogle();
-      // Redirigez l'utilisateur ou gérez l'état après la connexion
     } catch (error) {
       console.error("Erreur de connexion avec Google:", error);
     }
