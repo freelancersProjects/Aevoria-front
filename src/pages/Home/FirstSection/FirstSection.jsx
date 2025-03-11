@@ -42,15 +42,6 @@ const FirstSection = () => {
           </p>
 
           <div className="cta-buttons">
-            <Button 
-              text="Voir catalogue" 
-              variant="transparent" 
-              size="medium" 
-              onClick={() => console.log("Catalogue clicked")} 
-            />
-          </div>
-        </div>
-        
             <Button
               text="Voir catalogue"
               variant="transparent"
@@ -70,6 +61,7 @@ const FirstSection = () => {
             ))}
           </div>
         </div>
+      </div>
     </section>
   );
 };
