@@ -2,11 +2,11 @@
   position: relative;
   width: 100%;
   min-height: 500px;
-  background: linear-gradient(90deg, #000722 0%, #001045 100%);
+  background: linear-gradient(90deg, #000722 0%);
   overflow: hidden;
   padding: 4rem 2rem;
   
-  // Effet de lueur bleue principal (côté gauche)
+  // Effect left side
   &::before {
     content: '';
     position: absolute;
@@ -22,7 +22,7 @@
     opacity: 0.6;
   }
   
-  // Effet de lueur bleue secondaire (côté droit)
+  // Effect right side
   &::after {
     content: '';
     position: absolute;
@@ -37,41 +37,26 @@
     opacity: 0.25;
   }
   
-  // Troisième effet de lueur (bas)
-  .extra-glow {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    bottom: -250px;
-    left: 40%;
-    border-radius: 50%;
-    background: var(--glow-blue);
-    filter: blur(80px);
-    z-index: 1;
-    opacity: 0.3;
-  }
-  
   &-container {
     max-width: 1400px;
     margin: 0 auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: 40% 60%; // Division claire: 40% pour le texte, 60% pour les images
     align-items: center;
-    justify-content: space-between;
     position: relative;
     z-index: 2;
     
     @media (max-width: 1024px) {
-      flex-direction: column;
+      grid-template-columns: 1fr;
       gap: 3rem;
     }
   }
   
   .content-area {
-    max-width: 500px;
     color: #ffffff;
     position: relative;
     z-index: 2;
+    padding-right: 2rem;
   }
   
   .badge {
@@ -99,7 +84,6 @@
       position: relative;
       z-index: 2;
       
-      // Un léger effet de lueur autour du texte en surbrillance
       text-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
     }
     
@@ -119,24 +103,13 @@
     margin-top: 2rem;
   }
   
-  .image-grid-container {
-    position: relative;
-    width: 60%;
-    height: 450px;
-    overflow: hidden;
-    
-    @media (max-width: 1024px) {
-      width: 100%;
-    }
-  }
-  
   .image-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 0.5rem;
     width: 100%;
-    height: 100%;
+    height: 450px;
     position: relative;
     
     @media (max-width: 768px) {
@@ -150,10 +123,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, 
-      rgba(0, 7, 34, 0.8) 0%, 
-      rgba(0, 7, 34, 0.4) 50%, 
-      rgba(0, 7, 34, 0) 100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -168,14 +137,10 @@
       object-fit: cover;
       transition: transform 0.3s ease;
     }
-    
-    &:hover img {
-      transform: scale(1.05);
-    }
   }
 }
 
-// Animation pour faire apparaître les images en cascade
+// Animation for cascade
 @keyframes fadeInStagger {
   from {
     opacity: 0;

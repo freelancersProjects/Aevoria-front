@@ -23,7 +23,7 @@ const images = [
 const FirstSection = () => {
   return (
     <section className="first-section">
-      <div className="first-section-container">
+      <div className="first-sectionr">
         <div className="content-area">
           <div className="badge">
             <span>Nouveau catalogue de jeux</span>
@@ -44,14 +44,13 @@ const FirstSection = () => {
           <div className="cta-buttons">
             <Button 
               text="Voir catalogue" 
-              variant="solid" 
-              size="large" 
+              variant="transparent" 
+              size="medium" 
               onClick={() => console.log("Catalogue clicked")} 
             />
           </div>
         </div>
         
-        <div className="image-grid-container">
           <div className="image-grid">
             <div className="gradient-overlay"></div>
             {images.map((img, index) => (
@@ -61,7 +60,6 @@ const FirstSection = () => {
             ))}
           </div>
         </div>
-      </div>
     </section>
   );
 };
