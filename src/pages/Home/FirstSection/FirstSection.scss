@@ -1,146 +1,127 @@
 .first-section {
-  position: relative;
   width: 100%;
-  min-height: 500px;
-  background: linear-gradient(90deg, #000722 0%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-color: var(--background-black);
   overflow: hidden;
-  padding: 4rem 2rem;
-  
-  // Effect left side
-  &::before {
-    content: '';
-    position: absolute;
-    width: 800px;
-    height: 800px;
-    left: -250px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    background: var(--glow-blue);
-    filter: blur(120px);
-    z-index: 1;
-    opacity: 0.6;
-  }
-  
-  // Effect right side
-  &::after {
-    content: '';
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    top: -200px;
-    right: -150px;
+
+  .blue-glow-effect {
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
     background: var(--glow-blue);
     filter: blur(100px);
+    position: absolute;
+    left: -100px;
+    top: 40%;
+    transform: translateY(-50%);
     z-index: 1;
-    opacity: 0.25;
+    opacity: 0.8;
   }
-  
-  &-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 40% 60%; // Division claire: 40% pour le texte, 60% pour les images
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    
-    @media (max-width: 1024px) {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-  }
-  
+
   .content-area {
+    max-width: 600px;
     color: #ffffff;
     position: relative;
     z-index: 2;
-    padding-right: 2rem;
+    padding-right: 4rem;
+    margin-left: 10rem;
+    flex: 1;
   }
-  
+
   .badge {
     background-color: rgba(255, 255, 255, 0.1);
     display: inline-flex;
     padding: 0.5rem 1rem;
     border-radius: 50px;
     margin-bottom: 1.5rem;
-    
+
     span {
       font-size: 0.875rem;
       color: #ffffff;
     }
   }
-  
+
   .main-title {
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    
-    .highlight {
-      color: var(--blue);
-      font-weight: 700;
-      position: relative;
-      z-index: 2;
-      
-      text-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
-    }
-    
+    color: white;
+
     @media (max-width: 768px) {
       font-size: 2rem;
     }
   }
-  
+
   .subtitle {
     font-size: 1rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 2rem;
   }
-  
+
   .cta-buttons {
     margin-top: 2rem;
   }
-  
+
+  /* GRILLE D'IMAGES */
+  .image-grid-container {
+    width: 55%;
+    max-width: 800px;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+  }
+
   .image-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 0.5rem;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 0.8rem;
     width: 100%;
-    height: 450px;
+    height: 800px;
     position: relative;
-    
+    animation: scrollImages 6.9999s linear infinite;
+
     @media (max-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  
-  .gradient-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-  }
-  
+
   .image-container {
-    overflow: hidden;
+    width: 100%;
+    height: 180px;
     position: relative;
-    
+    overflow: hidden;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease-in-out;
     }
+  }
+
+  .extra-glow {
+    width: 341px;
+    height: 334px;
+    border-radius: 50%;
+    background: var(--blue);
+    filter: blur(50px);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
   }
 }
 
-// Animation for cascade
+/* ANIMATION CASCADE */
 @keyframes fadeInStagger {
   from {
     opacity: 0;
@@ -155,10 +136,20 @@
 .image-container {
   animation: fadeInStagger 0.5s ease forwards;
   opacity: 0;
-  
-  @for $i from 0 through 15 {
+
+  @for $i from 0 through 17 {
     &:nth-child(#{$i + 1}) {
       animation-delay: #{$i * 0.1}s;
     }
+  }
+}
+
+/* ANIMATION DÉFILEMENT */
+@keyframes scrollImages {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
   }
 }
