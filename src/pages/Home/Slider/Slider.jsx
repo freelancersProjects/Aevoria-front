@@ -10,37 +10,32 @@ import Button from "../../../components/AEV/AEV.Button/Button";
 import "./Slider.scss";
 
 const Slider = ({ slides, autoPlayInterval = 5000 }) => {
-    const [currentIndex, setCurrentIndex] = useState(0); 
+    const [currentIndex, setCurrentIndex] = useState(1); // Commencer à 1 pour éviter l'effet de saut
     const [isTransitioning, setIsTransitioning] = useState(false);
     const intervalRef = useRef(null);
     const sliderRef = useRef(null);
     const isMountedRef = useRef(true);
     const isVisibleRef = useRef(true);
 
-    // Création d'une liste étendue pour l'effet de boucle infinie
+    // Étendre la liste des slides pour le bouclage infini
     const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
 
-    // useLayoutEffect pour nettoyer immédiatement les ressources avant tout rendu
     useLayoutEffect(() => {
         return () => {
-            // Force cleanup immédiat avant la destruction du composant
             isMountedRef.current = false;
             isVisibleRef.current = false;
             clearAllIntervals();
-            
-            // Arrêter toutes les animations immédiatement
+
             if (sliderRef.current) {
                 sliderRef.current.style.transition = "none";
             }
         };
     }, []);
 
-    // Gestion du cycle de vie normal
     useEffect(() => {
         isMountedRef.current = true;
         isVisibleRef.current = true;
-        
-        // Observer la visibilité de la page
+
         const handleVisibilityChange = () => {
             if (document.hidden) {
                 isVisibleRef.current = false;
@@ -52,10 +47,10 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
                 }
             }
         };
-        
+
         document.addEventListener("visibilitychange", handleVisibilityChange);
         startAutoPlay();
-        
+
         return () => {
             document.removeEventListener("visibilitychange", handleVisibilityChange);
             isMountedRef.current = false;
@@ -64,7 +59,6 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
         };
     }, []);
 
-    // Gestion de l'autoplay basé sur l'état de transition
     useEffect(() => {
         if (!isTransitioning && isMountedRef.current && isVisibleRef.current) {
             startAutoPlay();
@@ -72,24 +66,17 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
     }, [currentIndex, isTransitioning]);
 
     const clearAllIntervals = () => {
-        // Arrêter tous les intervals possibles
         if (intervalRef.current) {
             clearInterval(intervalRef.current);
             intervalRef.current = null;
-        }
-        
-        // Recherche et suppression de tous les intervalles existants
-        const highestIntervalId = window.setInterval(() => {}, 0);
-        for (let i = 0; i < highestIntervalId; i++) {
-            window.clearInterval(i);
         }
     };
 
     const startAutoPlay = () => {
         stopAutoPlay();
-        
+
         if (!isMountedRef.current || !isVisibleRef.current) return;
-        
+
         intervalRef.current = setInterval(() => {
             if (isMountedRef.current && isVisibleRef.current && !isTransitioning) {
                 handleNextClick();
@@ -118,31 +105,33 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
 
     const handleTransitionEnd = () => {
         if (!isMountedRef.current) return;
-        
+
         setIsTransitioning(false);
 
-        if (currentIndex === 0) {
-            // Utilisation de setTimeout pour éviter les problèmes de rendu
-            setTimeout(() => {
-                if (sliderRef.current && isMountedRef.current) {
-                    sliderRef.current.style.transition = "none";
-                    setCurrentIndex(slides.length);
-                    // Force le navigateur à appliquer le changement avant de réactiver la transition
-                    requestAnimationFrame(() => {
-                        if (sliderRef.current && isMountedRef.current) {
-                            sliderRef.current.style.transition = "transform 0.5s cubic-bezier(0.77, 0, 0.175, 1)";
-                        }
-                    });
-                }
-            }, 0);
-        } else if (currentIndex === extendedSlides.length - 1) {
+        // Si on atteint le faux dernier slide, on revient immédiatement au vrai premier
+        if (currentIndex === extendedSlides.length - 1) {
             setTimeout(() => {
                 if (sliderRef.current && isMountedRef.current) {
                     sliderRef.current.style.transition = "none";
                     setCurrentIndex(1);
                     requestAnimationFrame(() => {
                         if (sliderRef.current && isMountedRef.current) {
-                            sliderRef.current.style.transition = "transform 0.5s cubic-bezier(0.77, 0, 0.175, 1)";
+                            sliderRef.current.style.transition = "transform 0.5s ease-in-out";
+                        }
+                    });
+                }
+            }, 0);
+        }
+
+        // Si on atteint le faux premier slide (en allant vers la gauche), on revient immédiatement au vrai dernier
+        else if (currentIndex === 0) {
+            setTimeout(() => {
+                if (sliderRef.current && isMountedRef.current) {
+                    sliderRef.current.style.transition = "none";
+                    setCurrentIndex(slides.length);
+                    requestAnimationFrame(() => {
+                        if (sliderRef.current && isMountedRef.current) {
+                            sliderRef.current.style.transition = "transform 0.5s ease-in-out";
                         }
                     });
                 }
@@ -171,17 +160,14 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
                     className="slider-wrapper"
                     style={{
                         transform: `translateX(-${currentIndex * 100}%)`,
-                        transition: isTransitioning ? "transform 0.5s cubic-bezier(0.77, 0, 0.175, 1)" : "none",
+                        transition: isTransitioning ? "transform 0.5s ease-in-out" : "none",
                     }}
                     onTransitionEnd={handleTransitionEnd}
                 >
                     {extendedSlides.map((slide, index) => (
                         <div className="slider-slide" key={index}>
                             <div className="slider-image">
-                                <img
-                                    src={slide.image || DefaultImageSlider}
-                                    alt={slide.title}
-                                />
+                                <img src={slide.image || DefaultImageSlider} alt={slide.title} />
                             </div>
 
                             <div
@@ -238,20 +224,8 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
 };
 
 Slider.propTypes = {
-    slides: PropTypes.arrayOf(
-        PropTypes.shape({
-            image: PropTypes.string,
-            title: PropTypes.string.isRequired,
-            genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-            price: PropTypes.number.isRequired,
-            oldPrice: PropTypes.number,
-            discount: PropTypes.number,
-            isSteam: PropTypes.bool,
-            isEpic: PropTypes.bool,
-            isPlaystation: PropTypes.bool,
-        })
-    ).isRequired,
+    slides: PropTypes.array.isRequired,
     autoPlayInterval: PropTypes.number,
 };
 
-export default Slider; 
+export default Slider;
