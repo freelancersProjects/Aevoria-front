@@ -116,3 +116,11 @@ p {
   margin-bottom: 20px;
   font-weight: 600;
 }
+
+.glow-effect {
+  width: 341px;
+  height: 334px;
+  border-radius: 50%;
+  background: var(--blue);
+  filter: blur(50px);
+}

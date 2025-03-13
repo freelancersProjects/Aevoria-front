@@ -41,11 +41,13 @@ const FirstSection = () => {
 
   return (
     <section className="first-section">
+      <div className="blue-glow-effect"></div>
+      
       <div className="content-area">
         <div className="badge">
           <span>Nouveau catalogue de jeux</span>
         </div>
-
+        
         <h1 className="main-title">
           Jouez Sans <span className="blue">Limites</span>
           <br />
@@ -75,7 +77,7 @@ const FirstSection = () => {
               <img src={img.image} alt={`Game ${index + 1}`} />
             </div>
           ))}
-        </div>
+         </div>
       </div>
     </section>
   );
