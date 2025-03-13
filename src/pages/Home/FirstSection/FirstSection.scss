@@ -1,6 +1,5 @@
 .first-section {
   width: 100%;
-  min-height: 100vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,14 +20,14 @@
     z-index: 1;
     opacity: 0.8;
   }
-  
+
   .section-container {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     z-index: 2;
-    
+
     @media (max-width: 768px) {
       flex-direction: column;
     }
@@ -42,7 +41,7 @@
     padding-right: 4rem;
     margin-left: 10rem;
     flex: 1;
-    
+
     @media (max-width: 768px) {
       margin-left: 2rem;
       padding-right: 2rem;
@@ -95,36 +94,36 @@
     z-index: 2;
     overflow: hidden;  // Important pour masquer le contenu qui dépasse
     height: 800px;     // Hauteur fixe pour le conteneur
-    
+
     @media (max-width: 768px) {
       width: 100%;
       margin-top: 3rem;
     }
-    
+
     .image-container {
       position: relative;
       animation: scrollImages 30s linear infinite;  // Animation appliquée ici
     }
-    
+
     .image-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(6, 1fr);
       gap: 0.8rem;
       width: 100%;
-      
+
       &.clone {
         position: absolute;
         top: 100%;  // Positionné juste en dessous de la première grille
         left: 0;
         margin-top: 12.8px;
       }
-      
+
       @media (max-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
       }
     }
-  
+
 
 
     .image-item {
@@ -136,19 +135,19 @@
       border-radius: 8px;
       animation: fadeInStagger 0.5s ease forwards;
       opacity: 0;
-      
+
       @for $i from 0 through 17 {
         &:nth-child(#{$i + 1}) {
           animation-delay: #{$i * 0.1}s;
         }
       }
-      
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.3s ease-in-out;
-        
+
         &:hover {
           transform: scale(1.05);
         }
