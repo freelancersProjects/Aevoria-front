@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./FirstSection.scss";
 import Button from "../../../components/AEV/AEV.Button/Button";
 
 const images = [
+  { image: "/assets/images/photo-test.webp" },
+  { image: "/assets/images/photo-test.webp" },
+  { image: "/assets/images/photo-test.webp" },
   { image: "/assets/images/photo-test.webp" },
   { image: "/assets/images/photo-test.webp" },
   { image: "/assets/images/photo-test.webp" },
@@ -23,12 +26,14 @@ const images = [
 const FirstSection = () => {
   return (
     <section className="first-section">
-      <div className="first-sectionr">
+      <div className="blue-glow-effect"></div>
+      
+      <div className="section-container">
         <div className="content-area">
           <div className="badge">
             <span>Nouveau catalogue de jeux</span>
           </div>
-
+          
           <h1 className="main-title">
             Jouez Sans <span className="blue">Limites</span>
             <br />
@@ -37,8 +42,7 @@ const FirstSection = () => {
 
           <p className="subtitle">
             Découvrez les meilleurs jeux à prix cassés, des offres exclusives chaque jour et un
-            catalogue se renouvelant pour faire le plaisir. Plongez dans l'univers du gaming sans vider
-            votre porte-monnaie, les promos ont à portée de clic.
+            catalogue qui évolue en permanence pour votre plaisir. Plongez dans l'univers du gaming sans vous ruiner.
           </p>
 
           <div className="cta-buttons">
@@ -50,18 +54,17 @@ const FirstSection = () => {
             />
           </div>
         </div>
-
-        <div className="image-grid-container">
+        
+        <div className="images-gallery">
           <div className="image-grid">
-            <div className="gradient-overlay"></div>
-            {images.map((img, index) => (
-              <div key={index} className="image-container">
-                <img src={img.image} alt={`Game ${index + 1}`} />
+            {images.map((item, index) => (
+              <div key={index} className="image-item">
+                <img src={item.image} alt={`Image ${index + 1}`} />
               </div>
             ))}
           </div>
         </div>
-      </div> 
+      </div>
     </section>
   );
 };

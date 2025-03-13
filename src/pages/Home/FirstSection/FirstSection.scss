@@ -2,7 +2,6 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -22,6 +21,18 @@
     z-index: 1;
     opacity: 0.8;
   }
+  
+  .section-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
 
   .content-area {
     max-width: 600px;
@@ -31,6 +42,11 @@
     padding-right: 4rem;
     margin-left: 10rem;
     flex: 1;
+    
+    @media (max-width: 768px) {
+      margin-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 
   .badge {
@@ -53,6 +69,10 @@
     margin-bottom: 1.5rem;
     color: white;
 
+    .blue {
+      color: var(--blue, #0077ff);
+    }
+
     @media (max-width: 768px) {
       font-size: 2rem;
     }
@@ -70,40 +90,59 @@
   }
 
   /* GRILLE D'IMAGES */
-  .image-grid-container {
+  .images-gallery {
     width: 55%;
     max-width: 800px;
     overflow: hidden;
     position: relative;
     z-index: 2;
-  }
-
-  .image-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    gap: 0.8rem;
-    width: 100%;
-    height: 800px;
-    position: relative;
-    animation: scrollImages 6.9999s linear infinite;
-
+    
     @media (max-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .image-container {
-    width: 100%;
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease-in-out;
+      margin-top: 3rem;
+    }
+    
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 0.8rem;
+      width: 100%;
+      height: 800px;
+      position: relative;
+      animation: scrollImages 6.9999s linear infinite;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .image-item {
+      width: 100%;
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      animation: fadeInStagger 0.5s ease forwards;
+      opacity: 0;
+      
+      @for $i from 0 through 17 {
+        &:nth-child(#{$i + 1}) {
+          animation-delay: #{$i * 0.1}s;
+        }
+      }
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
     }
   }
 
@@ -130,17 +169,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-.image-container {
-  animation: fadeInStagger 0.5s ease forwards;
-  opacity: 0;
-
-  @for $i from 0 through 17 {
-    &:nth-child(#{$i + 1}) {
-      animation-delay: #{$i * 0.1}s;
-    }
   }
 }
 
