@@ -30,13 +30,13 @@ const FirstSection = () => {
   return (
     <section className="first-section">
       <div className="blue-glow-effect"></div>
-      
+
       <div className="section-container">
         <div className="content-area">
           <div className="badge">
             <span>Nouveau catalogue de jeux</span>
           </div>
-          
+
           <h1 className="main-title">
             Jouez Sans <span className="blue">Limites</span>
             <br />
@@ -57,14 +57,23 @@ const FirstSection = () => {
             />
           </div>
         </div>
-        
+
         <div className="images-gallery">
-          <div className="image-grid">
-            {images.map((item, index) => (
-              <div key={index} className="image-item">
-                <img src={item.image} alt={`Image ${index + 1}`} />
-              </div>
-            ))}
+          <div className="image-container">
+            <div className="image-grid">
+              {images.map((item, index) => (
+                <div key={`original-${index}`} className="image-item">
+                  <img src={item.image} alt={`Image ${index + 1}`} />
+                </div>
+              ))}
+            </div>
+            <div className="image-grid clone">
+              {images.map((item, index) => (
+                <div key={`clone-${index}`} className="image-item">
+                  <img src={item.image} alt={`Image ${index + 1}`} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
