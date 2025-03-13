@@ -21,6 +21,9 @@ const images = [
   { image: "/assets/images/photo-test.webp" },
   { image: "/assets/images/photo-test.webp" },
   { image: "/assets/images/photo-test.webp" },
+  { image: "/assets/images/photo-test.webp" },
+  { image: "/assets/images/photo-test.webp" },
+  { image: "/assets/images/photo-test.webp" },
 ];
 
 const FirstSection = () => {
