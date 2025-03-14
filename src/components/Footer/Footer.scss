@@ -24,7 +24,6 @@
         z-index: 2;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 25%, 300px), 1fr));
-        gap: 30px;
         max-width: 1200px;
         margin: 0 auto;
   
