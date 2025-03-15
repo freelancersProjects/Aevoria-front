@@ -1,0 +1,283 @@
+.register-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #1D1B26;
+  
+  // Form à gauche, image à droite
+  .form-section {
+    flex: 1;
+    padding: 2rem;
+    background-color: #1D1B26;
+    color: white;
+    overflow-y: auto;
+    
+    .logo-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      
+      .login-logo {
+        height: 30px;
+      }
+      
+      .back-link {
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        
+        span {
+          margin-left: 5px;
+        }
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+    
+    .form-wrapper {
+      max-width: 450px;
+      margin: 0 auto;
+      
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .login-link {
+        margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.7);
+        
+        a {
+          color: white;
+          text-decoration: none;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      
+      .name-fields {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        
+        .input-group {
+          flex: 1;
+        }
+      }
+      
+      .input-group {
+        margin-bottom: 1rem;
+        position: relative;
+        
+        input {
+          width: 100%;
+          padding: 0.9rem 1rem;
+          background-color: rgba(255, 255, 255, 0.05);
+          border: none;
+          border-radius: 6px;
+          color: white;
+          font-size: 1rem;
+          
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+          }
+          
+          &:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+      
+      .password-group {
+        position: relative;
+        
+        .toggle-password {
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          color: rgba(255, 255, 255, 0.6);
+          cursor: pointer;
+          font-size: 1.2rem;
+          
+          &:hover {
+            color: white;
+          }
+        }
+      }
+      
+      .terms-checkbox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        
+        input {
+          margin-right: 10px;
+          width: 18px;
+          height: 18px;
+        }
+        
+        label {
+          font-size: 0.9rem;
+          
+          a {
+            color: white;
+            text-decoration: none;
+            
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      
+      .create-account-btn {
+        width: 100%;
+        padding: 0.9rem;
+        background-color: #8A7DE9;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        
+        &:hover {
+          background-color: #7569D1;
+        }
+      }
+      
+      .auth-divider {
+        position: relative;
+        margin: 2rem 0;
+        text-align: center;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        span {
+          position: relative;
+          background-color: #1D1B26;
+          padding: 0 1rem;
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 0.9rem;
+        }
+      }
+      
+      .social-auth {
+        display: flex;
+        gap: 1rem;
+        
+        button {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.8rem;
+          background-color: transparent;
+          color: white;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 6px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background-color 0.2s;
+          
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+          }
+        }
+      }
+    }
+  }
+  
+  // Section image à droite
+  .image-section {
+    flex: 1;
+    position: relative;
+    background-image: url('/assets/desert-dunes.jpg'); // Assurez-vous que cette image existe
+    background-size: cover;
+    background-position: center;
+    
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      color: white;
+      
+      h2 {
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-bottom: 1.5rem;
+      }
+      
+      .slider-indicators {
+        display: flex;
+        gap: 0.5rem;
+        
+        .indicator {
+          width: 2rem;
+          height: 3px;
+          background-color: rgba(255, 255, 255, 0.5);
+          border-radius: 3px;
+          
+          &.active {
+            background-color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 992px) {
+  .register-container {
+    flex-direction: column-reverse; // Image au-dessus, form en-dessous
+    
+    .image-section {
+      height: 300px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .register-container {
+    .form-section {
+      padding: 1.5rem;
+      
+      .name-fields {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+    
+    .image-section {
+      height: 200px;
+    }
+  }
+}

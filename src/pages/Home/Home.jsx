@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../../components/Login/login';
+import Login from '../Login/login';
 import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
