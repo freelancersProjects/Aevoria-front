@@ -107,7 +107,6 @@ const Home = () => {
         </div>
 
         <div className='container-fluid'>
-          <SectionTitle text="Promotions" />
           <Promotions />
         </div>
       </div>

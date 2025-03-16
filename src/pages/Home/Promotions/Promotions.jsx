@@ -1,6 +1,7 @@
 import React from "react";
 import GameCard from "../../../components/AEV/AEV.GameCard/GameCard";
 import "./Promotions.scss";
+import SectionTitle from "../../../components/AEV/AEV.SectionTitle/SectionTitle";
 
 const promotionalGames = [
   {
@@ -38,9 +39,10 @@ const promotionalGames = [
 const Promotions = () => {
   return (
     <div className="promotions-section">
+      <SectionTitle text="Promotions" />
       <div className="game-cards-container">
         {promotionalGames.map((game, index) => (
-          <GameCard 
+          <GameCard
             key={index}
             title={game.title}
             genres={game.genres}
@@ -57,4 +59,4 @@ const Promotions = () => {
   );
 };
 
-export default Promotions; 
+export default Promotions;

@@ -105,6 +105,10 @@ p {
   gap: 20px;
 }
 
+.d-flex {
+  display: flex;
+}
+
 .title-center {
   text-align: center;
   font-family: "Instrument Sans", sans-serif;
