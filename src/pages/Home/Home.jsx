@@ -1,5 +1,4 @@
 import React from 'react';
-import Login from '../../components/Login/login';
 import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
@@ -8,9 +7,6 @@ import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
 import FirstSection from './FirstSection/FirstSection';
-import Toast from '../../components/AEV/AEV.Toast/Toast';
-
-
 import './Home.scss';
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
@@ -65,10 +61,8 @@ const Home = () => {
     <>
 
       <FirstSection />
-      {/* <Toast message="Bienvenue sur notre site" type="info" duration={3000} /> */}
       <Slider slides={slideData} />
-
-      <div className='container'>
+        <div className='container'>
         <p className="title-center mt-3">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
         <TabSwitcher tabs={tabs} />
@@ -78,7 +72,7 @@ const Home = () => {
         <SectionTitle text="Meilleure Vente" />
         <div className="game-cards-container">
           {Array.from({ length: 9 }).map((_, index) => (
-            <GameCard key={index} {...sampleGame} />
+            <GameCard key={`game-card-${index}-${sampleGame.title}`} {...sampleGame} />
           ))}
         </div>
         <div className="btn-container">

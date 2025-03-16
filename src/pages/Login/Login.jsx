@@ -2,7 +2,7 @@ import React from "react";
 import "./Login.scss";
 import { FaFacebookF, FaGoogle, FaApple, FaDiscord } from "react-icons/fa";
 
-const LoginPage = () => {
+const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       console.log("Connexion Google");
@@ -13,7 +13,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-wrapper">
-      {/* Formulaire de connexion à gauche */}
       <div className="login-container">
         <h2>Log in</h2>
         <div className="social-login">
@@ -38,4 +37,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -1,10 +1,10 @@
 // Header.jsx
 import React from "react";
 import "./Header.scss";
-import Logo from "../../../public/assets/images/Logo.png";
+import Logo from "../../../../public/assets/images/Logo.png";
 import { useState, useEffect } from "react";
-import CartIcon from "../../../public/assets/svg/cart.svg?react";
-import UserIcon from "../../../public/assets/svg/user.svg?react";
+import CartIcon from "../../../../public/assets/svg/cart.svg?react";
+import UserIcon from "../../../../public/assets/svg/user.svg?react";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {

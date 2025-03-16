@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Header from './components/Layout/Header/Header';
+import Footer from './components/Layout/Footer/Footer';
 import { LanguageProvider } from './translations/LanguageContext';
 import Home from './pages/Home/Home';
-import Login from './components/Login/login';
+import Login from './pages/Login/Login';
 import './App.css';
 
 const hiddenLayouts = ['/login', '/register'];
