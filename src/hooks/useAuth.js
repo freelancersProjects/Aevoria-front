@@ -16,7 +16,7 @@ const useAuth = () => {
                     const decodedToken = jwtDecode(token);
                     const userId = decodedToken.id;
 
-                    const response = await apiService.get(`/api/users/${userId}`);
+                    const response = await apiService.get(`/users/${userId}`);
                     setUser(response.data);
                 }
             } catch (error) {
