@@ -8,6 +8,7 @@ import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
 import FirstSection from './FirstSection/FirstSection';
 import './Home.scss';
+import Banner from './Banner/Banner';
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
 
@@ -62,7 +63,7 @@ const Home = () => {
 
       <FirstSection />
       <Slider slides={slideData} />
-        <div className='container'>
+      <div className='container'>
         <p className="title-center mt-3">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
         <TabSwitcher tabs={tabs} />
@@ -79,7 +80,9 @@ const Home = () => {
           <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
         </div>
       </div>
-
+      <div className='container-fluid'>
+        <Banner />
+      </div>
       <div className='container-fluid'>
         <SectionTitle text="Par Categories" />
         <Categories />

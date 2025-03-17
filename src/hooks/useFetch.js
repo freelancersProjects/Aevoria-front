@@ -7,14 +7,19 @@ const useFetch = (endpoint) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        let isMounted = true;
-        apiService
-            .get(endpoint)
-            .then((res) => isMounted && setData(res.data))
-            .catch((err) => isMounted && setError(err))
-            .finally(() => isMounted && setLoading(false));
+        const fetchData = async () => {
+            try {
+                const response = await apiService.get(endpoint);
+                setData(response);
+            } catch (err) {
+                console.error("Error fetching data:", err);
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        return () => { isMounted = false };
+        fetchData();
     }, [endpoint]);
 
     return { data, loading, error };

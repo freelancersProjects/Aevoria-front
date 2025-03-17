@@ -1,0 +1,28 @@
+import React from "react";
+import useFetch from "../../../hooks/useFetch";
+import "./Banner.scss";
+import Button from "../../../components/AEV/AEV.Button/Button";
+
+const Banner = () => {
+    const { data, loading, error } = useFetch("/banners");
+
+    if (loading) return <p>Chargement...</p>;
+    if (error) return <p>Erreur de chargement</p>;
+    if (!data || !data.$values || data.$values.length === 0) return null;
+
+    const banner = data.$values.find(b => b.isActive && new Date(b.expiresAt) > new Date());
+    if (!banner) return null;
+
+    return (
+        <div className="banner-container mb-2">
+            <div className="banner-background" style={{ backgroundImage: `url(${banner.imageUrl})` }} />
+            <div className="banner-content">
+                <h2 className="banner-title">{banner.title}</h2>
+                <p className="banner-description">{banner.description}</p>
+                <Button text="Explorer" variant="outline" size="large" />
+            </div>
+        </div>
+    );
+};
+
+export default Banner;
