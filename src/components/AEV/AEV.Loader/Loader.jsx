@@ -1,13 +1,23 @@
-import React from 'react';
-import './Loader.scss'; // Assurez-vous de créer ce fichier pour le style
+import React from "react";
+import PropTypes from "prop-types";
+import "./Loader.scss";
+import Logo from "../../../../public/assets/images/Logo.png";
 
-const Loader = () => {
+const Loader = ({ variant = "default", size = "medium" }) => {
     return (
-        <div className="loader">
-            {/* Vous pouvez utiliser un spinner ou un autre indicateur de chargement ici */}
-            <span>Loading...</span>
+        <div className={`loader-container ${size}`}>
+            {variant === "logo" ? (
+                <img src={Logo} alt="Aevoria Logo" className="loader-logo" />
+            ) : (
+                <div className="spinner"></div>
+            )}
         </div>
     );
 };
 
-export default Loader; 
+Loader.propTypes = {
+    variant: PropTypes.oneOf(["default", "logo"]),
+    size: PropTypes.oneOf(["small", "medium", "large"]),
+};
+
+export default Loader;

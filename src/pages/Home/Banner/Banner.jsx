@@ -2,11 +2,12 @@ import React from "react";
 import useFetch from "../../../hooks/useFetch";
 import "./Banner.scss";
 import Button from "../../../components/AEV/AEV.Button/Button";
+import Loader from "../../../components/AEV/AEV.Loader/Loader";
 
 const Banner = () => {
     const { data, loading, error } = useFetch("/banners");
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading) return <Loader variant="logo" />;
     if (error) return <p>Erreur de chargement</p>;
     if (!data || !data.$values || data.$values.length === 0) return null;
 
