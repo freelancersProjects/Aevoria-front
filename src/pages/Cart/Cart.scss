@@ -1,0 +1,136 @@
+.cart-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.cart-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-summary {
+    width: 320px;
+    background: var(--gray-background);
+    border-radius: 10px;
+    padding: 1.5rem;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 0.7rem;
+}
+
+.checkout-btn {
+    background: var(--blue);
+    color: var(--white);
+    font-size: 1rem;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 0.8rem;
+
+    &:hover {
+        background: lighten(rgba(0, 123, 255, 1), 10%);
+    }
+}
+
+.paypal-btn {
+    background: var(--dark-blue);
+    color: var(--white);
+    font-size: 1rem;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background: lighten(#000C1F, 10%);
+    }
+}
+
+.promo-section {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+
+    input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+    .apply-btn {
+        background: var(--blue);
+        border: none;
+        padding: 0.5rem 1rem;
+        color: var(--white);
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+        background: lighten(rgba(0, 123, 255, 1), 10%);
+        }
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .cart-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .order-summary {
+        width: 100%;
+        max-width: 400px;
+    }
+}
