@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./FirstSection.scss";
+import ControllerIcon from "../../../../public/assets/svg/catalogue_game.svg?react";
 import Button from "../../../components/AEV/AEV.Button/Button";
+import "./FirstSection.scss";
 
 const images = [
   { image: "/assets/images/photo-test.webp" },
@@ -34,7 +35,7 @@ const FirstSection = () => {
       <div className="section-container">
         <div className="content-area">
           <div className="badge">
-            <span>Nouveau catalogue de jeux</span>
+            <span className="badge-content"><ControllerIcon />Nouveau catalogue de jeux</span>
           </div>
 
           <h1 className="main-title">
