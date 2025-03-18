@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../Login/login';
+import Login from '../Login/Login';
 import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
@@ -63,6 +63,7 @@ const Home = () => {
     <>
 
       <FirstSection />
+
       <Slider slides={slideData} />
       <div className='container'>
         <p className="title-center mt-3">Une sélection infinie de jeux à portée de clic,

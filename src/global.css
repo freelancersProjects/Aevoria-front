@@ -131,6 +131,12 @@ p {
   filter: blur(50px);
 }
 
+.error{
+  color: red;
+  z-index: 999;
+  position: relative;
+}
+
 .instrument-sans {
   font-family: "Instrument Sans", sans-serif;
 }
