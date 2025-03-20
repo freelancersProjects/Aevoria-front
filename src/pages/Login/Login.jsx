@@ -4,12 +4,18 @@ import { FaFacebookF, FaGoogle, FaApple, FaDiscord } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logoImage from "../../../public/assets/svg/logo.svg?react";
 import { useNavigate } from "react-router-dom";
-
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
+
   const handleGoogleLogin = async () => {
     try {
     } catch (error) {
@@ -29,8 +35,29 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoggingIn(true);
+    setLoginError("");
+    
+    try {
+      await login({ email, password });
+      
+      // Si rememberMe est activé, stocker l'email dans localStorage
+      if (rememberMe) {
+        localStorage.setItem('rememberedEmail', email);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+      
+      // Rediriger vers la page d'accueil
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Erreur de connexion:", error);
+      setLoginError("Email ou mot de passe incorrect");
+    } finally {
+      setIsLoggingIn(false);
+    }
   };
 
   return (
@@ -42,13 +69,24 @@ const Login = () => {
         <div className="login-form-container">
           <h2>Se connecter</h2>
           <p className="login-subtitle">Pas encore de compte? <a onClick={() => navigate("/register")}>Créer un compte</a></p>
+          
+          {loginError && <div className="error-message">{loginError}</div>}
 
           <form onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" />
+            <input 
+              type="email" 
+              placeholder="Email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
             <div className="password-container">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Mot de passe"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <button
                 type="button"
@@ -72,7 +110,9 @@ const Login = () => {
               <a href="/forgot-password" className="forgot-password">Mot de passe oublié?</a>
             </div>
 
-            <button type="submit" className="login-btn">Se connecter</button>
+            <button type="submit" className="login-btn" disabled={isLoggingIn}>
+              {isLoggingIn ? "Connexion..." : "Se connecter"}
+            </button>
           </form>
 
           <div className="separator">

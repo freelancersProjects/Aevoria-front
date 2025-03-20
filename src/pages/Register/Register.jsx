@@ -3,7 +3,7 @@ import './Register.scss';
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
-import { IoEyeOutline } from 'react-icons/io5';
+import { IoEyeOutline } from 'react-icons/io5'; 
 
 const Register = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const Register = () => {
     <div className="register-container">
       <div className="form-section">
         <div className="logo-container">
-          <img src="/assets/svg/logo.svg" alt="Logo" className="login-logo" />
+          <logoImage className="login-logo" />
           <a href="/" className="back-link">
             Back to website <span>&rarr;</span>
           </a>
@@ -129,24 +129,14 @@ const Register = () => {
               Create account
             </button>
           </form>
-
-          <div className="auth-divider">
-            <span>Or register with</span>
-          </div>
-      </div>
+        </div>
       </div>
 
-      <div className="image-section">
+      <div className="login-image">
         <div className="image-overlay">
-          <h2>Capturing Moments,<br />Creating Memories</h2>
-          <div className="slider-indicators">
-            <span className="indicator"></span>
-            <span className="indicator"></span>
-            <span className="indicator active"></span>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
