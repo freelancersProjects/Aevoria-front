@@ -51,7 +51,7 @@ const Login = () => {
       }
       
       // Rediriger vers la page d'accueil
-      navigate("/dashboard");
+      // navigate("/dashboard");
     } catch (error) {
       console.error("Erreur de connexion:", error);
       setLoginError("Email ou mot de passe incorrect");
