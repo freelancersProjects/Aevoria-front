@@ -1,20 +1,38 @@
-import React, { useState } from 'react';
-import './Register.scss';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from 'react-icons/fc';
-import { FaApple } from 'react-icons/fa';
-import { IoEyeOutline } from 'react-icons/io5'; 
+import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
+import apiService from '../../services/apiService';
+import useFetch from '../../hooks/useFetch';
+import './Register.scss';
 
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [roleId, setRoleId] = useState(null);
+  const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    username: '',
     email: '',
     password: '',
     agreeToTerms: false
   });
+
+  const { data: roles, error: roleError } = useFetch("/roles/public");
+
+  useEffect(() => {
+    if (roles && roles.$values && Array.isArray(roles.$values)) {
+      const userRole = roles.$values.find(role => role.name === "User");
+      if (userRole) {
+        setRoleId(userRole.roleId);
+      } else {
+        setError("Unable to retrieve 'User' role");
+      }
+    } else {
+      setError("Error retrieving roles.");
+    }
+  }, [roles]);
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -24,119 +42,114 @@ const Register = () => {
     });
   };
 
-  const validateForm = () => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(formData.email)) {
-      return false;
-    }
-    if (formData.password.length < 6) {
-      return false;
-    }
-    return true;
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      navigate("/login");
+    setError("");
+
+    if (!roleId) {
+      setError("Unable to retrieve 'User' role. Please try again later.");
+      return;
+    }
+
+    const userData = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      roleId: roleId,
+      subscriptionType: 0,
+      provider: 0,
+      walletBalance: 0.00,
+      languagePreference: "en"
+    };
+
+    try {
+      const response = await apiService.post("/users", userData);
+      if (response) {
+        navigate("/login");
+      } else {
+        setError("Error during registration. Please try again.");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
     }
   };
 
   return (
-    <div className="register-container">
-      <div className="form-section">
+    <div className="register-wrapper">
+      <div className="register-container">
         <div className="logo-container">
-          <logoImage className="login-logo" />
-          <a href="/" className="back-link">
-            Back to website <span>&rarr;</span>
-          </a>
+          <img src="/assets/svg/logo.svg" alt="Logo" className="register-logo" />
         </div>
-
-        <div className="form-wrapper">
-          <h2>Create an account</h2>
-          <p className="login-link" onClick={() => navigate("/login")}>
-             Already have an account? 
+        <div className="register-form-container">
+          <h2>Créer un compte</h2>
+          <p className="register-subtitle">
+            Déjà un compte ? <a onClick={() => navigate("/login")}>Se connecter</a>
           </p>
 
+          {error && <div className="error-message">{error}</div>}
+          {roleError && <div className="error-message">Erreur de chargement des rôles.</div>}
+
           <form onSubmit={handleSubmit}>
-            <div className="name-fields">
-              <div className="input-group">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="input-group">
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="input-group">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="input-group password-group">
+          <div className="username-container">
+            <input
+              type="text"
+              name="username"
+              placeholder="Nom d'utilisateur"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+            <div className="password-container">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="Enter your password"
+                placeholder="Mot de passe"
                 value={formData.password}
                 onChange={handleChange}
                 required
               />
-              <button 
-                type="button" 
-                className="toggle-password"
+              <button
+                type="button"
+                className="password-toggle"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                <IoEyeOutline />
+                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
               </button>
             </div>
 
-            <div className="terms-checkbox">
-              <input
-                type="checkbox"
-                name="agreeToTerms"
-                id="agreeToTerms"
-                checked={formData.agreeToTerms}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="agreeToTerms">
-                I agree to the <p onClick={() => navigate("/terms")}>Terms & Conditions</p>
+            <div className="register-options">
+              <label className="agree-checkbox">
+                <input
+                  type="checkbox"
+                  name="agreeToTerms"
+                  checked={formData.agreeToTerms}
+                  onChange={handleChange}
+                  required
+                />
+                <span className="checkmark"></span>
+                J'accepte les <a onClick={() => navigate("/terms")}>termes et conditions</a>
               </label>
             </div>
 
-            <button type="submit" className="create-account-btn">
-              Create account
+            <button type="submit" className="register-btn">
+              S'inscrire
             </button>
           </form>
         </div>
       </div>
-
-      <div className="login-image">
-        <div className="image-overlay">
-          </div>
-        </div>
+      <div className="register-image">
+        <div className="image-overlay"></div>
       </div>
+    </div>
   );
 };
 

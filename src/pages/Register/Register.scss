@@ -1,222 +1,161 @@
-.register-container {
+@use "sass:color";
+
+.register-wrapper {
   display: flex;
   height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  background-color: var(--background-black);
-  
-  // Form à gauche, logo à droite
-  .form-section {
+
+  .register-container {
     flex: 1;
-    padding: 2rem;
-    background-color: var(--background-black);
-    color: white;
-    overflow-y: auto;
+    background: var(--background-black);
+    color: var(--white);
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    
+    justify-content: center;
+    align-items: center;
+
     .logo-container {
+      margin-bottom: 60px;
+
+      .register-logo {
+        height: 60px;
+      }
+    }
+
+    .register-form-container {
+      width: 100%;
+      max-width: 420px;
+
+      h2 {
+        margin-bottom: 10px;
+        font-size: 32px;
+        font-weight: 600;
+      }
+
+      .register-subtitle {
+        margin-bottom: 30px;
+        color: var(--transparent-white);
+
+        a {
+          color: var(--blue);
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .username-container {
+      input {
+        width: 100%;
+        background: var(--second-background);
+        color: var(--white);
+        border: 1px solid var(--gray-background);
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        height: 50px;
+
+        &:focus {
+          outline: none;
+          border-color: var(--blue);
+        }
+
+        &::placeholder {
+          color: var(--transparent-white);
+        }
+      }
+    }
+
+    .password-container {
+      position: relative;
+      display: flex;
+      width: 100%;
+
+      input {
+        width: 100%;
+        padding-right: 40px;
+        background: var(--second-background);
+        color: var(--white);
+        border: 1px solid var(--gray-background);
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        height: 50px;
+
+        &:focus {
+          outline: none;
+          border-color: var(--blue);
+        }
+
+        &::placeholder {
+          color: var(--transparent-white);
+        }
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 40%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .register-options {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
-      
-      .login-logo {
-        height: 30px;
-      }
-      
-      .back-link {
-        color: white;
-        text-decoration: none;
-        font-size: 0.9rem;
+      margin: 15px 0 25px;
+
+      .agree-checkbox {
         display: flex;
         align-items: center;
-        background-color: rgba(255, 255, 255, 0.1);
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        
-        span {
-          margin-left: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--transparent-white);
+
+        input {
+          margin-right: 10px;
         }
-        
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.2);
+
+        a {
+          color: var(--blue);
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
-    
-    .form-wrapper {
-      max-width: 450px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex: 1;
-      
-      h2 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        text-align: center;
-      }
-      
-      .login-link {
-        margin-bottom: 2rem;
-        color: rgba(255, 255, 255, 0.7);
-        text-align: center;
-        cursor: pointer;
-        
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-      
-      .name-fields {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1rem;
-        
-        .input-group {
-          flex: 1;
-        }
-      }
-      
-      .input-group {
-        margin-bottom: 1rem;
-        position: relative;
-        
-        input {
-          width: 100%;
-          padding: 0.9rem 1rem;
-          background-color: rgba(255, 255, 255, 0.05);
-          border: none;
-          border-radius: 6px;
-          color: white;
-          font-size: 1rem;
-          
-          &::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-          }
-          
-          &:focus {
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.1);
-          }
-        }
-      }
-      
-      .password-group {
-        position: relative;
-        
-        .toggle-password {
-          position: absolute;
-          right: 1rem;
-          top: 50%;
-          transform: translateY(-50%);
-          background: none;
-          border: none;
-          color: rgba(255, 255, 255, 0.6);
-          cursor: pointer;
-          font-size: 1.2rem;
-          
-          &:hover {
-            color: white;
-          }
-        }
-      }
-      
-      .terms-checkbox {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        
-        input {
-          margin-right: 10px;
-          width: 18px;
-          height: 18px;
-        }
-        
-        label {
-          font-size: 0.9rem;
-          
-          a {
-            color: white;
-            text-decoration: none;
-            
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-      
-      .create-account-btn {
-        width: 100%;
-        padding: 0.9rem;
-        background-color: #8A7DE9;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.2s;
-        
-        &:hover {
-          background-color: #7569D1;
-        }
-      }
-      
-      .auth-divider {
-        position: relative;
-        margin: 2rem 0;
-        text-align: center;
-        
-        &::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 0;
-          right: 0;
-          height: 1px;
-          background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        span {
-          position: relative;
-          background-color: var(--background-black);
-          padding: 0 1rem;
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 0.9rem;
-        }
-      }
-      
-      .social-auth {
-        display: flex;
-        gap: 1rem;
-        
-        button {
-          flex: 1;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.8rem;
-          background-color: transparent;
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 6px;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: background-color 0.2s;
-          
-          &:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-          }
-        }
+
+    .register-btn {
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      padding: 15px;
+      height: 50px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+      font-weight: 600;
+
+      &:hover {
+        background: var(--glow-blue);
       }
     }
   }
-  
-  .login-image {
+
+  .register-image {
     flex: 1;
     background: url("/assets/images/photo-test.webp") center/cover no-repeat;
     display: flex;
@@ -235,39 +174,59 @@
   }
 }
 
-// Responsive design
 @media (max-width: 992px) {
-  .register-container {
-    flex-direction: column-reverse; // Logo au-dessus, form en-dessous
-    
-    .logo-section {
-      height: 300px;
-      
-      .big-logo {
-        width: 40%;
-        max-height: 250px;
+  .register-wrapper {
+    flex-direction: column;
+
+    .register-container {
+      width: 100%;
+      max-width: 100%;
+      padding: 30px 20px;
+      height: auto;
+      min-height: 60vh;
+
+      .register-options {
+        flex-wrap: wrap;
+        width: 100%;
+      }
+    }
+
+    .register-image {
+      height: 40vh;
+      width: 100%;
+      background-position: center;
+      background-size: cover;
+
+      .image-overlay {
+        bottom: 20px;
+
+        h2 {
+          font-size: 24px;
+          margin-bottom: 15px;
+        }
       }
     }
   }
 }
 
-@media (max-width: 576px) {
-  .register-container {
-    .form-section {
-      padding: 1.5rem;
-      
-      .name-fields {
+@media (max-width: 480px) {
+  .register-wrapper {
+    .register-container {
+      .register-options {
         flex-direction: column;
-        gap: 0;
+        align-items: flex-start;
+
+        input {
+          margin-bottom: 8px;
+        }
       }
     }
-    
-    .logo-section {
-      height: 200px;
-      
-      .big-logo {
-        width: 50%;
-        max-height: 150px;
+
+    .register-image {
+      height: 30vh;
+
+      .image-overlay h2 {
+        font-size: 20px;
       }
     }
   }
