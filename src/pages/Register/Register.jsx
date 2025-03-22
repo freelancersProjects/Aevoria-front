@@ -12,6 +12,8 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
     password: '',
@@ -90,11 +92,28 @@ const Register = () => {
           {roleError && <div className="error-message">Erreur de chargement des rôles.</div>}
 
           <form onSubmit={handleSubmit}>
-          <div className="username-container">
+            <div className="name-container">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last name"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
             <input
               type="text"
               name="username"
-              placeholder="Nom d'utilisateur"
+              placeholder="Username"
               value={formData.username}
               onChange={handleChange}
               required
@@ -107,12 +126,11 @@ const Register = () => {
               onChange={handleChange}
               required
             />
-          </div>
             <div className="password-container">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="Mot de passe"
+                placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
                 required
