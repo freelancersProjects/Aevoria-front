@@ -1,0 +1,44 @@
+.wishlist-section {
+  .wishlist-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    
+    .heart-icon {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    
+    span {
+      font-weight: 600;
+    }
+  }
+  
+  .games-list {
+    .game-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: var(--color-transparent);
+      }
+      
+      .game-info {
+        .game-title {
+          font-weight: 500;
+        }
+      }
+      
+      .chevron-icon {
+        color: var(--transparent-white);
+        font-size: 20px;
+      }
+    }
+  }
+} 

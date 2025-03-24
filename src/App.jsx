@@ -7,6 +7,9 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Cart from './pages/Cart/Cart';
+
+
+
 import './App.css';
 
 const hiddenLayouts = ['/login', '/register'];

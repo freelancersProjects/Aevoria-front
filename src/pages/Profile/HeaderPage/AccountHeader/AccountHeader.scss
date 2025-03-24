@@ -1,0 +1,16 @@
+.account-history {
+    .menu-items {
+      margin-bottom: 30px;
+      
+      .menu-item {
+        padding: 10px;
+        cursor: pointer;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        
+        &:hover {
+          background-color: var(--color-transparent);
+        }
+      }
+    }
+  } 
