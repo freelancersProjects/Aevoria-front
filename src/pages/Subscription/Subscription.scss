@@ -1,0 +1,21 @@
+.subscription-section {
+  background-color: var(--dark-background);
+  width: 100%;
+  padding: 80px 0;
+
+  .subscription-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+
+    .subtitle-faq {
+      text-align: center;
+      color: var(--light-text);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 32px;
+    }
+  }
+}
