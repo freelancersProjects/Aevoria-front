@@ -6,7 +6,7 @@ import Loader from "../../../components/AEV/AEV.Loader/Loader";
 import "./FirstSection.scss";
 
 const FirstSection = () => {
-  const { data: mediaData, loading, error } = useFetch("/games/media/images");
+  const { data: mediaData, loading, error } = useFetch("/games/media/game-images");
 
   const randomizedImages = useMemo(() => {
     const imageArray = mediaData?.$values || mediaData || [];
