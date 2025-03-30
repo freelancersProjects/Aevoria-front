@@ -1,0 +1,147 @@
+.aev-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.aev-modal-v3 {
+  background: linear-gradient(135deg, var(--dark-blue), rgb(32 156 255 / 56%));  border-radius: 20px;
+  padding: 24px;
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeInUp 0.4s ease;
+}
+
+.searchbar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid var(--glow-blue);
+  box-shadow: 0 0 12px var(--glow-blue);
+  transition: all 0.2s ease;
+  color: var(--white);
+}
+
+.searchbar-wrapper input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-size: 1.1rem;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  padding-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: var(--blue);
+    box-shadow: 0 0 10px var(--blue);
+    transform: scale(1.02);
+  }
+
+  &.friend {
+    border-left: 4px solid #ff47c4;
+  }
+
+  &.game {
+    border-left: 4px solid #3dfaff;
+  }
+
+  &.app {
+    border-left: 4px solid #ffdc3d;
+  }
+}
+
+.result-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .icon {
+    font-size: 1.4rem;
+    color: var(--white);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+}
+
+.badge {
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  background: var(--white);
+  color: var(--background-black);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

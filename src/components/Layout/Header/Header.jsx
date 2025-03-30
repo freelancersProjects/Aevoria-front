@@ -64,10 +64,10 @@ const Header = () => {
     return (
         <header className={`neo-header ${scrolled ? "scrolled" : ""}`}>
             <div className="header-container">
-                <div className="left">
+                <div className="left" onClick={() => (window.location.href = "/")}>
                     <img src={Logo} alt="Aevoria Logo" className="logo" />
+                    <span className="brand-name">Aevoria<sup>®</sup></span>
                 </div>
-
                 {!searchOpen && (
                     <nav className="center">
                         {megaMenu.map((item, idx) => (

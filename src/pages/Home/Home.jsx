@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from '../Login/Login';
 import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
@@ -8,6 +8,7 @@ import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
 import FirstSection from './FirstSection/FirstSection';
+import Dropdown from '../../components/AEV/AEV.Dropdown/Dropdown';
 import './Home.scss';
 import Banner from './Banner/Banner';
 
@@ -59,11 +60,12 @@ const slideData = [
 ];
 
 const Home = () => {
+  const [selected, setSelected] = useState('');
+
   return (
     <>
 
       <FirstSection />
-
       <Slider slides={slideData} />
       <div className='container'>
         <p className="title-center mt-3">Une sélection infinie de jeux à portée de clic,
@@ -92,7 +94,6 @@ const Home = () => {
           <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
         </div>
       </div>
-
       <div className='container-promo'>
         <div className='container container-promo-text'>
           <p className="title-center text-up-promo">

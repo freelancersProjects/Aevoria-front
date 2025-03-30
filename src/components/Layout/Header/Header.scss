@@ -23,9 +23,25 @@
     align-items: center;
   }
 
+  .left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .left .logo {
     height: 42px;
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.1));
+  }
+
+  .brand-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #d7dfe4;
+    text-transform: uppercase;
+    cursor: pointer;
+    align-items: center;
+
   }
 
   .center {
