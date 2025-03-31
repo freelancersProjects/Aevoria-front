@@ -1,44 +1,60 @@
-.wishlist-section {
-  .wishlist-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 0 10px;
-    
-    .heart-icon {
-      margin-right: 10px;
-      font-size: 18px;
-    }
-    
-    span {
-      font-weight: 600;
-    }
+.wishlist-header {
+  background-color: #13151a;
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+  
+  h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #2e303a;
   }
   
-  .games-list {
+  .wishlist-games {
     .game-item {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 10px;
-      border-radius: 4px;
-      margin-bottom: 5px;
-      cursor: pointer;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #2e303a;
       
-      &:hover {
-        background-color: var(--color-transparent);
+      &:last-child {
+        border-bottom: none;
       }
       
       .game-info {
-        .game-title {
+        h3 {
+          font-size: 16px;
           font-weight: 500;
+          margin: 0 0 5px 0;
+        }
+        
+        .game-meta {
+          .game-tag {
+            background-color: #2e303a;
+            color: #8b8b8b;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+          }
         }
       }
       
-      .chevron-icon {
-        color: var(--transparent-white);
-        font-size: 20px;
+      .expand-btn {
+        background: transparent;
+        border: none;
+        color: #8b8b8b;
+        font-size: 18px;
+        padding: 5px;
+        cursor: pointer;
+        
+        &:hover {
+          color: white;
+        }
       }
     }
   }
-} 
+}
