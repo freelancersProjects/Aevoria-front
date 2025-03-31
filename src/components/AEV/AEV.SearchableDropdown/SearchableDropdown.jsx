@@ -22,7 +22,11 @@ const SearchableDropdown = ({ options = [], value, onSelect, placeholder = "Sear
         <div className="aev-searchable-dropdown">
             <div className="selected" onClick={() => setOpen(!open)}>
                 <span>{selectedLabel}</span>
-                <span className="arrow">▼</span>
+                <span className="arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none">
+                        <path d="M6 7L12 13L18 7" stroke="#D7DFE4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </span>
             </div>
 
             {open && (
