@@ -1,41 +1,52 @@
 .tab-switcher {
-  display: flex;
-  position: relative;
-  background: var(--second-background);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 40px;
-  padding: 8px;
-  overflow: hidden;
-  flex-shrink: 0;
-  margin: 0 auto 30px auto;
-  max-width: 950px;
-}
-
-.tab-button {
-  flex: 1;
-  padding: 10px 20px;
-  border: none;
-  background: transparent;
-  color: var(--transparent-white);
-  font-size: 16px;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-}
-
-.tab-button.active {
+  width: 100%;
   color: var(--white);
-  font-weight: bold;
-}
 
-.active-indicator {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: 2px;
-  width: 20%;
-  background: var(--blue);
-  border-radius: 40px;
-  transition: left 0.3s ease-in-out;
-  z-index: 1;
+  .tab-header {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 24px;
+
+    .tab-button {
+      background: transparent;
+      border: none;
+      font-family: "Montserrat", sans-serif;
+      color: var(--lightgray);
+      padding: 12px 0;
+      position: relative;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      &.active {
+        color: var(--blue);
+      }
+
+      &.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--blue);
+      }
+
+      &:hover {
+        color: var(--blue);
+      }
+    }
+  }
+
+  .tab-content {
+    padding-top: 10px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }

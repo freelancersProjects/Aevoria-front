@@ -1,0 +1,46 @@
+.aev-switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+  cursor: pointer;
+
+  .switch-label {
+    font-size: 0.95rem;
+    color: var(--lightgray);
+  }
+
+  .aev-switch {
+    width: 48px;
+    height: 24px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+
+    .switch-handle {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--white);
+      position: absolute;
+      top: 2.5px;
+      left: 3px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+
+    &.checked {
+      background: var(--blue);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+
+      .switch-handle {
+        left: 26px;
+        background: white;
+        box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+}

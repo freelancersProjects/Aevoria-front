@@ -1,0 +1,89 @@
+.aev-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: relative;
+  padding-left: 25px;
+}
+
+
+.timeline-event {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  align-items: flex-start;
+
+ .timeline-point {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 74px;
+    background: rgba(255, 255, 255, 0.08);
+    z-index: 1;
+  }
+
+  &.no-line::after {
+    display: none;
+  }
+
+
+  &.done {
+    background: var(--blue);
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+    border-color: var(--blue);
+  }
+
+  &.active {
+    background: rgba(0, 123, 255, 0.15);
+    border-color: var(--blue);
+  }
+
+  &.upcoming {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .icon {
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+}
+
+
+  .timeline-content {
+    color: var(--white);
+    .event-date {
+      font-size: 0.75rem;
+      color: var(--lightgray);
+      margin-bottom: 4px;
+    }
+
+    .event-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .event-description {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+}

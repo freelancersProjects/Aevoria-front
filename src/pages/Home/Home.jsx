@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import Login from '../Login/Login';
 import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
-import TabSwitcher from '../../components/AEV/AEV.TabSwitcher/TabSwitcher';
+import TabFilters from '../../components/AEV/AEV.TabFilters/TabFilters';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
 import FirstSection from './FirstSection/FirstSection';
 import Dropdown from '../../components/AEV/AEV.Dropdown/Dropdown';
+import Checkbox from '../../components/AEV/AEV.Checkbox/CheckBox';
+import DatePicker from '../../components/AEV/AEV.DatePicker/DatePicker';
 import './Home.scss';
 import Banner from './Banner/Banner';
 
@@ -61,6 +63,8 @@ const slideData = [
 
 const Home = () => {
   const [selected, setSelected] = useState('');
+  const [agreed, setAgreed] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   return (
     <>
@@ -70,7 +74,7 @@ const Home = () => {
       <div className='container'>
         <p className="title-center mt-3">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
-        <TabSwitcher tabs={tabs} />
+        <TabFilters tabs={tabs} />
       </div>
 
       <div className='container-fluid'>
@@ -94,6 +98,11 @@ const Home = () => {
           <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
         </div>
       </div>
+        {selectedDate && (
+          <p style={{ marginTop: '20px', color: '#c9cbcc' }}>
+            Selected: {selectedDate.toDateString()}
+          </p>
+        )}
       <div className='container-promo'>
         <div className='container container-promo-text'>
           <p className="title-center text-up-promo">

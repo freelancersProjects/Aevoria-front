@@ -7,6 +7,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Cart from './pages/Cart/Cart';
+import DemoForm from './pages/DemoForm/DemoForm';
 import './App.css';
 import Subscription from './pages/Subscription/Subscription';
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/subscription" element={<Subscription />} />
+            <Route path="/demo-form" element={<DemoForm />} />
           </Routes>
         </Layout>
       </Router>
