@@ -38,7 +38,7 @@ const DemoForm = () => {
     { label: 'Apr', value: 3200 },
     { label: 'May', value: 2700 },
   ];
-  const [intensity, setIntensity] = useState(47);
+  const [intensity, setIntensity] = useState(4);
   const steps = [
     'Account Info',
     'Preferences',
@@ -177,8 +177,11 @@ const DemoForm = () => {
         <InteractiveGauge
           value={intensity}
           onChange={setIntensity}
-          unit="%"
-          valuePosition="above"
+          min={1}
+          max={40}
+          step={1}
+          unit=""
+          showValueAbove={true}
         />
 
         <ContextMenu />
