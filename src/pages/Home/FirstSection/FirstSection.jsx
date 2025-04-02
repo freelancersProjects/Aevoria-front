@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 import useFetch from "../../../hooks/useFetch";
 import ControllerIcon from "../../../../public/assets/svg/catalogue_game.svg?react";
 import Button from "../../../components/AEV/AEV.Button/Button";
-import Loader from "../../../components/AEV/AEV.Loader/Loader";
 import Toast from "../../../components/AEV/AEV.Toast/Toast";
+import Skeleton from "../../../components/AEV/AEV.Skeleton/Skeleton";
 import "./FirstSection.scss";
 
 const FirstSection = () => {
@@ -21,7 +21,6 @@ const FirstSection = () => {
     while (result.length < 20) {
       result.push(...shuffled);
     }
-
     return result.slice(0, 20);
   }, [mediaData]);
 
@@ -57,8 +56,12 @@ const FirstSection = () => {
 
         <div className="images-gallery">
           {loading ? (
-            <div className="image-loader-wrapper">
-              <Loader variant="logo" size="large" />
+            <div className="image-grid">
+              {Array.from({ length: 18 }).map((_, index) => (
+                <div key={index} className="image-item">
+                  <Skeleton width="100%" height="100%" rounded />
+                </div>
+              ))}
             </div>
           ) : (
             <div className="image-grid">

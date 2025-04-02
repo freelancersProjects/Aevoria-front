@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Header.scss";
 import Logo from "../../../../public/assets/images/Logo.png";
+import Badge from "../../AEV/AEV.Badge/Badge";
 import { Search, NotificationsNone, ShoppingCartOutlined, AccountCircle } from "@mui/icons-material";
 
 const megaMenu = [
@@ -108,8 +109,12 @@ const Header = () => {
                             <div className="search-icon-wrapper" onClick={() => setSearchOpen(true)}>
                                 <Search className="icon search-icon" />
                             </div>
-                            <NotificationsNone className="icon" />
-                            <ShoppingCartOutlined className="icon" />
+                            <Badge count={3}>
+                                <NotificationsNone className="icon" />
+                            </Badge>
+                            <Badge count={5}>
+                                <ShoppingCartOutlined className="icon" />
+                            </Badge>
                             <AccountCircle className="icon" />
                         </div>
                     )}

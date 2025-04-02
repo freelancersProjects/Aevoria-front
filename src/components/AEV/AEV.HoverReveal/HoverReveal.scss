@@ -1,0 +1,53 @@
+.aev-hover-reveal {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    .hover-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hover-img {
+      transform: scale(1.05);
+      filter: brightness(0.7);
+    }
+  }
+
+  .hover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    transition: all 0.3s ease;
+  }
+
+  .hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2, 9, 13, 0.2) 0%, rgba(0, 123, 255, 0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.35s ease;
+    backdrop-filter: blur(4px);
+    border-radius: inherit;
+  }
+
+  .hover-content {
+    color: white;
+    font-size: 1rem;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    font-weight: 600;
+  }
+}

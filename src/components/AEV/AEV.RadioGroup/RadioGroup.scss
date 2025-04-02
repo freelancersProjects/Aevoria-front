@@ -1,0 +1,64 @@
+.aev-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    cursor: pointer;
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    .custom-radio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      position: relative;
+      transition: border-color 0.3s ease;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        background: var(--blue);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.2s ease;
+      }
+    }
+
+    &.selected .custom-radio {
+      border-color: var(--blue);
+
+      &::after {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .label-text {
+      font-size: 0.95rem;
+      color: var(--lightgray);
+      transition: color 0.2s ease;
+    }
+
+    &.selected .label-text {
+      color: var(--blue);
+    }
+
+    &:hover .custom-radio {
+      border-color: var(--blue-low-opacity);
+    }
+  }
+}

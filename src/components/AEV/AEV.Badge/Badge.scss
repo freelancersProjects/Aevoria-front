@@ -1,0 +1,40 @@
+.aev-badge-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aev-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0 6px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+  pointer-events: none;
+  transition: all 0.2s ease;
+
+  &.glow {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+
+  &.dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    top: -4px;
+    right: -4px;
+    background: #0df;
+    box-shadow: 0 0 6px #0df;
+  }
+}

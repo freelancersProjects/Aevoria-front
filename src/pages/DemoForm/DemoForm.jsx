@@ -30,10 +30,15 @@ import ClipboardInput from '../../components/AEV/AEV.ClipboardInput/ClipboardInp
 import NumberInput from '../../components/AEV/AEV.NumberInput/NumberInput';
 import SearchBar from '../../components/AEV/AEV.SearchBar/SearchBar';
 import ColorPicker from '../../components/AEV/AEV.ColorPicker/ColorPicker';
+import HoverReveal from '../../components/AEV/AEV.HoverReveal/HoverReveal';
+import CurrencyInput from '../../components/AEV/AEV.CurrencyInput/CurrencyInput';
+import Rating from '../../components/AEV/AEV.Rating/Rating';
+import RadioGroup from '../../components/AEV/AEV.RadioGroup/RadioGroup';
 
 import './DemoForm.scss';
 
 import { FaRocket, FaStar, FaTrophy, FaFighterJet, FaMagic, FaShieldAlt } from 'react-icons/fa';
+import Link from '../../components/AEV/AEV.Link/Link';
 
 const DemoForm = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -57,6 +62,9 @@ const DemoForm = () => {
   const [amount, setAmount] = useState('0');
   const [searchQuery, setSearchQuery] = useState('');
   const [color, setColor] = useState('#00bfff');
+  const [price, setPrice] = useState('');
+  const [rating, setRating] = useState(3.5);
+const [selectedPlatform, setSelectedPlatform] = useState('pc');
 
   // Données diverses
   const steps = ['Account Info', 'Preferences', 'Verification', 'Finish', 'Payment', 'Review', 'Confirmation', 'Complete'];
@@ -119,6 +127,23 @@ const DemoForm = () => {
             maxLength={300}
             isResizable={true}
           />
+          <CurrencyInput
+            label="Game Price"
+            value={price}
+            onChange={setPrice}
+            symbol="€"
+            tooltip={`This is approximately ${price ? (parseFloat(price) * 1.07).toFixed(2) + ' USD' : '0 USD'}`}
+          />
+          <RadioGroup
+            name="platform"
+            options={[
+              { label: 'PC', value: 'pc' },
+              { label: 'PlayStation', value: 'ps' },
+              { label: 'Xbox', value: 'xbox' },
+            ]}
+            selected={selectedPlatform}
+            onChange={setSelectedPlatform}
+          />
           <ColorPicker value={color} onChange={setColor} />
           <SearchBar
             value={searchQuery}
@@ -153,6 +178,17 @@ const DemoForm = () => {
           <Timeline events={events} />
           <CountdownTimer targetDate={new Date('2025-04-18T18:00:00')} label="Next Drop In" />
           <InteractiveGauge value={intensity} onChange={setIntensity} min={1} max={40} step={1} unit="" />
+          <HoverReveal
+            image="https://picsum.photos/id/1015/600/400"
+            title="Secret Card"
+            revealContent={<p>Legendary Artifact Unlocked</p>}
+          />
+          <Link
+            href="https://store.steampowered.com/app/1245620/Elden_Ring/"
+            label="Voir sur Steam"
+            info="Redirection sécurisée vers Steam"
+            hoverInfo={true}
+          />
         </div>
       ),
     },
@@ -165,6 +201,7 @@ const DemoForm = () => {
           <GridSelector options={classOptions} selected={selectedClass} onSelect={setSelectedClass} multi={true} />
           <ContextMenu />
           <PillSelector options={categories} selected={selectedPill} onSelect={setSelectedPill} multi />
+          <Rating value={rating} onChange={setRating} interactive={true} />
           <SliderSelector
             slides={slides}
             autoPlay={true}

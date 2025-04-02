@@ -1,0 +1,29 @@
+.aev-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.pill {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(145, 166, 182, 0.2);
+  background: rgba(184, 207, 224, 0.12);
+  color: var(--white);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--blue);
+    box-shadow: 0 0 8px var(--blue-low-opacity);
+  }
+
+  &.active {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+    box-shadow: 0 0 12px var(--blue);
+  }
+}

@@ -1,0 +1,30 @@
+.aev-skeleton {
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0.05) 8%,
+    rgba(255, 255, 255, 0.08) 18%,
+    rgba(255, 255, 255, 0.05) 33%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.3s linear infinite;
+  display: inline-block;
+  border-radius: 4px;
+  margin: 4px 0;
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  &.rounded {
+    border-radius: 12px;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
