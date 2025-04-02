@@ -10,6 +10,7 @@ import Cart from './pages/Cart/Cart';
 import DemoForm from './pages/DemoForm/DemoForm';
 import './App.css';
 import Subscription from './pages/Subscription/Subscription';
+import WishlistViewCanvas from './pages/WishlistViewCanvas/WishlistViewCanvas';
 
 const hiddenLayouts = ['/login', '/register'];
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/demo-form" element={<DemoForm />} />
+            <Route path="/wishlist-view" element={<WishlistViewCanvas />} />
           </Routes>
         </Layout>
       </Router>

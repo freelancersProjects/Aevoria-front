@@ -1,0 +1,29 @@
+.aev-codeinput {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+
+  input {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--white);
+    font-family: "Montserrat", sans-serif;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 10px var(--blue);
+    }
+  }
+}

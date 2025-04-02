@@ -18,19 +18,54 @@ import UploadBox from '../../components/AEV/AEV.UploadBox/UploadBox';
 import SearchableDropdown from '../../components/AEV/AEV.SearchableDropdown/SearchableDropdown';
 import Toast from '../../components/AEV/AEV.Toast/Toast';
 import PillSelector from '../../components/AEV/AEV.PillSelector/PillSelector';
+import QuantitySelector from '../../components/AEV/AEV.QuantitySelector/QuantitySelector';
+import Popup from '../../components/AEV/AEV.Popup/Popup';
+import Button from '../../components/AEV/AEV.Button/Button';
+import SliderSelector from '../../components/AEV/AEV.SliderSelector/SliderSelector';
+import Image from '../../components/AEV/AEV.Image/Image';
+import Drawer from '../../components/AEV/AEV.Drawer/Drawer';
+import TextArea from '../../components/AEV/AEV.TextArea/TextArea';
+import CodeInput from '../../components/AEV/AEV.CodeInput/CodeInput';
+import ClipboardInput from '../../components/AEV/AEV.ClipboardInput/ClipboardInput';
+import NumberInput from '../../components/AEV/AEV.NumberInput/NumberInput';
+import SearchBar from '../../components/AEV/AEV.SearchBar/SearchBar';
+import ColorPicker from '../../components/AEV/AEV.ColorPicker/ColorPicker';
+
+import './DemoForm.scss';
 
 import { FaRocket, FaStar, FaTrophy, FaFighterJet, FaMagic, FaShieldAlt } from 'react-icons/fa';
 
-
 const DemoForm = () => {
   const [isOpen, setIsOpen] = useState(true);
+
+  // States partagés
   const [username, setUsername] = useState('');
   const [selectedGame, setSelectedGame] = useState('');
   const [birthDate, setBirthDate] = useState(null);
   const [agreed, setAgreed] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [answer, setAnswer] = useState('Non');
   const [selectedPill, setSelectedPill] = useState(['popular']);
+  const [selectedClass, setSelectedClass] = useState([]);
+  const [game, setGame] = useState('');
+  const [intensity, setIntensity] = useState(4);
+  const [qty, setQty] = useState(1);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [bio, setBio] = useState('');
+  const [amount, setAmount] = useState('0');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [color, setColor] = useState('#00bfff');
 
+  // Données diverses
+  const steps = ['Account Info', 'Preferences', 'Verification', 'Finish', 'Payment', 'Review', 'Confirmation', 'Complete'];
+  const events = [
+    { date: 'Jan 2024', title: 'Account Created', description: 'You joined the Aevoria platform.', icon: <FaRocket />, status: 'done' },
+    { date: 'Feb 2024', title: 'First Purchase', description: 'First order placed 🎉', icon: <FaStar />, status: 'done' },
+    { date: 'Mar 2024', title: 'Level 5', description: 'Unlocked “Rising Star” badge.', icon: <FaTrophy />, status: 'active' },
+    { date: 'April 2024', title: 'Invited Friends', description: 'Referral bonus coming soon!', status: 'upcoming' },
+  ];
   const data = [
     { label: 'Jan', value: 1000 },
     { label: 'Feb', value: 2300 },
@@ -38,66 +73,17 @@ const DemoForm = () => {
     { label: 'Apr', value: 3200 },
     { label: 'May', value: 2700 },
   ];
-  const [intensity, setIntensity] = useState(4);
-  const steps = [
-    'Account Info',
-    'Preferences',
-    'Verification',
-    'Finish',
-    'Payment',
-    'Review',
-    'Confirmation',
-    'Complete'
+  const categories = [
+    { label: 'All', value: 'all' },
+    { label: 'Popular', value: 'popular' },
+    { label: 'New', value: 'new' },
+    { label: 'XP+', value: 'xp' }
   ];
-
-  const [answer, setAnswer] = useState('Non');
-  const tabs = [
-    {
-      label: 'Dashboard',
-      content: <div>Dashboard content goes here</div>,
-    },
-    {
-      label: 'My Orders',
-      content: <div>Order history & tracking</div>,
-    },
-    {
-      label: 'Affiliation',
-      content: <div>Referral links & stats</div>,
-    },
+  const classOptions = [
+    { label: 'Warrior', value: 'warrior', icon: <FaShieldAlt /> },
+    { label: 'Mage', value: 'mage', icon: <FaMagic /> },
+    { label: 'Rogue', value: 'rogue', icon: <FaFighterJet /> }
   ];
-  const events = [
-    {
-      date: 'Jan 2024',
-      title: 'Account Created',
-      description: 'You joined the Aevoria platform. Welcome!',
-      icon: <FaRocket />,
-      status: 'done',
-    },
-    {
-      date: 'Feb 2024',
-      title: 'First Purchase',
-      description: 'You placed your first order 🎉',
-      icon: <FaStar />,
-      status: 'done',
-    },
-    {
-      date: 'Mar 2024',
-      title: 'Reached Level 5',
-      description: 'You unlocked the “Rising Star” badge.',
-      icon: <FaTrophy />,
-      status: 'active',
-    },
-    {
-      date: 'April 2024',
-      title: 'Invited 3 Friends',
-      description: 'Referral bonus incoming!',
-      status: 'upcoming',
-    },
-  ];
-
-  const [selected, setSelected] = useState([]);
-  const [game, setGame] = useState('');
-
   const optionsDrop = [
     { label: 'Elden Ring', value: 'elden' },
     { label: 'Valorant', value: 'valorant' },
@@ -105,100 +91,154 @@ const DemoForm = () => {
     { label: 'Baldur’s Gate 3', value: 'bg3' },
     { label: 'Skyrim', value: 'skyrim' }
   ];
+  const slides = [
+    { image: 'https://picsum.photos/seed/1/400/250', title: 'Game One' },
+    { image: 'https://picsum.photos/seed/2/400/250', title: 'Game Two' },
+    { image: 'https://picsum.photos/seed/3/400/250', title: 'Game Three' },
+    { image: 'https://picsum.photos/seed/4/400/250', title: 'Game Four' },
+  ];
 
-  const options = [
-    { label: 'Warrior', value: 'warrior', icon: <FaShieldAlt /> },
-    { label: 'Mage', value: 'mage', icon: <FaMagic /> },
-    { label: 'Rogue', value: 'rogue', icon: <FaFighterJet /> }
+  const tabSections = [
+    {
+      label: 'Inputs',
+      content: (
+        <div className="tab-section">
+          <h3>Form Components</h3>
+          <TextInput label="Username" value={username} onChange={setUsername} placeholder="Enter your username" />
+          <Dropdown label="Game" value={selectedGame} options={optionsDrop.map(o => o.label)} onSelect={setSelectedGame} />
+          <SearchableDropdown options={optionsDrop} value={game} onSelect={setGame} placeholder="Choose your game" />
+          <DatePicker value={birthDate} onChange={setBirthDate} placeholder="Select birth date" />
+          <QuantitySelector value={qty} onChange={setQty} min={1} max={10} />
+          <Checkbox label="Accept terms" checked={agreed} onChange={setAgreed} />
+          <Switch label="Enable notifications" checked={notificationsEnabled} onChange={setNotificationsEnabled} />
+          <TextArea
+            label="Your Bio"
+            placeholder="Tell us about your gaming journey..."
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            maxLength={300}
+            isResizable={true}
+          />
+          <ColorPicker value={color} onChange={setColor} />
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            onSearch={(val) => console.log("Search:", val)}
+            placeholder="Search for games, friends, or events..."
+          />
+          <CodeInput
+            length={6}
+            onComplete={(code) => console.log('Code entered:', code)}
+          />
+          <ClipboardInput
+            label="Your referral code"
+            value="AEV-3941-REWARD"
+          />
+          <NumberInput
+            label="Amount"
+            value={amount}
+            onChange={setAmount}
+            placeholder="Enter a number"
+          />
+        </div>
+      ),
+    },
+    {
+      label: 'Visuals',
+      content: (
+        <div className="tab-section">
+          <h3>Graph & Steps</h3>
+          <StatGraph data={data} />
+          <StepProgress steps={steps} currentStep={4} />
+          <Timeline events={events} />
+          <CountdownTimer targetDate={new Date('2025-04-18T18:00:00')} label="Next Drop In" />
+          <InteractiveGauge value={intensity} onChange={setIntensity} min={1} max={40} step={1} unit="" />
+        </div>
+      ),
+    },
+    {
+      label: 'Interaction',
+      content: (
+        <div className="tab-section">
+          <h3>Choices & Actions</h3>
+          <ChoiceSwitch options={['Non', 'Oui']} selected={answer} onChange={setAnswer} size="md" />
+          <GridSelector options={classOptions} selected={selectedClass} onSelect={setSelectedClass} multi={true} />
+          <ContextMenu />
+          <PillSelector options={categories} selected={selectedPill} onSelect={setSelectedPill} multi />
+          <SliderSelector
+            slides={slides}
+            autoPlay={true}
+            interval={4000}
+            loop={true}
+            showMultiple={3}
+            cropOverflow={true}
+            clickable={true}
+            onSlideClick={(slide) => console.log('Clicked slide:', slide)}
+          />
+          <Image
+            src="https://picsum.photos/seed/20/800/500"
+            alt="Mysterious Mountain"
+            description="Captured at sunrise — this misty ridge inspired the zone in Eldoria."
+            clickable={true}
+          />
+          </div>
+      ),
+    },
+    {
+      label: 'Files',
+      content: (
+        <div className="tab-section">
+          <h3>Upload</h3>
+          <UploadBox onUpload={setUploadedFile} accept="image/*" />
+        </div>
+      ),
+    },
+    {
+      label: 'Misc',
+      content: (
+        <div className="tab-section">
+          <h3>Toast Example</h3>
+          <Toast message="This is an info toast." type="info" duration={8000} />
+          {showPopup && (
+            <Popup
+              message="Are you sure you want to delete this item?"
+              onConfirm={() => {
+                console.log('Confirmed');
+                setShowPopup(false);
+              }}
+              onCancel={() => setShowPopup(false)}
+              confirmLabel="Delete"
+              cancelLabel="Keep"
+            />
+          )}
+          <Button text="Show Popup" variant="transparent" size="medium" onClick={() => setShowPopup(true)} />
+          <Button
+            text="Afficher Drawer"
+            variant="primary"
+            size="medium"
+            onClick={() => setOpenDrawer(true)}
+          />
+          <Drawer
+            isOpen={openDrawer}
+            onClose={() => setOpenDrawer(false)}
+            position="left"
+            title="Game Settings"
+            subtitle="Customize your experience"
+          >
+            <TextInput label="Name your character" placeholder="Enter a name" />
+            <Checkbox label="Enable Hardcore Mode" />
+          </Drawer>
+        </div>
+      ),
+    }
   ];
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const categories = [
-    { label: 'All', value: 'all' },
-    { label: 'Popular', value: 'popular' },
-    { label: 'New', value: 'new' },
-    { label: 'XP+', value: 'xp' }
-  ];
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Toast message="Your settings have been saved" type="info" duration="50000" />
-        <h2 className="title-center">Join Aevoria</h2>
-
-        <div className="form-grid">
-          <TextInput
-            label="Username"
-            placeholder="Enter your username"
-            value={username}
-            onChange={setUsername}
-          />
-
-          <Dropdown
-            label="Select game"
-            value={selectedGame}
-            options={['Cyberpunk', 'Valorant', 'Elden Ring']}
-            onSelect={setSelectedGame}
-            size="sm"
-          />
-          <SearchableDropdown
-            options={optionsDrop}
-            value={game}
-            onSelect={setGame}
-            placeholder="Choose your game"
-          />
-          <DatePicker
-            value={birthDate}
-            onChange={setBirthDate}
-            placeholder="Birth date"
-          />
-        </div>
-
-        <Checkbox
-          label="I accept the terms"
-          checked={agreed}
-          onChange={setAgreed}
-        />
-        <ChoiceSwitch
-          options={['Non', 'Oui']}
-          selected={answer}
-          onChange={setAnswer}
-          size="md"
-        />
-        <Switch
-          label="Enable notifications"
-          checked={notificationsEnabled}
-          onChange={setNotificationsEnabled}
-        />
-        <StatGraph data={data} />
-        <StepProgress steps={steps} currentStep={4} />
-        <TabSwitcher tabs={tabs} />
-        <Timeline events={events} />
-        <CountdownTimer targetDate={new Date('2025-04-18T18:00:00')} label="Next Drop In" />
-
-        <InteractiveGauge
-          value={intensity}
-          onChange={setIntensity}
-          min={1}
-          max={40}
-          step={1}
-          unit=""
-          showValueAbove={true}
-        />
-
-        <ContextMenu />
-        <GridSelector
-          options={options}
-          selected={selected}
-          onSelect={setSelected}
-        />
-        <UploadBox onUpload={(file) => setUploadedFile(file)} accept="image/*" />
-        <PillSelector
-          options={categories}
-          selected={selectedPill}
-          onSelect={setSelectedPill}
-          multi={true}
-        />
+        <h2 className="title-center">Aevoria UI Components Demo</h2>
+        <TabSwitcher tabs={tabSections} />
       </Modal>
-
     </>
   );
 };
