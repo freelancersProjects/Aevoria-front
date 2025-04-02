@@ -1,0 +1,21 @@
+.header-page {
+  background-color: #1a1a1a;
+  padding: 15px;
+  color: white;
+
+  .navigation {
+    display: flex;
+    gap: 15px;
+
+    button {
+      background-color: transparent;
+      color: white;
+      border: none;
+      cursor: pointer;
+      
+      &:hover {
+        color: #3a7bd5;
+      }
+    }
+  }
+}

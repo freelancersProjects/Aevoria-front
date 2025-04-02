@@ -1,0 +1,63 @@
+.affiliation-container {
+  padding: 20px;
+  
+  .section-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .affiliation-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    
+    .affiliation-card {
+      background-color: var(--second-background);
+      border-radius: 8px;
+      padding: 16px;
+      
+      .affiliation-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-transparent);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        
+        i {
+          font-size: 20px;
+          color: var(--transparent-white);
+        }
+      }
+      
+      .affiliation-detail {
+        font-size: 12px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        
+        .separator {
+          margin: 0 8px;
+          color: var(--transparent-white);
+        }
+      }
+      
+      .affiliation-progress {
+        .progress-bar {
+          height: 4px;
+          background-color: var(--color-transparent);
+          border-radius: 2px;
+          margin-bottom: 8px;
+          
+          .progress-fill {
+            height: 100%;
+            background-color: var(--blue);
+            border-radius: 2px;
+          }
+        }
+      }
+    }
+  }
+}
