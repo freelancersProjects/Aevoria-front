@@ -1,0 +1,41 @@
+.faq-wrapper {
+  width: 100%;
+  padding: 60px 20px;
+  background-color: var(--dark-background);
+
+  .faq-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .faq-title-side {
+    flex: 0 0 auto;
+    white-space: nowrap;
+
+    .faq-title {
+      font-family: "Instrument Sans", sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: normal;
+      background: linear-gradient(270deg, rgba(255, 255, 255, 0.6) 0%, #fff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  .faq-list-side {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; // important pour ellipsis à droite si nécessaire
+  }
+}

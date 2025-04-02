@@ -3,15 +3,19 @@ import useFetch from "../../../hooks/useFetch";
 import ControllerIcon from "../../../../public/assets/svg/catalogue_game.svg?react";
 import Button from "../../../components/AEV/AEV.Button/Button";
 import Loader from "../../../components/AEV/AEV.Loader/Loader";
+import Toast from "../../../components/AEV/AEV.Toast/Toast";
 import "./FirstSection.scss";
 
 const FirstSection = () => {
-  const { data: mediaData, loading, error } = useFetch("/games/media/images");
+  const { data: mediaData, loading, error } = useFetch("/games/media/game-images");
 
   const randomizedImages = useMemo(() => {
     const imageArray = mediaData?.$values || mediaData || [];
     if (!Array.isArray(imageArray) || imageArray.length === 0) return [];
-
+    if (error) {
+      Toast.error("Erreur lors du chargement des images.");
+      return [];
+    }
     const shuffled = [...imageArray].sort(() => 0.5 - Math.random());
     const result = [];
     while (result.length < 20) {

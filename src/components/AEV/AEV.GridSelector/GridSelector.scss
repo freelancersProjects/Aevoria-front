@@ -1,0 +1,51 @@
+.aev-grid-selector {
+  display: grid;
+  gap: 20px;
+
+  &.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &.grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-item {
+    padding: 20px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid transparent;
+    color: var(--white);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+      border-color: rgba(0, 123, 255, 0.5);
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    }
+
+    &.selected {
+      border-color: var(--blue);
+      box-shadow: 0 0 12px var(--blue);
+      background: rgba(0, 123, 255, 0.08);
+    }
+
+    .icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}

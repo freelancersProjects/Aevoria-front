@@ -1,134 +1,197 @@
-.header {
+.neo-header {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 30px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--white);
-  font-family: 'Instrument Sans', sans-serif;
-  transition: all 0.3s ease-in-out;
-  border-radius: 20px;
-  z-index: 100;
-}
-
-.header.scrolled {
-  padding: 10px 25px;
-  border-radius: 15px;
-  width: 80%;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.header.expanded {
   width: 100%;
-  justify-content: center;
+  padding: 16px 0;
+  z-index: 999;
+  background: rgba(2, 9, 13, 0.65);
+  backdrop-filter: blur(14px);
+  transition: all 0.3s ease;
+
+  &.scrolled {
+    padding: 10px 0;
+    background: rgba(2, 9, 13, 0.92);
+    border-radius: 0 0 20px 20px;
+  }
+
+  .header-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .left .logo {
+    height: 42px;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.1));
+  }
+
+  .brand-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #d7dfe4;
+    text-transform: uppercase;
+    cursor: pointer;
+    align-items: center;
+
+  }
+
+  .center {
+    display: flex;
+    gap: 36px;
+    font-weight: 600;
+    color: #d7dfe4;
+    position: relative;
+    justify-content: center;
+    flex: 1;
+
+    .nav-item {
+      position: relative;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s ease;
+
+      &:hover {
+        color: var(--blue);
+      }
+
+      .mega-panel {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(3, 6, 14, 0.95);
+        border-radius: 16px;
+        padding: 30px 40px;
+        display: flex;
+        gap: 60px;
+        min-width: 100%;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        animation: fadeIn 0.2s ease;
+
+        .mega-group {
+          h4 {
+            font-size: 14px;
+            color: #ffffffcc;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+          }
+
+          ul {
+            list-style: none;
+            padding: 0;
+
+            li {
+              margin-bottom: 8px;
+
+              a {
+                color: #d7dfe4;
+                font-size: 15px;
+                text-decoration: none;
+                transition: 0.2s ease;
+
+                &:hover {
+                  color: white;
+                  padding-left: 6px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .icons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      .icon {
+        font-size: 26px;
+        color: #d7dfe4;
+        transition: 0.2s;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--blue);
+          transform: scale(1.1);
+        }
+      }
+
+      .search-icon-wrapper {
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .search-icon {
+          font-size: 24px;
+        }
+
+        &:hover {
+          background: var(--blue-low-opacity);
+        }
+      }
+    }
+
+    .search-bar-expanded {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      padding: 10px 20px;
+      width: 400px;
+
+      input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 15px;
+        flex: 1;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+        }
+      }
+
+      button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo {
-  width: 35px;
-  height: 35px;
-}
-
-.brand-name {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.nav {
-  display: flex;
-  gap: 15px;
-  position: relative;
-}
-
-.nav a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
-  transition: color 0.3s ease-in-out;
-  position: relative;
-  padding-bottom: 5px;
-}
-
-.nav a.active {
-  color: white;
-}
-
-.nav a:hover {
-  color: white;
-}
-
-.nav-indicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 80px; /* Dynamique selon le texte */
-  height: 2px;
-  background: var(--blue);
-  box-shadow: 0 0 10px var(--blue); /* Effet néon */
-  transition: left 0.3s ease-in-out;
-}
-
-.header-icons {
-  display: flex;
-  gap: 10px;
-}
-
-.icon {
-  width: 22px;
-  height: 22px;
-  cursor: pointer;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.icon:hover {
-  opacity: 0.7;
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 10px;
-  transition: all 0.4s ease-in-out;
-}
-
-.search-container input {
-  flex: 1;
-  max-width: 600px;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--white);
-  font-size: 16px;
-  padding: 5px;
-  transition: width 0.4s ease-in-out;
-}
-
-.close-search {
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 20px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.close-search:hover {
-  opacity: 0.7;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

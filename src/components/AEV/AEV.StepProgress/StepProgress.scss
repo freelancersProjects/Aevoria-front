@@ -1,0 +1,68 @@
+.step-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  gap: 0;
+  padding: 40px 0;
+}
+
+.step-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #2a2f35;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .step-circle.completed {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+
+  .step-circle.active {
+    background: #02090D;
+    border: 2px solid var(--blue);
+    color: var(--blue);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  }
+
+  .step-line {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    top: 50%;
+    left: 50%;
+    transform: translateX(18px);
+    z-index: 1;
+  }
+
+  .step-line.completed {
+    background: var(--blue);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+  }
+
+  .step-line.active {
+    background: var(--blue);
+    opacity: 0.5;
+  }
+}

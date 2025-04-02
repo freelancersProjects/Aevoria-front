@@ -1,0 +1,62 @@
+.demoform-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: #02090D;
+  padding: 80px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demoform-container {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, var(--dark-blue), rgba(32, 156, 255, 0.35));
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: inset 0 0 20px rgba(0, 123, 255, 0.06), 0 0 20px rgba(0, 123, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+}
+
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  > * {
+    flex: 1 1 240px;
+  }
+}
+
+.checkbox-wrapper {
+  margin-top: 10px;
+}
+
+.preview {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--lightgray);
+
+  strong {
+    color: var(--white);
+  }
+
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: white;
+  }
+
+  p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+  }
+}

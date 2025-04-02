@@ -1,0 +1,41 @@
+.tab-filters {
+  display: flex;
+  position: relative;
+  background: var(--second-background);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 40px;
+  padding: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: 0 auto 30px auto;
+  max-width: 950px;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--transparent-white);
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.tab-button.active {
+  color: var(--white);
+  font-weight: bold;
+}
+
+.active-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: 2px;
+  width: 20%;
+  background: var(--blue);
+  border-radius: 40px;
+  transition: left 0.3s ease-in-out;
+  z-index: 1;
+}
