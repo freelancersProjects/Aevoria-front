@@ -235,7 +235,10 @@ const [selectedPlatform, setSelectedPlatform] = useState('pc');
       content: (
         <div className="tab-section">
           <h3>Toast Example</h3>
-          <Toast message="This is an info toast." type="info" duration={8000} />
+          {/* <Toast message="This is an info toast." type="info" duration={8000} /> */}
+          <Toast message="This is a success toast." type="success" duration={8000} />
+          {/* <Toast message="This is a warning toast." type="warning" duration={8000} /> */}
+          {/* <Toast message="This is an error toast." type="error" duration={8000} /> */}
           {showPopup && (
             <Popup
               message="Are you sure you want to delete this item?"
