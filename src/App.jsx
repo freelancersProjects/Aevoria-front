@@ -12,7 +12,7 @@ import './App.css';
 import Subscription from './pages/Subscription/Subscription';
 import WishlistViewCanvas from './pages/WishlistViewCanvas/WishlistViewCanvas';
 
-const hiddenLayouts = ['/login', '/register'];
+const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view'];
 
 function Layout({ children }) {
   const location = useLocation();

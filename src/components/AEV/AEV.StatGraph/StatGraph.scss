@@ -32,3 +32,11 @@
   color: var(--white);
   box-shadow: 0 0 12px rgba(0, 123, 255, 0.3);
 }
+
+.recharts-rectangle .recharts-tooltip-cursor{
+  display: none !important;
+}
+
+.recharts-tooltip-wrapper .recharts-tooltip-wrapper-right .recharts-tooltip-wrapper-bottom{
+  color: white !important;
+}

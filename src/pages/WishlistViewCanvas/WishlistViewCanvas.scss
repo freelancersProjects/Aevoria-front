@@ -1,9 +1,7 @@
-.wishlist-canvas-page {
-    margin-top: 200px;
+.wishlist-canvas-wrapper {
   width: 100vw;
   height: 100vh;
-  background-color: #00050D;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  background: #0d1117;
+  position: relative;
 }
