@@ -8,12 +8,12 @@
   margin: 20px 0;
 
   &-solid {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--white);
+    color: var(--black);
     border: none;
 
     &:hover {
-      background-color: #f0f0f0;
+      background-color: var(--hover-white);
     }
   }
 

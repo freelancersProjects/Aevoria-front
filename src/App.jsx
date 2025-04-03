@@ -20,7 +20,7 @@ function Layout({ children }) {
 
   return (
     <div className="app-container">
-      {!hideLayout && <Header />}
+      {!hideLayout && <Header onNotifClick={() => setDrawerOpen(true)} />}
       <div className="content-container">{children}</div>
       {!hideLayout && <Footer />}
     </div>
