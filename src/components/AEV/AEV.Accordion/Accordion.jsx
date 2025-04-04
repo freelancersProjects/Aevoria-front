@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import ArrowDown from "../../../../public/assets/svg/arrow-down.svg";
+
 import "./Accordion.scss";
 
 const Accordion = ({ title, content, isOpen = false }) => {
@@ -11,9 +13,7 @@ const Accordion = ({ title, content, isOpen = false }) => {
             <div className="accordion-header">
                 <span className="accordion-title font-montserrat">{title}</span>
                 <span className={`accordion-icon ${open ? "rotate" : ""}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
-                        <path d="M6.5 9L12.5 15L18.5 9" stroke="#D7DFE4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <img src={ArrowDown} alt="Arrow Down" />
                 </span>
             </div>
             <div className="accordion-content font-montserrat">
