@@ -1,0 +1,36 @@
+.icon-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 24px;
+    padding: 20px;
+    background: #0a0f14;
+    border-radius: 12px;
+}
+
+.icon-item {
+    text-align: center;
+    color: var(--white);
+    font-family: "Montserrat", sans-serif;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05);
+        background: rgba(0, 123, 255, 0.1);
+    }
+
+    .icon-preview {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 8px;
+        fill: var(--white);
+    }
+
+    .icon-name {
+        font-size: 0.8rem;
+        opacity: 0.7;
+    }
+}

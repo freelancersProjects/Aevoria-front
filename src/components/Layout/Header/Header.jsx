@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.scss";
-import Logo from "../../../../public/assets/images/Logo.png";
+import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import SearchBar from "../../AEV/AEV.SearchBar/SearchBar";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";

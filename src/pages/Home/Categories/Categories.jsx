@@ -3,18 +3,18 @@ import CategoryCard from "../../../components/AEV/AEV.CategoriesCard/CategoryCar
 import "./Categories.scss";
 
 const categories = [
-  { title: "FPS", image: "/assets/images/photo-test.webp" },
-  { title: "Jeux solo", image: "/assets/images/photo-test.webp" },
-  { title: "Stratégie", image: "/assets/images/photo-test.webp" },
-  { title: "Simulation", image: "/assets/images/photo-test.webp" },
-  { title: "Sport", image: "/assets/images/photo-test.webp" },
-  { title: "Jeux Multijoueur", image: "/assets/images/photo-test.webp" },
-  { title: "Horreur", image: "/assets/images/photo-test.webp" },
-  { title: "Course", image: "/assets/images/photo-test.webp" },
-  { title: "RPG", image: "/assets/images/photo-test.webp" },
-  { title: "Aventure", image: "/assets/images/photo-test.webp" },
-  { title: "Action", image: "/assets/images/photo-test.webp" },
-  { title: "Combat", image: "/assets/images/photo-test.webp" },
+  { title: "FPS", image: "/src/assets/images/photo-test.webp" },
+  { title: "Jeux solo", image: "/src/assets/images/photo-test.webp" },
+  { title: "Stratégie", image: "/src/assets/images/photo-test.webp" },
+  { title: "Simulation", image: "/src/assets/images/photo-test.webp" },
+  { title: "Sport", image: "/src/assets/images/photo-test.webp" },
+  { title: "Jeux Multijoueur", image: "/src/assets/images/photo-test.webp" },
+  { title: "Horreur", image: "/src/assets/images/photo-test.webp" },
+  { title: "Course", image: "/src/assets/images/photo-test.webp" },
+  { title: "RPG", image: "/src/assets/images/photo-test.webp" },
+  { title: "Aventure", image: "/src/assets/images/photo-test.webp" },
+  { title: "Action", image: "/src/assets/images/photo-test.webp" },
+  { title: "Combat", image: "/src/assets/images/photo-test.webp" },
 ];
 
 const Categories = () => {

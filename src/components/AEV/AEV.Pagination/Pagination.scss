@@ -1,0 +1,37 @@
+.aev-pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 20px;
+
+  .nav-btn,
+  .page-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(0, 123, 255, 0.3);
+    color: var(--white);
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+
+    &:hover {
+      background: var(--blue);
+      box-shadow: 0 0 10px var(--glow-blue);
+      border-color: var(--blue);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background: var(--blue);
+      box-shadow: 0 0 12px var(--glow-blue);
+      font-weight: bold;
+    }
+  }
+}

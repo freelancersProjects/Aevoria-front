@@ -1,11 +1,10 @@
-// GameCard.jsx
 import React from "react";
 import "./GameCard.scss";
 import PropTypes from 'prop-types';
-import SteamIcon from "../../../../public/assets/svg/steam.svg?react";
-import EpicIcon from "../../../../public/assets/svg/epic-games.svg?react";
-import PlaystationIcon from "../../../../public/assets/svg/playstation.svg?react";
-import DefaultImage from "../../../../public/assets/images/photo-test.webp";
+import SteamIcon from "../../../assets/svg/steam.svg?react";
+import EpicIcon from "../../../assets/svg/epic-games.svg?react";
+import PlaystationIcon from "../../../assets/svg/playstation.svg?react";
+import DefaultImage from "../../../assets/images/photo-test.webp";
 
 const GameCard = ({
     image,

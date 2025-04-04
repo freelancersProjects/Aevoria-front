@@ -12,7 +12,7 @@ const promotionalGames = [
     isSteam: true,
     isEpic: true,
     isPlaystation: true,
-    image: "/assets/images/photo-test.webp"
+    image: "/src/assets/images/photo-test.webp"
   },
   {
     title: "The Witcher 3",
@@ -22,7 +22,7 @@ const promotionalGames = [
     isSteam: true,
     isEpic: true,
     isPlaystation: true,
-    image: "/assets/images/photo-test.webp"
+    image: "/src/assets/images/photo-test.webp"
   },
   {
     title: "Minecraft",
@@ -32,7 +32,7 @@ const promotionalGames = [
     isSteam: true,
     isEpic: true,
     isPlaystation: true,
-    image: "/assets/images/photo-test.webp"
+    image: "/src/assets/images/photo-test.webp"
   }
 ];
 
