@@ -1,0 +1,163 @@
+@use "../../styles/global" as *;
+
+.sidebar {
+  width: 300px;
+  height: 100vh;
+  background: linear-gradient(to bottom, $background-black, $dark-blue);
+  color: $white;
+  padding: 20px 0;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  border-right: 2px solid $glow-blue;
+
+  .logo {
+    margin-bottom: 30px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-left: 10px;
+      color: $white;
+    }
+
+    img {
+      width: 30px;
+      height: 34px;
+    }
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 20px 0;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 20px;
+
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: $dark-red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $white;
+      font-size: 20px;
+      font-weight: bold;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    .profile-info {
+      margin-left: 15px;
+
+      h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: $white;
+        cursor: pointer;
+      }
+
+      .container-badgeupgrade {
+        display: flex;
+        align-items: center;
+
+        .badge {
+          font-size: 13px;
+          color: $lightgray;
+        }
+
+        .upgrade {
+          margin-left: 10px;
+          background-color: $glow-blue;
+          color: $dark-background;
+          border: none;
+          padding: 5px 10px;
+          border-radius: 14px;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: background 0.2s ease;
+
+          &:hover {
+            background: $blue-light;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+
+      &:hover {
+        background-color: $blue-low-opacity;
+      }
+
+      .list-side {
+        color: $white;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-right: 16px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .menu-title {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    margin: 20px 20px 10px;
+    letter-spacing: 0.5px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $glow-blue;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-black;
+  }
+}
