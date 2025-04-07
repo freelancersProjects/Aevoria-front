@@ -57,7 +57,7 @@ const Sidebar = () => {
             {/* CONTENT */}
             <h4 className="menu-title">Content</h4>
             <ul className="menu">
-                <li><p className="list-side"><CalendarMonth /> Calendar</p></li>
+                <li onClick={() => navigate('/calendar')}><p className="list-side"><CalendarMonth /> Calendar</p></li>
                 <li><p className="list-side"><Description /> Pages</p></li>
                 <li><p className="list-side"><NoteAlt /> Notes</p></li>
             </ul>

@@ -1,0 +1,203 @@
+@import "../../../styles/global.scss";
+
+.aev-calendar-container {
+  padding: 24px;
+  background-color: $dark-background;
+  color: $white;
+  height: 100%;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: $white;
+  }
+
+    .rbc-off-range {
+      background-color: rgba(255, 255, 255, 0.02);
+      opacity: 0.3;
+    }
+
+  .rbc-calendar {
+    background: $second-background;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 123, 255, 0.1);
+    box-shadow: 0 0 18px rgba(0, 123, 255, 0.08);
+    font-family: "Montserrat", sans-serif;
+    padding: 12px;
+  }
+
+    .rbc-toolbar button {
+      background: var(--gray-background);
+      border: 1px solid var(--blue-low-opacity);
+      color: var(--white);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-right: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--blue);
+        color: var(--white);
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+  .rbc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+
+    .rbc-toolbar-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: $white;
+    }
+
+    .rbc-btn-group {
+      display: flex;
+      gap: 8px;
+
+      button {
+        background: $gray-background;
+        border: 1px solid $blue-low-opacity;
+        color: $white;
+        padding: 6px 16px;
+        font-size: 13px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+
+        &:hover {
+          background: $blue-light;
+          transform: scale(1.05);
+          box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        &.rbc-active {
+          background: $blue;
+        }
+      }
+    }
+  }
+
+  .rbc-month-view,
+  .rbc-time-view {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .rbc-timeslot-group {
+    min-height: 48px;
+  }
+
+.rbc-time-slot {
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: background 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.08);
+  }
+}
+
+  .rbc-time-header-content,
+  .rbc-time-content>*+* {
+    border-left: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .rbc-time-gutter,
+  .rbc-header {
+    background-color: transparent;
+    color: $lightgray;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+.rbc-off-range-bg{
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.rbc-today {
+  background-color: rgba(0, 123, 255, 0.03);
+}
+
+  .rbc-event {
+    background: $blue;
+    color: $white;
+    font-size: 13px;
+    border-radius: 8px;
+    padding: 6px 10px;
+    border: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $blue-light;
+      transform: scale(1.02);
+      cursor: pointer;
+    }
+  }
+
+  // Modal style
+  .calendar-modal {
+    padding: 24px;
+
+    h3 {
+      margin-bottom: 16px;
+      color: $white;
+    }
+
+    .calendar-input {
+      margin-bottom: 12px;
+    }
+
+    .calendar-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+
+      .cancel-btn,
+      .save-btn {
+        padding: 10px 18px;
+        font-weight: 600;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .cancel-btn {
+        background: $gray-background;
+        color: $white;
+
+        &:hover {
+          background: darken($gray-background, 5%);
+        }
+      }
+
+      .save-btn {
+        background: $blue;
+        color: $white;
+
+        &:hover {
+          background: $blue-light;
+        }
+      }
+    }
+  }
+}
+
+.rbc-slot-selection {
+  background-color: rgba(0, 123, 255, 0.2);
+  border: 1px dashed $blue;
+}
+
+.rbc-selected-cell {
+  background-color: rgba(0, 123, 255, 0.05) !important;
+}

@@ -1,108 +1,13 @@
 @import "../../../styles/global.scss";
 
 .developers-page {
-    padding: 30px;
+    padding: 24px;
     color: $white;
 
-    .dev-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 25px;
-
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-
-        button {
-            background: $blue;
-            color: $white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(32, 156, 255, 0.3);
-
-            &:hover {
-                background: lighten($blue, 5%);
-            }
-        }
-    }
-
-    .dev-list {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-
-        .dev-card {
-            background: $dark-blue;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-left: 4px solid $blue;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease;
-
-            &:hover {
-                box-shadow: 0 0 14px rgba(32, 156, 255, 0.3);
-            }
-
-            .dev-info {
-                h3 {
-                    font-size: 1.2rem;
-                    font-weight: 600;
-                    margin-bottom: 6px;
-                }
-
-                p {
-                    color: $lightgray;
-                    margin-bottom: 6px;
-                }
-
-                .joined {
-                    font-size: 0.85rem;
-                    color: rgba(255, 255, 255, 0.5);
-                }
-            }
-
-            .dev-actions {
-                display: flex;
-                gap: 10px;
-
-                button {
-                    padding: 6px 14px;
-                    border-radius: 6px;
-                    border: none;
-                    cursor: pointer;
-                    font-weight: 500;
-                    transition: 0.2s;
-
-                    &.view {
-                        background: rgba(255, 255, 255, 0.05);
-                        color: $white;
-
-                        &:hover {
-                            background: rgba(255, 255, 255, 0.1);
-                        }
-                    }
-
-                    &.edit {
-                        background: $blue;
-                        color: $white;
-
-                        &:hover {
-                            background: lighten($blue, 5%);
-                        }
-                    }
-                }
-            }
-        }
+    .developers-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 24px;
+        color: $white;
     }
 }

@@ -9,7 +9,8 @@
 .app-layout {
     display: flex;
     height: 100vh;
-    background: var(--blue-low-opacity);
+    width: 100vw;
+    overflow: hidden;
 }
 
 .main-content {
