@@ -8,9 +8,6 @@ import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
 import Promotions from "./Promotions/Promotions";
 import FirstSection from './FirstSection/FirstSection';
-import Dropdown from '../../components/AEV/AEV.Dropdown/Dropdown';
-import Checkbox from '../../components/AEV/AEV.Checkbox/CheckBox';
-import DatePicker from '../../components/AEV/AEV.DatePicker/DatePicker';
 import './Home.scss';
 import Banner from './Banner/Banner';
 
@@ -62,13 +59,8 @@ const slideData = [
 ];
 
 const Home = () => {
-  const [selected, setSelected] = useState('');
-  const [agreed, setAgreed] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-
   return (
     <>
-
       <FirstSection />
       <Slider slides={slideData} />
       <div className='container'>
@@ -98,11 +90,6 @@ const Home = () => {
           <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
         </div>
       </div>
-        {selectedDate && (
-          <p style={{ marginTop: '20px', color: '#c9cbcc' }}>
-            Selected: {selectedDate.toDateString()}
-          </p>
-        )}
       <div className='container-promo'>
         <div className='container container-promo-text'>
           <p className="title-center text-up-promo">

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
-import SteamIcon from "../../../../public/assets/svg/steam.svg?react";
-import EpicIcon from "../../../../public/assets/svg/epic-games.svg?react";
-import PlaystationIcon from "../../../../public/assets/svg/playstation.svg?react";
-import ArrowRightSlider from "../../../../public/assets/svg/chevron-right.svg?react";
-import ArrowLeftSlider from "../../../../public/assets/svg/chevron-left.svg?react";
-import DefaultImageSlider from "../../../../public/assets/images/photo-test.webp";
+import SteamIcon from "../../../assets/svg/steam.svg?react";
+import EpicIcon from "../../../assets/svg/epic-games.svg?react";
+import PlaystationIcon from "../../../assets/svg/playstation.svg?react";
+import ArrowRightSlider from "../../../assets/svg/chevron-right.svg?react";
+import ArrowLeftSlider from "../../../assets/svg/chevron-left.svg?react";
+import DefaultImageSlider from "../../../assets/images/photo-test.webp";
 import Button from "../../../components/AEV/AEV.Button/Button";
 import "./Slider.scss";
 

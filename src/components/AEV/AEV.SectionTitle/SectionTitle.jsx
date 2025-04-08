@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./SectionTitle.scss";
-import ChevronRight from "../../../../public/assets/svg/chevron-right.svg?react";
+import Icon from "../AEV.Icon/Icon";
 
 const SectionTitle = ({ text }) => {
     return (
         <h2 className="section-title">
-            {text} <ChevronRight alt="chevron-category" className="chevron" />
+            {text} <Icon name="chevron-right" size={20} className="chevron" />
         </h2>
     );
 };

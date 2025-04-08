@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Loader.scss";
-import Logo from "../../../../public/assets/images/Logo.png";
+import Logo from "../../../assets/images/Logo.png";
 
 const Loader = ({ variant = "default", size = "medium" }) => {
     return (

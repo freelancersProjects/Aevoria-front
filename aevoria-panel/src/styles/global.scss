@@ -1,0 +1,155 @@
+:root {
+      --dark-low-opacity: rgba(0, 5, 13, 0.9);
+      --white: #ffffff;
+      --main-background: #00050D;
+
+}
+    $background-black: #00050d;
+    $transparent-white: rgba(255, 255, 255, 0.6);
+    $second-background: #000711;
+    $light-text: #D7DFE4;
+    $dark-background: #02090D;
+    $lightgray: #c9cbcc;
+    $gray-background: #111111;
+    $blue: #0D6EFD;
+    $blue-low-opacity: rgba(0, 123, 255, 0.7);
+    $dark-blue: #000C1F;
+    $dark-red: #1A0000;
+    $white: #ffffff;
+    $black: #000000;
+    $hover-white: #c9c6c6;
+    $color-background: #00050D;
+    $color-transparent: rgba(0, 5, 13, 0.00);
+    $glow-blue: rgba(32, 156, 255, 0.90);
+    $blue-light: #209cff;
+    $red: #db0707;
+    $hover-red: #bd0b0b;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--white);
+}
+
+p {
+  color: var(--white);
+}
+
+.recharts-default-tooltip {
+  background-color: var(--dark-low-opacity) !important;
+}
+
+.mt-1{
+  margin-top: 1rem;
+}
+
+.mt-2{
+  margin-top: 2rem;
+}
+
+.mt-3{
+  margin-top: 3rem;
+}
+
+.mt-4{
+  margin-top: 4rem;
+}
+
+.mt-5{
+  margin-top: 5rem;
+}
+
+.mb-1{
+  margin-bottom: 1rem;
+}
+
+.mb-2{
+  margin-bottom: 2rem;
+}
+
+.mb-3{
+  margin-bottom: 3rem;
+}
+
+.mb-4{
+  margin-bottom: 4rem;
+}
+
+.mb-5{
+  margin-bottom: 5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-light {
+  font-weight: 300;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.font-montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-fluid {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.title-center {
+  text-align: center;
+  font-family: "Instrument Sans", sans-serif;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.6) 0%, #fff 100%);
+  background-clip: text;
+  font-size: 56px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.glow-effect {
+  width: 341px;
+  height: 334px;
+  border-radius: 50%;
+  background: var(--blue);
+  filter: blur(50px);
+}
+
+.error{
+  color: red;
+  z-index: 999;
+  position: relative;
+}
+
+.instrument-sans {
+  font-family: "Instrument Sans", sans-serif;
+}

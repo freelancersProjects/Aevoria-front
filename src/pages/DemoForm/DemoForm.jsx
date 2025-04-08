@@ -34,6 +34,9 @@ import HoverReveal from '../../components/AEV/AEV.HoverReveal/HoverReveal';
 import CurrencyInput from '../../components/AEV/AEV.CurrencyInput/CurrencyInput';
 import Rating from '../../components/AEV/AEV.Rating/Rating';
 import RadioGroup from '../../components/AEV/AEV.RadioGroup/RadioGroup';
+import EmailForm from '../../components/AEV/AEV.EmailForm/EmailForm';
+import DestinataireInput from '../../components/AEV/AEV.DestinataireInput/DestinataireInput';
+import Pagination from '../../components/AEV/AEV.Pagination/Pagination';
 
 import './DemoForm.scss';
 
@@ -64,7 +67,10 @@ const DemoForm = () => {
   const [color, setColor] = useState('#00bfff');
   const [price, setPrice] = useState('');
   const [rating, setRating] = useState(3.5);
-const [selectedPlatform, setSelectedPlatform] = useState('pc');
+  const [selectedPlatform, setSelectedPlatform] = useState('pc');
+  const [to, setTo] = useState([]);
+  const [recipients, setRecipients] = useState([]);
+  const [page, setPage] = useState(1);
 
   // Données diverses
   const steps = ['Account Info', 'Preferences', 'Verification', 'Finish', 'Payment', 'Review', 'Confirmation', 'Complete'];
@@ -144,6 +150,8 @@ const [selectedPlatform, setSelectedPlatform] = useState('pc');
             selected={selectedPlatform}
             onChange={setSelectedPlatform}
           />
+          <DestinataireInput recipients={recipients} onChange={setRecipients} />
+
           <ColorPicker value={color} onChange={setColor} />
           <SearchBar
             value={searchQuery}
@@ -218,6 +226,8 @@ const [selectedPlatform, setSelectedPlatform] = useState('pc');
             description="Captured at sunrise — this misty ridge inspired the zone in Eldoria."
             clickable={true}
           />
+          <Pagination currentPage={page} totalPages={5} onPageChange={setPage} />
+          <EmailForm />
           </div>
       ),
     },

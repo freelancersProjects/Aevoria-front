@@ -204,7 +204,7 @@ const Canvas = () => {
 
       {contextMenu && (
         <div
-          className="aev-context-menu"
+          className="aev-context-menu-canvas"
           style={{ left: contextMenu.x, top: contextMenu.y }}
           onClick={() => setContextMenu(null)}
         >

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import useFetch from "../../../hooks/useFetch";
-import ControllerIcon from "../../../../public/assets/svg/catalogue_game.svg?react";
+import Icon from "../../../components/AEV/AEV.Icon/Icon";
 import Button from "../../../components/AEV/AEV.Button/Button";
 import Toast from "../../../components/AEV/AEV.Toast/Toast";
 import Skeleton from "../../../components/AEV/AEV.Skeleton/Skeleton";
@@ -31,7 +31,10 @@ const FirstSection = () => {
       <div className="section-container">
         <div className="content-area">
           <div className="badge">
-            <span className="badge-content"><ControllerIcon />Nouveau catalogue de jeux</span>
+            <span className="badge-content">
+              <Icon name="catalogue_game" size={18} style={{ marginRight: "8px" }} />
+              Nouveau catalogue de jeux
+            </span>
           </div>
 
           <h1 className="main-title">
