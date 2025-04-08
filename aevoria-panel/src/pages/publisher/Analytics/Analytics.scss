@@ -1,0 +1,49 @@
+@import "../../../styles/global.scss";
+
+.analytics-page {
+    padding: 30px;
+
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: $white;
+        margin-bottom: 25px;
+    }
+
+    .analytics-switcher {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 24px;
+
+        button {
+            background: none;
+            border: 1px solid $blue-low-opacity;
+            color: $white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s ease;
+
+            &.active {
+                background: linear-gradient(90deg, $blue, $blue-light);
+                color: $white;
+            }
+
+            &:hover {
+                background: rgba(0, 123, 255, 0.2);
+            }
+        }
+    }
+
+    .analytics-content {
+        background: $second-background;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(0, 123, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 360px;
+    }
+}

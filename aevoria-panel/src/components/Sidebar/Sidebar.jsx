@@ -49,17 +49,17 @@ const Sidebar = () => {
             <ul className="menu">
                 <li onClick={() => navigate('/')}><p className="list-side"><Dashboard /> Dashboard</p></li>
                 <li onClick={() => navigate('/developers')}><p className="list-side"><Group /> Developers</p></li>
-                <li><p className="list-side"><VideogameAsset /> Games</p></li>
-                <li><p className="list-side"><Inventory2 /> Sales</p></li>
-                <li><p className="list-side"><InsertChart /> Analytics</p></li>
+                <li onClick={() => navigate('/games')}><p className="list-side"><VideogameAsset /> Games</p></li>
+                <li onClick={() => navigate('/sales')}><p className="list-side"><Inventory2 /> Sales</p></li>
+                <li onClick={() => navigate('/analytics')}><p className="list-side"><InsertChart /> Analytics</p></li>
             </ul>
 
             {/* CONTENT */}
             <h4 className="menu-title">Content</h4>
             <ul className="menu">
                 <li onClick={() => navigate('/calendar')}><p className="list-side"><CalendarMonth /> Calendar</p></li>
-                <li><p className="list-side"><Description /> Pages</p></li>
-                <li><p className="list-side"><NoteAlt /> Notes</p></li>
+                <li onClick={() => navigate('/pages')}><p className="list-side"><Description /> Pages</p></li>
+                <li onClick={() => navigate('/notes')}><p className="list-side"><NoteAlt /> Notes</p></li>
             </ul>
 
             {/* API / SYSTEM */}
