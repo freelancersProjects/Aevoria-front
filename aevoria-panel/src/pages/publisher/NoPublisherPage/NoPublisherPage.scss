@@ -1,0 +1,56 @@
+.no-publisher-page {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+
+    .info-section {
+        text-align: center;
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            background: linear-gradient(270deg, rgba(255, 255, 255, 0.6), #ffffff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--lightgray);
+            font-size: 1rem;
+        }
+    }
+
+    .publisher-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+    }
+
+    .submit-container {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .api-loading {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .api-result {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        h3 {
+            font-size: 1.4rem;
+        }
+    }
+}

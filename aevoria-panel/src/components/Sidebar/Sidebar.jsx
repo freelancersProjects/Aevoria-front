@@ -25,6 +25,12 @@ const Sidebar = () => {
 
     const navigate = useNavigate();
 
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        navigate("/login");
+    };
+
     return (
         <div className="sidebar">
             <div className="logo">
@@ -77,7 +83,7 @@ const Sidebar = () => {
                 <li><p className="list-side"><Settings /> Preferences</p></li>
                 <li><p className="list-side"><NotificationsNone /> Alerts</p></li>
                 <hr />
-                <li><p className="list-side"><Logout /> Logout</p></li>
+                <li onClick={handleLogout}><p className="list-side"><Logout /> Logout</p></li>
             </ul>
         </div>
     );

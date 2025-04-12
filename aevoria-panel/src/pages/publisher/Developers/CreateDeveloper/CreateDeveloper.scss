@@ -1,0 +1,29 @@
+.create-dev-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 40px;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .row {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+
+        >* {
+            flex: 1 1 300px;
+        }
+    }
+
+    .logo-upload {
+        max-width: 600px;
+    }
+}
