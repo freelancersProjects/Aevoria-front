@@ -129,7 +129,7 @@ const DemoForm = () => {
             label="Your Bio"
             placeholder="Tell us about your gaming journey..."
             value={bio}
-            onChange={(e) => setBio(e.target.value)}
+            onChange={(val) => setBio(val)}
             maxLength={300}
             isResizable={true}
           />

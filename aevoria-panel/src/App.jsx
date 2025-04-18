@@ -18,6 +18,7 @@ import PageSection from './pages/publisher/PageSection/PageSection';
 import Notes from './pages/publisher/Notes/Notes';
 import Analytics from './pages/publisher/Analytics/Analytics';
 import NoPublisherPage from './pages/publisher/NoPublisherPage/NoPublisherPage';
+import ApiKey from './pages/publisher/ApiKey/ApiKey';
 import Login from './pages/Login/Login';
 
 import Sidebar from './components/Sidebar/Sidebar';
@@ -60,6 +61,16 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <NoPublisherPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/api-key"
+            element={
+              <ProtectedRoute>
+                <ProtectedWithPublisher>
+                  <ApiKey />
+                </ProtectedWithPublisher>
               </ProtectedRoute>
             }
           />

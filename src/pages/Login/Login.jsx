@@ -41,6 +41,8 @@ const Login = () => {
         localStorage.removeItem('rememberedEmail');
       }
 
+      navigate("/");
+
     } catch (error) {
       console.error("Erreur de connexion:", error);
       setLoginError("Email ou mot de passe incorrect");

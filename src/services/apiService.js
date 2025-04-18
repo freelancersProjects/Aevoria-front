@@ -18,11 +18,24 @@ const apiService = {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
-            if (!response.ok) throw new Error("Error sending data");
-            return await response.json();
+
+            const text = await response.text();
+            let json;
+
+            try {
+                json = JSON.parse(text);
+            } catch {
+                json = { raw: text };
+            }
+
+            if (!response.ok) {
+                throw new Error(json?.message || "Erreur lors de l'envoi.");
+            }
+
+            return json;
         } catch (error) {
             console.error("POST Error:", error);
-            return null;
+            throw error;
         }
     },
 

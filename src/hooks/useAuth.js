@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import apiService from "../services/apiService";
+import { jwtDecode } from "jwt-decode";
 
 const useAuth = () => {
     const [user, setUser] = useState(null);
@@ -8,65 +9,61 @@ const useAuth = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const userId = localStorage.getItem("userId");
+            const token = localStorage.getItem("token");
+            const userId = localStorage.getItem("userId");
 
-                if (token && userId) {
-                    apiService.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-                    const response = await apiService.get(`/users/${userId}`);
-                    if (response.data) {
-                        setUser(response.data);
-                    } else {
-                        throw new Error("Données utilisateur introuvables.");
+            if (!token || !userId) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const res = await apiService.get(`/users/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
                     }
+                });
+
+                if (res) {
+                    setUser(res);
+                } else {
+                    throw new Error("Utilisateur introuvable.");
                 }
-            } catch (error) {
-                console.error("Erreur d'authentification", error);
-                localStorage.removeItem("token");
-                localStorage.removeItem("userId");
+            } catch (err) {
+                console.error("Erreur d'auth :", err);
+                logout();
             } finally {
                 setLoading(false);
             }
         };
+
         fetchUser();
     }, []);
 
     const login = async ({ email, password }) => {
         try {
-            console.log("Tentative de connexion avec :", email, password);
+            const res = await apiService.post("/auth/login", { email, password });
 
-            const response = await apiService.post("/auth/login", { email, password });
-
-            console.log("Réponse brute de l'API :", response);
-
-            if (!response) {
-                throw new Error("La réponse de l'API est vide ou mal formatée.");
-            }
-
-            const { token, user } = response; // Récupère "user"
-            const userId = user?.user_id
-            if (!token) {
+            if (!res || !res.token) {
                 throw new Error("Token non trouvé dans la réponse !");
             }
 
-            localStorage.setItem("token", token);
+            const decoded = jwtDecode(res.token);
+            const userId = decoded?.user_id;
 
-            if (userId) {
-                localStorage.setItem("userId", userId);
-            } else {
-                console.error("Erreur: user_id non trouvé dans la réponse API");
+            if (!userId) {
+                throw new Error("user_id introuvable dans le token décodé.");
             }
 
-            return { token, userId };
+            localStorage.setItem("token", res.token);
+            localStorage.setItem("userId", userId);
 
-        } catch (error) {
-            console.error("Erreur dans useAuth login:", error);
-            throw error;
+            return { token: res.token, userId };
+        } catch (err) {
+            console.error("Erreur dans useAuth login:", err);
+            throw err;
         }
     };
-
-
 
     const logout = () => {
         localStorage.removeItem("token");

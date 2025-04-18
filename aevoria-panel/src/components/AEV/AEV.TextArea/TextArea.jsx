@@ -18,7 +18,7 @@ const TextArea = ({
                 className={`aev-textarea ${isResizable ? '' : 'no-resize'}`}
                 placeholder={placeholder}
                 value={value}
-                onChange={onChange}
+                onChange={(e) => onChange(e.target.value)}
                 maxLength={maxLength}
                 rows={rows}
                 style={{ resize: isResizable ? 'both' : 'none' }}
