@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Login.scss";
-import { FaFacebookF, FaGoogle, FaApple, FaDiscord } from "react-icons/fa";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaFacebookF, FaGoogle, FaApple, FaDiscord, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../assets/svg/logo.svg";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
@@ -55,7 +55,7 @@ const Login = () => {
     <div className="login-wrapper">
       <div className="login-container">
         <div className="logo-container">
-          <img src="/assets/svg/logo.svg" alt="Logo" className="login-logo" />
+          <img src={Logo} alt="Logo" className="login-logo" />
         </div>
         <div className="login-form-container">
           <h2>Se connecter</h2>

@@ -80,7 +80,7 @@ const EmailForm = () => {
                         href={URL.createObjectURL(file)}
                         label={file.name}
                         info="Télécharger le fichier"
-                        target="_self"
+                        target="_blank"
                         hoverInfo={true}
                     />
                 </div>

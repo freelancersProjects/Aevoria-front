@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Login from '../Login/Login';
+import React, { useState, useEffect } from 'react';
 import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import TabFilters from '../../components/AEV/AEV.TabFilters/TabFilters';
@@ -10,6 +9,8 @@ import Promotions from "./Promotions/Promotions";
 import FirstSection from './FirstSection/FirstSection';
 import './Home.scss';
 import Banner from './Banner/Banner';
+
+import apiService from '../../services/apiService';
 
 const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
 
@@ -59,6 +60,23 @@ const slideData = [
 ];
 
 const Home = () => {
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await apiService.get('/games');
+        const data = response?.$values || response;
+        if (!Array.isArray(data)) throw new Error('Format des données incorrect');
+        setGames(data);
+      } catch (err) {
+        setToast({ show: true, message: `Erreur : ${err.message}`, type: 'error' });
+      }
+    };
+
+    fetchGames();
+  }, []);
+
   return (
     <>
       <FirstSection />
@@ -72,8 +90,17 @@ const Home = () => {
       <div className='container-fluid'>
         <SectionTitle text="Meilleure Vente" />
         <div className="game-cards-container">
-          {Array.from({ length: 9 }).map((_, index) => (
-            <GameCard key={`game-card-${index}-${sampleGame.title}`} {...sampleGame} />
+          {games.map((game) => (
+            <GameCard
+            key={game.gameId}
+            image={game.thumbnailUrl}
+            title={game.title}
+            price={game.price}
+            percentage_reduction={game.percentageReduction}
+            isSteam={game.isAvailableOnSteam}
+            isEpic={game.isAvailableOnEpic}
+            isPlaystation={game.isAvailableOnPlayStation}
+            />
           ))}
         </div>
         <div className="btn-container">
