@@ -1,31 +1,36 @@
 import React from 'react';
+import ChevronRight  from '../../../../assets/svg/chevron-right.svg';
 import './WishlistHeader.scss';
+
 
 const WishlistHeader = () => {
   const wishlistGames = [
-    { id: 1, title: 'Cyberpunk 2077', type: 'RPG', playtime: '15h'},
-    { id: 2, title: 'The Witcher 3', type: 'RPG', playtime: '23h'},
-    { id: 3, title: 'Elden Ring', type: 'Action RPG', playtime: '31h'},
-    { id: 4, title: 'Horizon Zero Dawn', type: 'Action Adventure', playtime: '15h'},
-    { id: 5, title: 'Red Dead Redemption 2', type: 'Action Adventure', playtime: '20h'}
+    { title: "Cyberpunk 2077", type: "RPG", views: "1.5k" },
+    { title: "Baldur's Gate 3", type: "RPG", views: "2.3k" },
+    { title: "Elden Ring", type: "Action RPG", views: "3.1k" },
+    { title: "The Witcher 3", type: "RPG", views: "4.0k" },
+    { title: "Hades", type: "Rogue-like", views: "1.2k" },
+    { title: "Stardew Valley", type: "Simulation", views: "5.0k" },
+    { title: "Hollow Knight", type: "Metroidvania", views: "2.8k" },
+    { title: "Celeste", type: "Platformer", views: "3.5k" },
   ];
-
+  console.log(wishlistGames);
   return (
-    <div className="wishlist-header">
-      <h1>Wishlist</h1>
-      
-      <div className="wishlist-games">
-        {wishlistGames.map((game) => (
-          <div key={game.id} className="game-item">
-            <img src={game.image} alt={game.title} className="game-image" />
-            <div className="game-info">
-              <h3>{game.title}</h3>
-              <div className="game-meta">
-                <span className="game-tag">{game.type}</span>
-                <span className="playtime">{game.playtime}</span>
-              </div>
+    <div className="wishlist-wrapper">
+      <div className="menu">
+        <div className="menu-item active">Profile</div>
+        <div className="menu-item">Settings</div>
+      </div>
+      <div className="wishlist">
+        <h3 className="wishlist-title"><span className="icon">🤍</span> Wishlist</h3>
+        {wishlistGames.map((game, index) => (
+          <div key={index} className="game">
+            <div className="meta">
+              <span className="type">Game</span>
+              <span className="title">{game.title}</span>
+              <span className="views">{game.views}</span>
             </div>
-            <button className="expand-btn" aria-label="Expand game details">›</button>
+            <img src={ChevronRight} alt="chevron right" />
           </div>
         ))}
       </div>

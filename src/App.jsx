@@ -11,8 +11,9 @@ import DemoForm from './pages/DemoForm/DemoForm';
 import './App.css';
 import Subscription from './pages/Subscription/Subscription';
 import WishlistViewCanvas from './pages/WishlistViewCanvas/WishlistViewCanvas';
+import Profile from './pages/Profile/Profile';
 
-const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view'];
+const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile/*'];
 
 function Layout({ children }) {
   const location = useLocation();
@@ -40,6 +41,7 @@ function App() {
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/demo-form" element={<DemoForm />} />
             <Route path="/wishlist-view" element={<WishlistViewCanvas />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </Layout>
       </Router>
