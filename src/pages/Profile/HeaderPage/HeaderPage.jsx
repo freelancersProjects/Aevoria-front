@@ -6,8 +6,10 @@ import './HeaderPage.scss';
 const HeaderPage = () => {
     return (
         <>
+        <div className="d-flex">
             <WishlistHeader/>
             <AccountHeader/>
+            </div>
         </>
     );
 }

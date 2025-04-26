@@ -1,0 +1,85 @@
+.dashboard {
+    color: white;
+    padding: 20px;
+    width: 100%;
+    background-color: #00050d;
+  
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+  
+    .friendsContainer {
+      max-height: 70vh;
+      overflow-y: auto;
+      padding-right: 10px;
+  
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+      }
+    }
+  
+    .friendCard {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+  
+    .friendInfo {
+      display: flex;
+      align-items: center;
+    }
+  
+    .avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+  
+    .details {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .name {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  
+    .username {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: var(--text-color);
+    }
+  
+    .unfriendBtn {
+      background-color: transparent;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+  
+      &:hover {
+        background-color:var(--border-color);
+      }
+    }
+  }
+  
