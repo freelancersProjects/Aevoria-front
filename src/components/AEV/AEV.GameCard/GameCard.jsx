@@ -36,12 +36,18 @@ const GameCard = ({
     const handleImageLoad = () => setIsImageLoaded(true);
 
     const handleShare = (gameTitle) => {
-        setShareMessage(`Salut ! J’aimerais te partager ce jeu : ${gameTitle}`);
-        setShareSubject(`Partage de jeu : ${gameTitle}`);
+        const msg = `Salut ! J’aimerais te partager ce jeu : ${gameTitle}`;
+        const subj = `Partage de jeu : ${gameTitle}`;
+
+        setShareMessage(msg);
+        setShareSubject(subj);
+
+        localStorage.setItem('sharedMessage', msg);
+        localStorage.setItem('sharedSubject', subj);
+
         setDrawerOpen(true);
         setShowMenu(false);
     };
-
 
     return (
         <div className="game-card">

@@ -58,12 +58,20 @@ const apiService = {
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, { method: "DELETE" });
             if (!response.ok) throw new Error("Error deleting data");
-            return await response.json();
+
+            const contentType = response.headers.get("content-type");
+
+            if (contentType && contentType.includes("application/json")) {
+                return await response.json();
+            } else {
+                return null;
+            }
         } catch (error) {
             console.error("DELETE Error:", error);
             return null;
         }
     },
+
 };
 
 export default apiService;

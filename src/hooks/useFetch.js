@@ -7,6 +7,10 @@ const useFetch = (endpoint) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        if(!endpoint) {
+            setLoading(false);
+            return;
+        }
         const fetchData = async () => {
             try {
                 const response = await apiService.get(endpoint);
