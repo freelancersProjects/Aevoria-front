@@ -11,67 +11,127 @@
   margin: 0;
   border: 2px solid transparent;
 
-.game-image {
-  width: 100%;
-  height: 267px;
-  object-fit: cover;
-}
+  .card-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(0px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 
-.game-info {
-  padding: 15px;
-  position: relative;
-  z-index: 1;
-}
+    .menu-button {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(8px);
+      border-radius: 6px;
+      color: white;
+      padding: 4px 8px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
 
-.game-title {
-  font-size: 24px;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+    }
 
-.game-genres {
-  font-size: 16px;
-  color: gray;
-  margin-bottom: 10px;
-}
+    .action-menu {
+      margin-top: 8px;
+      background: rgba(20, 20, 20, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      min-width: 120px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
 
-.game-icons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+      button {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        text-align: left;
+        width: 100%;
+        cursor: pointer;
+        transition: background 0.2s ease-in-out;
 
-.icon {
-  width: 20px;
-  height: 20px;
-}
-
-.game-pricing {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.current-price {
-  font-size: 32px;
-  font-weight: bold;
-  color: var(--white);
-}
-
-.old-price {
-  font-size: 24px;
-  color: var(--transparent-white);
-  text-decoration: line-through;
-}
-
-  @media (max-width: 1024px) {
-    flex: 0 0 calc(50% - 10px);
-    max-width: calc(50% - 10px);
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
   }
 
-  @media (max-width: 768px) {
-    flex: 0 0 100%;
-    max-width: 100%;
+  &:hover .card-actions {
+    opacity: 1;
+  }
+
+  &:hover .action-menu {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .game-image {
+    width: 100%;
+    height: 267px;
+    object-fit: cover;
+  }
+
+  .game-info {
+    padding: 15px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .game-title {
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .game-genres {
+    font-size: 16px;
+    color: gray;
+    margin-bottom: 10px;
+  }
+
+  .game-icons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .game-pricing {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .current-price {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--white);
+  }
+
+  .old-price {
+    font-size: 24px;
+    color: var(--transparent-white);
+    text-decoration: line-through;
   }
 
   &:before {
@@ -108,21 +168,20 @@
       opacity: 1;
     }
   }
-}
 
-.game-card:hover {
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
-  border-color: var(--blue);
-  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+    border-color: var(--blue);
+    cursor: pointer;
 
-  &:before {
-    opacity: 1;
-    transform: scale(1.02);
-    animation: glowMove 1.5s infinite linear;
+    &:before {
+      opacity: 1;
+      transform: scale(1.02);
+      animation: glowMove 1.5s infinite linear;
+    }
+
+    &:after {
+      opacity: 1;
+    }
   }
-
-  &:after {
-    opacity: 1;
-  }
 }
-

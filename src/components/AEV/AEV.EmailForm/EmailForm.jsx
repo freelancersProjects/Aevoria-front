@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from '../AEV.Link/Link';
 import './EmailForm.scss';
+import PropTypes from 'prop-types';
 import DestinataireInput from '../AEV.DestinataireInput/DestinataireInput';
 import Button from '../AEV.Button/Button';
 import Toast from '../AEV.Toast/Toast';
 import { FaPaperclip, FaPaperPlane } from 'react-icons/fa';
+import FolderIcon from '@mui/icons-material/Folder';
 
-const EmailForm = () => {
-    const [recipients, setRecipients] = useState([]);
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
-    const [file, setFile] = useState(null);
-    const [toast, setToast] = useState(null);
+const EmailForm = ({
+    recipients,
+    setRecipients,
+    subject,
+    setSubject,
+    message,
+    setMessage,
+    file,
+    setFile,
+    toast,
+    setToast
+}) => {
 
     const handleSend = () => {
         if (!recipients.length || !subject || !message) {
@@ -28,7 +36,7 @@ const EmailForm = () => {
 
     return (
         <div className="aev-emailform mb-3">
-            {toast && <Toast message={toast.message} type={toast.type} duration={3000} />}
+            {toast && <Toast message={toast.message} type={toast.type} duration={3000} onClose={() => setToast(null)} />}
             <h3 className="form-title">Envoyer un message</h3>
 
             <DestinataireInput recipients={recipients} onChange={setRecipients} />
@@ -75,18 +83,36 @@ const EmailForm = () => {
 
             {file && (
                 <div className="attached-file">
-                    📎 Pièce jointe :{" "}
-                    <Link
-                        href={URL.createObjectURL(file)}
-                        label={file.name}
-                        info="Télécharger le fichier"
-                        target="_blank"
-                        hoverInfo={true}
-                    />
+                    <FolderIcon className="attached-file-icon" />
+                    <span>
+                        Pièce jointe :{' '}
+                        <Link
+                            href={URL.createObjectURL(file)}
+                            label={file.name}
+                            info="Télécharger le fichier"
+                            target="_blank"
+                            hoverInfo={true}
+                        />
+                    </span>
                 </div>
             )}
         </div>
     );
+};
+EmailForm.propTypes = {
+    recipients: PropTypes.array.isRequired,
+    setRecipients: PropTypes.func.isRequired,
+    subject: PropTypes.string.isRequired,
+    setSubject: PropTypes.func.isRequired,
+    message: PropTypes.string.isRequired,
+    setMessage: PropTypes.func.isRequired,
+    file: PropTypes.object,
+    setFile: PropTypes.func.isRequired,
+    toast: PropTypes.shape({
+        type: PropTypes.string,
+        message: PropTypes.string
+    }),
+    setToast: PropTypes.func.isRequired
 };
 
 export default EmailForm;

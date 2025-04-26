@@ -21,7 +21,7 @@ const Drawer = ({
             const timeout = setTimeout(() => {
                 setClosing(false);
                 setShouldRender(false);
-            }, 350); // Same as animation duration
+            }, 350);
             return () => clearTimeout(timeout);
         }
     }, [isOpen]);

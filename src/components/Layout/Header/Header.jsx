@@ -95,6 +95,8 @@ const Header = () => {
     const [activeMega, setActiveMega] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [notifDrawerOpen, setNotifDrawerOpen] = useState(false);
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -103,7 +105,6 @@ const Header = () => {
     }, []);
 
     const handleSearch = (query) => {
-        // Implémenter la logique de recherche ici
         console.log("Searching for:", query);
     };
 
@@ -169,7 +170,14 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-            <DrawerNotif isOpen={notifDrawerOpen} onClose={() => setNotifDrawerOpen(false)} />
+            <DrawerNotif
+                isOpen={notifDrawerOpen}
+                onClose={() => setNotifDrawerOpen(false)}
+                subject={subject}
+                setSubject={setSubject}
+                message={message}
+                setMessage={setMessage}
+            />
         </>
     );
 };

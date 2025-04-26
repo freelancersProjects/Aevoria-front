@@ -117,11 +117,16 @@
   font-size: 0.85rem;
   margin-top: -6px;
   color: var(--lightgray);
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-left: 5px;
+  }
 
   a {
     font-weight: 500;
     color: var(--white);
-    margin-left: 6px;
     text-decoration: underline;
     transition: color 0.2s ease;
 

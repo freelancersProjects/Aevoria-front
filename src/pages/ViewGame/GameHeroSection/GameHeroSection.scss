@@ -1,0 +1,129 @@
+.gameview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.gameview-content {
+    display: flex;
+    width: 80%;
+    max-width: 1550px;
+    height: 518px;
+    padding: 40px;
+    border-radius: 10px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 100%),
+        linear-gradient(0deg, #272727 0%, rgba(39, 39, 39, 0.00) 70%);
+    backdrop-filter: blur(40px);
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+        height: auto;
+    }
+}
+
+.gameview-image {
+    width: 48%;
+    max-width: 750px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.gameview-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    color: #fff;
+}
+
+.gameview-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.gameview-pricing {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .percentage-reduction {
+        color: #18C37D;
+        font-weight: 600;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        opacity: 0.6;
+    }
+
+    .new-price {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+}
+
+.gameview-input {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+}
+
+.gameview-details {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    .in-stock {
+        color: #18C37D;
+    }
+}
+
+.gameview-actions {
+    display: flex;
+    gap: 20px;
+
+    .like-btn {
+        display: flex;
+        width: 56px;
+        height: 56px;
+        padding: 15.5px 17.5px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 49px;
+        background: #FFF;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+            background: #e6e6e6;
+        }
+    }
+
+    .add-to-cart-btn {
+        display: flex;
+        width: calc(554px / 1550px * 100%);
+        height: 56px;
+        padding: 15.5px 118.5px;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        border-radius: 61px;
+        background: #0D6EFD;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+            background: darken(#0D6EFD, 10%);
+        }
+    }
+}

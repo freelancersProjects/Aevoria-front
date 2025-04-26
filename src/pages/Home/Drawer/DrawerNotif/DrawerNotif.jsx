@@ -4,7 +4,18 @@ import EmailForm from '../../../../components/AEV/AEV.EmailForm/EmailForm';
 import TabSwitcher from '../../../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 import './DrawerNotif.scss';
 
-const DrawerNotif = ({ isOpen, onClose }) => {
+const DrawerNotif = ({
+    isOpen,
+    onClose,
+    subject,
+    setSubject,
+    message,
+    setMessage
+}) => {
+    const [recipients, setRecipients] = useState([]);
+    const [file, setFile] = useState(null);
+    const [toast, setToast] = useState(null);
+
     const [opened, setOpened] = useState(null);
     const [messages, setMessages] = useState([
         { id: 1, subject: "Votre ticket est en cours", from: "Support", date: "01/04/2025", read: false, content: "Nous traitons actuellement votre demande." },
@@ -57,7 +68,18 @@ const DrawerNotif = ({ isOpen, onClose }) => {
 
     const renderSendTab = () => (
         <div className="emailform-tab-wrapper">
-            <EmailForm />
+            <EmailForm
+                recipients={recipients}
+                setRecipients={setRecipients}
+                subject={subject}
+                setSubject={setSubject}
+                message={message}
+                setMessage={setMessage}
+                file={file}
+                setFile={setFile}
+                toast={toast}
+                setToast={setToast}
+            />
             <div className="sent-messages-title">Récent</div>
             <div className="drawer-messages sent">
                 {sent.map((msg) => (
@@ -73,22 +95,10 @@ const DrawerNotif = ({ isOpen, onClose }) => {
     );
 
     const tabs = [
-        {
-            label: "Envoyer",
-            content: renderSendTab(),
-        },
-        {
-            label: "Général",
-            content: renderMessages('system'),
-        },
-        {
-            label: "Amis",
-            content: renderMessages('ami'),
-        },
-        {
-            label: "Support",
-            content: renderMessages('support'),
-        }
+        { label: "Envoyer", content: renderSendTab() },
+        { label: "Général", content: renderMessages('system') },
+        { label: "Amis", content: renderMessages('ami') },
+        { label: "Support", content: renderMessages('support') }
     ];
 
     return (

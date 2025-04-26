@@ -96,6 +96,7 @@ const Home = () => {
             image={game.thumbnailUrl}
             title={game.title}
             price={game.price}
+            discount={game.discount}
             percentage_reduction={game.percentageReduction}
             isSteam={game.isAvailableOnSteam}
             isEpic={game.isAvailableOnEpic}
