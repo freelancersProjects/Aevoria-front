@@ -65,15 +65,22 @@
       font-weight: 600;
       cursor: pointer;
       margin-top: 4px;
+      transition: all 0.3s ease-in-out;
 
       &.primary {
         background: var(--blue);
         border: none;
         color: var(--white);
+
+        &:hover {
+            background-color: var(--blue-low-opacity);
+            transition: all 0.3s ease-in-out;
+          }
       }
 
       &:hover {
-        background-color: var(--blue-low-opacity);
+        background-color: var(--transparent-white);
+        transition: all 0.3s ease-in-out;
       }
     }
 

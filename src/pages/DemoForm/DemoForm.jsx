@@ -227,7 +227,6 @@ const DemoForm = () => {
             clickable={true}
           />
           <Pagination currentPage={page} totalPages={5} onPageChange={setPage} />
-          <EmailForm />
           </div>
       ),
     },

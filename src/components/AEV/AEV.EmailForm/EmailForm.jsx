@@ -22,7 +22,7 @@ const EmailForm = ({
 }) => {
 
     const handleSend = () => {
-        if (!recipients.length || !subject || !message) {
+        if (!recipients?.length || !subject || !message) {
             setToast({ type: 'error', message: 'Veuillez remplir tous les champs.' });
             return;
         }
@@ -42,8 +42,9 @@ const EmailForm = ({
             <DestinataireInput recipients={recipients} onChange={setRecipients} />
 
             <div className="input-block">
-                <label>Objet *</label>
+                <label htmlFor="subject">Objet *</label>
                 <input
+                    id="subject"
                     type="text"
                     placeholder="Sujet du message"
                     value={subject}
@@ -52,9 +53,10 @@ const EmailForm = ({
                 <div className="underline" />
             </div>
 
-            <div className="input-block textarea-zone">
-                <label>Message *</label>
+            <div className="input-block">
+                <label htmlFor="message">Message *</label>
                 <textarea
+                    id="message"
                     placeholder="Votre message ici..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
