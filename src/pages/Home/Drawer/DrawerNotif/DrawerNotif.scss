@@ -112,3 +112,94 @@
   color: var(--white);
   margin-top: 12px;
 }
+
+// Styles pour les demandes d'amis
+.friends-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.friend-requests-section {
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+}
+
+.friend-requests {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.friend-request-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(0, 123, 255, 0.02));
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: scale(1.01);
+  }
+
+  .request-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .date {
+      font-size: 0.75rem;
+      color: var(--lightgray);
+    }
+  }
+
+  .request-actions {
+    display: flex;
+    gap: 8px;
+
+    button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &.accept-btn {
+        background: var(--blue);
+        color: white;
+        border: none;
+
+        &:hover {
+          background: var(--blue-hover);
+        }
+      }
+
+      &.decline-btn {
+        background: none;
+        color: var(--lightgray);
+        border: 1px solid var(--lightgray);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--white);
+          border-color: var(--white);
+        }
+      }
+    }
+  }
+}

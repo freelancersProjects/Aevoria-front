@@ -1,21 +1,29 @@
 .header-page {
-  background-color: #1a1a1a;
-  padding: 15px;
-  color: white;
-
-  .navigation {
-    display: flex;
-    gap: 15px;
-
-    button {
-      background-color: transparent;
-      color: white;
-      border: none;
-      cursor: pointer;
-      
-      &:hover {
-        color: #3a7bd5;
-      }
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+  width: 100%;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__main {
+    width: 100%;
+    background-color: rgba(26, 26, 46, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
+    
+    @media (max-width: 1024px) {
+      order: 1;
+    }
+  }
+  
+  &__sidebar {
+    width: 100%;
+    
+    @media (max-width: 1024px) {
+      order: 2;
     }
   }
 }

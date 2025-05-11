@@ -97,11 +97,19 @@ const Header = () => {
     const [notifDrawerOpen, setNotifDrawerOpen] = useState(false);
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
+    const [unreadNotifCount, setUnreadNotifCount] = useState(0);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 30);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    // Simuler la récupération des notifications non lues
+    useEffect(() => {
+        // Ici, vous devrez remplacer par un appel API réel
+        const mockUnreadCount = 3; // Nombre de notifications non lues
+        setUnreadNotifCount(mockUnreadCount);
     }, []);
 
     const handleSearch = (query) => {
@@ -155,12 +163,12 @@ const Header = () => {
                                 >
                                     <AccountCircle className="search-icon" />
                                 </div>
-                                    <Badge count={3}>
-                                        <NotificationsNone
-                                            className="icon"
-                                            onClick={() => setNotifDrawerOpen(true)}
-                                        />
-                                    </Badge>
+                                <Badge count={unreadNotifCount}>
+                                    <NotificationsNone
+                                        className="icon"
+                                        onClick={() => setNotifDrawerOpen(true)}
+                                    />
+                                </Badge>
                                 <Badge count={5}>
                                     <ShoppingCartOutlined className="icon" />
                                 </Badge>

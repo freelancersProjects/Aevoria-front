@@ -1,38 +1,97 @@
 import React from 'react';
-import ChevronRight  from '../../../../assets/svg/chevron-right.svg';
 import './WishlistHeader.scss';
-
+import { FaChevronRight, FaHeart } from 'react-icons/fa';
 
 const WishlistHeader = () => {
+  // Données fictives pour la wishlist
   const wishlistGames = [
-    { title: "Cyberpunk 2077", type: "RPG", views: "1.5k" },
-    { title: "Baldur's Gate 3", type: "RPG", views: "2.3k" },
-    { title: "Elden Ring", type: "Action RPG", views: "3.1k" },
-    { title: "The Witcher 3", type: "RPG", views: "4.0k" },
-    { title: "Hades", type: "Rogue-like", views: "1.2k" },
-    { title: "Stardew Valley", type: "Simulation", views: "5.0k" },
-    { title: "Hollow Knight", type: "Metroidvania", views: "2.8k" },
-    { title: "Celeste", type: "Platformer", views: "3.5k" },
+    {
+      id: 1,
+      title: 'Cyberpunk 2077',
+      type: 'Game',
+      views: '1.5k'
+    },
+    {
+      id: 2,
+      title: 'The Witcher 3',
+      type: 'Game',
+      views: '4.0k'
+    },
+    {
+      id: 3,
+      title: 'Elden Ring',
+      type: 'Game',
+      views: '3.1k'
+    },
+    {
+      id: 4,
+      title: 'Horizon Zero Dawn',
+      type: 'Game',
+      views: '1.7k'
+    },
+    {
+      id: 5,
+      title: 'Red Dead Redemption 2',
+      type: 'Game',
+      views: '2.5k'
+    },
+    {
+      id: 6,
+      title: 'Hades',
+      type: 'Game',
+      views: '1.2k'
+    },
+    {
+      id: 7,
+      title: 'Stardew Valley',
+      type: 'Game',
+      views: '5.0k'
+    },
+    {
+      id: 8,
+      title: 'Hollow Knight',
+      type: 'Game',
+      views: '2.8k'
+    },
+    {
+      id: 9,
+      title: 'Celeste',
+      type: 'Game',
+      views: '3.5k'
+    }
   ];
-  console.log(wishlistGames);
+
   return (
-    <div className="wishlist-wrapper">
-      <div className="menu">
-        <div className="menu-item active">Profile</div>
-        <div className="menu-item">Settings</div>
+    <div className="wishlist-header">
+      {/* Navigation principale */}
+      <div className="main-nav">
+        <div className="nav-item active">Profile</div>
+        <div className="nav-item">Settings</div>
       </div>
-      <div className="wishlist">
-        <h3 className="wishlist-title"><span className="icon">🤍</span> Wishlist</h3>
-        {wishlistGames.map((game, index) => (
-          <div key={index} className="game">
-            <div className="meta">
-              <span className="type">Game</span>
-              <span className="title">{game.title}</span>
-              <span className="views">{game.views}</span>
+
+      {/* Section Wishlist */}
+      <div className="wishlist-section">
+        <div className="wishlist-title">
+          <FaHeart className="wishlist-icon" />
+          <h3>Wishlist</h3>
+        </div>
+
+        <div className="wishlist-games">
+          {wishlistGames.map((game) => (
+            <div key={game.id} className="game-item">
+              <div className="game-info">
+                <h4 className="game-title">{game.title}</h4>
+                <div className="game-meta">
+                  <span className="game-type">{game.type}</span>
+                  <span className="game-views">{game.views}</span>
+                </div>
+              </div>
+              <div className="game-action">
+                <FaChevronRight />
+              </div>
             </div>
-            <img src={ChevronRight} alt="chevron right" />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

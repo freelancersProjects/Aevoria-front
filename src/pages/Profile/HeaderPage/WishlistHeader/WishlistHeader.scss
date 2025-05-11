@@ -1,71 +1,119 @@
-.wishlist-wrapper {
-  width: 280px;
-  background: #0f111a;
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.menu {
+.wishlist-header {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background: #1a1c29;
-  padding: 12px 16px;
-
-  .menu-item {
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    color: #bfc1cd;
-
-    &.active {
-      background: #2c2f40;
-      color: white;
-    }
+  color: #ffffff;
+  background-color: #121219;
+  overflow-y: auto;
+  
+  &::-webkit-scrollbar {
+    width: 5px;
   }
-}
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: #2d2d3a;
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background-color: #121219;
+  }
 
-.wishlist {
-  padding: 16px;
+  // Section Wishlist
+  .wishlist-section {
+    padding: 1rem;
+    flex-grow: 1;
+  }
 
   .wishlist-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-
-    .icon {
-      margin-right: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    
+    h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .wishlist-icon {
+      color: #f43f5e;
+      font-size: 1rem;
     }
   }
 
-  .game {
+  .wishlist-games {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .game-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background-color: #1a1a24;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #222230;
+    }
+  }
 
-    .meta {
-      display: flex;
-      flex-direction: column;
+  .game-info {
+    flex-grow: 1;
+  }
 
-      .type {
-        font-size: 12px;
-        color: #8389a5;
+  .game-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .game-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    
+    .game-type {
+      color: #9ca3af;
+    }
+    
+    .game-views {
+      color: #6b7280;
+    }
+  }
+
+  .game-action {
+    color: #6b7280;
+    font-size: 0.75rem;
+  }
+  
+  // Navigation principale
+  .main-nav {
+    display: flex;
+    padding: 1rem;
+    border-bottom: 1px solid #222230;
+
+    .nav-item {
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #9ca3af;
+      transition: color 0.2s ease;
+      
+      &:hover {
+        color: #ffffff;
       }
-
-      .title {
-        font-weight: 600;
-        font-size: 14px;
-        color: white;
-        margin-top: 2px;
-      }
-
-      .views {
-        font-size: 12px;
-        color: #a1a5b8;
-        margin-top: 2px;
+      
+      &.active {
+        color: #ffffff;
+        font-weight: 500;
       }
     }
   }

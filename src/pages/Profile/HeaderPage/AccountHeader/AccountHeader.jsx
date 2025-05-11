@@ -26,7 +26,7 @@ const AccountHeader = () => {
       <div className="banner">
         <img 
           className="banner-image" 
-          src="../../../../assets/images/image-bg-section.png" 
+          src="../../../../../assets/images/image-bg-section.png" 
           alt="Cyberpunk City Skyline" 
         />
       </div>
@@ -74,12 +74,6 @@ const AccountHeader = () => {
           {friends.length > 5 && (
             <span className="more-friends">+{friends.length - 5} others</span>
           )}
-        </div>
-        
-        <div className="tabs">
-          <button className="tab active">Dashboard</button>
-          <button className="tab">My Orders</button>
-          <button className="tab">Affiliations</button>
         </div>
       </div>
     </div>

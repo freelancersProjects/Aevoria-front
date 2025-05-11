@@ -6,7 +6,7 @@ import './Dashboard.scss';
 
 function Dashboard() {
   const { user } = useAuth();
-  const userId = user?.userId;
+  const userId = user?.userId; // c'est l'ID de l'utilisateur connecté
 
   const [friendDetails, setFriendDetails] = useState([]);
 
