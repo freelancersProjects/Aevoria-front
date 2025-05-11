@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+
+import ArrowDown from "../../../../public/assets/svg/arrow-down.svg";
 import ArrowDown from "../../../assets/svg/arrow-down.svg";
+
 
 import "./Accordion.scss";
 

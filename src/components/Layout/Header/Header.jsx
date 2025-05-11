@@ -3,12 +3,13 @@ import "./Header.scss";
 import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import SearchBar from "../../AEV/AEV.SearchBar/SearchBar";
+import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
 import { NotificationsNone, ShoppingCartOutlined, AccountCircle } from "@mui/icons-material";
 
 const megaMenu = [
     {
-        title: "PC Gaming",
+        title: "PC",
         groups: [
             {
                 title: "Plateformes",
@@ -21,33 +22,29 @@ const megaMenu = [
         ]
     },
     {
-        title: "Consoles",
+        title: "PlayStation",
         groups: [
             {
                 title: "Sony",
                 links: ["PS5", "PS4"]
-            },
-            {
-                title: "Microsoft & Nintendo",
-                links: ["Xbox Series X", "Switch"]
             }
         ]
     },
     {
-        title: "Systèmes",
+        title: "Xbox",
         groups: [
             {
-                title: "OS Supportés",
-                links: ["Windows", "macOS", "Linux"]
+                title: "Microsoft",
+                links: ["Xbox Series X", "Xbox Series S", "Xbox One"]
             }
         ]
     },
     {
-        title: "Offres",
+        title: "Nintendo",
         groups: [
             {
-                title: "Top Picks",
-                links: ["Top ventes", "Nouveautés", "Promotions"]
+                title: "Nintendo",
+                links: ["Switch", "Switch Lite"]
             }
         ]
     }
@@ -69,7 +66,10 @@ const NavItem = ({ item, idx, activeMega, setActiveMega }) => (
         onMouseEnter={() => setActiveMega(idx)}
         onMouseLeave={() => setActiveMega(null)}
     >
-        {item.title}
+        <div className="nav-item-content">
+            {item.title}
+            {item.icon}
+        </div>
         {activeMega === idx && (
             <div className="mega-panel">
                 <div className="mega-content">
@@ -128,27 +128,38 @@ const Header = () => {
                                     setActiveMega={setActiveMega}
                                 />
                             ))}
+                            <div 
+                                className="search-button-wrapper"
+                                onClick={() => setSearchOpen(true)}
+                            >
+                                <Search className="search-icon" />
+                            </div>
                         </nav>
                     )}
 
-                    <div className="right">
-                        {searchOpen ? (
-                            <div className="search-input-wrapper">
-                                <SearchBar
-                                    value={searchQuery}
-                                    onChange={setSearchQuery}
-                                    onSearch={handleSearch}
-                                    placeholder="Rechercher des jeux, des plateformes..."
-                                />
-                                <div className="search-close" onClick={() => {
-                                    setSearchOpen(false);
-                                    setSearchQuery("");
-                                }}>
-                                    <AccountCircle />
-                                </div>
+                    {searchOpen ? (
+                        <div className="search-input-wrapper">
+                            <SearchBar
+                                value={searchQuery}
+                                onChange={setSearchQuery}
+                                onSearch={handleSearch}
+                                placeholder="Rechercher des jeux, des plateformes..."
+                            />
+                            <div className="search-close" onClick={() => {
+                                setSearchOpen(false);
+                                setSearchQuery("");
+                            }}>
+                                <Close />
                             </div>
-                        ) : (
+                        </div>
+                    ) : (
+                        <div className="right">
                             <div className="icons">
+
+                                <Badge count={3}>
+                                    <NotificationsNone className="icon" />
+                                </Badge>
+
                                 <div
                                     className={`search-icon-wrapper ${searchOpen ? 'active' : ''}`}
                                     onClick={() => setSearchOpen(true)}
@@ -161,13 +172,14 @@ const Header = () => {
                                             onClick={() => setNotifDrawerOpen(true)}
                                         />
                                     </Badge>
+
                                 <Badge count={5}>
                                     <ShoppingCartOutlined className="icon" />
                                 </Badge>
-                                <AccountCircle className="icon" />
+                                <Person className="icon" style={{ fontSize: '32px' }} />
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             </header>
             <DrawerNotif
