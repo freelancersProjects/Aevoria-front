@@ -3,9 +3,8 @@ import "./Header.scss";
 import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import SearchBar from "../../AEV/AEV.SearchBar/SearchBar";
-import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close } from "@mui/icons-material";
+import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close, AccountCircle } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
-import { NotificationsNone, ShoppingCartOutlined, AccountCircle } from "@mui/icons-material";
 
 const megaMenu = [
     {
@@ -136,7 +135,7 @@ const Header = () => {
                                     setActiveMega={setActiveMega}
                                 />
                             ))}
-                            <div 
+                            <div
                                 className="search-button-wrapper"
                                 onClick={() => setSearchOpen(true)}
                             >
@@ -163,11 +162,6 @@ const Header = () => {
                     ) : (
                         <div className="right">
                             <div className="icons">
-
-                                <Badge count={3}>
-                                    <NotificationsNone className="icon" />
-                                </Badge>
-
                                 <div
                                     className={`search-icon-wrapper ${searchOpen ? 'active' : ''}`}
                                     onClick={() => setSearchOpen(true)}

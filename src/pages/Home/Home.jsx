@@ -88,7 +88,7 @@ const Home = () => {
       </div>
 
       <div className='container-fluid'>
-        <SectionTitle text="Meilleure Vente" />
+        <SectionTitle text="Meilleure Vente" url="test" />
         <div className="game-cards-container">
           {games.map((game) => (
             <GameCard

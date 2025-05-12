@@ -20,6 +20,7 @@
   --color-transparent: rgba(0, 5, 13, 0.00);
   --glow-blue: rgba(32, 156, 255, 0.90);
   --blue-light: #209cff;
+  --red: #db0707;
 }
 
 $background-black: #00050d;
@@ -54,6 +55,11 @@ h6 {
 
 p {
   color: var(--white);
+}
+
+a{
+  color: var(--white);
+  text-decoration: none;
 }
 
 .recharts-default-tooltip {
@@ -102,6 +108,10 @@ p {
 
 .text-center {
   text-align: center;
+}
+
+.aic {
+  align-items: center;
 }
 
 .text-light {
