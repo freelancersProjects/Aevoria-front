@@ -1,8 +1,8 @@
 .aev-popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,74 +11,86 @@
 }
 
 .aev-popup-v2 {
-  background: linear-gradient(135deg, #020d1a, rgba(0, 123, 255, 0.07));
-  border: 2px solid rgba(0, 123, 255, 0.25);
-  border-radius: 16px;
-  padding: 28px 36px;
-  max-width: 500px;
-  width: 90%;
-  animation: popupScale 0.3s ease;
+  background: var(--second-background);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 360px;
+  padding: 24px 26px;
   text-align: center;
+  border: 1px solid var(--blue);
+  animation: popupScale 0.25s ease;
+  font-family: "Montserrat", sans-serif;
+}
+
+.popup-icon {
+  font-size: 40px;
+  color: var(--blue);
+  margin-bottom: 10px;
 }
 
 .popup-message {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--white);
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .popup-buttons {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
 
   button {
-    padding: 10px 22px;
+    flex: 1;
+    padding: 10px 0;
     font-size: 0.95rem;
     font-weight: 600;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     font-family: inherit;
-    min-width: 110px;
-  }
-
-  .cancel {
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
   }
 
   .confirm {
     background: var(--blue);
     color: #fff;
-    box-shadow: 0 0 10px var(--blue);
 
     &:hover {
-      background: #209cff;
-      transform: translateY(-1px);
+      background: var(--blue-light);
+      box-shadow: 0 0 6px var(--blue-light);
+    }
+  }
+
+  .cancel {
+    background: var(--gray-background);
+    color: var(--lightgray);
+
+    &:hover {
+      background: #1c1c1c;
+      color: var(--white);
     }
   }
 }
 
 @keyframes popupScale {
   from {
-    opacity: 0;
     transform: scale(0.95);
+    opacity: 0;
   }
+
   to {
-    opacity: 1;
     transform: scale(1);
+    opacity: 1;
   }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

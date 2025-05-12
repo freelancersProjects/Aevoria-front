@@ -2,8 +2,14 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 const apiService = {
     get: async (endpoint) => {
         try {
-            const response = await fetch(`${API_BASE_URL}${endpoint}`);
-            if (!response.ok) throw new Error("Error fetching data");
+            const url = `${API_BASE_URL}${endpoint}`;
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                console.error(`GET Error (${response.status}) on ${url}`);
+                throw new Error("Error fetching data");
+            }
+
             return await response.json();
         } catch (error) {
             console.error("GET Error:", error);
@@ -44,10 +50,13 @@ const apiService = {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                body: data ? JSON.stringify(data) : null,
             });
+
             if (!response.ok) throw new Error("Error updating data");
-            return await response.json();
+
+            const text = await response.text();
+            return text ? JSON.parse(text) : {};
         } catch (error) {
             console.error("PUT Error:", error);
             return null;

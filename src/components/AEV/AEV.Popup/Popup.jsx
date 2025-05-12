@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
 import './Popup.scss';
 
 const Popup = ({
     message,
     onConfirm,
     onCancel,
-    confirmLabel = "Confirm",
-    cancelLabel = "Cancel"
+    confirmLabel = "Supprimer",
+    cancelLabel = "Annuler"
 }) => {
     return (
         <div className="aev-popup-overlay">
             <div className="aev-popup-v2">
+                <div className="popup-icon">
+                    <ReportGmailerrorredIcon fontSize="inherit" />
+                </div>
                 <p className="popup-message">{message}</p>
                 <div className="popup-buttons">
                     <button className="confirm" onClick={onConfirm}>{confirmLabel}</button>
