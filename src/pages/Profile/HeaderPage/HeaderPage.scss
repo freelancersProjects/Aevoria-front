@@ -19,3 +19,19 @@
     }
   }
 }
+
+.header-layout {
+  display: flex;
+  width: 100%;
+
+  .wishlist-section {
+    width: 220px;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  .account-section {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+}

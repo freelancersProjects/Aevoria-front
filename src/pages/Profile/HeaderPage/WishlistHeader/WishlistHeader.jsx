@@ -10,9 +10,6 @@ const WishlistHeader = () => {
     { title: "Elden Ring", type: "Action RPG", views: "3.1k" },
     { title: "The Witcher 3", type: "RPG", views: "4.0k" },
     { title: "Hades", type: "Rogue-like", views: "1.2k" },
-    { title: "Stardew Valley", type: "Simulation", views: "5.0k" },
-    { title: "Hollow Knight", type: "Metroidvania", views: "2.8k" },
-    { title: "Celeste", type: "Platformer", views: "3.5k" },
   ];
   console.log(wishlistGames);
   return (

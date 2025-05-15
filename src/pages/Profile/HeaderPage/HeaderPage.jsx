@@ -5,12 +5,14 @@ import './HeaderPage.scss';
 
 const HeaderPage = () => {
     return (
-        <>
-        <div className="d-flex">
-            <WishlistHeader/>
-            <AccountHeader/>
+        <div className="header-layout">
+            <div className="wishlist-section">
+                <WishlistHeader/>
             </div>
-        </>
+            <div className="account-section">
+                <AccountHeader/>
+            </div>
+        </div>
     );
 }
 

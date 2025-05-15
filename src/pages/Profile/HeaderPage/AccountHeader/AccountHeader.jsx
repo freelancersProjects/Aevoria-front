@@ -27,7 +27,6 @@ const AccountHeader = () => {
         <img 
           className="banner-image" 
           src="../../../../assets/images/image-bg-section.png" 
-          alt="Cyberpunk City Skyline" 
         />
       </div>
       
