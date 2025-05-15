@@ -76,12 +76,21 @@ function Dashboard() {
                 <p className="username">@{friend.username}</p>
               </div>
             </div>
-            <button
-              className="unfriendBtn"
-              onClick={() => handleUnfriend(friend.relationFriendId)}
-            >
-              Supprimer l’ami
-            </button>
+            <div className="friendActions">
+              <button
+                className="messageBtn"
+                onClick={() => window.location.href = `/message/${userId}/${friend.relationFriendId}`}
+              >
+                Message
+              </button>
+              <button
+                className="unfriendBtn"
+                onClick={() => handleUnfriend(friend.relationFriendId)}
+              >
+                Supprimer l’ami
+              </button>
+            </div>
+
           </div>
         ))}
       </div>

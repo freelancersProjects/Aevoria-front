@@ -13,12 +13,13 @@ import Subscription from './pages/Subscription/Subscription';
 import WishlistViewCanvas from './pages/WishlistViewCanvas/WishlistViewCanvas';
 import Profile from './pages/Profile/Profile';
 import ViewGame from './pages/ViewGame/ViewGame';
+import MessagePage from './pages/Message/MessagePage';
 
-const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile/*', '/gameview'];
+const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile/*', '/gameview', '/message/'];
 
 function Layout({ children }) {
   const location = useLocation();
-  const hideLayout = hiddenLayouts.includes(location.pathname);
+  const hideLayout = hiddenLayouts.some(path => location.pathname.startsWith(path));
 
   return (
     <div className="app-container">
@@ -44,6 +45,7 @@ function App() {
             <Route path="/wishlist-view" element={<WishlistViewCanvas />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/gameview" element={<ViewGame />} />
+            <Route path="/message/:userId/:friendId" element={<MessagePage />} />
           </Routes>
         </Layout>
       </Router>
