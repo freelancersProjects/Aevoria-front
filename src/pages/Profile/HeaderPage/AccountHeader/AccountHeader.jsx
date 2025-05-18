@@ -1,11 +1,14 @@
 import React from 'react';
 import './AccountHeader.scss';
+import defaultBanner from '../../../../assets/images/17776072l.jpg';
+import defaultProfile from '../../../../assets/images/photo-test.webp';
 
 const AccountHeader = () => {
     const user = {
       name: 'Zara Lavigne',
       username: 'zara_gamerX',
-      avatarUrl: '../../../../assets/images/image-bg-section.png',
+      profilePicture: '', // Simule un profil sans image
+      profileBanner: '', // Simule une bannière sans image
       followers: 1200, 
       following: 300,
       level: 3
@@ -21,23 +24,28 @@ const AccountHeader = () => {
       { name: 'Theo Knight', avatarUrl: '../../../../assets/images/photo-test.webp' }
     ];
 
+  // Utilise l'image par défaut si aucune n'est définie
+  const profileImage = user.profilePicture ? user.profilePicture : defaultProfile;
+  const bannerImage = user.profileBanner ? user.profileBanner : defaultBanner;
+
   return (
     <div className="account-header">
       <div className="banner">
         <img 
           className="banner-image" 
-          src="../../../../assets/images/image-bg-section.png" 
+          src={bannerImage} 
+          alt="Profile banner" 
         />
       </div>
       
       <div className="profile-info">
         <div className="profile-avatar">
-          <img src={user.avatarUrl} alt={user.username} />
+          <img src={profileImage} alt={user.username} />
         </div>
         
         <div className="profile-details">
           <div className="user-name">
-            <h1>{user.name} {user.verified && <span className="verified-badge">✓</span>}</h1>
+            <h1>{user.name}</h1>
             <span className="username">@{user.username}</span>
           </div>
           

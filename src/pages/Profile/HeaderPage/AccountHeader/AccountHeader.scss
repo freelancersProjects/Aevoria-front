@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #13151a;
   border-radius: 8px;
   overflow: hidden;
   color: white;
@@ -22,6 +21,7 @@
   .profile-info {
     display: flex;
     align-items: flex-end;
+    justify-content: center;
     padding: 0 20px;
     margin-top: -40px;
     margin-bottom: 20px;
@@ -32,6 +32,7 @@
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid #13151a;
+      
       
       img {
         width: 100%;
