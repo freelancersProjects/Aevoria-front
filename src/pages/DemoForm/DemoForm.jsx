@@ -285,7 +285,7 @@ const DemoForm = () => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <h2 className="title-center">Aevoria UI Components Demo</h2>
+        <h4 className="title-center title-modal">Aevoria UI Components Demo</h4>
         <TabSwitcher tabs={tabSections} />
       </Modal>
     </>

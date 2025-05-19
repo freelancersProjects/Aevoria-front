@@ -1,31 +1,45 @@
 .app {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: hsl(0, 0%, 7%);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: hsl(0, 0%, 7%);
+}
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--main-background);
+}
+
+.content-container {
+  flex: 1;
+  overflow: visible;
+}
 
 .main-content {
-    flex: 1;
-    overflow-y: auto; /* Pour le défilement */
-    padding: 20px; /* Ajout de padding */
+  flex: 1;
+  overflow-y: auto; /* Pour le défilement */
+  padding: 20px; /* Ajout de padding */
 }
 
-.featured-games, .promotions {
-    margin-bottom: 20px; /* Espacement entre les sections */
+.featured-games,
+.promotions {
+  margin-bottom: 20px; /* Espacement entre les sections */
 }
 
-.game-list, .promotion-list {
-    display: flex;
-    gap: 10px; /* Espacement entre les éléments */
+.game-list,
+.promotion-list {
+  display: flex;
+  gap: 10px; /* Espacement entre les éléments */
 }
 
-.game-item, .promotion-item {
-    background-color: #f0f0f0; /* Couleur de fond pour les éléments */
-    padding: 10px;
-    border-radius: 5px;
-    flex: 1; /* Éléments flexibles */
-    text-align: center; /* Centrer le texte */
+.game-item,
+.promotion-item {
+  background-color: #f0f0f0; /* Couleur de fond pour les éléments */
+  padding: 10px;
+  border-radius: 5px;
+  flex: 1; /* Éléments flexibles */
+  text-align: center; /* Centrer le texte */
 }

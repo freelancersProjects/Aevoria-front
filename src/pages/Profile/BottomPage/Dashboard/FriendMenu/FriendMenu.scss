@@ -1,0 +1,67 @@
+.friend-menu {
+    position: relative;
+
+    .menuBtn {
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        padding: 6px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: white;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    }
+
+    .dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 6px);
+        background: var(--second-background);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 10px;
+        width: 180px;
+        z-index: 100;
+
+        button {
+            background: none;
+            border: none;
+            width: 100%;
+            color: var(--lightgray);
+            padding: 8px 10px;
+            text-align: left;
+            cursor: pointer;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.06);
+                color: white;
+            }
+        }
+
+        .rename-box {
+            display: flex;
+            gap: 6px;
+            margin: 8px 0;
+
+            input {
+                flex: 1;
+                padding: 6px;
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: white;
+                border-radius: 6px;
+            }
+
+            button {
+                background: var(--blue);
+                color: white;
+                border: none;
+                padding: 6px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+        }
+    }
+}

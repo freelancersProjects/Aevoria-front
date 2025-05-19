@@ -15,7 +15,7 @@ import Profile from './pages/Profile/Profile';
 import ViewGame from './pages/ViewGame/ViewGame';
 import MessagePage from './pages/Message/MessagePage';
 
-const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile/*', '/gameview', '/message/'];
+const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/gameview', '/message/'];
 
 function Layout({ children }) {
   const location = useLocation();

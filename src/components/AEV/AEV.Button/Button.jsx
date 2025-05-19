@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "./Button.scss";
 
-const Button = ({ text, variant = "solid", size = "medium", onClick, className }) => {
+const Button = ({ text="nothing", variant = "solid", size = "medium", onClick, className }) => {
     return (
         <button className={`btn btn-${variant} btn-${size} ${className}`} onClick={onClick}>
             {text}

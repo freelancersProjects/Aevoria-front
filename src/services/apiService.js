@@ -35,12 +35,13 @@ const apiService = {
             }
 
             if (!response.ok) {
-                throw new Error(json?.message || "Erreur lors de l'envoi.");
+                console.error("Réponse non OK:", response.status, json); // AJOUT
+                throw new Error(json?.message || `Erreur HTTP ${response.status}`);
             }
 
             return json;
         } catch (error) {
-            console.error("POST Error:", error);
+            console.error("POST Error complet:", error);
             throw error;
         }
     },
@@ -80,6 +81,70 @@ const apiService = {
             return null;
         }
     },
+
+    // REPONSE QUERY
+
+postQuery: async (endpoint, data = null) => {
+    try {
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        };
+
+        if (data) options.body = JSON.stringify(data);
+
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+
+        const text = await response.text();
+        let json;
+
+        try {
+            json = JSON.parse(text);
+        } catch {
+            json = { raw: text };
+        }
+
+        if (!response.ok) {
+            throw new Error(json?.message || `Erreur HTTP ${response.status}`);
+        }
+
+        return json;
+    } catch (error) {
+        console.error("POST QUERY Error:", error);
+        return null;
+    }
+},
+
+patchQuery: async (endpoint, data = null) => {
+    try {
+        const options = {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+        };
+
+        if (data) options.body = JSON.stringify(data);
+
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+
+        const text = await response.text();
+        let json;
+
+        try {
+            json = JSON.parse(text);
+        } catch {
+            json = { raw: text };
+        }
+
+        if (!response.ok) {
+            throw new Error(json?.message || `Erreur HTTP ${response.status}`);
+        }
+
+        return json;
+    } catch (error) {
+        console.error("PATCH QUERY Error:", error);
+        return null;
+    }
+},
 
 };
 

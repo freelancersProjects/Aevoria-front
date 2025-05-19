@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from '../../../../hooks/useFetch';
 import useAuth from '../../../../hooks/useAuth';
+import FriendMenu from './FriendMenu/FriendMenu';
 import apiService from '../../../../services/apiService';
+import AddFriendModal from './AddFriendModal/AddFriendModal';
+import addFriend from '../../../../assets/svg/add-friend.svg';
 import './Dashboard.scss';
 
 function Dashboard() {
@@ -12,6 +15,7 @@ function Dashboard() {
 
   const shouldFetch = !!userId;
   const { data, loading, error } = useFetch(shouldFetch ? `/friends/${userId}` : null);
+  const [showSearchModal, setShowSearchModal] = useState(false);
 
   useEffect(() => {
     if (!shouldFetch || !data || !data.$values) return;
@@ -57,11 +61,19 @@ function Dashboard() {
   if (!shouldFetch) return <p>Utilisateur non connecté.</p>;
   if (loading) return <p>Chargement des amis...</p>;
   if (error) return <p>Une erreur s'est produite lors de la récupération des amis.</p>;
-  if (!data || !data.$values || data.$values.length === 0) return <p>Aucun ami trouvé.</p>;
+  // if (!data || !data.$values || data.$values.length === 0) return <p>Aucun ami trouvé.</p>;
 
   return (
     <div className="dashboard">
-      <h2 className="title">Mes amis</h2>
+      <div className='d-flex aic title-friend-container'>
+        <h2 className="title">Mes amis</h2>
+        <img
+          src={addFriend}
+          alt="Ajouter un ami"
+          className="addFriendIcon"
+          onClick={() => setShowSearchModal(true)}
+        />
+      </div>
       <div className="friendsContainer">
         {friendDetails.map((friend) => (
           <div key={friend.relationFriendId} className="friendCard">
@@ -83,18 +95,20 @@ function Dashboard() {
               >
                 Message
               </button>
-              <button
-                className="unfriendBtn"
-                onClick={() => handleUnfriend(friend.relationFriendId)}
-              >
-                Supprimer l’ami
-              </button>
-            </div>
+              <FriendMenu
+                userId={userId}
+                friendId={friend.relationFriendId}
+                onUnfriend={() => handleUnfriend(friend.relationFriendId)}
+                onViewWishlist={() => window.location.href = `/wishlist/${friend.relationFriendId}`}
+              />
 
+            </div>
           </div>
         ))}
       </div>
+      <AddFriendModal isOpen={showSearchModal} onClose={() => setShowSearchModal(false)} currentUserId={userId} />
     </div>
+
   );
 }
 
