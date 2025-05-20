@@ -1,0 +1,57 @@
+.pending-requests {
+    margin-bottom: 32px;
+
+    .pending-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: var(--light-text);
+    }
+
+    .pending-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        transition: all 0.25s ease;
+        backdrop-filter: blur(6px);
+        margin-bottom: 12px;
+
+        .friendInfo {
+            display: flex;
+            align-items: center;
+
+            .avatar {
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 16px;
+            }
+
+            .details {
+                display: flex;
+                flex-direction: column;
+
+                .name {
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: var(--white);
+                }
+
+                .username {
+                    font-size: 0.8rem;
+                    color: var(--transparent-white);
+                }
+            }
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+    }
+}

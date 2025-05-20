@@ -5,6 +5,7 @@ import SearchBar from '../../../../../components/AEV/AEV.SearchBar/SearchBar';
 import Button from '../../../../../components/AEV/AEV.Button/Button';
 import Toast from '../../../../../components/AEV/AEV.Toast/Toast';
 import Loader from "../../../../../components/AEV/AEV.Loader/Loader";
+import { debounce } from '../../../../../utils/debounce';
 import apiService from '../../../../../services/apiService';
 import useAuth from '../../../../../hooks/useAuth';
 import './AddFriendModal.scss';
@@ -51,9 +52,12 @@ const AddFriendModal = ({ isOpen, onClose }) => {
             }
         };
 
-        const delayDebounce = setTimeout(() => fetchUsers(), 300);
+        const debouncedFetch = debounce(fetchUsers, 300);
+        debouncedFetch();
 
-        return () => clearTimeout(delayDebounce);
+        return () => {
+            debouncedFetch.cancel && debouncedFetch.cancel();
+        };
     }, [search, selectedTab, user]);
 
     const renderTabContent = () => (
@@ -68,18 +72,29 @@ const AddFriendModal = ({ isOpen, onClose }) => {
                 {loading ? (
                     <Loader variant="default" size="medium" />
                 ) : filteredUsers.length > 0 ? (
+
                     filteredUsers.map(user => (
                         <div key={user.userId} className="user-card-glow">
                             <div className="info">
                                 <span className="name">{user.firstName} {user.lastName}</span>
                                 <span className="username">@{user.username}</span>
                             </div>
+                            {user.status === "Pending" ? (
                             <Button
-                                text="Ajouter"
+                                text="Déjà envoyé"
                                 className="add-friend-button"
                                 onClick={() => handleAddFriend(user)}
                                 variant="solid"
+                                disabled
                             />
+                            ) : (
+                                <Button
+                                    text="Ajouter"
+                                    className="request-sent-button"
+                                    variant="outline"
+                                    onClick={() => handleAddFriend(user)}
+                                />
+                            )}
                         </div>
                     ))
                 ) : (

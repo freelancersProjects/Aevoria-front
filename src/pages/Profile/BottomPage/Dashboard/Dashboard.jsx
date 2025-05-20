@@ -5,6 +5,8 @@ import FriendMenu from './FriendMenu/FriendMenu';
 import apiService from '../../../../services/apiService';
 import AddFriendModal from './AddFriendModal/AddFriendModal';
 import addFriend from '../../../../assets/svg/add-friend.svg';
+import HR from '../../../../components/AEV/AEV.HR/HR';
+import DashboardPendingFriends from './DashboardPendingFriend/DashboardPendingFriends';
 import './Dashboard.scss';
 
 function Dashboard() {
@@ -14,7 +16,7 @@ function Dashboard() {
   const [friendDetails, setFriendDetails] = useState([]);
 
   const shouldFetch = !!userId;
-  const { data, loading, error } = useFetch(shouldFetch ? `/friends/${userId}` : null);
+  const { data, loading, error, refetch } = useFetch(shouldFetch ? `/friends/${userId}` : null);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
   useEffect(() => {
@@ -27,6 +29,7 @@ function Dashboard() {
           return {
             ...friendData,
             relationFriendId: friendRelation.friendId,
+            status: friendRelation.status,
           };
         });
         const friendsData = await Promise.all(friendRequests);
@@ -75,40 +78,42 @@ function Dashboard() {
         />
       </div>
       <div className="friendsContainer">
-        {friendDetails.map((friend) => (
-          <div key={friend.relationFriendId} className="friendCard">
-            <div className="friendInfo">
-              <img
-                src={friend.profile_picture || 'https://via.placeholder.com/40'}
-                alt={`${friend.first_name} ${friend.last_name}`}
-                className="avatar"
-              />
-              <div className="details">
-                <h3 className="name">{friend.first_name} {friend.last_name}</h3>
-                <p className="username">@{friend.username}</p>
+        <DashboardPendingFriends currentUserId={userId} onActionDone={refetch} />
+        <HR />
+        {friendDetails
+          .filter(friend => friend.status === "Accepted")
+          .map((friend) => (
+            <div key={friend.relationFriendId} className="friendCard">
+              <div className="friendInfo">
+                <img
+                  src={friend.profile_picture || 'https://via.placeholder.com/40'}
+                  alt={`${friend.first_name} ${friend.last_name}`}
+                  className="avatar"
+                />
+                <div className="details">
+                  <h3 className="name">{friend.first_name} {friend.last_name}</h3>
+                  <p className="username">@{friend.username}</p>
+                </div>
+              </div>
+              <div className="friendActions">
+                <button
+                  className="messageBtn"
+                  onClick={() => window.location.href = `/message/${userId}/${friend.relationFriendId}`}
+                >
+                  Message
+                </button>
+                <FriendMenu
+                  userId={userId}
+                  friendId={friend.relationFriendId}
+                  onUnfriend={() => handleUnfriend(friend.relationFriendId)}
+                  onViewWishlist={() => window.location.href = `/wishlist/${friend.relationFriendId}`}
+                />
               </div>
             </div>
-            <div className="friendActions">
-              <button
-                className="messageBtn"
-                onClick={() => window.location.href = `/message/${userId}/${friend.relationFriendId}`}
-              >
-                Message
-              </button>
-              <FriendMenu
-                userId={userId}
-                friendId={friend.relationFriendId}
-                onUnfriend={() => handleUnfriend(friend.relationFriendId)}
-                onViewWishlist={() => window.location.href = `/wishlist/${friend.relationFriendId}`}
-              />
-
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
       <AddFriendModal isOpen={showSearchModal} onClose={() => setShowSearchModal(false)} currentUserId={userId} />
     </div>
-
   );
 }
 
