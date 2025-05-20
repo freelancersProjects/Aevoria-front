@@ -3,6 +3,7 @@ import "./Header.scss";
 import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import SearchBar from "../../AEV/AEV.SearchBar/SearchBar";
+import { useNotification } from "../../../context/NotificationContext";
 import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close, AccountCircle } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
 
@@ -96,6 +97,7 @@ const Header = () => {
     const [notifDrawerOpen, setNotifDrawerOpen] = useState(false);
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
+    const { unreadCount, refreshUnread } = useNotification();
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -160,7 +162,7 @@ const Header = () => {
                                 >
                                     <AccountCircle className="search-icon" />
                                 </div>
-                                    <Badge count={3}>
+                                    <Badge count={unreadCount}>
                                         <NotificationsNone
                                             className="icon"
                                             onClick={() => setNotifDrawerOpen(true)}
