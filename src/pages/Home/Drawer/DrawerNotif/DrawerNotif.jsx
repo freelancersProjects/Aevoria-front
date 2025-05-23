@@ -8,7 +8,120 @@ import useAuth from "../../../../hooks/useAuth";
 import apiService from "../../../../services/apiService";
 import Popup from "../../../../components/AEV/AEV.Popup/Popup";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
+import Toast from "../../../../components/AEV/AEV.Toast/Toast";
 import "./DrawerNotif.scss";
+import Button from "../../../../components/AEV/AEV.Button/Button";
+
+const DashboardPendingFriends = ({ currentUserId, onActionDone }) => {
+    const [friendRequests, setFriendRequests] = useState([]);
+    const [toast, setToast] = useState(null);
+
+    useEffect(() => {
+        const fetchFriendRequests = async () => {
+            try {
+                const response = await apiService.get(`/friends/${currentUserId}`);
+                const all = response.$values || [];
+                const pending = all.filter(friend => friend.status === 'Pending');
+                const enriched = await Promise.all(
+                    pending.map(async (friendRelation) => {
+                        const friendData = await apiService.get(`/users/${friendRelation.friendId}`);
+                        return {
+                            ...friendData,
+                            relationFriendId: friendRelation.userId === currentUserId
+                                ? friendRelation.friendId
+                                : friendRelation.userId,
+                            status: friendRelation.status,
+                        };
+                    })
+                );
+                setFriendRequests(enriched);
+            } catch (error) {
+                console.error("Erreur lors de la récupération des demandes d'amis :", error);
+            }
+        };
+        fetchFriendRequests();
+    }, [currentUserId]);
+
+    const handleAction = async (friendId, status, friendName) => {
+        try {
+            // Utiliser la méthode patchQuery qui existe dans votre service
+            await apiService.patchQuery(`/friends/status?friendId=${friendId}&userId=${currentUserId}&status=${status}`);
+            
+            if (status === 'Accepted') {
+                setToast({
+                    type: 'success',
+                    message: 'Demande acceptée'
+                });
+            } else {
+                setToast({
+                    type: 'info',
+                    message: 'Demande refusée'
+                });
+            }
+
+            setFriendRequests(prev => prev.filter(f => f.relationFriendId !== friendId));
+            onActionDone();
+        } catch (error) {
+            console.error("Erreur de mise à jour du statut :", error);
+            setToast({
+                type: 'error',
+                message: "Erreur lors du traitement de la demande"
+            });
+        }
+    };
+
+    if (friendRequests.length === 0) return null;
+
+    return (
+        <div className="pending-requests">
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    duration={3000}
+                    onClose={() => setToast(null)}
+                />
+            )}
+            <h3 className="pending-title">Demandes d'amis</h3>
+            {friendRequests.map(friend => (
+                <div className="pending-card" key={friend.relationFriendId}>
+                    <div className="friendInfo">
+                        <img
+                            src={friend.profile_picture || 'https://via.placeholder.com/40'}
+                            alt={`${friend.first_name} ${friend.last_name}`}
+                            className="avatar"
+                        />
+                        <div className="details">
+                            <h4 className="name">{friend.first_name} {friend.last_name}</h4>
+                            <p className="username">@{friend.username}</p>
+                        </div>
+                    </div>
+                    <div className="actions">
+                        <Button
+                            text="Accepter"
+                            className="accept-btn"
+                            onClick={() => handleAction(
+                                friend.relationFriendId,
+                                'Accepted',
+                                `${friend.first_name} ${friend.last_name}`
+                            )}
+                        />
+                        <Button
+                            text="Refuser"
+                            className="refuse-btn"
+                            onClick={() => handleAction(
+                                friend.relationFriendId,
+                                'Declined',
+                                `${friend.first_name} ${friend.last_name}`
+                            )}
+                            variant="outline"
+                        />
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
 
 const DrawerNotif = ({
     isOpen,
@@ -36,10 +149,7 @@ const DrawerNotif = ({
     ]);
 
     const notifications = data?.$values || [];
-
-    const general = notifications.filter(n =>
-        !n.userId || n.userId === "00000000-0000-0000-0000-000000000000"
-    );
+    const general = notifications.filter(n => !n.userId || n.userId === "00000000-0000-0000-0000-000000000000");
     const amis = notifications.filter(n => n.notificationType === "Ami");
     const support = notifications.filter(n => n.notificationType === "Support");
 
@@ -60,41 +170,20 @@ const DrawerNotif = ({
         }
     };
 
-
     const markAllAsRead = async () => {
         const unread = localNotifications.filter(n => !n.isRead);
-
-        await Promise.all(
-            unread.map(n =>
-                apiService.put(`/notifications/${n.notificationId}/read`)
-            )
-        );
-
-        setLocalNotifications(prev =>
-            prev.map(n =>
-                !n.isRead ? { ...n, isRead: true } : n
-            )
-        );
+        await Promise.all(unread.map(n => apiService.put(`/notifications/${n.notificationId}/read`)));
+        setLocalNotifications(prev => prev.map(n => !n.isRead ? { ...n, isRead: true } : n));
     };
-
 
     const handleOpenMessage = async (id) => {
         setOpened(prev => (prev === id ? null : id));
-
-        setLocalNotifications(prev =>
-            prev.map(n =>
-                n.notificationId === id && !n.isRead
-                    ? { ...n, isRead: true }
-                    : n
-            )
-        );
-
+        setLocalNotifications(prev => prev.map(n => n.notificationId === id && !n.isRead ? { ...n, isRead: true } : n));
         const clicked = localNotifications.find(n => n.notificationId === id);
         if (clicked && !clicked.isRead) {
             await apiService.put(`/notifications/${id}/read`);
         }
     };
-
 
     const renderMessages = (messages) => (
         <div className="drawer-messages">
@@ -106,46 +195,38 @@ const DrawerNotif = ({
                     </button>
                 )}
             </div>
-
-            {localNotifications
-                .filter(n => messages.some(msg => msg.notificationId === n.notificationId))
-                .map((msg) => (
-                    <div
-                        key={msg.notificationId}
-                        className={`message-item
-                            ${msg.isImportant ? "important" : ""}
-                            ${msg.isRead ? "read" : "unread"}
-                            ${opened === msg.notificationId ? "open" : ""}`}
-                        onClick={() => handleOpenMessage(msg.notificationId)}
-                    >
-                        <div className="d-flex aic">
-                            <div className="top-line">
-                                <div className="subject">
-                                    {msg.isImportant && <ErrorOutline className="important-icon" />}
-                                    {msg.subject}
-                                </div>
-                                <div className="meta-row">
-                                    <span className="meta">{msg.createdAt?.split("T")[0]}</span>
-
-                                </div>
+            {localNotifications.filter(n => messages.some(msg => msg.notificationId === n.notificationId)).map(msg => (
+                <div
+                    key={msg.notificationId}
+                    className={`message-item ${msg.isImportant ? "important" : ""} ${msg.isRead ? "read" : "unread"} ${opened === msg.notificationId ? "open" : ""}`}
+                    onClick={() => handleOpenMessage(msg.notificationId)}
+                >
+                    <div className="d-flex aic">
+                        <div className="top-line">
+                            <div className="subject">
+                                {msg.isImportant && <ErrorOutline className="important-icon" />}
+                                {msg.subject}
                             </div>
-                            <div className="meta">
-                                <DeleteOutline
-                                    className="delete-icon"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setSelectedId(msg.notificationId);
-                                        setShowPopup(true);
-                                    }}
-                                />
+                            <div className="meta-row">
+                                <span className="meta">{msg.createdAt?.split("T")[0]}</span>
                             </div>
                         </div>
-
-                        {opened === msg.notificationId && (
-                            <div className="msg-content">{msg.message}</div>
-                        )}
+                        <div className="meta">
+                            <DeleteOutline
+                                className="delete-icon"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedId(msg.notificationId);
+                                    setShowPopup(true);
+                                }}
+                            />
+                        </div>
                     </div>
-                ))}
+                    {opened === msg.notificationId && (
+                        <div className="msg-content">{msg.message}</div>
+                    )}
+                </div>
+            ))}
         </div>
     );
 
@@ -180,7 +261,15 @@ const DrawerNotif = ({
     const tabs = [
         { label: "Envoyer", content: renderSendTab() },
         { label: "Général", content: renderMessages(general) },
-        { label: "Amis", content: renderMessages(amis) },
+        {
+            label: "Amis",
+            content: (
+                <>
+                    {renderMessages(amis)}
+                    <DashboardPendingFriends currentUserId={userId} onActionDone={() => { }} />
+                </>
+            )
+        },
         { label: "Support", content: renderMessages(support) }
     ];
 
@@ -199,7 +288,6 @@ const DrawerNotif = ({
                     {!loading && !error && <TabSwitcher tabs={tabs} />}
                 </div>
             </Drawer>
-
             {showPopup && (
                 <Popup
                     message="Voulez-vous vraiment supprimer cette notification ?"
@@ -218,7 +306,6 @@ const DrawerNotif = ({
             )}
         </>
     );
-
 };
 
 export default DrawerNotif;
