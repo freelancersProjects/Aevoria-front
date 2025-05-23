@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './TabSwitcher.scss';
 
-const TabSwitcher = ({ tabs }) => {
+const TabSwitcher = ({ tabs, onTabChange, alignLeft = false }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [underlineStyle, setUnderlineStyle] = useState({});
     const buttonsRef = useRef([]);
@@ -10,25 +10,29 @@ const TabSwitcher = ({ tabs }) => {
     useEffect(() => {
         const currentBtn = buttonsRef.current[activeIndex];
         if (currentBtn) {
-            const rect = currentBtn.getBoundingClientRect();
-            const parentRect = currentBtn.parentElement.getBoundingClientRect();
+            const offsetLeft = currentBtn.offsetLeft;
+            const width = currentBtn.offsetWidth;
 
             setUnderlineStyle({
-                left: rect.left - parentRect.left,
-                width: rect.width,
+                transform: `translateX(${offsetLeft}px)`,
+                width: `${width}px`,
             });
         }
     }, [activeIndex]);
 
+
     return (
-        <div className="tab-switcher">
-            <div className="tab-header">
+        <div className={`tab-switcher ${alignLeft ? 'left-align' : ''}`}>
+<div className="tab-header">
                 {tabs.map((tab, index) => (
                     <button
                         key={index}
-                        ref={el => buttonsRef.current[index] = el}
+                        ref={(el) => (buttonsRef.current[index] = el)}
                         className={`tab-button ${activeIndex === index ? 'active' : ''}`}
-                        onClick={() => setActiveIndex(index)}
+                        onClick={() => {
+                            setActiveIndex(index);
+                            onTabChange?.(tab.key || index);
+                        }}
                     >
                         {tab.label}
                     </button>
@@ -43,6 +47,7 @@ const TabSwitcher = ({ tabs }) => {
     );
 };
 
+
 TabSwitcher.propTypes = {
     tabs: PropTypes.arrayOf(
         PropTypes.shape({
@@ -50,6 +55,8 @@ TabSwitcher.propTypes = {
             content: PropTypes.node.isRequired,
         })
     ).isRequired,
+    onTabChange: PropTypes.func,
+    alignLeft: PropTypes.bool,
 };
 
 export default TabSwitcher;

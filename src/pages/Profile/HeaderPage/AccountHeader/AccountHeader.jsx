@@ -1,41 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './AccountHeader.scss';
 import defaultBanner from '../../../../assets/images/17776072l.jpg';
 import defaultProfile from '../../../../assets/images/photo-test.webp';
+import TabSwitcher from '../../../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 
 const AccountHeader = () => {
-    const user = {
-      name: 'Zara Lavigne',
-      username: 'zara_gamerX',
-      profilePicture: '', // Simule un profil sans image
-      profileBanner: '', // Simule une bannière sans image
-      followers: 1200,
-      following: 300,
-      level: 3
-    };
+  const [activeTab, setActiveTab] = useState('dashboard');
 
-    const friends = [
-      { name: 'Eliot Hawke', avatarUrl: '../../../../assets/images/photo-test.webp' },
-      { name: 'Mila Stone', avatarUrl: '../../../../assets/images/photo-test.webp' },
-      { name: 'Jaron Cruz', avatarUrl: '../../../../assets/images/photo-test.webp' },
-      { name: 'Ayla Moon', avatarUrl: '../../../../assets/images/photo-test.webp' },
-      { name: 'Kai Rivers', avatarUrl: '../../../../assets/images/photo-test.webp' },
-      { name: 'Luna Ray', avatarUrl: '../../../../assets/images/photo-test.webp' },
-      { name: 'Theo Knight', avatarUrl: '../../../../assets/images/photo-test.webp' }
-    ];
+  const user = {
+    name: 'Zara Lavigne',
+    username: 'zara_gamerX',
+    profilePicture: '',
+    profileBanner: '',
+    followers: 1200,
+    following: 300,
+    level: 3
+  };
 
-  // Utilise l'image par défaut si aucune n'est définie
-  const profileImage = user.profilePicture ? user.profilePicture : defaultProfile;
-  const bannerImage = user.profileBanner ? user.profileBanner : defaultBanner;
+  const friends = [
+    { name: 'Eliot Hawke', avatarUrl: defaultProfile },
+    { name: 'Mila Stone', avatarUrl: defaultProfile },
+    { name: 'Jaron Cruz', avatarUrl: defaultProfile },
+    { name: 'Ayla Moon', avatarUrl: defaultProfile },
+    { name: 'Kai Rivers', avatarUrl: defaultProfile },
+    { name: 'Luna Ray', avatarUrl: defaultProfile },
+    { name: 'Theo Knight', avatarUrl: defaultProfile }
+  ];
+
+  const profileImage = user.profilePicture || defaultProfile;
+  const bannerImage = user.profileBanner || defaultBanner;
 
   return (
     <div className="account-header">
       <div className="banner">
-        <img
-          className="banner-image"
-          src={bannerImage}
-          alt="Profile banner"
-        />
+        <img className="banner-image" src={bannerImage} alt="Profile banner" />
       </div>
 
       <div className="profile-info">
@@ -66,7 +64,9 @@ const AccountHeader = () => {
       </div>
 
       <div className="profile-dashboard">
-        <h2>Profile Dashboard <span className="status-indicator active">• Active</span></h2>
+        <h2>
+          Profile Dashboard <span className="status-indicator active">• Active</span>
+        </h2>
 
         <div className="friends-list">
           {friends.slice(0, 5).map((friend, index) => (
@@ -83,11 +83,15 @@ const AccountHeader = () => {
           )}
         </div>
 
-        <div className="tabs">
-          <button className="tab active">Dashboard</button>
-          <button className="tab">My Orders</button>
-          <button className="tab">Affiliations</button>
-        </div>
+        <TabSwitcher
+          tabs={[
+            { label: 'Dashboard', key: 'dashboard', content: null },
+            { label: 'My Orders', key: 'orders', content: null },
+            { label: 'Affiliations', key: 'affiliations', content: null },
+          ]}
+          onTabChange={(key) => setActiveTab(key)}
+          alignLeft={true}
+        />
       </div>
     </div>
   );

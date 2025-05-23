@@ -3,24 +3,32 @@
   color: var(--white);
 
   .tab-header {
-    position: relative;
     display: flex;
-    gap: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     margin-bottom: 24px;
+    position: relative;
+  }
+
+  &.left-align .tab-button {
+    flex: 0;
+  }
+
+  &:not(.left-align) .tab-button {
+    flex: 1;
+    text-align: center;
   }
 
   .tab-button {
     background: transparent;
     border: none;
     font-family: "Montserrat", sans-serif;
+    white-space: nowrap;
     color: var(--lightgray);
-    padding: 12px 0;
-    position: relative;
+    padding: 12px 20px;
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: color 0.2s ease;
+    position: relative;
 
     &.active {
       color: var(--blue);
@@ -36,7 +44,7 @@
     bottom: 0;
     height: 2px;
     background: var(--blue);
-    transition: all 0.2s ease;
+    transition: transform 0.25s ease, width 0.25s ease;
   }
 
   .tab-content {
@@ -52,6 +60,7 @@
       opacity: 0;
       transform: translateY(8px);
     }
+
     100% {
       opacity: 1;
       transform: translateY(0);

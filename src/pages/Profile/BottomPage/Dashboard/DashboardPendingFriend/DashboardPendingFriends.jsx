@@ -1,92 +1,107 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../../../../components/AEV/AEV.Button/Button';
 import apiService from '../../../../../services/apiService';
 import './DashboardPendingFriends.scss';
 
-const DashboardPendingFriends = ({ currentUserId, onActionDone }) => {
-    const [friendRequests, setFriendRequests] = React.useState([]);
+const DashboardPendingFriends = ({ currentUserId, onActionDone, onAccepted = [] }) => {
+    const [friendRequests, setFriendRequests] = useState([]);
 
     useEffect(() => {
         const fetchFriendRequests = async () => {
             try {
+
                 const response = await apiService.get(`/friends/${currentUserId}`);
                 const all = response.$values || [];
 
-                const pending = all.filter(friend => friend.status === 'Pending');
+                const pendingReceived = all.filter(
+                    rel =>
+                        rel.status === 'Pending' &&
+                        rel.friendId === currentUserId
+                );
 
                 const enriched = await Promise.all(
-                    pending.map(async (friend) => {
-                        const friendData = await apiService.get(`/users/${friend.friendId}`);
+                    pendingReceived.map(async (relation) => {
+                        const sender = await apiService.get(`/users/${relation.userId}`);
                         return {
-                            ...friendData,
-                            relationFriendId: friend.friendId,
+                            ...sender,
+                            relationFriendId: relation.userId,
                         };
                     })
                 );
 
                 setFriendRequests(enriched);
             } catch (error) {
-                console.error("Erreur lors de la récupération des demandes d'amis :", error);
+                console.error("Erreur de récupération des demandes d'amis :", error);
             }
         };
+
         fetchFriendRequests();
     }, [currentUserId]);
 
 
-
-    const handleAction = async (friendId, status) => {
+    const handleAccept = async (friendId) => {
         try {
-            await apiService.patchQuery(`/friends/status?userId=${currentUserId}&friendId=${friendId}&status=${status}`);
+            await apiService.patchQuery(`/friends/status?userId=${friendId}&friendId=${currentUserId}&status=Accepted`);
+            setFriendRequests(prev => prev.filter(req => req.relationFriendId !== friendId));
+            onAccepted(friendId);
             onActionDone();
         } catch (error) {
-            console.error("Erreur de mise à jour du statut :", error);
+            console.error("Erreur lors de l'acceptation :", error);
         }
     };
 
-    if(friendRequests.length === 0) return null;
+    const handleRefuse = async (friendId) => {
+        try {
+            await apiService.delete(`/friends?userId=${friendId}&friendId=${currentUserId}`);
+            setFriendRequests(prev => prev.filter(req => req.relationFriendId !== friendId));
+            // Pas besoin d'appeler onActionDone() ici si tu ne veux pas refetch les Accepted
+        } catch (error) {
+            console.error("Erreur lors du refus :", error);
+        }
+    };
+
+    if (friendRequests.length === 0) return null;
 
     return (
         <div className="pending-requests">
+            <h3 className="pending-title">Demandes d’amis</h3>
             {friendRequests.map(friend => (
-                <React.Fragment key={friend.relationFriendId}>
-                    <h3 className="pending-title">Demandes d’amis</h3>
-                    <div className="pending-card">
-                        <div className="friendInfo">
-                            <img
-                                src={friend.profile_picture || 'https://via.placeholder.com/40'}
-                                alt={`${friend.first_name} ${friend.last_name}`}
-                                className="avatar"
-                            />
-                            <div className="details">
-                                <h4 className="name">{friend.first_name} {friend.last_name}</h4>
-                                <p className="username">@{friend.username}</p>
-                            </div>
-                        </div>
-                        <div className="actions">
-                            <Button
-                                text="Accepter"
-                                className="accept-btn"
-                                onClick={() => handleAction(friend.relationFriendId, 'Accepted')}
-                            />
-                            <Button
-                                text="Refuser"
-                                className="refuse-btn"
-                                onClick={() => handleAction(friend.relationFriendId, 'Declined')}
-                                variant="outline"
-                            />
+                <div key={friend.relationFriendId} className="pending-card">
+                    <div className="friendInfo">
+                        <img
+                            src={friend.profile_picture || 'https://via.placeholder.com/40'}
+                            alt={`${friend.first_name} ${friend.last_name}`}
+                            className="avatar"
+                        />
+                        <div className="details">
+                            <h4 className="name">{friend.first_name} {friend.last_name}</h4>
+                            <p className="username">@{friend.username}</p>
                         </div>
                     </div>
-                </React.Fragment>
+                    <div className="actions">
+                        <Button
+                            text="Accepter"
+                            className="accept-btn"
+                            onClick={() => handleAccept(friend.relationFriendId)}
+                        />
+                        <Button
+                            text="Refuser"
+                            className="refuse-btn"
+                            onClick={() => handleRefuse(friend.relationFriendId)}
+                            variant="outline"
+                        />
+                    </div>
+                </div>
             ))}
         </div>
     );
 };
 
 DashboardPendingFriends.propTypes = {
-    friendRequests: PropTypes.array.isRequired,
     currentUserId: PropTypes.string.isRequired,
-    onActionDone: PropTypes.func.isRequired
+    onActionDone: PropTypes.func.isRequired,
+    onAccepted: PropTypes.func.isRequired,
 };
 
 export default DashboardPendingFriends;

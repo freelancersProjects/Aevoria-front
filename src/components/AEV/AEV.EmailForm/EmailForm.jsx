@@ -79,7 +79,7 @@ const EmailForm = ({
                     text="Envoyer"
                     icon={<FaPaperPlane />}
                     onClick={handleSend}
-                    disabled={!recipients.length || !subject || !message}
+                    isDisabled={!recipients.length || !subject || !message}
                 />
             </div>
 

@@ -10,22 +10,31 @@ import apiService from '../../../../../services/apiService';
 import useAuth from '../../../../../hooks/useAuth';
 import './AddFriendModal.scss';
 
-const AddFriendModal = ({ isOpen, onClose }) => {
+const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
     const [search, setSearch] = useState('');
     const [selectedTab, setSelectedTab] = useState('all');
     const { user } = useAuth();
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [toast, setToast] = useState(null);
+    const [sentRequests, setSentRequests] = useState([]);
 
     const handleAddFriend = async (targetUser) => {
         try {
             await apiService.postQuery(`/friends?userId=${user.userId}&friendId=${targetUser.userId}`);
+            setToast({
+                type: "success",
+                message: `Demande d'ami envoyée à ${targetUser.firstName} ${targetUser.lastName}`,
+            });
+            setSentRequests(prev => [...prev, targetUser.userId]);
 
-            console.log("Demande d'ami envoyée !");
+            setFilteredUsers(prev =>
+                prev.map(u => u.userId === targetUser.userId ? { ...u, status: "Pending" } : u)
+            );
         } catch (err) {
-            console.error("Erreur lors de l'envoi de la demande :", err);
+            console.error("Erreur d'ajout :", err);
         }
-    }
+    };
 
     useEffect(() => {
         if (!user || !user.userId || search.length < 2) {
@@ -72,31 +81,25 @@ const AddFriendModal = ({ isOpen, onClose }) => {
                 {loading ? (
                     <Loader variant="default" size="medium" />
                 ) : filteredUsers.length > 0 ? (
+                    filteredUsers.map(user => {
+                        const isPending = user.status === "Pending" || sentRequests.includes(user.userId);
 
-                    filteredUsers.map(user => (
-                        <div key={user.userId} className="user-card-glow">
-                            <div className="info">
-                                <span className="name">{user.firstName} {user.lastName}</span>
-                                <span className="username">@{user.username}</span>
-                            </div>
-                            {user.status === "Pending" ? (
-                            <Button
-                                text="Déjà envoyé"
-                                className="add-friend-button"
-                                onClick={() => handleAddFriend(user)}
-                                variant="solid"
-                                disabled
-                            />
-                            ) : (
+                        return (
+                            <div key={user.userId} className="user-card-glow">
+                                <div className="info">
+                                    <span className="name">{user.firstName} {user.lastName}</span>
+                                    <span className="username">@{user.username}</span>
+                                </div>
                                 <Button
-                                    text="Ajouter"
-                                    className="request-sent-button"
-                                    variant="outline"
-                                    onClick={() => handleAddFriend(user)}
+                                    text={isPending ? "Demande déjà envoyée" : "Ajouter"}
+                                    className={isPending ? "add-friend-button" : "request-sent-button"}
+                                    variant={isPending ? "solid" : "outline"}
+                                    isDisabled={isPending}
+                                    onClick={() => !isPending && handleAddFriend(user)}
                                 />
-                            )}
-                        </div>
-                    ))
+                            </div>
+                        );
+                    })
                 ) : (
                     <div className="no-user">Aucun utilisateur trouvé</div>
                 )}
@@ -105,17 +108,26 @@ const AddFriendModal = ({ isOpen, onClose }) => {
     );
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title="Ajouter un ami" className="addfriend-modal enhanced">
-            <h1 className="title">Gestion des amis</h1>
-            <TabSwitcher
-                tabs={[
-                    { label: 'Tous', key: 'all', content: renderTabContent() },
-                    { label: 'Demande envoyée', key: 'sent', content: <div className="no-user">Aucune demande envoyée</div> },
-                ]}
-                onTabChange={key => setSelectedTab(key)}
-            />
-        </Modal>
+        <>
+            {toast && (
+                <Toast
+                    type={toast.type}
+                    message={toast.message}
+                    onClose={() => setToast(null)}
+                />
+            )}
+            <Modal isOpen={isOpen} onClose={onClose} title="Ajouter un ami" className="addfriend-modal enhanced">
+                <h1 className="title">Gestion des amis</h1>
+                <TabSwitcher
+                    tabs={[
+                        { label: 'Tous', key: 'all', content: renderTabContent() },
+                        { label: 'Demande envoyée', key: 'sent', content: <div className="no-user">Aucune demande envoyée</div> },
+                    ]}
+                    onTabChange={key => setSelectedTab(key)}
+                />
+            </Modal>
+        </>
     );
-};
+}
 
 export default AddFriendModal;

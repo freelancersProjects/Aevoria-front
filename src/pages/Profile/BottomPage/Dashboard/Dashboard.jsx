@@ -12,10 +12,9 @@ import './Dashboard.scss';
 function Dashboard() {
   const { user } = useAuth();
   const userId = user?.userId;
+  const shouldFetch = !!userId;
 
   const [friendDetails, setFriendDetails] = useState([]);
-
-  const shouldFetch = !!userId;
   const { data, loading, error, refetch } = useFetch(shouldFetch ? `/friends/${userId}` : null);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
@@ -28,7 +27,9 @@ function Dashboard() {
           const friendData = await apiService.get(`/users/${friendRelation.friendId}`);
           return {
             ...friendData,
-            relationFriendId: friendRelation.friendId,
+            relationFriendId: friendRelation.userId === userId
+              ? friendRelation.friendId
+              : friendRelation.userId,
             status: friendRelation.status,
           };
         });
@@ -44,19 +45,46 @@ function Dashboard() {
   }, [data, shouldFetch]);
 
   const handleUnfriend = async (friendId) => {
+    console.log("🔍 handleUnfriend appelé avec :", friendId); // ← ajoute ceci
     if (!friendId) {
       console.error("friendId manquant !");
       return;
     }
 
-    try {
-      await apiService.delete(`/friends?userId=${userId}&friendId=${friendId}`);
+    const relation = data?.$values?.find(rel =>
+      (rel.userId.toLowerCase() === userId.toLowerCase() && rel.friendId.toLowerCase() === friendId.toLowerCase()) ||
+      (rel.userId.toLowerCase() === friendId.toLowerCase() && rel.friendId.toLowerCase() === userId.toLowerCase())
+    );
 
-      setFriendDetails((prevFriends) =>
-        prevFriends.filter((friend) => friend.relationFriendId !== friendId)
+    if (!relation) {
+      console.error("Relation d'amitié non trouvée");
+      return;
+    }
+
+    try {
+      await apiService.delete(`/friends?userId=${relation.userId}&friendId=${relation.friendId}`);
+
+      setFriendDetails(prevFriends =>
+        prevFriends.filter(friend => friend.relationFriendId !== friendId)
       );
     } catch (error) {
-      console.error('Erreur lors de la suppression de l’ami :', error);
+      console.error("Erreur lors de la suppression de l’ami :", error);
+    }
+  };
+
+
+  const addAcceptedFriend = async (friendId) => {
+    try {
+      const res = await apiService.get(`/users/${friendId}`);
+      const enriched = {
+        ...res,
+        relationFriendId: friendId,
+        status: "Accepted",
+      };
+
+      setFriendDetails(prev => [...prev, enriched]);
+    } catch (err) {
+      console.error("Erreur lors de l'ajout dynamique d'un ami accepté :", err);
     }
   };
 
@@ -78,7 +106,11 @@ function Dashboard() {
         />
       </div>
       <div className="friendsContainer">
-        <DashboardPendingFriends currentUserId={userId} onActionDone={refetch} />
+        <DashboardPendingFriends
+          currentUserId={user?.userId}
+          onActionDone={refetch}
+          onAccepted={addAcceptedFriend}
+        />
         <HR />
         {friendDetails
           .filter(friend => friend.status === "Accepted")
@@ -112,7 +144,11 @@ function Dashboard() {
             </div>
           ))}
       </div>
-      <AddFriendModal isOpen={showSearchModal} onClose={() => setShowSearchModal(false)} currentUserId={userId} />
+      <AddFriendModal
+        isOpen={showSearchModal}
+        onClose={() => setShowSearchModal(false)}
+        currentUserId={userId}
+      />
     </div>
   );
 }
