@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AccountHeader.scss';
 import defaultBanner from '../../../../assets/images/17776072l.jpg';
-import defaultProfile from '../../../../assets/images/photo-test.webp';
+import defaultProfile from '../../../../assets/images/avatar.png';
 import TabSwitcher from '../../../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 
 const AccountHeader = () => {

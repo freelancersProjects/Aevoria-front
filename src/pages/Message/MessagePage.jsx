@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './MessagePage.scss';
-import avatar from '../../assets/avatar.png';
+import avatar from '../../assets/images/avatar.png';
 
 const contacts = [
   { id: 1, name: 'Christina', status: 'En ligne', avatar },

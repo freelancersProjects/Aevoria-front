@@ -28,15 +28,15 @@
     .logo {
       height: 36px;
     }
-    
+
     .brand-name {
       font-size: 18px;
     }
-    
+
     .nav-item {
       font-size: 15px;
     }
-    
+
     .search-icon-wrapper {
       width: 38px;
       height: 38px;
@@ -65,6 +65,7 @@
       height: 42px;
       filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.1));
       transition: height 0.3s ease;
+      cursor: pointer;
     }
 
     .brand-name {
@@ -74,7 +75,7 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: font-size 0.3s ease;
-      
+
       sup {
         font-size: 60%;
         vertical-align: super;
@@ -143,13 +144,13 @@
             overflow-y: auto;
             z-index: 100;
             animation: fadeIn 0.2s ease;
-            
+
             .mega-content {
                 display: grid;
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
+
             .mega-group {
                 h4 {
                     font-size: 14px;
@@ -159,15 +160,15 @@
                     text-transform: uppercase;
                     letter-spacing: 1px;
                 }
-                
+
                 ul {
                     list-style: none;
                     padding: 0;
                     margin: 0;
-                    
+
                     li {
                         margin-bottom: 6px;
-                        
+
                         a {
                             color: #d7dfe4;
                             text-decoration: none;
@@ -177,7 +178,7 @@
                             display: block;
                             padding: 6px 10px;
                             border-radius: 6px;
-                            
+
                             &:hover {
                                 color: var(--blue);
                                 background: rgba(0, 136, 255, 0.1);
@@ -233,20 +234,20 @@
         &:hover {
           background: linear-gradient(45deg, rgba(0, 136, 255, 0.2) 0%, rgba(0, 136, 255, 0.1) 100%);
           transform: scale(1.05);
-          
+
           .search-icon {
             transform: scale(1.1);
             color: white;
           }
         }
-        
+
         &.active {
           background: linear-gradient(45deg, rgba(0, 136, 255, 0.3) 0%, rgba(0, 136, 255, 0.15) 100%);
           transform: scale(1.1);
         }
       }
     }
-    
+
     // Conteneur d'input de recherche
     .search-input-wrapper {
       position: absolute;
@@ -264,7 +265,7 @@
       .aev-searchbar-wrapper {
         flex: 1;
       }
-      
+
       .search-close {
         cursor: pointer;
         color: rgba(255, 255, 255, 0.6);
@@ -276,7 +277,7 @@
         justify-content: center;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.05);
-        
+
         &:hover {
           color: white;
           background: rgba(255, 255, 255, 0.1);
@@ -304,7 +305,7 @@
   visibility: hidden;
   transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1),
               visibility 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  
+
   &.active {
     opacity: 1;
     visibility: visible;
@@ -328,11 +329,11 @@
   visibility: hidden;
   transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
               visibility 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  
+
   &.active {
     opacity: 1;
     visibility: visible;
-    
+
     .search-content {
       transform: translateY(0);
       opacity: 1;
@@ -353,7 +354,7 @@
     transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s,
                 opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
     position: relative;
-    
+
     h3 {
       color: white;
       margin-bottom: 20px;
@@ -380,13 +381,13 @@
         color: white;
         transition: all 0.3s ease;
         font-size: 16px;
-        
+
         &:focus {
           border-color: rgba(0, 136, 255, 0.5);
           box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.1);
           outline: none;
         }
-        
+
         &.highlight {
           animation: pulseHighlight 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
@@ -404,28 +405,28 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        
+
         .icon {
           font-size: 18px;
           transition: transform 0.3s ease;
         }
-        
+
         &:hover {
           background: linear-gradient(90deg, var(--blue), var(--dark-blue));
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(0, 120, 255, 0.2);
-          
+
           .icon {
             transform: scale(1.2);
           }
         }
-        
+
         &:active {
           transform: translateY(0px);
         }
       }
     }
-    
+
     .search-results {
       margin-top: 25px;
       max-height: 350px;
@@ -433,28 +434,28 @@
       opacity: 0;
       transform: translateY(10px);
       transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-      
+
       &.visible {
         opacity: 1;
         transform: translateY(0);
       }
-      
+
       /* Personnalisation de la barre de défilement */
       &::-webkit-scrollbar {
         width: 6px;
         background: rgba(255, 255, 255, 0.05);
         border-radius: 3px;
       }
-      
+
       &::-webkit-scrollbar-thumb {
         background: rgba(0, 136, 255, 0.3);
         border-radius: 3px;
-        
+
         &:hover {
           background: rgba(0, 136, 255, 0.5);
         }
       }
-      
+
       .result-item {
         padding: 14px 16px;
         border-radius: 10px;
@@ -465,31 +466,31 @@
         opacity: 0;
         transform: translateY(10px);
         animation: fadeIn 0.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-        
+
         &:hover {
           background: rgba(0, 136, 255, 0.05);
           border-color: rgba(0, 136, 255, 0.2);
           transform: translateY(-2px);
         }
-        
+
         .result-title {
           font-size: 16px;
           font-weight: 500;
           color: white;
           margin-bottom: 5px;
         }
-        
+
         .result-description {
           font-size: 13px;
           color: rgba(255, 255, 255, 0.6);
           margin-bottom: 8px;
         }
-        
+
         .result-meta {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          
+
           .result-category {
             font-size: 12px;
             background: rgba(0, 136, 255, 0.1);
@@ -497,7 +498,7 @@
             padding: 4px 8px;
             border-radius: 4px;
           }
-          
+
           .result-price {
             font-size: 15px;
             font-weight: 600;
@@ -506,11 +507,11 @@
         }
       }
     }
-    
+
     .load-more {
       text-align: center;
       margin-top: 15px;
-      
+
       button {
         background: transparent;
         border: 1px solid rgba(0, 136, 255, 0.3);
@@ -520,7 +521,7 @@
         cursor: pointer;
         font-weight: 500;
         transition: all 0.3s ease;
-        
+
         &:hover {
           background: rgba(0, 136, 255, 0.1);
           transform: translateY(-2px);
@@ -528,24 +529,24 @@
       }
     }
   }
-  
+
   .search-filters {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    
+
     h4 {
       color: white;
       margin-bottom: 15px;
       font-size: 18px;
       font-weight: 500;
     }
-    
+
     .filter-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 15px;
-      
+
       .filter-group {
         label {
           display: block;
@@ -553,7 +554,7 @@
           margin-bottom: 8px;
           font-size: 14px;
         }
-        
+
         select {
           width: 100%;
           padding: 10px 12px;
@@ -566,26 +567,26 @@
           background-repeat: no-repeat;
           background-position: right 12px center;
           padding-right: 30px;
-          
+
           &:focus {
             border-color: rgba(0, 136, 255, 0.5);
             outline: none;
           }
-          
+
           option {
             background: rgba(3, 6, 14, 0.95);
           }
         }
-        
+
         .range-slider {
           display: flex;
           flex-direction: column;
-          
+
           .price-inputs {
             display: flex;
             gap: 10px;
             margin-top: 10px;
-            
+
             input {
               flex: 1;
               padding: 8px 10px;
@@ -595,7 +596,7 @@
               color: white;
               font-size: 14px;
               text-align: center;
-              
+
               &:focus {
                 border-color: rgba(0, 136, 255, 0.5);
                 outline: none;
@@ -605,41 +606,41 @@
         }
       }
     }
-    
+
     .filter-actions {
       display: flex;
       justify-content: space-between;
       margin-top: 25px;
-      
+
       button {
         padding: 12px 24px;
         border-radius: 8px;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.3s ease;
-        
+
         &.reset {
           background: transparent;
           border: 1px solid rgba(255, 255, 255, 0.2);
           color: rgba(255, 255, 255, 0.7);
-          
+
           &:hover {
             background: rgba(255, 255, 255, 0.05);
             color: white;
           }
         }
-        
+
         &.apply {
           background: linear-gradient(90deg, var(--dark-blue), var(--blue));
           border: none;
           color: white;
-          
+
           &:hover {
             background: linear-gradient(90deg, var(--blue), var(--dark-blue));
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 120, 255, 0.2);
           }
-          
+
           &:active {
             transform: translateY(0);
           }
@@ -647,7 +648,7 @@
       }
     }
   }
-  
+
   .close-modal {
     position: absolute;
     top: 20px;
@@ -661,17 +662,17 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    
+
     .icon {
       color: rgba(255, 255, 255, 0.6);
       font-size: 22px;
       transition: all 0.2s ease;
     }
-    
+
     &:hover {
       background: rgba(255, 255, 255, 0.1);
       transform: rotate(90deg);
-      
+
       .icon {
         color: white;
       }
@@ -723,7 +724,7 @@
     .center {
       gap: 20px;
     }
-    
+
     .right {
       .search-input-wrapper {
         width: 300px;
@@ -737,19 +738,19 @@
     .center {
       display: none;
     }
-    
+
     .right {
       .search-input-wrapper {
         width: 250px;
       }
     }
   }
-  
+
   .search-modal {
     .search-content {
       width: 95%;
     }
-    
+
     .search-filters {
       .filter-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -763,34 +764,34 @@
     .header-container {
       padding: 0 20px;
     }
-    
+
     .right {
       .search-input-wrapper {
         display: none;
       }
     }
   }
-  
+
   .search-modal {
     .search-content {
       padding: 20px;
     }
-    
+
     .search-items {
       .search-input-container {
         flex-direction: column;
       }
     }
-    
+
     .search-filters {
       .filter-grid {
         grid-template-columns: 1fr;
       }
-      
+
       .filter-actions {
         flex-direction: column;
         gap: 10px;
-        
+
         button {
           width: 100%;
         }
