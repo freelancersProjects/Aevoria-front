@@ -4,7 +4,7 @@ import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import SearchBar from "../../AEV/AEV.SearchBar/SearchBar";
 import { useNotification } from "../../../context/NotificationContext";
-import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close, AccountCircle } from "@mui/icons-material";
+import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
 
 const megaMenu = [
@@ -91,7 +91,6 @@ const NavItem = ({ item, idx, activeMega, setActiveMega }) => (
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
-    const [searchOpen, setSearchOpen] = useState(false);
     const [activeMega, setActiveMega] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [notifDrawerOpen, setNotifDrawerOpen] = useState(false);
@@ -99,11 +98,17 @@ const Header = () => {
     const [message, setMessage] = useState('');
     const { unreadCount, refreshUnread } = useNotification();
 
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 30);
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+const [searchOpen, setSearchOpen] = useState(false);
+
+useEffect(() => {
+  const handleEsc = (e) => {
+    if (e.key === "Escape") setSearchOpen(false);
+  };
+  window.addEventListener("keydown", handleEsc);
+  return () => window.removeEventListener("keydown", handleEsc);
+}, []);
+
+
 
     const handleSearch = (query) => {
         console.log("Searching for:", query);
@@ -156,12 +161,6 @@ const Header = () => {
                     ) : (
                         <div className="right">
                             <div className="icons">
-                                <div
-                                    className={`search-icon-wrapper ${searchOpen ? 'active' : ''}`}
-                                    onClick={() => setSearchOpen(true)}
-                                >
-                                    <AccountCircle className="search-icon" />
-                                </div>
                                     <Badge count={unreadCount}>
                                         <NotificationsNone
                                             className="icon"

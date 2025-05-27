@@ -132,6 +132,7 @@ const DrawerNotif = ({
     const [localNotifications, setLocalNotifications] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
+    const [friendsList, setFriendsList] = useState([]);
 
     const [sent] = useState([
         { id: 101, subject: "Réclamation Cyberpunk", to: "Support", date: "01/04/2025" },
@@ -159,6 +160,36 @@ const DrawerNotif = ({
             console.error("Erreur suppression notification :", error);
         }
     };
+
+        useEffect(() => {
+  if (!userId) return;
+
+  const fetchFriends = async () => {
+    try {
+      const res = await apiService.get(`/friends/${userId}`);
+      const validFriends = res?.$values?.filter(f => f.status === "Accepted") || [];
+
+      const enriched = await Promise.all(
+        validFriends.map(async relation => {
+          const otherId = relation.userId === userId ? relation.friendId : relation.userId;
+          const friend = await apiService.get(`/users/${otherId}`);
+          return {
+            userId: otherId,
+            username: friend.username,
+            fullName: `${friend.first_name} ${friend.last_name}`,
+            profile_picture: friend.profile_picture
+          };
+        })
+      );
+
+      setFriendsList(enriched);
+    } catch (err) {
+      console.error("Erreur chargement des amis :", err);
+    }
+  };
+
+  fetchFriends();
+}, [userId]);
 
     const markAllAsRead = async () => {
         const unread = localNotifications.filter(n => !n.isRead);
@@ -222,18 +253,20 @@ const DrawerNotif = ({
 
     const renderSendTab = () => (
         <div className="emailform-tab-wrapper">
-            <EmailForm
-                recipients={recipients}
-                setRecipients={setRecipients}
-                subject={subject}
-                setSubject={setSubject}
-                message={message}
-                setMessage={setMessage}
-                file={file}
-                setFile={setFile}
-                toast={toast}
-                setToast={setToast}
-            />
+        <EmailForm
+        recipients={recipients}
+        setRecipients={setRecipients}
+        subject={subject}
+        setSubject={setSubject}
+        message={message}
+        setMessage={setMessage}
+        file={file}
+        setFile={setFile}
+        toast={toast}
+        setToast={setToast}
+        friendOptions={friendsList}
+        />
+
             <div className="sent-messages-title">Récent</div>
             <div className="drawer-messages sent">
                 {sent.map((msg) => (

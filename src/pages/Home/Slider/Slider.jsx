@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import SteamIcon from "../../../assets/svg/steam.svg?react";
@@ -110,32 +112,28 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
 
         // Si on atteint le faux dernier slide, on revient immédiatement au vrai premier
         if (currentIndex === extendedSlides.length - 1) {
+            if (sliderRef.current && isMountedRef.current) {
+                sliderRef.current.style.transition = "none";
+            }
+            setCurrentIndex(() => 1);
             setTimeout(() => {
                 if (sliderRef.current && isMountedRef.current) {
-                    sliderRef.current.style.transition = "none";
-                    setCurrentIndex(1);
-                    requestAnimationFrame(() => {
-                        if (sliderRef.current && isMountedRef.current) {
-                            sliderRef.current.style.transition = "transform 0.5s ease-in-out";
-                        }
-                    });
+                    sliderRef.current.style.transition = "transform 0.5s ease-in-out";
                 }
-            }, 0);
+            }, 20);
         }
 
         // Si on atteint le faux premier slide (en allant vers la gauche), on revient immédiatement au vrai dernier
         else if (currentIndex === 0) {
+            if (sliderRef.current && isMountedRef.current) {
+                sliderRef.current.style.transition = "none";
+            }
+            setCurrentIndex(() => slides.length);
             setTimeout(() => {
                 if (sliderRef.current && isMountedRef.current) {
-                    sliderRef.current.style.transition = "none";
-                    setCurrentIndex(slides.length);
-                    requestAnimationFrame(() => {
-                        if (sliderRef.current && isMountedRef.current) {
-                            sliderRef.current.style.transition = "transform 0.5s ease-in-out";
-                        }
-                    });
+                    sliderRef.current.style.transition = "transform 0.5s ease-in-out";
                 }
-            }, 0);
+            }, 20);
         }
     };
 

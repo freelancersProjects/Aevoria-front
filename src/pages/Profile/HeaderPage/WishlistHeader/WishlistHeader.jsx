@@ -1,5 +1,6 @@
 import React from 'react';
-import ChevronRight  from '../../../../assets/svg/chevron-right.svg';
+import ChevronRight  from '../../../../assets/svg/arrow-wishlist.svg';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './WishlistHeader.scss';
 
 
@@ -19,10 +20,10 @@ const WishlistHeader = () => {
         <div className="menu-item">Settings</div>
       </div>
       <div className="wishlist">
-        <h3 className="wishlist-title"><span className="icon">🤍</span> Wishlist</h3>
+        <h3 className="wishlist-title"> <FavoriteBorderIcon className='icon'/> Wishlist</h3>
         {wishlistGames.map((game, index) => (
           <div key={index} className="game">
-            <div className="meta">
+            <div className="meta mb-1">
               <span className="type">Game</span>
               <span className="title">{game.title}</span>
               <span className="views">{game.views}</span>

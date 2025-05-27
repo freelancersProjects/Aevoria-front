@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
+import Logo from "../../assets/images/Logo.png";
 import apiService from '../../services/apiService';
 import useFetch from '../../hooks/useFetch';
 import './Register.scss';
@@ -83,7 +84,7 @@ const Register = () => {
     <div className="register-wrapper">
       <div className="register-container">
         <div className="logo-container">
-          <img src="/assets/svg/logo.svg" alt="Logo" className="register-logo" />
+          <img src={Logo} alt="Logo" className="register-logo" />
         </div>
         <div className="register-form-container">
           <h2>Créer un compte</h2>

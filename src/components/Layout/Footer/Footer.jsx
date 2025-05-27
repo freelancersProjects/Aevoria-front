@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../../../assets/images/Logo.png";
 import "./Footer.scss";
 
 const Footer = () => {
@@ -7,7 +8,7 @@ const Footer = () => {
       <div className="footer-container">
         {/* Logo and description */}
         <div className="footer-section logo-section">
-          <img src="/assets/images/Logo.png" alt="Aevoria Logo" className="footer-logo" />
+          <img src={Logo} alt="Aevoria Logo" className="footer-logo" />
           <p>Get exclusive content and become a part of the Aevoria community</p>
         </div>
 

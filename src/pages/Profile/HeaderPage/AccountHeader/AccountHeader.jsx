@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
-import './AccountHeader.scss';
-import defaultBanner from '../../../../assets/images/17776072l.jpg';
-import defaultProfile from '../../../../assets/images/avatar.png';
-import TabSwitcher from '../../../../components/AEV/AEV.TabSwitcher/TabSwitcher';
+import React, { useState } from "react";
+import "./AccountHeader.scss";
+import defaultBanner from "../../../../assets/images/17776072l.jpg";
+import ArrowProfileDashboard from "../../../../assets/svg/arrow-profile-dashboard.svg";
+import defaultProfile from "../../../../assets/images/avatar.png";
+import TabSwitcher from "../../../../components/AEV/AEV.TabSwitcher/TabSwitcher";
 
 const AccountHeader = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   const user = {
-    name: 'Zara Lavigne',
-    username: 'zara_gamerX',
-    profilePicture: '',
-    profileBanner: '',
+    name: "Zara Lavigne",
+    username: "zara_gamerX",
+    profilePicture: "",
+    profileBanner: "",
     followers: 1200,
     following: 300,
-    level: 3
+    level: 3,
   };
 
   const friends = [
-    { name: 'Eliot Hawke', avatarUrl: defaultProfile },
-    { name: 'Mila Stone', avatarUrl: defaultProfile },
-    { name: 'Jaron Cruz', avatarUrl: defaultProfile },
-    { name: 'Ayla Moon', avatarUrl: defaultProfile },
-    { name: 'Kai Rivers', avatarUrl: defaultProfile },
-    { name: 'Luna Ray', avatarUrl: defaultProfile },
-    { name: 'Theo Knight', avatarUrl: defaultProfile }
+    { name: "Eliot Hawke", avatarUrl: defaultProfile },
+    { name: "Mila Stone", avatarUrl: defaultProfile },
+    { name: "Jaron Cruz", avatarUrl: defaultProfile },
+    { name: "Ayla Moon", avatarUrl: defaultProfile },
+    { name: "Kai Rivers", avatarUrl: defaultProfile },
+    { name: "Luna Ray", avatarUrl: defaultProfile },
+    { name: "Theo Knight", avatarUrl: defaultProfile },
   ];
 
   const profileImage = user.profilePicture || defaultProfile;
@@ -42,9 +43,19 @@ const AccountHeader = () => {
         </div>
 
         <div className="profile-details">
-          <div className="user-name">
-            <h1>{user.name}</h1>
-            <span className="username">@{user.username}</span>
+          <div className="user-header">
+            <div className="user-container-flex d-flex ml-5">
+              <div className="user-info ml-2">
+                <h1 className="full-name">{user.name}</h1>
+                <span className="username">@{user.username}</span>
+              </div>
+              <div className="level-tag ml-2">
+                <span>Level {user.level}</span>
+                <div className="level-bar">
+                  <div className="progress" style={{ width: "40%" }} />
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="user-stats">
@@ -56,22 +67,28 @@ const AccountHeader = () => {
             </div>
           </div>
         </div>
-
-        <div className="profile-actions">
-          <button className="share-btn">Share</button>
-          <button className="more-btn">···</button>
-        </div>
       </div>
 
       <div className="profile-dashboard">
-        <h2>
-          Profile Dashboard <span className="status-indicator active">• Active</span>
-        </h2>
+        <div className="profile-header-row">
+          <div className="title-block">
+            <h2>
+              Profile Dashboard <img src={ArrowProfileDashboard} alt="Arrow" />
+            </h2>
+            <span className="status-indicator">Active</span>
+          </div>
+
+          <div className="profile-actions">
+            <button className="share-btn">Share</button>
+            <button className="more-btn">···</button>
+          </div>
+        </div>
 
         <div className="friends-list">
           {friends.slice(0, 5).map((friend, index) => (
             <img
               key={index}
+              x
               className="friend-avatar"
               src={friend.avatarUrl}
               alt={friend.name}
@@ -85,9 +102,9 @@ const AccountHeader = () => {
 
         <TabSwitcher
           tabs={[
-            { label: 'Dashboard', key: 'dashboard', content: null },
-            { label: 'My Orders', key: 'orders', content: null },
-            { label: 'Affiliations', key: 'affiliations', content: null },
+            { label: "Dashboard", key: "dashboard", content: null },
+            { label: "My Orders", key: "orders", content: null },
+            { label: "Affiliations", key: "affiliations", content: null },
           ]}
           onTabChange={(key) => setActiveTab(key)}
           alignLeft={true}

@@ -9,7 +9,6 @@
 .menu {
   display: flex;
   flex-direction: column;
-  background: #1a1c29;
   padding: 12px 16px;
 
   .menu-item {
@@ -33,9 +32,11 @@
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
 
     .icon {
-      margin-right: 4px;
+      margin-right: 8px;
     }
   }
 
@@ -43,26 +44,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
 
     .meta {
       display: flex;
       flex-direction: column;
 
       .type {
-        font-size: 10px;
-        color: #8389a5;
+        font-size: 15px;
+        color: var(--blue);
       }
 
       .title {
         font-weight: 600;
-        font-size: 12px;
-        color: white;
+        font-size: 17px;
+        color: var(--white);
         margin-top: 2px;
       }
 
       .views {
-        font-size: 10px;
+        font-size: 13px;
         color: #a1a5b8;
         margin-top: 2px;
       }
