@@ -1,48 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './DestinataireInput.scss';
 import { MdExpandMore } from 'react-icons/md';
+import apiService from '../../../services/apiService'; // adapte le chemin si nécessaire
+import useAuth from '../../../hooks/useAuth'; // adapte le chemin aussi
 
-const suggestions = [
-    'support@aevoria.com',
-    'admin@aevoria.com',
-    'contact@aevoria.com',
-    'ami@aevoria.com',
-];
-
-const DestinataireInput = ({ recipients = [], onChange, options = [] }) => {
+const DestinataireInput = ({ recipients = [], onChange }) => {
+    const { user } = useAuth();
     const [input, setInput] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
+    const [friends, setFriends] = useState([]);
 
-    const handleAdd = (user) => {
-        if (!user || recipients.find(r => r.userId === user.userId)) return;
-        onChange([...recipients, user]);
+    useEffect(() => {
+        const fetchFriends = async () => {
+            if (!user?.userId) return;
+            try {
+                const response = await apiService.get(`/friends/${user.userId}`);
+                const valid = response?.$values?.filter(f => f.status === 'Accepted') || [];
+
+                const enriched = await Promise.all(valid.map(async (f) => {
+                    const friendId = f.userId === user.userId ? f.friendId : f.userId;
+                    const friendData = await apiService.get(`/users/${friendId}`);
+                    return {
+                        id: friendData.userId,
+                        email: friendData.email,
+                        username: friendData.username,
+                        display: `${friendData.first_name || ''} ${friendData.last_name || ''}`.trim(),
+                    };
+                }));
+
+                setFriends(enriched);
+            } catch (err) {
+                console.error('Erreur chargement amis destinataires :', err);
+            }
+        };
+
+        fetchFriends();
+    }, [user]);
+
+    const handleAdd = (value) => {
+        if (!value || recipients.includes(value)) return;
+        onChange([...recipients, value]);
         setInput('');
         setShowDropdown(false);
     };
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Enter') e.preventDefault();
+        if (e.key === 'Enter' && input.trim()) {
+            e.preventDefault();
+            handleAdd(input.trim());
+        }
     };
 
-    const removeRecipient = (userId) => {
-        onChange(recipients.filter(r => r.userId !== userId));
+    const removeRecipient = (value) => {
+        onChange(recipients.filter(r => r !== value));
     };
 
-    const filteredOptions = options.filter(user =>
-        (user.fullName?.toLowerCase().includes(input.toLowerCase()) ||
-         user.username?.toLowerCase().includes(input.toLowerCase())) &&
-        !recipients.find(r => r.userId === user.userId)
+    const filteredSuggestions = friends.filter(f =>
+        (f.email && f.email.includes(input)) ||
+        (f.username && f.username.includes(input))
     );
 
     return (
         <div className="aev-destinataire-input">
             <label className="label">Destinataires *</label>
+
             <div className="input-bar">
                 {recipients.map((r, i) => (
                     <span className="chip" key={i}>
-                        {r.fullName || r.username}
-                        <span className="remove" onClick={() => removeRecipient(r.userId)}>×</span>
+                        {r}
+                        <span className="remove" onClick={() => removeRecipient(r)}>×</span>
                     </span>
                 ))}
                 <input
@@ -53,18 +80,23 @@ const DestinataireInput = ({ recipients = [], onChange, options = [] }) => {
                         setShowDropdown(true);
                     }}
                     onKeyDown={handleKeyDown}
-                    placeholder="Saisir un nom ou pseudo..."
+                    placeholder="Rechercher par email ou pseudo..."
                 />
                 <MdExpandMore className="dropdown-icon" />
             </div>
+
             <div className="underline" />
 
             {showDropdown && input.length > 0 && (
                 <div className="dropdown-panel">
-                    {filteredOptions.map((user, i) => (
-                        <div key={i} className="dropdown-item" onClick={() => handleAdd(user)}>
-                            <img src={user.profile_picture || 'https://via.placeholder.com/30'} alt="" />
-                            <span>{user.fullName || user.username}</span>
+                    {filteredSuggestions.map((friend, i) => (
+                        <div
+                            key={i}
+                            className="dropdown-item"
+                            onClick={() => handleAdd(friend.email || friend.username)}
+                        >
+                            <strong>{friend.display || friend.username}</strong>
+                            <div className="small">@{friend.username} – {friend.email}</div>
                         </div>
                     ))}
                 </div>
@@ -76,13 +108,6 @@ const DestinataireInput = ({ recipients = [], onChange, options = [] }) => {
 DestinataireInput.propTypes = {
     recipients: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
-    options: PropTypes.arrayOf(PropTypes.shape({
-        userId: PropTypes.string,
-        fullName: PropTypes.string,
-        username: PropTypes.string,
-        profile_picture: PropTypes.string
-    })).isRequired
 };
-
 
 export default DestinataireInput;
