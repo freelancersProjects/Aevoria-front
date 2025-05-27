@@ -42,27 +42,17 @@ const DashboardPendingFriends = ({ currentUserId, onActionDone }) => {
         fetchFriendRequests();
     }, [currentUserId]);
 
-    const handleAction = async (friendId, status, friendName) => {
-        try {
-            // Utiliser la méthode patchQuery qui existe dans votre service
-            await apiService.patchQuery(`/friends/status?friendId=${friendId}&userId=${currentUserId}&status=${status}`);
-            
-            if (status === 'Accepted') {
-                setToast({
-                    type: 'success',
-                    message: 'Demande acceptée'
-                });
-            } else {
-                setToast({
-                    type: 'info',
-                    message: 'Demande refusée'
-                });
-            }
-
-            setFriendRequests(prev => prev.filter(f => f.relationFriendId !== friendId));
+    const handleAction = async (friendId) => {
+  try {
+            await apiService.patchQuery(`/friends/status?userId=${friendId}&friendId=${currentUserId}&status=Accepted`);
+            setFriendRequests(prev => prev.filter(req => req.relationFriendId !== friendId));
+            onAccepted(friendId);
             onActionDone();
+            setToast({
+                type: 'success',
+                message: "Demande d'ami acceptée."
+            });
         } catch (error) {
-            console.error("Erreur de mise à jour du statut :", error);
             setToast({
                 type: 'error',
                 message: "Erreur lors du traitement de la demande"

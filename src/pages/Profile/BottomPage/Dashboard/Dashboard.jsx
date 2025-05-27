@@ -45,7 +45,6 @@ function Dashboard() {
   }, [data, shouldFetch]);
 
   const handleUnfriend = async (friendId) => {
-    console.log("🔍 handleUnfriend appelé avec :", friendId); // ← ajoute ceci
     if (!friendId) {
       console.error("friendId manquant !");
       return;

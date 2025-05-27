@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../../../../components/AEV/AEV.Button/Button';
 import apiService from '../../../../../services/apiService';
+import Toast from '../../../../../components/AEV/AEV.Toast/Toast';
 import './DashboardPendingFriends.scss';
 
 const DashboardPendingFriends = ({ currentUserId, onActionDone, onAccepted = [] }) => {
     const [friendRequests, setFriendRequests] = useState([]);
+    const [toast, setToast] = useState(null);
 
     useEffect(() => {
         const fetchFriendRequests = async () => {
@@ -46,8 +48,15 @@ const DashboardPendingFriends = ({ currentUserId, onActionDone, onAccepted = [] 
             setFriendRequests(prev => prev.filter(req => req.relationFriendId !== friendId));
             onAccepted(friendId);
             onActionDone();
+            setToast({
+                type: 'success',
+                message: "Demande d'ami acceptée.",
+            });
         } catch (error) {
-            console.error("Erreur lors de l'acceptation :", error);
+            setToast({
+                type: 'error',
+                message: "Erreur lors de l'acceptation de la demande d'ami.",
+            });
         }
     };
 
@@ -55,9 +64,15 @@ const DashboardPendingFriends = ({ currentUserId, onActionDone, onAccepted = [] 
         try {
             await apiService.delete(`/friends?userId=${friendId}&friendId=${currentUserId}`);
             setFriendRequests(prev => prev.filter(req => req.relationFriendId !== friendId));
-            // Pas besoin d'appeler onActionDone() ici si tu ne veux pas refetch les Accepted
+            setToast({
+                type: 'success',
+                message: "Demande d'ami refusée.",
+            });
         } catch (error) {
-            console.error("Erreur lors du refus :", error);
+            setToast({
+                type: 'error',
+                message: "Erreur lors du refus de la demande d'ami.",
+            });
         }
     };
 
@@ -66,6 +81,13 @@ const DashboardPendingFriends = ({ currentUserId, onActionDone, onAccepted = [] 
     return (
         <div className="pending-requests">
             <h3 className="pending-title">Demandes d’amis</h3>
+            {toast && (
+                <Toast
+                    type={toast.type}
+                    message={toast.message}
+                    onClose={() => setToast(null)}
+                />
+            )}
             {friendRequests.map(friend => (
                 <div key={friend.relationFriendId} className="pending-card">
                     <div className="friendInfo">
