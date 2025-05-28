@@ -3,7 +3,6 @@ import "./AccountHeader.scss";
 import defaultBanner from "../../../../assets/images/17776072l.jpg";
 import ArrowProfileDashboard from "../../../../assets/svg/arrow-profile-dashboard.svg";
 import defaultProfile from "../../../../assets/images/avatar.png";
-import TabSwitcher from "../../../../components/AEV/AEV.TabSwitcher/TabSwitcher";
 
 const AccountHeader = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -99,16 +98,6 @@ const AccountHeader = () => {
             <span className="more-friends">+{friends.length - 5} others</span>
           )}
         </div>
-
-        <TabSwitcher
-          tabs={[
-            { label: "Dashboard", key: "dashboard", content: null },
-            { label: "My Orders", key: "orders", content: null },
-            { label: "Affiliations", key: "affiliations", content: null },
-          ]}
-          onTabChange={(key) => setActiveTab(key)}
-          alignLeft={true}
-        />
       </div>
     </div>
   );

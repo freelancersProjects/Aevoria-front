@@ -1,16 +1,18 @@
-import React from 'react'
-import HeaderPage from './HeaderPage/HeaderPage'
-import Dashboard from './BottomPage/Dashboard/Dashboard'
-import './Profile.scss'
-// import BottomPage from './BottomPage/BottomPage'
+import React from "react";
+import HeaderPage from "./HeaderPage/HeaderPage";
+import BottomPage from "./BottomPage/BottomPage";
+import "./Profile.scss";
 
 const Profile = () => {
   return (
-    <div className="profile-container">
-      <HeaderPage />
-      <Dashboard />
-    </div>
-  )
-}
+<div className="profile-container">
+  <HeaderPage />
+  <div className="bottom-content-wrapper">
+    <BottomPage />
+  </div>
+</div>
 
-export default Profile
+  );
+};
+
+export default Profile;
