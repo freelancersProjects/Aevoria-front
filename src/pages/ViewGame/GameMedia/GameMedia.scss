@@ -1,0 +1,388 @@
+// Variables
+$bg-dark: #0a0a0a;
+$bg-darker: #000000;
+$neon-cyan: #00ffff;
+$neon-pink: #ff0080;
+$neon-purple: #8000ff;
+$neon-orange: #ff8000;
+$text-primary: #ffffff;
+$text-secondary: #cccccc;
+$text-muted: #888888;
+
+.game-media {
+  color: $text-primary;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  // Background glow effects
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .video-player {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 
+        0 0 50px rgba(0, 255, 255, 0.3),
+        0 0 100px rgba(255, 0, 128, 0.2),
+        inset 0 0 0 2px rgba(0, 255, 255, 0.5);
+      background: $bg-dark;
+
+      // Glowing border animation
+      &::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-orange);
+        border-radius: 22px;
+        z-index: -1;
+        animation: borderGlow 3s linear infinite;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: all 0.3s ease;
+        filter: brightness(0.9) contrast(1.1) saturate(1.2);
+
+        &:hover {
+          filter: brightness(1) contrast(1.2) saturate(1.3);
+        }
+      }
+
+      .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        .play-button {
+          width: 80px;
+          height: 80px;
+          border: 2px solid $neon-cyan;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+
+          &:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            transform: scale(1.1);
+          }
+
+          svg {
+            width: 32px;
+            height: 32px;
+            color: $neon-cyan;
+          }
+        }
+      }
+
+      .video-progress {
+        position: absolute;
+        bottom: 60px;
+        left: 20px;
+        right: 20px;
+
+        .progress-bar {
+          height: 4px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 2px;
+          overflow: hidden;
+
+          .progress-fill {
+            height: 100%;
+            width: 35%;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+          }
+        }
+      }
+
+      .video-info {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+
+        .video-time {
+          background: rgba(0, 0, 0, 0.7);
+          padding: 8px 12px;
+          border-radius: 8px;
+          font-family: 'Monaco', 'Menlo', monospace;
+          font-size: 14px;
+          color: $neon-cyan;
+          border: 1px solid rgba(0, 255, 255, 0.3);
+          backdrop-filter: blur(10px);
+        }
+      }
+
+      .video-controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .controls-left {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          .video-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: $text-primary;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+          }
+        }
+
+        .controls-right {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .control-btn {
+         
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: $text-secondary;
+          padding: 8px 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+          font-size: 16px;
+
+          &:hover {
+            border-color: $neon-cyan;
+            color: $neon-cyan;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+          }
+
+          &.play-btn {
+            border-color: $neon-cyan;
+            color: $neon-cyan;
+          }
+        }
+      }
+    }
+  }
+
+  .thumbnail-nav {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 2;
+
+    .nav-arrow {
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        border-color: $neon-cyan;
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+        color: $text-secondary;
+        transition: color 0.3s ease;
+      }
+
+      &:hover svg {
+        color: $neon-cyan;
+      }
+    }
+
+    .thumbnail-container {
+      flex: 1;
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      padding: 10px 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .thumbnail {
+        position: relative;
+        flex-shrink: 0;
+        width: 200px;
+        height: 112px;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+
+        &:hover {
+          transform: scale(1.05);
+          border-color: rgba(0, 255, 255, 0.5);
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        &.active {
+          border-color: $neon-cyan;
+          box-shadow: 
+            0 0 25px rgba(0, 255, 255, 0.5),
+            inset 0 0 0 2px rgba(0, 255, 255, 0.3);
+          transform: scale(1.1);
+
+          .thumbnail-overlay {
+            background: linear-gradient(transparent, rgba(0, 255, 255, 0.2));
+          }
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: all 0.3s ease;
+        }
+
+        .thumbnail-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+          padding: 15px 12px 8px;
+          transition: all 0.3s ease;
+
+          .thumbnail-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: $text-primary;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+          }
+        }
+
+        // Active indicator
+        &.active::after {
+          content: '';
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          width: 8px;
+          height: 8px;
+          background: $neon-cyan;
+          border-radius: 50%;
+          box-shadow: 0 0 10px $neon-cyan;
+          animation: pulse 2s infinite;
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes borderGlow {
+  0% { 
+    background: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-orange);
+  }
+  25% { 
+    background: linear-gradient(45deg, $neon-pink, $neon-purple, $neon-orange, $neon-cyan);
+  }
+  50% { 
+    background: linear-gradient(45deg, $neon-purple, $neon-orange, $neon-cyan, $neon-pink);
+  }
+  75% { 
+    background: linear-gradient(45deg, $neon-orange, $neon-cyan, $neon-pink, $neon-purple);
+  }
+  100% { 
+    background: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-orange);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .game-media {
+    .video-player {
+      padding: 1rem;
+    }
+
+    .thumbnail-nav {
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+
+      .thumbnail-container {
+        .thumbnail {
+          width: 150px;
+          height: 84px;
+        }
+      }
+    }
+  }
+}
