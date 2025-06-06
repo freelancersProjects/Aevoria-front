@@ -101,6 +101,7 @@ const Home = () => {
             isSteam={game.isAvailableOnSteam}
             isEpic={game.isAvailableOnEpic}
             isPlaystation={game.isAvailableOnPlayStation}
+            gameId={game.gameId}
             />
           ))}
         </div>

@@ -1,102 +1,130 @@
-import React from 'react';
-import HeaderSectionImage from '../../components/Layout/HeaderSectionImage/HeaderSectionImage';
-import CardCart from './CardCart/CardCart';
+import React, { useState } from 'react';
+import { FaMinus, FaPlus, FaCopy, FaTrash } from 'react-icons/fa';
+import HR from '../../components/AEV/AEV.HR/HR';
 import './Cart.scss';
-import PropTypes from 'prop-types';
+import HeaderSectionImage from '../../components/Layout/HeaderSectionImage/HeaderSectionImage';
 
-const sampleCartItems = [
-    {
-        id: 1,
-        image: "https://cdn.discordapp.com/attachments/1275483221458681906/1351600829349494875/image.png?ex=67daf7dd&is=67d9a65d&hm=e84a281537474d0982c29790bafd6ea7cd06c6e645dcdc629042bf3c0379f721&",
-        title: "The Witcher 3: Wild Hunt",
-        edition: "Standard Edition",
-        price: 19.99,
-        quantity: 1,
-    },
-    {
-        id: 2,
-        image: "https://cdn.discordapp.com/attachments/1275483221458681906/1351600829349494875/image.png?ex=67daf7dd&is=67d9a65d&hm=e84a281537474d0982c29790bafd6ea7cd06c6e645dcdc629042bf3c0379f721&",
-        title: "Cyberpunk 2077",
-        edition: "Standard Edition",
-        price: 59.99,
-        quantity: 1,
-    },
-    {
-        id: 3,
-        image: "https://cdn.discordapp.com/attachments/1275483221458681906/1351600829349494875/image.png?ex=67daf7dd&is=67d9a65d&hm=e84a281537474d0982c29790bafd6ea7cd06c6e645dcdc629042bf3c0379f721&",
-        title: "The Witcher 3: Wild Hunt",
-        edition: "Standard Edition",
-        price: 19.99,
-        quantity: 1,
-    },
-    {
-        id: 4,
-        image: "https://cdn.discordapp.com/attachments/1275483221458681906/1351600829349494875/image.png?ex=67daf7dd&is=67d9a65d&hm=e84a281537474d0982c29790bafd6ea7cd06c6e645dcdc629042bf3c0379f721&",
-        title: "Cyberpunk 2077",
-        edition: "Standard Edition",
-        price: 59.99,
-        quantity: 1,
-    },
-];
+const Cart = () => {
+    const [cartItems] = useState([
+        {
+            id: 1,
+            title: "The Witcher 3: Wild Hunt",
+            edition: "Standard Edition",
+            price: 29.99,
+            image: "/images/games/witcher3.jpg",
+            quantity: 1
+        },
+        {
+            id: 2,
+            title: "Cyberpunk 2077",
+            edition: "Deluxe Edition",
+            price: 59.99,
+            image: "/images/games/cyberpunk.jpg",
+            quantity: 1
+        },
+        {
+            id: 3,
+            title: "Red Dead Redemption 2",
+            edition: "Ultimate Edition",
+            price: 59.99,
+            image: "/images/games/rdr2.jpg",
+            quantity: 1
+        },
+        {
+            id: 4,
+            title: "Assassin's Creed Valhalla",
+            edition: "Gold Edition",
+            price: 49.99,
+            image: "/images/games/valhalla.jpg",
+            quantity: 1
+        },
+        {
+            id: 5,
+            title: "FIFA 23",
+            edition: "Champions Edition",
+            price: 59.99,
+            image: "/images/games/fifa23.jpg",
+            quantity: 1
+        }
+    ]);
 
-const Cart = ({ cartItems = sampleCartItems }) => {
-    const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const estimatedTax = 0.0;
-    const total = subtotal + estimatedTax;
+    const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    const [promoCode, setPromoCode] = useState('');
 
     return (
-        <>
-            <HeaderSectionImage title="Checkout" />
+        <div className="cart-page">
+            <HeaderSectionImage title="Cart"/>
 
-            <div className="cart-container">
-                <div className="cart-content">
-                    {/* Liste des articles */}
-                    <div className="cart-items">
-                        {cartItems.length > 0 ? (
-                            cartItems.map((item) => <CardCart key={item.id} item={item} />)
-                        ) : (
-                            <p className="empty-cart">Votre panier est vide.</p>
-                        )}
+            <div className="cart-content">
+                <div className="cart-items">
+                    {cartItems.map((item) => (
+                        <div key={item.id} className="cart-item">
+                            <div className="item-image">
+                                <img src={item.image} alt={item.title} />
+                            </div>
+                            <div className="item-details">
+                                <div className="item-info">
+                                    <div className="item-header">
+                                        <h3>{item.title}</h3>
+                                        <span className="price">${item.price}</span>
+                                    </div>
+                                    <span className="edition">{item.edition}</span>
+                                    <div className="item-controls">
+                                        <div className="quantity-controls">
+                                            <button className="quantity-btn">
+                                                <FaMinus />
+                                            </button>
+                                            <span className="quantity">{item.quantity}</span>
+                                            <button className="quantity-btn">
+                                                <FaPlus />
+                                            </button>
+                                        </div>
+                                        <button className="delete-btn">
+                                            <FaTrash />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="order-summary">
+                    <h2>Order Summary</h2>
+                    <div className="summary-details">
+                        <div className="summary-row">
+                            <span>Subtotal</span>
+                            <span>${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div className="summary-row">
+                            <span>Estimated tax</span>
+                            <span>$0.00</span>
+                        </div>
+                        <div className="summary-row total">
+                            <span>Total</span>
+                            <span>${subtotal.toFixed(2)}</span>
+                        </div>
                     </div>
 
-                    {/* Order Summary à droite */}
-                    <div className="order-summary">
-                        <h3>Order Summary</h3>
-                        <div className="summary-details">
-                            <div className="summary-row">
-                                <span>Subtotal</span>
-                                <span>${subtotal.toFixed(2)}</span>
-                            </div>
-                            <div className="summary-row">
-                                <span>Estimated tax</span>
-                                <span>${estimatedTax.toFixed(2)}</span>
-                            </div>
-                            <div className="summary-total">
-                                <span>Total</span>
-                                <span>${total.toFixed(2)}</span>
-                            </div>
-                        </div>
-                        <button className="checkout-btn">Check out</button>
-                        <button className="paypal-btn">Proceed to Checkout</button>
+                    <button className="checkout-btn">Check out</button>
+                    <button className="proceed-btn">Proceed to Checkout</button>
+                    <p className="payment-info">Or pay using PayPal</p>
 
-                        <div className="promo-section">
-                            <input type="text" placeholder="Enter promo code" />
-                            <button className="apply-btn">Apply</button>
-                        </div>
+                    <HR />
+
+                    <div className="promo-code">
+                        <input
+                            type="text"
+                            placeholder="Promo code"
+                            value={promoCode}
+                            onChange={(e) => setPromoCode(e.target.value)}
+                        />
+                        <button className="apply-btn">Apply</button>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
-};
-Cart.propTypes = {
-    cartItems: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            price: PropTypes.number.isRequired,
-            quantity: PropTypes.number.isRequired,
-        })
-    ).isRequired,
 };
 
 export default Cart;

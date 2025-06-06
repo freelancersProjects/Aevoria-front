@@ -14,8 +14,9 @@ import WishlistViewCanvas from './pages/WishlistViewCanvas/WishlistViewCanvas';
 import Profile from './pages/Profile/Profile';
 import ViewGame from './pages/ViewGame/ViewGame';
 import MessagePage from './pages/Message/MessagePage';
+import BlogPage from './pages/BlogPage/BlogPage';
 
-const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/gameview', '/message/'];
+const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/message/'];
 
 function Layout({ children }) {
   const location = useLocation();
@@ -44,7 +45,8 @@ function App() {
             <Route path="/demo-form" element={<DemoForm />} />
             <Route path="/wishlist-view" element={<WishlistViewCanvas />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/gameview" element={<ViewGame />} />
+            <Route path="/game/:gameTitle/:gameId" element={<ViewGame />} />
+            <Route path="/blog" element={<BlogPage />} />
             <Route path="/message/:userId/:friendId" element={<MessagePage />} />
           </Routes>
         </Layout>
