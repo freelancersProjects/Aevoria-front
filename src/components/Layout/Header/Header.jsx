@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Header.scss";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import { useNotification } from "../../../context/NotificationContext";
 import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
 import DrawerCart from "../../../pages/Home/Drawer/DrawerCart/DrawerCart";
+import "./Header.scss";
 
 const megaMenu = [
     {
@@ -65,7 +66,9 @@ const Header = () => {
     const { unreadCount } = useNotification();
     const searchInputRef = useRef(null);
     const searchWrapperRef = useRef(null);
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    const previousPath = useRef(location.pathname);
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 40);
         window.addEventListener("scroll", handleScroll);
@@ -82,8 +85,10 @@ const Header = () => {
 
         const handleClickOutside = (e) => {
             if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target)) {
-                setSearchOpen(false);
-                setSearchQuery("");
+                if (!location.pathname.startsWith('/search')) {
+                    setSearchOpen(false);
+                    setSearchQuery("");
+                }
             }
         };
 
@@ -94,13 +99,26 @@ const Header = () => {
             window.removeEventListener("keydown", handleEsc);
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [location.pathname]);
 
     useEffect(() => {
         if (searchOpen && searchInputRef.current) {
             searchInputRef.current.focus();
         }
     }, [searchOpen]);
+
+    useEffect(() => {
+        if (searchQuery.trim()) {
+            if (!location.pathname.startsWith("/search")) {
+                previousPath.current = location.pathname;
+            }
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+        } else if (location.pathname.startsWith("/search")) {
+            // retour à la page précédente si on supprime tout
+            navigate(previousPath.current || "/");
+        }
+    }, [searchQuery]);
+
 
     const handleSearchOpen = (e) => {
         e.stopPropagation();
@@ -146,7 +164,7 @@ const Header = () => {
                                 ref={searchInputRef}
                                 type="text"
                                 className="search-input"
-                                placeholder="Rechercher des jeux, des plateformes..."
+                                placeholder="Rechercher des jeux..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onClick={(e) => e.stopPropagation()}

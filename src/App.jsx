@@ -15,8 +15,12 @@ import Profile from './pages/Profile/Profile';
 import ViewGame from './pages/ViewGame/ViewGame';
 import MessagePage from './pages/Message/MessagePage';
 import BlogPage from './pages/BlogPage/BlogPage';
+import Payment from './pages/Payment/Payment';
+import Terms from './pages/Legal/Terms/Terms';
+import SearchPage from './pages/Search/SearchPage';
+import NotFound from './pages/Error/NotFound/NotFound';
 
-const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/message/'];
+const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/message/', '/legal/', '/payment'];
 
 function Layout({ children }) {
   const location = useLocation();
@@ -48,6 +52,10 @@ function App() {
             <Route path="/game/:gameTitle/:gameId" element={<ViewGame />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/message/:userId/:friendId" element={<MessagePage />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/legal/terms" element={<Terms />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
       </Router>
