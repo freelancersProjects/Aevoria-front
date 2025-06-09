@@ -1,7 +1,7 @@
 :root {
   --dark-low-opacity: rgba(0, 5, 13, 0.9);
   --white: #ffffff;
-  --main-background: #00050D;
+  --main-background: linear-gradient(135deg, #00050D 0%, #00050D 50%, #011221 100%);
   --background-black: #00050d;
   --semi-black: #141B28;
   --transparent-white: rgba(255, 255, 255, 0.6);
@@ -11,6 +11,7 @@
   --lightgray: #c9cbcc;
   --gray-background: #111111;
   --blue: rgba(0, 123, 255, 1);
+  --blue-hover: rgb(8, 98, 194);
   --blue-low-opacity: rgba(0, 123, 255, 0.5);
   --dark-blue: #000C1F;
   --dark-red: #1A0000;

@@ -1,0 +1,38 @@
+.status-indicator {
+    border-radius: 8px;
+    border: 1.5px solid rgba(255, 255, 255, 0.00);
+    background: rgba(184, 202, 224, 0.12);
+    color: #4caf50;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+
+    &::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background-color: #4caf50;
+        border-radius: 50%;
+        margin-right: 6px;
+    }
+
+    &.inactive {
+        color: #f44336;
+        background: rgba(184, 202, 224, 0.08);
+
+        &::before {
+            background-color: #f44336;
+        }
+    }
+
+    &.offline {
+        color: #b0b0b0;
+        background: rgba(244, 67, 54, 0.08);
+
+        &::before {
+            background-color: #b0b0b0;
+        }
+    }
+}

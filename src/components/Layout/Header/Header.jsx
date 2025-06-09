@@ -1,63 +1,33 @@
-import React, { useState, useEffect } from "react";
-import "./Header.scss";
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
-import SearchBar from "../../AEV/AEV.SearchBar/SearchBar";
 import { useNotification } from "../../../context/NotificationContext";
 import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
+import DrawerCart from "../../../pages/Home/Drawer/DrawerCart/DrawerCart";
+import "./Header.scss";
 
 const megaMenu = [
     {
         title: "PC",
         groups: [
-            {
-                title: "Plateformes",
-                links: ["Steam", "Epic Games", "Ubisoft Connect", "Battle.net"]
-            },
-            {
-                title: "Genres",
-                links: ["FPS", "MMORPG", "Stratégie", "Indé"]
-            }
+            { title: "Plateformes", links: ["Steam", "Epic Games", "Ubisoft Connect", "Battle.net"] },
+            { title: "Genres", links: ["FPS", "MMORPG", "Stratégie", "Indé"] }
         ]
     },
     {
         title: "PlayStation",
-        groups: [
-            {
-                title: "Sony",
-                links: ["PS5", "PS4"]
-            }
-        ]
+        groups: [{ title: "Sony", links: ["PS5", "PS4"] }]
     },
     {
         title: "Xbox",
-        groups: [
-            {
-                title: "Microsoft",
-                links: ["Xbox Series X", "Xbox Series S", "Xbox One"]
-            }
-        ]
+        groups: [{ title: "Microsoft", links: ["Xbox Series X", "Xbox Series S", "Xbox One"] }]
     },
     {
         title: "Nintendo",
-        groups: [
-            {
-                title: "Nintendo",
-                links: ["Switch", "Switch Lite"]
-            }
-        ]
+        groups: [{ title: "Nintendo", links: ["Switch", "Switch Lite"] }]
     }
-];
-
-// Données mockées pour les résultats de recherche
-const searchResults = [
-  { id: 1, title: "Cyberpunk 2077", category: "RPG", platform: "PC, PS5, XSX", price: "59.99€" },
-  { id: 2, title: "Baldur's Gate 3", category: "RPG", platform: "PC", price: "49.99€" },
-  { id: 3, title: "Elden Ring", category: "Action RPG", platform: "PC, PS5, XSX", price: "69.99€" },
-  { id: 4, title: "Diablo IV", category: "Action RPG", platform: "PC, PS5, XSX", price: "59.99€" },
-  { id: 5, title: "Starfield", category: "RPG", platform: "PC, XSX", price: "69.99€" },
-  { id: 6, title: "Final Fantasy XVI", category: "RPG", platform: "PS5", price: "79.99€" }
 ];
 
 const NavItem = ({ item, idx, activeMega, setActiveMega }) => (
@@ -66,10 +36,7 @@ const NavItem = ({ item, idx, activeMega, setActiveMega }) => (
         onMouseEnter={() => setActiveMega(idx)}
         onMouseLeave={() => setActiveMega(null)}
     >
-        <div className="nav-item-content">
-            {item.title}
-            {item.icon}
-        </div>
+        <div className="nav-item-content">{item.title}</div>
         {activeMega === idx && (
             <div className="mega-panel">
                 <div className="mega-content">
@@ -94,24 +61,76 @@ const Header = () => {
     const [activeMega, setActiveMega] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [notifDrawerOpen, setNotifDrawerOpen] = useState(false);
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
-    const { unreadCount, refreshUnread } = useNotification();
+    const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
+    const { unreadCount } = useNotification();
+    const searchInputRef = useRef(null);
+    const searchWrapperRef = useRef(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const previousPath = useRef(location.pathname);
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 40);
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
-const [searchOpen, setSearchOpen] = useState(false);
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") {
+                setSearchOpen(false);
+                setSearchQuery("");
+            }
+        };
 
-useEffect(() => {
-  const handleEsc = (e) => {
-    if (e.key === "Escape") setSearchOpen(false);
-  };
-  window.addEventListener("keydown", handleEsc);
-  return () => window.removeEventListener("keydown", handleEsc);
-}, []);
+        const handleClickOutside = (e) => {
+            if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target)) {
+                if (!location.pathname.startsWith('/search')) {
+                    setSearchOpen(false);
+                    setSearchQuery("");
+                }
+            }
+        };
+
+        window.addEventListener("keydown", handleEsc);
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            window.removeEventListener("keydown", handleEsc);
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [location.pathname]);
+
+    useEffect(() => {
+        if (searchOpen && searchInputRef.current) {
+            searchInputRef.current.focus();
+        }
+    }, [searchOpen]);
+
+    useEffect(() => {
+        if (searchQuery.trim()) {
+            if (!location.pathname.startsWith("/search")) {
+                previousPath.current = location.pathname;
+            }
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+        } else if (location.pathname.startsWith("/search")) {
+            // retour à la page précédente si on supprime tout
+            navigate(previousPath.current || "/");
+        }
+    }, [searchQuery]);
 
 
+    const handleSearchOpen = (e) => {
+        e.stopPropagation();
+        if (!searchOpen) {
+            setSearchOpen(true);
+        }
+    };
 
-    const handleSearch = (query) => {
-        console.log("Searching for:", query);
+    const handleSearchClose = (e) => {
+        e.stopPropagation();
+        setSearchOpen(false);
+        setSearchQuery("");
     };
 
     return (
@@ -123,7 +142,7 @@ useEffect(() => {
                         <span className="brand-name">Aevoria<sup>®</sup></span>
                     </div>
 
-                    {!searchOpen && (
+                    <div className="nav-center-wrapper">
                         <nav className="center">
                             {megaMenu.map((item, idx) => (
                                 <NavItem
@@ -134,56 +153,73 @@ useEffect(() => {
                                     setActiveMega={setActiveMega}
                                 />
                             ))}
-                            <div
-                                className="search-button-wrapper"
-                                onClick={() => setSearchOpen(true)}
-                            >
-                                <Search className="search-icon" />
-                            </div>
                         </nav>
-                    )}
-
-                    {searchOpen ? (
-                        <div className="search-input-wrapper">
-                            <SearchBar
+                        <div
+                            ref={searchWrapperRef}
+                            className={`search-wrapper ${searchOpen ? 'open' : ''}`}
+                            onClick={handleSearchOpen}
+                        >
+                            <Search className="search-icon" />
+                            <input
+                                ref={searchInputRef}
+                                type="text"
+                                className="search-input"
+                                placeholder="Rechercher des jeux..."
                                 value={searchQuery}
-                                onChange={setSearchQuery}
-                                onSearch={handleSearch}
-                                placeholder="Rechercher des jeux, des plateformes..."
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onClick={(e) => e.stopPropagation()}
                             />
-                            <div className="search-close" onClick={() => {
-                                setSearchOpen(false);
-                                setSearchQuery("");
-                            }}>
-                                <Close />
-                            </div>
+                            {searchOpen && (
+                                <div
+                                    className="search-close"
+                                    onClick={handleSearchClose}
+                                >
+                                    <Close />
+                                </div>
+                            )}
                         </div>
-                    ) : (
-                        <div className="right">
-                            <div className="icons">
-                                    <Badge count={unreadCount}>
-                                        <NotificationsNone
-                                            className="icon"
-                                            onClick={() => setNotifDrawerOpen(true)}
-                                        />
-                                    </Badge>
+                    </div>
 
-                                <Badge count={5}>
-                                    <ShoppingCartOutlined className="icon" />
-                                </Badge>
-                                <Person className="icon" style={{ fontSize: '32px' }} />
-                            </div>
-                        </div>
-                    )}
+                    <div className="right">
+                        <Badge count={unreadCount}>
+                            <NotificationsNone className="icon" onClick={() => setNotifDrawerOpen(true)} />
+                        </Badge>
+                        <Badge count={5}>
+                            <ShoppingCartOutlined className="icon" onClick={() => setCartDrawerOpen(true)} />
+                        </Badge>
+                        <Person className="icon" style={{ fontSize: '32px' }} />
+                    </div>
                 </div>
             </header>
+
             <DrawerNotif
                 isOpen={notifDrawerOpen}
                 onClose={() => setNotifDrawerOpen(false)}
-                subject={subject}
-                setSubject={setSubject}
-                message={message}
-                setMessage={setMessage}
+                subject=""
+                setSubject={() => { }}
+                message=""
+                setMessage={() => { }}
+            />
+            <DrawerCart
+                isOpen={cartDrawerOpen}
+                onClose={() => setCartDrawerOpen(false)}
+                cartItems={[
+                    {
+                        id: '1',
+                        name: 'Cyberpunk 2077',
+                        image: 'https://example.com/cyberpunk.jpg',
+                        platform: 'PC - Steam',
+                        price: 59.99
+                    },
+                    {
+                        id: '2',
+                        name: 'The Legend of Zelda: Breath of the Wild',
+                        image: 'https://example.com/zelda.jpg',
+                        platform: 'Nintendo Switch',
+                        price: 69.99
+                    }
+                ]}
+                totalPrice={129.98}
             />
         </>
     );
