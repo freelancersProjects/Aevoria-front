@@ -1,45 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import Button from '../../../../components/AEV/AEV.Button/Button';
 import Drawer from '../../../../components/AEV/AEV.Drawer/Drawer';
 import QuantitySelector from '../../../../components/AEV/AEV.QuantitySelector/QuantitySelector';
 import HR from '../../../../components/AEV/AEV.HR/HR';
-import Corbeille from '../../../../assets/svg/corbeille.svg';
+import CorbeilleButton from '../../../../components/Icon/CorbeilleButton';
+import apiService from '../../../../services/apiService';
+import DefaultImage from '../../../../assets/images/photo-test.webp';
 import './DrawerCart.scss';
 
-const DrawerCart = ({ isOpen, onClose, cartItems = [], totalPrice = 0 }) => {
-    const mockItems = [
-        {
-            id: '1',
-            name: 'Cyberpunk 2077',
-            image: 'https://image.api.playstation.com/vulcan/ap/rnd/202111/3013/cKZ4tKNFj9C00giJ7l4hkRwi.png',
-            platform: 'PC - Steam',
-            price: 59.99,
-            quantity: 1
-        },
-        {
-            id: '2',
-            name: 'The Legend of Zelda: Tears of the Kingdom',
-            image: 'https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000063714/276a412988e07c4d55a2996c6d38abb408b464413b2dfeb44d2aa460b9f622e1',
-            platform: 'Nintendo Switch',
-            price: 69.99,
-            quantity: 2
-        },
-        {
-            id: '3',
-            name: 'God of War Ragnarök',
-            image: 'https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png',
-            platform: 'PlayStation 5',
-            price: 79.99,
-            quantity: 1
-        }
-    ];
+const DrawerCart = ({ isOpen, onClose, userId }) => {
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const handleQuantityChange = (itemId, newQuantity) => {
-        console.log(`Quantity changed for item ${itemId} to ${newQuantity}`);
-        // Implement quantity change logic here
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                if (!userId) return;
+
+                const cart = await apiService.get(`/cart/${userId}`);
+                const items = cart?.items?.$values || [];
+
+                const enrichedItems = await Promise.all(
+                    items.map(async (item) => {
+                        try {
+                            const game = await apiService.get(`/games/${item.gameId}`);
+                            return { ...item, game };
+                        } catch (err) {
+                            console.error("Erreur chargement jeu:", item.gameId, err);
+                            return { ...item, game: null };
+                        }
+                    })
+                );
+
+                setCartItems(enrichedItems);
+            } catch (e) {
+                console.error('Erreur chargement panier:', e);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (isOpen) fetchCart();
+    }, [isOpen, userId]);
+
+    const handleQuantityChange = async (itemId, newQuantity) => {
+        try {
+            const updatedItems = cartItems.map(item =>
+                item.cartItemId === itemId ? { ...item, quantity: newQuantity } : item
+            );
+            setCartItems(updatedItems);
+
+            // MAJ API via query string (ex: /cart/items/{id}?quantity=4)
+            await apiService.putQuery(`/cart/items/${itemId}?quantity=${newQuantity}`);
+        } catch (e) {
+            console.error('Erreur mise à jour quantité:', e);
+        }
     };
+
+    const handleRemoveItem = async (itemId) => {
+        try {
+            await apiService.delete(`/cart/items/${itemId}`);
+            setCartItems(prev => prev.filter(item => item.cartItemId !== itemId));
+        } catch (e) {
+            console.error('Erreur suppression:', e);
+        }
+    };
+
+    const subtotal = cartItems.reduce((sum, item) => sum + item.quantity * (item.game?.discount || 0), 0);
+    const vat = subtotal * 0.2;
+    const total = subtotal + vat;
 
     return (
         <Drawer
@@ -47,10 +78,10 @@ const DrawerCart = ({ isOpen, onClose, cartItems = [], totalPrice = 0 }) => {
             onClose={onClose}
             position="right"
             title="Votre Panier"
-            subtitle={`${mockItems.length} article${mockItems.length > 1 ? 's' : ''}`}
+            subtitle={`${cartItems.length} article${cartItems.length > 1 ? 's' : ''}`}
         >
             <div className="drawer-cart">
-                {mockItems.length === 0 ? (
+                {cartItems.length === 0 ? (
                     <div className="empty-cart">
                         <ShoppingCartOutlined className="empty-cart-icon" />
                         <h3>Votre panier est vide</h3>
@@ -59,20 +90,25 @@ const DrawerCart = ({ isOpen, onClose, cartItems = [], totalPrice = 0 }) => {
                 ) : (
                     <>
                         <div className="cart-items">
-                            {mockItems.map((item) => (
-                                <div key={item.id} className="cart-item">
+                            {cartItems.map((item) => (
+                                <div key={item.cartItemId} className="cart-item">
                                     <div className="item-image">
-                                        <img src={item.image} alt={item.name} />
-                                        <div className="platform-badge">{item.platform}</div>
+                                        <img
+                                            src={item.game?.thumbnailUrl || DefaultImage}
+                                            alt={item.game?.title || 'Jeu'}
+                                        />
+                                        <div className="platform-badge">{item.game?.platform || 'PC'}</div>
                                     </div>
                                     <div className="item-content">
                                         <div className="item-details">
-                                            <h4>{item.name}</h4>
+                                            <h4>{item.game?.title || 'Jeu inconnu'}</h4>
                                             <div className="item-price-quantity">
-                                                <div className="item-price">{item.price.toFixed(2)} €</div>
+                                                <div className="item-price">
+                                                    {(item.game?.discount || 0).toFixed(2)} €
+                                                </div>
                                                 <QuantitySelector
                                                     value={item.quantity}
-                                                    onChange={(value) => handleQuantityChange(item.id, value)}
+                                                    onChange={(value) => handleQuantityChange(item.cartItemId, value)}
                                                     min={1}
                                                     max={10}
                                                 />
@@ -81,12 +117,15 @@ const DrawerCart = ({ isOpen, onClose, cartItems = [], totalPrice = 0 }) => {
                                         <div className="item-total">
                                             <span>Total</span>
                                             <span className="total-price">
-                                                {(item.price * item.quantity).toFixed(2)} €
+                                                {(item.quantity * (item.game?.discount || 0)).toFixed(2)} €
                                             </span>
                                         </div>
                                     </div>
-                                    <button className="remove-item" onClick={() => console.log('Remove item', item.id)}>
-                                        <img src={Corbeille} alt="Supprimer" />
+                                    <button
+                                        className="remove-item"
+                                        onClick={() => handleRemoveItem(item.cartItemId)}
+                                    >
+                                        <CorbeilleButton />
                                     </button>
                                 </div>
                             ))}
@@ -96,22 +135,22 @@ const DrawerCart = ({ isOpen, onClose, cartItems = [], totalPrice = 0 }) => {
                             <HR variant="dashed" />
                             <div className="summary-row">
                                 <span>Sous-total</span>
-                                <span>{mockItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)} €</span>
+                                <span>{subtotal.toFixed(2)} €</span>
                             </div>
                             <div className="summary-row">
                                 <span>TVA (20%)</span>
-                                <span>{(mockItems.reduce((total, item) => total + (item.price * item.quantity), 0) * 0.2).toFixed(2)} €</span>
+                                <span>{vat.toFixed(2)} €</span>
                             </div>
                             <HR />
                             <div className="summary-row total">
                                 <span>Total</span>
-                                <span>{(mockItems.reduce((total, item) => total + (item.price * item.quantity), 0) * 1.2).toFixed(2)} €</span>
+                                <span>{total.toFixed(2)} €</span>
                             </div>
                         </div>
 
                         <div className="cart-actions">
                             <Button variant="outline" text="Voir le panier" onClick={() => window.location.href = '/cart'} />
-                            <Button variant="primary" text="Payer maintenant" onClick={() => window.location.href = '/checkout'}/>
+                            <Button variant="primary" text="Payer maintenant" onClick={() => window.location.href = '/checkout'} />
                         </div>
                     </>
                 )}
@@ -123,18 +162,7 @@ const DrawerCart = ({ isOpen, onClose, cartItems = [], totalPrice = 0 }) => {
 DrawerCart.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    cartItems: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string,
-            name: PropTypes.string,
-            image: PropTypes.string,
-            platform: PropTypes.string,
-            price: PropTypes.number,
-            quantity: PropTypes.number,
-            onRemove: PropTypes.func
-        })
-    ),
-    totalPrice: PropTypes.number
+    userId: PropTypes.string
 };
 
 export default DrawerCart;

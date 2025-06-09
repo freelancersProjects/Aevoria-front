@@ -19,6 +19,7 @@ import Payment from './pages/Payment/Payment';
 import Terms from './pages/Legal/Terms/Terms';
 import SearchPage from './pages/Search/SearchPage';
 import NotFound from './pages/Error/NotFound/NotFound';
+import CategorieView from './pages/CategorieView/CategorieView';
 
 const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/message/', '/legal/', '/payment'];
 
@@ -55,6 +56,7 @@ function App() {
             <Route path="/payment" element={<Payment />} />
             <Route path="/legal/terms" element={<Terms />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/categorie/:genreId" element={<CategorieView />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

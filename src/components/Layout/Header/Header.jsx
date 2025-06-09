@@ -6,6 +6,8 @@ import { useNotification } from "../../../context/NotificationContext";
 import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
 import DrawerCart from "../../../pages/Home/Drawer/DrawerCart/DrawerCart";
+import apiService from "../../../services/apiService";
+import useAuth from "../../../hooks/useAuth";
 import "./Header.scss";
 
 const megaMenu = [
@@ -64,16 +66,40 @@ const Header = () => {
     const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     const { unreadCount } = useNotification();
+
     const searchInputRef = useRef(null);
     const searchWrapperRef = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
     const previousPath = useRef(location.pathname);
+
+    const { user } = useAuth();
+    const [cartItems, setCartItems] = useState([]);
+
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 40);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+
+    useEffect(() => {
+        const fetchCart = async () => {
+            if (!user?.userId) return;
+            try {
+                const res = await apiService.get(`/cart/${user.userId}`);
+
+                const items = res?.items?.$values || [];
+                setCartItems(items);
+            } catch (err) {
+                console.error("Erreur panier:", err);
+                setCartItems([]);
+            }
+        };
+
+        if (cartDrawerOpen) fetchCart();
+    }, [cartDrawerOpen, user]);
+
 
     useEffect(() => {
         const handleEsc = (e) => {
@@ -184,7 +210,7 @@ const Header = () => {
                         <Badge count={unreadCount}>
                             <NotificationsNone className="icon" onClick={() => setNotifDrawerOpen(true)} />
                         </Badge>
-                        <Badge count={5}>
+                        <Badge count={Array.isArray(cartItems) ? cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0) : 0}>
                             <ShoppingCartOutlined className="icon" onClick={() => setCartDrawerOpen(true)} />
                         </Badge>
                         <Person className="icon" style={{ fontSize: '32px' }} />
@@ -203,24 +229,9 @@ const Header = () => {
             <DrawerCart
                 isOpen={cartDrawerOpen}
                 onClose={() => setCartDrawerOpen(false)}
-                cartItems={[
-                    {
-                        id: '1',
-                        name: 'Cyberpunk 2077',
-                        image: 'https://example.com/cyberpunk.jpg',
-                        platform: 'PC - Steam',
-                        price: 59.99
-                    },
-                    {
-                        id: '2',
-                        name: 'The Legend of Zelda: Breath of the Wild',
-                        image: 'https://example.com/zelda.jpg',
-                        platform: 'Nintendo Switch',
-                        price: 69.99
-                    }
-                ]}
-                totalPrice={129.98}
+                userId={user?.userId}
             />
+
         </>
     );
 };
