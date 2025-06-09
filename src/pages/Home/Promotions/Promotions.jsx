@@ -41,7 +41,7 @@ const Promotions = () => {
     <div className="promotions-section">
       <SectionTitle text="Promotions" />
       <div className="game-cards-container">
-        {promotionalGames.map((game, index) => (
+        {games.map((game, index) => (
           <GameCard
             key={index}
             title={game.title}

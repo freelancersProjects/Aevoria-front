@@ -39,13 +39,11 @@ $text-muted: #888888;
     .video-container {
       position: relative;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 
-        0 0 50px rgba(0, 255, 255, 0.3),
-        0 0 100px rgba(255, 0, 128, 0.2),
-        inset 0 0 0 2px rgba(0, 255, 255, 0.5);
       background: $bg-dark;
 
       // Glowing border animation
@@ -111,7 +109,6 @@ $text-muted: #888888;
           svg {
             width: 32px;
             height: 32px;
-            color: $neon-cyan;
           }
         }
       }
@@ -211,10 +208,10 @@ $text-muted: #888888;
   }
 
   .thumbnail-nav {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    right: 30px;
+    // Suppression de position: absolute pour intégrer au flux du document
+    position: relative;
+    margin-top: 3rem; // Espace entre la vidéo et les miniatures
+    padding: 0 30px; // Remplace left/right avec padding
     display: flex;
     align-items: center;
     gap: 20px;
@@ -373,9 +370,8 @@ $text-muted: #888888;
     }
 
     .thumbnail-nav {
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
+      padding: 0 15px; // Remplace left/right
+      margin-top: 2rem; // Espace réduit pour mobile
 
       .thumbnail-container {
         .thumbnail {

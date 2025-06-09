@@ -52,7 +52,7 @@ const DashboardPendingFriends = ({ currentUserId, onActionDone }) => {
                 type: 'success',
                 message: "Demande d'ami acceptée."
             });
-        } catch (error) {
+        } catch (err58or) {
             setToast({
                 type: 'error',
                 message: "Erreur lors du traitement de la demande"
