@@ -16,15 +16,23 @@ const Drawer = ({
     useEffect(() => {
         if (isOpen) {
             setShouldRender(true);
+            document.body.style.overflow = 'hidden';
         } else if (shouldRender) {
             setClosing(true);
             const timeout = setTimeout(() => {
                 setClosing(false);
                 setShouldRender(false);
+                document.body.style.overflow = '';
             }, 350);
             return () => clearTimeout(timeout);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, []);
 
     if (!shouldRender) return null;
 

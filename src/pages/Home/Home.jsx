@@ -95,12 +95,14 @@ const Home = () => {
             key={game.gameId}
             image={game.thumbnailUrl}
             title={game.title}
+            // genres={game.genreId}
             price={game.price}
             discount={game.discount}
             percentage_reduction={game.percentageReduction}
             isSteam={game.isAvailableOnSteam}
             isEpic={game.isAvailableOnEpic}
             isPlaystation={game.isAvailableOnPlayStation}
+            gameId={game.gameId}
             />
           ))}
         </div>

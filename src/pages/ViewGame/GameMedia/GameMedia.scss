@@ -1,16 +1,7 @@
-// Variables
-$bg-dark: #0a0a0a;
-$bg-darker: #000000;
-$neon-cyan: #00ffff;
-$neon-pink: #ff0080;
-$neon-purple: #8000ff;
-$neon-orange: #ff8000;
-$text-primary: #ffffff;
-$text-secondary: #cccccc;
-$text-muted: #888888;
+@import '../../../global.scss';
 
 .game-media {
-  color: $text-primary;
+  color: var(--white);
   min-height: 100vh;
   position: relative;
   overflow: hidden;
@@ -44,7 +35,7 @@ $text-muted: #888888;
       padding: 0 16px;
       border-radius: 20px;
       overflow: hidden;
-      background: $bg-dark;
+      background: var(--background-black);
 
       // Glowing border animation
       &::before {
@@ -54,7 +45,7 @@ $text-muted: #888888;
         left: -2px;
         right: -2px;
         bottom: -2px;
-        background: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-orange);
+        background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
         border-radius: 22px;
         z-index: -1;
         animation: borderGlow 3s linear infinite;
@@ -92,7 +83,7 @@ $text-muted: #888888;
         .play-button {
           width: 80px;
           height: 80px;
-          border: 2px solid $neon-cyan;
+          border: 2px solid var(--blue-light);
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -102,7 +93,7 @@ $text-muted: #888888;
           backdrop-filter: blur(10px);
 
           &:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            box-shadow: 0 0 30px var(--glow-blue);
             transform: scale(1.1);
           }
 
@@ -121,7 +112,7 @@ $text-muted: #888888;
 
         .progress-bar {
           height: 4px;
-          background: rgba(255, 255, 255, 0.2);
+          background: var(--transparent-white);
           border-radius: 2px;
           overflow: hidden;
 
@@ -129,7 +120,7 @@ $text-muted: #888888;
             height: 100%;
             width: 35%;
             border-radius: 2px;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 10px var(--glow-blue);
           }
         }
       }
@@ -140,13 +131,13 @@ $text-muted: #888888;
         left: 20px;
 
         .video-time {
-          background: rgba(0, 0, 0, 0.7);
+          background: var(--dark-low-opacity);
           padding: 8px 12px;
           border-radius: 8px;
           font-family: 'Monaco', 'Menlo', monospace;
           font-size: 14px;
-          color: $neon-cyan;
-          border: 1px solid rgba(0, 255, 255, 0.3);
+          color: var(--blue-light);
+          border: 1px solid var(--blue-low-opacity);
           backdrop-filter: blur(10px);
         }
       }
@@ -156,7 +147,7 @@ $text-muted: #888888;
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        background: linear-gradient(transparent, var(--dark-low-opacity));
         padding: 20px;
         display: flex;
         align-items: center;
@@ -170,8 +161,8 @@ $text-muted: #888888;
           .video-title {
             font-size: 18px;
             font-weight: 600;
-            color: $text-primary;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            color: var(--white);
+            text-shadow: 0 0 10px var(--glow-blue);
           }
         }
 
@@ -182,9 +173,8 @@ $text-muted: #888888;
         }
 
         .control-btn {
-         
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: $text-secondary;
+          border: 1px solid var(--transparent-white);
+          color: var(--light-text);
           padding: 8px 12px;
           border-radius: 8px;
           cursor: pointer;
@@ -193,14 +183,14 @@ $text-muted: #888888;
           font-size: 16px;
 
           &:hover {
-            border-color: $neon-cyan;
-            color: $neon-cyan;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border-color: var(--blue-light);
+            color: var(--blue-light);
+            box-shadow: 0 0 15px var(--glow-blue);
           }
 
           &.play-btn {
-            border-color: $neon-cyan;
-            color: $neon-cyan;
+            border-color: var(--blue-light);
+            color: var(--blue-light);
           }
         }
       }
@@ -208,10 +198,9 @@ $text-muted: #888888;
   }
 
   .thumbnail-nav {
-    // Suppression de position: absolute pour intégrer au flux du document
     position: relative;
-    margin-top: 3rem; // Espace entre la vidéo et les miniatures
-    padding: 0 30px; // Remplace left/right avec padding
+    margin-top: 3rem;
+    padding: 0 30px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -220,8 +209,8 @@ $text-muted: #888888;
     .nav-arrow {
       width: 50px;
       height: 50px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: var(--dark-low-opacity);
+      border: 2px solid var(--transparent-white);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -231,20 +220,20 @@ $text-muted: #888888;
       backdrop-filter: blur(10px);
 
       &:hover {
-        border-color: $neon-cyan;
-        background: rgba(0, 255, 255, 0.1);
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        border-color: var(--blue-light);
+        background: var(--blue-low-opacity);
+        box-shadow: 0 0 20px var(--glow-blue);
       }
 
       svg {
         width: 24px;
         height: 24px;
-        color: $text-secondary;
+        color: var(--light-text);
         transition: color 0.3s ease;
       }
 
       &:hover svg {
-        color: $neon-cyan;
+        color: var(--blue-light);
       }
     }
 
@@ -274,19 +263,19 @@ $text-muted: #888888;
 
         &:hover {
           transform: scale(1.05);
-          border-color: rgba(0, 255, 255, 0.5);
-          box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+          border-color: var(--blue-low-opacity);
+          box-shadow: 0 0 20px var(--glow-blue);
         }
 
         &.active {
-          border-color: $neon-cyan;
+          border-color: var(--blue-light);
           box-shadow: 
-            0 0 25px rgba(0, 255, 255, 0.5),
-            inset 0 0 0 2px rgba(0, 255, 255, 0.3);
+            0 0 25px var(--glow-blue),
+            inset 0 0 0 2px var(--blue-low-opacity);
           transform: scale(1.1);
 
           .thumbnail-overlay {
-            background: linear-gradient(transparent, rgba(0, 255, 255, 0.2));
+            background: linear-gradient(transparent, var(--blue-low-opacity));
           }
         }
 
@@ -302,19 +291,18 @@ $text-muted: #888888;
           bottom: 0;
           left: 0;
           right: 0;
-          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+          background: linear-gradient(transparent, var(--dark-low-opacity));
           padding: 15px 12px 8px;
           transition: all 0.3s ease;
 
           .thumbnail-title {
             font-size: 12px;
             font-weight: 500;
-            color: $text-primary;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            text-shadow: 0 1px 3px var(--dark-low-opacity);
           }
         }
 
-        // Active indicator
         &.active::after {
           content: '';
           position: absolute;
@@ -322,9 +310,9 @@ $text-muted: #888888;
           right: 8px;
           width: 8px;
           height: 8px;
-          background: $neon-cyan;
+          background: var(--blue-light);
           border-radius: 50%;
-          box-shadow: 0 0 10px $neon-cyan;
+          box-shadow: 0 0 10px var(--blue-light);
           animation: pulse 2s infinite;
         }
       }
@@ -335,19 +323,19 @@ $text-muted: #888888;
 // Animations
 @keyframes borderGlow {
   0% { 
-    background: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-orange);
+    background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
   }
   25% { 
-    background: linear-gradient(45deg, $neon-pink, $neon-purple, $neon-orange, $neon-cyan);
+    background: linear-gradient(45deg, var(--red), var(--blue), var(--green), var(--blue-light));
   }
   50% { 
-    background: linear-gradient(45deg, $neon-purple, $neon-orange, $neon-cyan, $neon-pink);
+    background: linear-gradient(45deg, var(--blue), var(--green), var(--blue-light), var(--red));
   }
   75% { 
-    background: linear-gradient(45deg, $neon-orange, $neon-cyan, $neon-pink, $neon-purple);
+    background: linear-gradient(45deg, var(--green), var(--blue-light), var(--red), var(--blue));
   }
   100% { 
-    background: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple, $neon-orange);
+    background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
   }
 }
 
@@ -370,8 +358,8 @@ $text-muted: #888888;
     }
 
     .thumbnail-nav {
-      padding: 0 15px; // Remplace left/right
-      margin-top: 2rem; // Espace réduit pour mobile
+      padding: 0 15px;
+      margin-top: 2rem;
 
       .thumbnail-container {
         .thumbnail {

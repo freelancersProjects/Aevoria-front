@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './LiveStreamers.scss';
+import { FaTwitch, FaYoutube } from 'react-icons/fa';
+import { BsEyeFill, BsHeartFill, BsShareFill } from 'react-icons/bs';
 
 const streamers = [
   {
@@ -71,11 +73,11 @@ const LiveStreamers = () => {
   const getPlatformIcon = (platform) => {
     switch(platform) {
       case 'twitch':
-        return '📺';
+        return <FaTwitch />;
       case 'youtube':
-        return '📹';
+        return <FaYoutube />;
       default:
-        return '🎮';
+        return <FaTwitch />;
     }
   };
 
@@ -95,9 +97,7 @@ const LiveStreamers = () => {
 
             {/* Viewer count */}
             <div className="viewer-count">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-              </svg>
+              <BsEyeFill />
               {selectedStream.viewers}
             </div>
 
@@ -123,15 +123,11 @@ const LiveStreamers = () => {
             
             <div className="stream-actions">
               <button className="action-btn follow-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+                <BsHeartFill />
                 Follow
               </button>
               <button className="action-btn share-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                </svg>
+                <BsShareFill />
               </button>
             </div>
           </div>
@@ -202,9 +198,7 @@ const LiveStreamers = () => {
                     LIVE
                   </div>
                   <div className="viewer-badge">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                    </svg>
+                    <BsEyeFill />
                     {streamer.viewers}
                   </div>
                 </div>

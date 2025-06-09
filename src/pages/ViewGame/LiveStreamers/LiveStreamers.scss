@@ -1,18 +1,7 @@
-// Variables
-$bg-dark: #0f0f0f;
-$bg-darker: #000000;
-$bg-card: #1a1a1a;
-$neon-cyan: #00ffff;
-$neon-pink: #ff0080;
-$neon-purple: #8000ff;
-$neon-green: #00ff00;
-$text-primary: #ffffff;
-$text-secondary: #cccccc;
-$text-muted: #888888;
-$border-color: #333333;
+@import '../../../global.scss';
 
 .live-streamers {
-  color: $text-primary;
+  color: var(--white);
   min-height: 100vh;
   padding: 2rem;
   position: relative;
@@ -49,8 +38,8 @@ $border-color: #333333;
         overflow: hidden;
         margin-bottom: 1.5rem;
         box-shadow: 
-          0 0 30px rgba(0, 255, 255, 0.2),
-          0 0 60px rgba(255, 0, 128, 0.1);
+          0 0 30px var(--glow-blue),
+          0 0 60px var(--blue-low-opacity);
 
         &::before {
           content: '';
@@ -59,7 +48,7 @@ $border-color: #333333;
           left: -2px;
           right: -2px;
           bottom: -2px;
-          background: linear-gradient(45deg, $neon-cyan, $neon-pink, $neon-purple);
+          background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue));
           border-radius: 18px;
           z-index: -1;
           opacity: 0.3;
@@ -84,7 +73,7 @@ $border-color: #333333;
           display: flex;
           align-items: center;
           gap: 8px;
-          background: rgba(255, 0, 0, 0.9);
+          background: var(--red);
           padding: 6px 12px;
           border-radius: 20px;
           font-size: 12px;
@@ -94,13 +83,13 @@ $border-color: #333333;
           .live-dot {
             width: 8px;
             height: 8px;
-            background: white;
+            background: var(--white);
             border-radius: 50%;
             animation: pulse 1.5s infinite;
           }
 
           .live-text {
-            color: white;
+            color: var(--white);
             letter-spacing: 1px;
           }
         }
@@ -112,19 +101,19 @@ $border-color: #333333;
           display: flex;
           align-items: center;
           gap: 6px;
-          background: rgba(0, 0, 0, 0.8);
+          background: var(--dark-low-opacity);
           padding: 6px 12px;
           border-radius: 20px;
           font-size: 14px;
           font-weight: 500;
-          color: $text-primary;
+          color: var(--white);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid var(--transparent-white);
 
           svg {
             width: 16px;
             height: 16px;
-            color: $neon-cyan;
+            color: var(--blue-light);
           }
         }
 
@@ -140,14 +129,20 @@ $border-color: #333333;
           justify-content: center;
           font-size: 18px;
           backdrop-filter: blur(10px);
-          border: 2px solid rgba(255, 255, 255, 0.2);
+          border: 2px solid var(--transparent-white);
 
           &.twitch {
-            background: rgba(145, 70, 255, 0.9);
+            background: var(--blue);
           }
 
           &.youtube {
-            background: rgba(255, 0, 0, 0.9);
+            background: var(--red);
+          }
+
+          svg {
+            width: 20px;
+            height: 20px;
+            color: var(--white);
           }
         }
       }
@@ -156,10 +151,10 @@ $border-color: #333333;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        background: $bg-card;
+        background: var(--semi-black);
         padding: 1.5rem;
         border-radius: 12px;
-        border: 1px solid $border-color;
+        border: 1px solid var(--gray-background);
 
         .streamer-details {
           display: flex;
@@ -170,22 +165,22 @@ $border-color: #333333;
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 2px solid $neon-cyan;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border: 2px solid var(--blue-light);
+            box-shadow: 0 0 15px var(--glow-blue);
           }
 
           .streamer-meta {
             .streamer-name {
               font-size: 20px;
               font-weight: 600;
-              color: $text-primary;
+              color: var(--white);
               margin: 0 0 8px 0;
-              text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+              text-shadow: 0 0 10px var(--glow-blue);
             }
 
             .stream-title {
               font-size: 14px;
-              color: $text-secondary;
+              color: var(--light-text);
               margin: 0 0 8px 0;
               line-height: 1.4;
             }
@@ -194,7 +189,7 @@ $border-color: #333333;
               display: flex;
               gap: 15px;
               font-size: 12px;
-              color: $text-muted;
+              color: var(--lightgray);
 
               .duration {
                 display: flex;
@@ -207,7 +202,7 @@ $border-color: #333333;
               }
 
               .game-name {
-                color: $neon-pink;
+                color: var(--red);
                 font-weight: 500;
               }
             }
@@ -231,29 +226,29 @@ $border-color: #333333;
             transition: all 0.3s ease;
 
             svg {
-              width: 16px;
-              height: 16px;
+              width: 18px;
+              height: 18px;
             }
 
             &.follow-btn {
-              background: linear-gradient(45deg, $neon-pink, $neon-purple);
-              color: white;
+              background: linear-gradient(45deg, var(--red), var(--blue));
+              color: var(--white);
 
               &:hover {
-                box-shadow: 0 0 20px rgba(255, 0, 128, 0.4);
+                box-shadow: 0 0 20px var(--blue-low-opacity);
                 transform: translateY(-2px);
               }
             }
 
             &.share-btn {
-              background: rgba(255, 255, 255, 0.1);
-              color: $text-secondary;
-              border: 1px solid rgba(255, 255, 255, 0.2);
+              background: var(--transparent-white);
+              color: var(--light-text);
+              border: 1px solid var(--transparent-white);
 
               &:hover {
-                background: rgba(0, 255, 255, 0.1);
-                color: $neon-cyan;
-                border-color: $neon-cyan;
+                background: var(--blue-low-opacity);
+                color: var(--blue-light);
+                border-color: var(--blue-light);
               }
             }
           }
@@ -262,23 +257,23 @@ $border-color: #333333;
     }
 
     .chat-section {
-      background: $bg-card;
+      background: var(--semi-black);
       border-radius: 12px;
-      border: 1px solid $border-color;
+      border: 1px solid var(--gray-background);
       display: flex;
       flex-direction: column;
       height: fit-content;
 
       .chat-header {
         padding: 1rem;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--gray-background);
         display: flex;
         justify-content: space-between;
         align-items: center;
 
         h4 {
           margin: 0;
-          color: $text-primary;
+          color: var(--white);
           font-size: 16px;
         }
 
@@ -287,12 +282,12 @@ $border-color: #333333;
           align-items: center;
           gap: 6px;
           font-size: 12px;
-          color: $text-muted;
+          color: var(--lightgray);
 
           .online-dot {
             width: 6px;
             height: 6px;
-            background: $neon-green;
+            background: var(--green);
             border-radius: 50%;
             animation: pulse 2s infinite;
           }
@@ -313,45 +308,45 @@ $border-color: #333333;
           line-height: 1.4;
 
           .chat-user {
-            color: $neon-cyan;
+            color: var(--blue-light);
             font-weight: 600;
             margin-right: 8px;
           }
 
           .chat-text {
-            color: $text-secondary;
+            color: var(--light-text);
           }
         }
       }
 
       .chat-input {
         padding: 1rem;
-        border-top: 1px solid $border-color;
+        border-top: 1px solid var(--gray-background);
         display: flex;
         gap: 10px;
 
         input {
           flex: 1;
-          background: $bg-dark;
-          border: 1px solid $border-color;
+          background: var(--background-black);
+          border: 1px solid var(--gray-background);
           border-radius: 8px;
           padding: 10px 12px;
-          color: $text-primary;
+          color: var(--white);
           font-size: 14px;
 
           &:focus {
             outline: none;
-            border-color: $neon-cyan;
-            box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+            border-color: var(--blue-light);
+            box-shadow: 0 0 0 2px var(--blue-low-opacity);
           }
 
           &::placeholder {
-            color: $text-muted;
+            color: var(--lightgray);
           }
         }
 
         button {
-          background: linear-gradient(45deg, $neon-cyan, $neon-purple);
+          background: linear-gradient(45deg, var(--blue-light), var(--blue));
           border: none;
           border-radius: 8px;
           padding: 10px;
@@ -362,14 +357,14 @@ $border-color: #333333;
           transition: all 0.3s ease;
 
           &:hover {
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 15px var(--glow-blue);
             transform: scale(1.05);
           }
 
           svg {
             width: 16px;
             height: 16px;
-            color: white;
+            color: var(--white);
           }
         }
       }
@@ -380,11 +375,11 @@ $border-color: #333333;
       }
 
       .chat-messages::-webkit-scrollbar-track {
-        background: $bg-dark;
+        background: var(--background-black);
       }
 
       .chat-messages::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, $neon-cyan, $neon-purple);
+        background: linear-gradient(180deg, var(--blue-light), var(--blue));
         border-radius: 3px;
       }
     }
@@ -405,12 +400,12 @@ $border-color: #333333;
       margin-bottom: 2rem;
       font-size: 24px;
       font-weight: 600;
-      color: $text-primary;
+      color: var(--white);
 
       .live-dot-section {
         width: 12px;
         height: 12px;
-        background: $neon-green;
+        background: var(--green);
         border-radius: 50%;
         animation: pulse 2s infinite;
       }
@@ -422,19 +417,19 @@ $border-color: #333333;
       gap: 1.5rem;
 
       .stream-card {
-        background: $bg-card;
+        background: var(--semi-black);
         border-radius: 12px;
         overflow: hidden;
-        border: 1px solid $border-color;
+        border: 1px solid var(--gray-background);
         cursor: pointer;
         transition: all 0.3s ease;
 
         &:hover {
           transform: translateY(-4px);
           box-shadow: 
-            0 8px 25px rgba(0, 0, 0, 0.3),
-            0 0 20px rgba(0, 255, 255, 0.2);
-          border-color: rgba(0, 255, 255, 0.3);
+            0 8px 25px var(--dark-low-opacity),
+            0 0 20px var(--glow-blue);
+          border-color: var(--blue-low-opacity);
         }
 
         .stream-thumbnail {
@@ -460,18 +455,18 @@ $border-color: #333333;
               display: flex;
               align-items: center;
               gap: 6px;
-              background: rgba(255, 0, 0, 0.9);
+              background: var(--red);
               padding: 4px 10px;
               border-radius: 12px;
               font-size: 11px;
               font-weight: 600;
-              color: white;
+              color: var(--white);
               backdrop-filter: blur(10px);
 
               .live-dot-small {
                 width: 6px;
                 height: 6px;
-                background: white;
+                background: var(--white);
                 border-radius: 50%;
                 animation: pulse 1.5s infinite;
               }
@@ -481,17 +476,17 @@ $border-color: #333333;
               display: flex;
               align-items: center;
               gap: 4px;
-              background: rgba(0, 0, 0, 0.8);
+              background: var(--dark-low-opacity);
               padding: 4px 8px;
               border-radius: 12px;
               font-size: 12px;
-              color: $text-primary;
+              color: var(--white);
               backdrop-filter: blur(10px);
 
               svg {
                 width: 12px;
                 height: 12px;
-                color: $neon-cyan;
+                color: var(--blue-light);
               }
             }
           }
@@ -508,14 +503,14 @@ $border-color: #333333;
             justify-content: center;
             font-size: 14px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--transparent-white);
 
             &.twitch {
-              background: rgba(145, 70, 255, 0.9);
+              background: var(--blue);
             }
 
             &.youtube {
-              background: rgba(255, 0, 0, 0.9);
+              background: var(--red);
             }
           }
         }
@@ -532,21 +527,21 @@ $border-color: #333333;
               width: 40px;
               height: 40px;
               border-radius: 50%;
-              border: 2px solid $neon-cyan;
-              box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+              border: 2px solid var(--blue-light);
+              box-shadow: 0 0 10px var(--glow-blue);
             }
 
             .streamer-info {
               .streamer-username {
                 font-size: 16px;
                 font-weight: 600;
-                color: $text-primary;
+                color: var(--white);
                 margin: 0 0 4px 0;
               }
 
               .stream-duration {
                 font-size: 12px;
-                color: $text-muted;
+                color: var(--lightgray);
                 margin: 0;
 
                 &::before {

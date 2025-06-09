@@ -1,5 +1,7 @@
+@import '../../../global.scss';
+
 .game-commentaire {
-  color: #fff;
+  color: var(--white);
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -18,7 +20,7 @@
   }
   
   .review-card {
-    background-color: rgba(30, 30, 35, 0.6);
+    background-color: var(--dark-background);
     border-radius: 8px;
     padding: 20px;
     display: flex;
@@ -51,13 +53,13 @@
         .username {
           margin-bottom: 5px;
           font-weight: bold;
-          color: #ccc;
+          color: var(--lightgray);
         }
         
         .stats {
           display: flex;
           flex-direction: column;
-          color: #888;
+          color: var(--lightgray);
           
           span {
             margin-bottom: 2px;
@@ -88,17 +90,17 @@
         
         .date-verified {
           font-size: 14px;
-          color: #aaa;
+          color: var(--lightgray);
           
           .verified {
-            color: #aaa;
+            color: var(--lightgray);
             margin-left: 5px;
           }
         }
       }
       
       .review-text {
-        color: #ccc;
+        color: var(--light-text);
         line-height: 1.6;
         margin-bottom: 20px;
         font-size: 14px;
@@ -114,7 +116,7 @@
           display: flex;
           align-items: center;
           gap: 10px;
-          color: #aaa;
+          color: var(--lightgray);
           
           .vote-buttons {
             display: flex;
@@ -122,27 +124,27 @@
             
             button {
               background: none;
-              border: 1px solid #555;
-              color: #aaa;
+              border: 1px solid var(--gray-background);
+              color: var(--lightgray);
               padding: 3px 10px;
               border-radius: 4px;
               cursor: pointer;
               font-size: 12px;
               
               &:hover {
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: var(--transparent-white);
               }
               
               &.active {
-                background-color: rgba(70, 130, 180, 0.3);
-                border-color: #4682b4;
+                background-color: var(--blue-low-opacity);
+                border-color: var(--blue);
               }
             }
           }
         }
         
         .helpful-count {
-          color: #888;
+          color: var(--lightgray);
           font-size: 12px;
         }
       }
@@ -153,17 +155,17 @@
     display: flex;
     
     .star {
-      color: #555;
+      color: var(--gray-background);
       font-size: 18px;
       
       &.filled {
-        color: #f8ce0b;
+        color: var(--blue-light);
       }
     }
   }
   
   .newsletter {
-    background-color: rgba(30, 30, 35, 0.8);
+    background-color: var(--dark-background);
     border-radius: 8px;
     padding: 20px;
     text-align: center;
@@ -176,7 +178,7 @@
     }
     
     p {
-      color: #aaa;
+      color: var(--lightgray);
       font-size: 14px;
       margin-bottom: 10px;
     }
@@ -188,20 +190,20 @@
       
       input {
         flex: 1;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid #444;
+        background: var(--transparent-white);
+        border: 1px solid var(--gray-background);
         padding: 12px;
         border-radius: 6px 0 0 6px;
-        color: #fff;
+        color: var(--white);
         
         &::placeholder {
-          color: #888;
+          color: var(--lightgray);
         }
       }
       
       .subscribe-btn {
-        background-color: #3a7bd5;
-        color: white;
+        background-color: var(--blue);
+        color: var(--white);
         border: none;
         border-radius: 0 6px 6px 0;
         padding: 0 20px;
@@ -209,7 +211,7 @@
         font-weight: bold;
         
         &:hover {
-          background-color: #2a6ac5;
+          background-color: var(--blue-hover);
         }
       }
     }

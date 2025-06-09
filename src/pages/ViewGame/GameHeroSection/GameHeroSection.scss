@@ -117,26 +117,46 @@
 }
 
 .gameview-platform-select select {
-    color: white;
+    color: #fff;
     border: 1px solid #3a4157;
     border-radius: 8px;
     padding: 12px 16px;
     font-size: 1rem;
     margin-top: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(17, 25, 40, 0.85);
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.2s, border-color 0.2s;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.08);
 
-    &:hover,
-    &:focus {
-        background-color: rgba(255, 255, 255, 0.15);
-        border-color: #4da6ff;
-    }
+    // Pour enlever la flèche native sur Chrome
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,<svg width='16' height='16' fill='white' xmlns='http://www.w3.org/2000/svg'><path d='M4 6l4 4 4-4'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+}
+
+.gameview-platform-select select:focus {
+    border-color: #4da6ff;
+    background-color: rgba(17, 25, 40, 1);
+}
+
+.gameview-platform-select option {
+    color: #111928;
+    background: #fff;
+    border-radius: 8px;
 }
 
 .gameview-badges {
     display: flex;
-    gap: 8px;
+    min-height: 50px;
+    padding: 7.5px 20px 7.5px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     margin-top: 20px;
     flex-wrap: wrap;
 
@@ -148,7 +168,7 @@
         border-radius: 8px;
         font-size: 0.9rem;
         color: #f1f1f1;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(17, 25, 40, 0.75);
         border: 1px solid rgba(255, 255, 255, 0.1);
         transition: background-color 0.2s ease, transform 0.2s ease;
 

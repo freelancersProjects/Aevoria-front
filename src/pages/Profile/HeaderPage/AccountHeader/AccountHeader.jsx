@@ -1,11 +1,10 @@
-import React, { useState } from "react";
 import "./AccountHeader.scss";
 import defaultBanner from "../../../../assets/images/17776072l.jpg";
 import ArrowProfileDashboard from "../../../../assets/svg/arrow-profile-dashboard.svg";
+import StatusIndicator from "../../../../components/AEV/AEV.StatusIndicator/StatusIndicator";
 import defaultProfile from "../../../../assets/images/avatar.png";
 
 const AccountHeader = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
 
   const user = {
     name: "Zara Lavigne",
@@ -74,7 +73,7 @@ const AccountHeader = () => {
             <h2>
               Profile Dashboard <img src={ArrowProfileDashboard} alt="Arrow" />
             </h2>
-            <span className="status-indicator">Active</span>
+            <StatusIndicator status='inactive' />
           </div>
 
           <div className="profile-actions">

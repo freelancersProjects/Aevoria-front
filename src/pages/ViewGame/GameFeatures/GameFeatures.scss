@@ -1,5 +1,4 @@
 .game-features {
-  background: var(--main-background);
   padding: 60px 0;
   color: var(--white);
   max-width: 1100px;
@@ -28,16 +27,16 @@
         align-items: center;
         gap: 12px;
         padding: 12px 20px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--transparent-white);
+        border: 1px solid var(--transparent-white);
         border-radius: 25px;
         font-size: 14px;
         color: var(--light-text);
         transition: all 0.3s ease;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(255, 255, 255, 0.2);
+          background: var(--transparent-white);
+          border-color: var(--transparent-white);
         }
 
         .feature-icon {

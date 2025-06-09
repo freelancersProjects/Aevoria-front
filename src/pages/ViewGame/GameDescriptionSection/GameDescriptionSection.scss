@@ -1,3 +1,5 @@
+@import '../../../global.scss';
+
 .game-wrapper {
   max-width: 1100px;
   margin: 0 auto;
@@ -20,12 +22,12 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      color: #a0a0a0;
+      color: var(--lightgray);
       margin-bottom: 20px;
       font-size: 0.9rem;
 
       svg {
-        color: #4da6ff;
+        color: var(--blue-light);
       }
     }
 
@@ -38,19 +40,19 @@
 
     h2 {
       font-size: 1.8rem;
-      color: #ffffff;
+      color: var(--white);
       margin-bottom: 16px;
       font-weight: 600;
     }
 
     .description-text {
-      color: #d0d0d0;
+      color: var(--light-text);
       line-height: 1.6;
       margin-bottom: 12px;
     }
 
     .see-more {
-      color: #4da6ff;
+      color: var(--blue-light);
       text-decoration: none;
       display: inline-block;
       margin-bottom: 24px;
@@ -68,7 +70,7 @@
 
       h4 {
         font-size: 1rem;
-        color: #a0a0a0;
+        color: var(--lightgray);
         margin-bottom: 12px;
       }
 
@@ -78,11 +80,11 @@
         gap: 8px;
 
         span {
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: var(--transparent-white);
           border-radius: 16px;
           padding: 6px 12px;
           font-size: 0.9rem;
-          color: #f1f1f1;
+          color: var(--white);
         }
       }
     }
@@ -90,7 +92,8 @@
 
   .right-content {
     width: 300px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background: #1E2125;
+    border: 1px solid rgba(83, 80, 80, 0.60);
     border-radius: 12px;
     padding: 20px;
 
@@ -101,7 +104,7 @@
 
       li {
         padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid var(--transparent-white);
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -111,12 +114,12 @@
         }
 
         span {
-          color: #a0a0a0;
+          color: var(--lightgray);
           font-size: 0.9rem;
         }
 
         a {
-          color: #4da6ff;
+          color: var(--blue-light);
           text-decoration: none;
 
           &:hover {
@@ -125,7 +128,7 @@
         }
 
         strong {
-          color: #ffffff;
+          color: var(--white);
           font-weight: 500;
         }
       }
@@ -149,24 +152,24 @@
         transition: background-color 0.2s ease;
 
         &.share {
-          background-color: rgba(255, 255, 255, 0.1);
-          color: #ffffff;
+          background-color: var(--transparent-white);
+          color: var(--white);
           border: none;
 
           &:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: var(--transparent-white);
           }
         }
 
         &.report {
           background-color: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #a0a0a0;
+          border: 1px solid var(--transparent-white);
+          color: var(--lightgray);
 
           &:hover {
-            background-color: rgba(255, 0, 0, 0.1);
-            border-color: rgba(255, 0, 0, 0.3);
-            color: #ff6b6b;
+            background-color: var(--dark-red);
+            border-color: var(--red);
+            color: var(--red);
           }
         }
       }
@@ -180,7 +183,7 @@
   .bottom-note {
     display: flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.05);
+    background: #141B28;
     border-radius: 12px;
     padding: 16px 24px;
     margin-top: 32px;
@@ -190,17 +193,17 @@
       align-items: center;
       gap: 16px;
       padding-right: 24px;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid var(--transparent-white);
 
       .circle {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #4da6ff, #3a7cbd);
+        background: linear-gradient(135deg, var(--blue-light), var(--blue));
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: var(--white);
         font-size: 1.5rem;
         font-weight: bold;
       }
@@ -209,11 +212,11 @@
         display: flex;
         align-items: center;
         gap: 4px;
-        color: #a0a0a0;
+        color: var(--lightgray);
         font-size: 0.9rem;
 
         svg {
-          color: #ffc107;
+          color: var(--green);
         }
       }
     }
@@ -224,12 +227,12 @@
 
       strong {
         display: block;
-        color: white;
+        color: var(--white);
         margin-bottom: 4px;
       }
 
       p {
-        color: #a0a0a0;
+        color: var(--lightgray);
         font-size: 0.85rem;
         margin: 0;
       }
@@ -237,8 +240,8 @@
 
     .write-review {
       background-color: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
+      border: 1px solid var(--transparent-white);
+      color: var(--white);
       padding: 10px 16px;
       border-radius: 6px;
       font-size: 0.9rem;
@@ -249,8 +252,8 @@
       transition: all 0.2s ease;
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-color: #4da6ff;
+        background-color: var(--transparent-white);
+        border-color: var(--blue-light);
       }
     }
 
@@ -261,7 +264,7 @@
 
       .score {
         border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid var(--transparent-white);
         padding-right: 0;
         padding-bottom: 16px;
         width: 100%;
@@ -279,27 +282,27 @@
 }
 
 .tooltip-chip {
-  color: #fff;
+  color: var(--white);
   font-size: 13px;
   padding: 6px 14px;
   border-radius: 18px;
   border: none;
   margin: 4px 6px 4px 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px var(--dark-low-opacity);
   transition: background 0.2s;
   outline: none;
 
   &:hover,
   &:focus {
-    background: #23233a;
+    background: var(--semi-black);
   }
 }
 
 .tooltip {
-  background: #23233a;
-  color: #fff;
+  background: var(--semi-black);
+  color: var(--white);
   font-size: 12px;
   padding: 7px 12px;
   border-radius: 6px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 18px var(--dark-low-opacity);
 }

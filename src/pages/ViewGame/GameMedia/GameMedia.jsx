@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './GameMedia.scss';
 import SliderSelector from '../../../components/AEV/AEV.SliderSelector/SliderSelector';
+import PauseIcon from '../../../assets/svg/Pause.svg';
+import PlayIcon from '../../../assets/svg/PlayIcon.svg';
 
 const slides = [
   { 
@@ -53,13 +55,9 @@ const GameMedia = () => {
           <div className="video-overlay">
             <div className="play-button" onClick={togglePlay}>
               {isPlaying ? (
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                </svg>
+                <img src={PauseIcon} alt="Pause" />
               ) : (
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
+                <img src={PlayIcon} alt="Play" />
               )}
             </div>
           </div>

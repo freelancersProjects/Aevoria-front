@@ -1,9 +1,18 @@
-import React, { useState } from "react";
-import "./Login.scss";
+import React, { useState, useEffect } from "react";
 import { FaFacebookF, FaGoogle, FaApple, FaDiscord, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Checkbox from "../../components/AEV/AEV.Checkbox/CheckBox";
 import Logo from "../../assets/svg/logo.svg";
 import useAuth from "../../hooks/useAuth";
+import "./Login.scss";
+
+const RANDOM_IMAGES = [
+  "https://images.pexels.com/photos/907240/pexels-photo-907240.jpeg?auto=compress&w=1200&q=80",
+  "https://images.pexels.com/photos/1293261/pexels-photo-1293261.jpeg?auto=compress&w=1200&q=80",
+  "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&w=1200&q=80",
+  "https://images.pexels.com/photos/1174746/pexels-photo-1174746.jpeg?auto=compress&w=1200&q=80",
+  "https://images.pexels.com/photos/400959/pexels-photo-400959.jpeg?auto=compress&w=1200&q=80"
+];
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,8 +21,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  useEffect(() => {
+    // Changer l'image de fond aléatoirement
+    const randomImage = RANDOM_IMAGES[Math.floor(Math.random() * RANDOM_IMAGES.length)];
+    setBackgroundImage(randomImage);
+  }, []);
 
   const handleGoogleLogin = async () => { };
 
@@ -55,7 +71,7 @@ const Login = () => {
     <div className="login-wrapper">
       <div className="login-container">
         <div className="logo-container">
-          <img src={Logo} alt="Logo" className="login-logo" />
+          <img onClick={() => navigate("/")} src={Logo} alt="Logo" className="login-logo" />
         </div>
         <div className="login-form-container">
           <h2>Se connecter</h2>
@@ -89,15 +105,11 @@ const Login = () => {
             </div>
 
             <div className="login-options">
-              <label className="remember-checkbox">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={() => setRememberMe(!rememberMe)}
-                />
-                <span className="checkmark"></span>
-                Se souvenir de moi
-              </label>
+              <Checkbox
+                label="Se souvenir de moi"
+                checked={rememberMe}
+                onChange={setRememberMe}
+              />
               <a href="/forgot-password" className="forgot-password">Mot de passe oublié?</a>
             </div>
 
@@ -118,8 +130,13 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="login-image">
-        <div className="image-overlay"></div>
+      <div className="login-image" style={{ backgroundImage: `url(${backgroundImage})` }}>
+        <div className="image-overlay">
+          <div className="overlay-content">
+            <h3>Bienvenue sur Aevoria</h3>
+            <p>Votre destination gaming préférée</p>
+          </div>
+        </div>
       </div>
     </div>
   );

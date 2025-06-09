@@ -3,6 +3,7 @@ import "./GameCard.scss";
 import PropTypes from 'prop-types';
 import Skeleton from '../AEV.Skeleton/Skeleton';
 import Toast from '../AEV.Toast/Toast';
+import { useNavigate } from 'react-router-dom';
 import SteamIcon from "../../../assets/svg/steam.svg?react";
 import EpicIcon from "../../../assets/svg/epic-games.svg?react";
 import PlaystationIcon from "../../../assets/svg/playstation.svg?react";
@@ -19,7 +20,8 @@ const GameCard = ({
     percentage_reduction,
     isSteam,
     isEpic,
-    isPlaystation
+    isPlaystation,
+    gameId
 }) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [toast, setToast] = useState({ show: false, message: '', type: '' });
@@ -34,6 +36,13 @@ const GameCard = ({
     const gameImage = !image || image === "string" ? DefaultImage : image;
 
     const handleImageLoad = () => setIsImageLoaded(true);
+
+    const navigate = useNavigate();
+    const handleNavigate = () => {
+        const safeTitle = title.toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '');
+        navigate(`/game/${safeTitle}/${gameId}`);
+    };
+
 
     const handleShare = (gameTitle) => {
         const msg = `Salut ! J’aimerais te partager ce jeu : ${gameTitle}`;
@@ -50,7 +59,7 @@ const GameCard = ({
     };
 
     return (
-        <div className="game-card">
+        <div className="game-card" onClick={handleNavigate}>
             {!isImageLoaded && (
                 <div className="skeleton-wrapper">
                     <Skeleton height="200px" width="100%" />

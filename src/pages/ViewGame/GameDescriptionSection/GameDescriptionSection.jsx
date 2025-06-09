@@ -2,6 +2,7 @@ import React from 'react';
 import './GameDescriptionSection.scss';
 import { FaUser, FaStar, FaShareAlt, FaFlag } from 'react-icons/fa';
 import TooltipChips from '../../../components/AEV//AEV.TooltipChips/TooltipChips';
+import LogoVueJeu from '../../../assets/svg/logo-vue-jeu.svg';
 
 const GameDescriptionSection = () => {
   return (
@@ -9,7 +10,7 @@ const GameDescriptionSection = () => {
       <div className="game-description">
         <div className="left-content">
           <div className="user-count">
-            <FaUser /> <span>149 utilisateurs sur cette page</span>
+            <img src={LogoVueJeu} alt="User icon" /> <span>149 utilisateurs sur cette page</span>
           </div>
 
           <div className="tags">
@@ -62,7 +63,7 @@ const GameDescriptionSection = () => {
         <div className="score">
           <span className="circle">10</span>
           <div>
-            <div className="stars"><FaStar /> Verified Customers</div>
+            <div className="stars"><FaStar /><FaStar /><FaStar /><FaStar /><FaStar /> Verified Customers</div>
           </div>
         </div>
         <div className="note-detail">

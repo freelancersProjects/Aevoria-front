@@ -10,7 +10,9 @@ const HeaderPage = () => {
                 <WishlistHeader/>
             </div>
             <div className="account-section">
+                  <div className="account-section-inner">
                 <AccountHeader/>
+                </div>
             </div>
         </div>
     );
