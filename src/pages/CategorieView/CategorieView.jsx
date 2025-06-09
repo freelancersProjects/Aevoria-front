@@ -163,13 +163,10 @@ function CategorieView() {
     const displayedGenres = gameGenres.slice(0, 3);
     const remainingGenres = gameGenres.length > 3 ? gameGenres.slice(3) : [];
 
-    const headerStyle = {
-        backgroundImage: genre?.imageUrl ? `url(${genre.imageUrl})` : 'none'
-    };
-
     return (
         <div className="categorie-view">
-            <div className="categorie-header" style={headerStyle}>
+            <div className="categorie-header">
+                {genre?.imageUrl && <img src={genre.imageUrl} alt={genre.name} />}
                 <div className="header-content">
                     <h1>{genre?.name || 'Catégorie'}</h1>
                     <div className="genre-chips">

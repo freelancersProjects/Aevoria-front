@@ -21,6 +21,7 @@
     transition: all 0.3s ease;
     flex-shrink: 0;
     box-shadow: inset 0 0 4px rgba(0, 123, 255, 0.05);
+    display: block;
 
     &::after {
       content: '';

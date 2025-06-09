@@ -156,49 +156,49 @@ const GameCard = ({
 
     return (
         <>
-            <div className="game-card" onClick={handleNavigate}>
-                {!isImageLoaded && (
-                    <div className="skeleton-wrapper">
-                        <Skeleton height="200px" width="100%" />
-                        <Skeleton height="20px" width="80%" style={{ marginTop: "10px" }} />
-                        <Skeleton height="20px" width="60%" style={{ marginTop: "5px" }} />
-                    </div>
-                )}
-
-                <div className="image-wrapper">
-                    <img
-                        src={gameImage}
-                        alt={title}
-                        className="game-image"
-                        onLoad={handleImageLoad}
-                        style={{ display: isImageLoaded ? 'block' : 'none' }}
-                    />
-
-                    {isImageLoaded && (
-                        <div className="card-actions">
-                            <button
-                                className="menu-button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setShowMenu(!showMenu);
-                                }}
-                            >
-                                <BsThreeDots className="menu-icon" />
-                            </button>
-
-                            {showMenu && (
-                                <div className="action-menu" onClick={(e) => e.stopPropagation()}>
-                                    <button onClick={() => handleShare(title)}>Partager</button>
-                                    <button onClick={handleAddToCart}>Ajouter au panier</button>
-                                </div>
-                            )}
-                        </div>
-                    )}
+        <div className="game-card" onClick={handleNavigate}>
+            {!isImageLoaded && (
+                <div className="skeleton-wrapper">
+                    <Skeleton height="200px" width="100%" />
+                    <Skeleton height="20px" width="80%" style={{ marginTop: "10px" }} />
+                    <Skeleton height="20px" width="60%" style={{ marginTop: "5px" }} />
                 </div>
+            )}
+
+            <div className="image-wrapper">
+                <img
+                    src={gameImage}
+                    alt={title}
+                    className="game-image"
+                    onLoad={handleImageLoad}
+                    style={{ display: isImageLoaded ? 'block' : 'none' }}
+                />
 
                 {isImageLoaded && (
-                    <div className="game-info">
-                        <h3 className="game-title">{title}</h3>
+                    <div className="card-actions">
+                        <button
+                            className="menu-button"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setShowMenu(!showMenu);
+                            }}
+                        >
+                            <BsThreeDots className="menu-icon" />
+                        </button>
+
+                        {showMenu && (
+                            <div className="action-menu" onClick={(e) => e.stopPropagation()}>
+                                <button onClick={() => handleShare(title)}>Partager</button>
+                                    <button onClick={handleAddToCart}>Ajouter au panier</button>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
+
+            {isImageLoaded && (
+                <div className="game-info">
+                    <h3 className="game-title">{title}</h3>
                         <div className="game-genres">
                             {displayedGenres.map((genre, index) => (
                                 <span key={genre.genreId} className="genre-tag">
@@ -213,19 +213,19 @@ const GameCard = ({
                                 </Tooltip>
                             )}
                         </div>
-                        <div className="game-icons">
-                            {isSteam && <SteamIcon className="icon" />}
-                            {isEpic && <EpicIcon className="icon" />}
-                            {isPlaystation && <PlaystationIcon className="icon" />}
-                        </div>
-                        <div className="game-pricing">
-                            <span className="current-price">{discountedPrice}€</span>
-                            {(Number(discount) > 0 || Number(percentage_reduction) > 0) && (
-                                <span className="old-price">{price}€</span>
-                            )}
-                        </div>
+                    <div className="game-icons">
+                        {isSteam && <SteamIcon className="icon" />}
+                        {isEpic && <EpicIcon className="icon" />}
+                        {isPlaystation && <PlaystationIcon className="icon" />}
                     </div>
-                )}
+                    <div className="game-pricing">
+                        <span className="current-price">{discountedPrice}€</span>
+                        {(Number(discount) > 0 || Number(percentage_reduction) > 0) && (
+                            <span className="old-price">{price}€</span>
+                        )}
+                    </div>
+                </div>
+            )}
 
                 <DrawerNotif
                     isOpen={drawerOpen}

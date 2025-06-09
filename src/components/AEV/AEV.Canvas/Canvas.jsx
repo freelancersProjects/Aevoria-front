@@ -2,10 +2,11 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import './Canvas.scss';
 import {
   FaHandPaper, FaFont, FaPencilAlt, FaEraser, FaDownload, FaUndo, FaRedo,
-  FaExpand, FaCompress, FaLayerGroup, FaEye, FaEyeSlash, FaLock, FaLockOpen,
-  FaCopy, FaPaste, FaImage, FaTrash, FaPlus, FaMinus, FaRuler, FaShapes,
+  FaExpand, FaCompress, FaEye, FaEyeSlash, FaLock, FaLockOpen,
+  FaCopy, FaImage, FaTrash, FaPlus, FaMinus, FaRuler, FaShapes,
   FaAlignLeft, FaAlignCenter, FaAlignRight, FaBold, FaItalic, FaUnderline,
-  FaUpload, FaTimes, FaGamepad
+  FaUpload, FaTimes, FaGamepad, FaSitemap, FaProjectDiagram,
+  FaMagic, FaCircleNotch
 } from 'react-icons/fa';
 import { BiGridAlt } from 'react-icons/bi';
 import useFetch from '../../../hooks/useFetch';
@@ -31,6 +32,14 @@ const SHAPES = {
 };
 
 const DEFAULT_GAME_IMAGE = '/assets/images/default-game.jpg';
+
+const TREE_TYPES = {
+  VERTICAL: 'vertical',
+  HORIZONTAL: 'horizontal',
+  RADIAL: 'radial',
+  MINDMAP: 'mindmap',
+  ORGANIC: 'organic'
+};
 
 const Canvas = () => {
   // State management
@@ -64,6 +73,16 @@ const Canvas = () => {
   const [activeTab, setActiveTab] = useState('games');
   const { data: gamesData, loading: isLoading, error: gamesError } = useFetch(showImageModal && activeTab === 'games' ? '/api/games' : null);
   const games = gamesData?.data || [];
+  const [showPropertiesPanel, setShowPropertiesPanel] = useState(false);
+  const [showTreePanel, setShowTreePanel] = useState(false);
+  const [treeType, setTreeType] = useState(TREE_TYPES.VERTICAL);
+  const [treeDepth, setTreeDepth] = useState(3);
+  const [treeBranching, setTreeBranching] = useState(2);
+  const [treeSpacing, setTreeSpacing] = useState(100);
+  const [selectionStart, setSelectionStart] = useState(null);
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [currentMousePos, setCurrentMousePos] = useState({ x: 0, y: 0 });
 
   // History management
   const addToHistory = useCallback((newElements) => {
@@ -509,7 +528,17 @@ const Canvas = () => {
   const handleElementClick = (e, element) => {
     e.stopPropagation();
     if (!isDragging) {
-      setSelectedId(element.id);
+      if (e.ctrlKey) {
+        const newSelectedIds = new Set(selectedIds);
+        if (selectedIds.has(element.id)) {
+          newSelectedIds.delete(element.id);
+        } else {
+          newSelectedIds.add(element.id);
+        }
+        setSelectedIds(newSelectedIds);
+      } else {
+        setSelectedIds(new Set([element.id]));
+      }
     }
   };
 
@@ -530,31 +559,98 @@ const Canvas = () => {
     }
   };
 
-  // Update mouse handlers
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Delete') {
+        const newElements = elements.filter(el => !selectedIds.has(el.id));
+        setElements(newElements);
+        addToHistory(newElements);
+        setSelectedIds(new Set());
+      }
+
+      if (e.ctrlKey && e.key === 'z') {
+        e.preventDefault();
+        undo();
+      }
+
+      if (e.ctrlKey && e.key === 'y') {
+        e.preventDefault();
+        redo();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [elements, selectedIds]);
+
+  // Update mouse handlers for multi-selection
   const handleMouseDown = (e) => {
-    setIsDragging(false);
-    if (tool === TOOLS.DRAW) {
-      startDrawing(e);
-    } else if (tool === TOOLS.MOVE) {
-      startPan(e);
+    if (e.button === 0) { // Left click only
+      const rect = canvasRef.current.getBoundingClientRect();
+      const scrollLeft = canvasRef.current.scrollLeft;
+      const scrollTop = canvasRef.current.scrollTop;
+
+      const x = (e.clientX - rect.left + scrollLeft) / zoom;
+      const y = (e.clientY - rect.top + scrollTop) / zoom;
+
+      if (tool === TOOLS.MOVE && !e.target.closest('.canvas-element')) {
+        setIsSelecting(true);
+        setSelectionStart({ x, y });
+        setCurrentMousePos({ x, y });
+        if (!e.ctrlKey) {
+          setSelectedIds(new Set());
+        }
+      } else if (tool === TOOLS.DRAW) {
+        startDrawing(e);
+      }
     }
   };
 
   const handleMouseMove = (e) => {
+    const rect = canvasRef.current.getBoundingClientRect();
+    const scrollLeft = canvasRef.current.scrollLeft;
+    const scrollTop = canvasRef.current.scrollTop;
+
+    const x = (e.clientX - rect.left + scrollLeft) / zoom;
+    const y = (e.clientY - rect.top + scrollTop) / zoom;
+    setCurrentMousePos({ x, y });
+
     if (isDrawing) {
       draw(e);
-    } else if (isPanning) {
-      setIsDragging(true);
-      onPan(e);
+    } else if (isSelecting && selectionStart) {
+      // Check which elements are in the selection box
+      const selectionBox = {
+        x: Math.min(selectionStart.x, x),
+        y: Math.min(selectionStart.y, y),
+        width: Math.abs(x - selectionStart.x),
+        height: Math.abs(y - selectionStart.y)
+      };
+
+      const newSelectedIds = new Set([...selectedIds]);
+      elements.forEach(el => {
+        if (isElementInSelection(el, selectionBox)) {
+          newSelectedIds.add(el.id);
+        }
+      });
+      setSelectedIds(newSelectedIds);
     }
   };
 
   const handleMouseUp = () => {
     if (isDrawing) {
       endDrawing();
-    } else if (isPanning) {
-      stopPan();
     }
+    setIsSelecting(false);
+  };
+
+  const isElementInSelection = (element, selectionBox) => {
+    return (
+      element.x < selectionBox.x + selectionBox.width &&
+      element.x + (element.width || 0) > selectionBox.x &&
+      element.y < selectionBox.y + selectionBox.height &&
+      element.y + (element.height || 0) > selectionBox.y
+    );
   };
 
   // Render toolbar groups
@@ -766,8 +862,8 @@ const Canvas = () => {
 
   // Image selection modal using existing components
   const renderImageModal = () => (
-    <div className="canvas-modal-overlay" onClick={() => setShowImageModal(false)}>
-      <div className="canvas-modal" onClick={e => e.stopPropagation()}>
+    <div className={`canvas-modal-overlay ${showImageModal ? 'visible' : ''}`} onClick={() => setShowImageModal(false)}>
+      <div className={`canvas-modal ${showImageModal ? 'visible' : ''}`} onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h2>Sélectionner une image</h2>
           <button className="close-btn" onClick={() => setShowImageModal(false)}>
@@ -840,16 +936,239 @@ const Canvas = () => {
     </div>
   );
 
+  // Update properties panel render
+  useEffect(() => {
+    if (selectedId) {
+      setShowPropertiesPanel(true);
+    }
+  }, [selectedId]);
+
+  const handleClosePropertiesPanel = () => {
+    setShowPropertiesPanel(false);
+    setSelectedId(null);
+  };
+
+  const generateTree = () => {
+    const startX = window.innerWidth / 2;
+    const startY = 100;
+    const nodes = [];
+    const connections = [];
+
+    const generateNodes = (x, y, depth = 0, parentId = null) => {
+      if (depth >= treeDepth) return;
+
+      const nodeId = Date.now() + Math.random();
+      const node = {
+        id: nodeId,
+        type: 'shape',
+        shape: 'rectangle',
+        x,
+        y,
+        width: 120,
+        height: 80,
+        color: 'rgba(0, 136, 255, 0.2)',
+        strokeColor: '#0088ff',
+        strokeWidth: 2,
+        layer: selectedLayer,
+        content: 'Double-click to edit',
+        isTreeNode: true
+      };
+
+      nodes.push(node);
+
+      if (parentId !== null) {
+        connections.push({
+          id: Date.now() + Math.random(),
+          type: 'path',
+          points: [[parentId.x + parentId.width / 2, parentId.y + parentId.height],
+                   [x + node.width / 2, y]],
+          color: '#0088ff',
+          width: 2,
+          layer: selectedLayer
+        });
+      }
+
+      const spacing = treeSpacing;
+      const branchWidth = (treeBranching - 1) * spacing;
+
+      for (let i = 0; i < treeBranching; i++) {
+        const newX = x - branchWidth / 2 + i * spacing;
+        const newY = y + spacing;
+        generateNodes(newX, newY, depth + 1, node);
+      }
+    };
+
+    generateNodes(startX, startY);
+
+    const newElements = [...elements, ...nodes, ...connections];
+    setElements(newElements);
+    addToHistory(newElements);
+    setShowTreePanel(false);
+  };
+
+  // Render left sidebar
+  const renderLeftSidebar = () => (
+    <div className="aev-left-sidebar">
+      <div className="sidebar-group">
+        <button
+          className="tool-button"
+          data-tooltip="Move & Pan"
+          onClick={() => setTool(TOOLS.MOVE)}
+        >
+          <FaHandPaper />
+        </button>
+        <button
+          className="tool-button"
+          data-tooltip="Add Text"
+          onClick={() => setTool(TOOLS.TEXT)}
+        >
+          <FaFont />
+        </button>
+        <button
+          className="tool-button"
+          data-tooltip="Draw"
+          onClick={() => setTool(TOOLS.DRAW)}
+        >
+          <FaPencilAlt />
+        </button>
+      </div>
+
+      <div className="sidebar-group">
+        <button
+          className="tool-button"
+          data-tooltip="Add Image"
+          onClick={() => {
+            setTool(TOOLS.IMAGE);
+            setShowImageModal(true);
+          }}
+        >
+          <FaImage />
+        </button>
+        <button
+          className="tool-button"
+          data-tooltip="Add Shape"
+          onClick={() => setTool(TOOLS.SHAPE)}
+        >
+          <FaShapes />
+        </button>
+        <button
+          className="tool-button premium"
+          data-tooltip="Generate Tree"
+          onClick={() => setShowTreePanel(true)}
+        >
+          <FaSitemap />
+        </button>
+      </div>
+
+      <div className="sidebar-group">
+        <button
+          className="tool-button"
+          data-tooltip="Undo"
+          onClick={undo}
+          disabled={historyIndex <= 0}
+        >
+          <FaUndo />
+        </button>
+        <button
+          className="tool-button"
+          data-tooltip="Redo"
+          onClick={redo}
+          disabled={historyIndex >= history.length - 1}
+        >
+          <FaRedo />
+        </button>
+      </div>
+    </div>
+  );
+
+  // Render tree generator panel
+  const renderTreePanel = () => (
+    <div className={`tree-generator-panel ${showTreePanel ? 'visible' : ''}`}>
+      <div className="panel-header">
+        <h3>Tree Generator</h3>
+        <button onClick={() => setShowTreePanel(false)}>
+          <FaTimes />
+        </button>
+      </div>
+      <div className="panel-content">
+        <div className="tree-options">
+          <div className="option-group">
+            <h4>Tree Type</h4>
+            <div className="option-grid">
+              <button
+                className={treeType === TREE_TYPES.VERTICAL ? 'active' : ''}
+                onClick={() => setTreeType(TREE_TYPES.VERTICAL)}
+              >
+                <FaSitemap />
+              </button>
+              <button
+                className={treeType === TREE_TYPES.HORIZONTAL ? 'active' : ''}
+                onClick={() => setTreeType(TREE_TYPES.HORIZONTAL)}
+              >
+                <FaProjectDiagram />
+              </button>
+              <button
+                className={treeType === TREE_TYPES.RADIAL ? 'active' : ''}
+                onClick={() => setTreeType(TREE_TYPES.RADIAL)}
+              >
+                <FaCircleNotch />
+              </button>
+            </div>
+          </div>
+
+          <div className="option-group">
+            <div className="option-row">
+              <label>Depth</label>
+              <input
+                type="range"
+                min="1"
+                max="5"
+                value={treeDepth}
+                onChange={(e) => setTreeDepth(parseInt(e.target.value))}
+              />
+            </div>
+            <div className="option-row">
+              <label>Branching</label>
+              <input
+                type="range"
+                min="2"
+                max="5"
+                value={treeBranching}
+                onChange={(e) => setTreeBranching(parseInt(e.target.value))}
+              />
+            </div>
+            <div className="option-row">
+              <label>Spacing</label>
+              <input
+                type="range"
+                min="50"
+                max="200"
+                value={treeSpacing}
+                onChange={(e) => setTreeSpacing(parseInt(e.target.value))}
+              />
+            </div>
+          </div>
+        </div>
+
+        <button className="generate-button" onClick={generateTree}>
+          <FaMagic /> Generate Tree
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className={`aev-canvas-wrapper tool-${tool} ${isFullscreen ? 'fullscreen' : ''}`} onWheel={handleWheel}>
       {renderToolbar()}
       {renderSideControls()}
+      {renderLeftSidebar()}
       {renderTextFormatting()}
       {renderContextMenu()}
       {renderImageModal()}
+      {renderTreePanel()}
 
       <div
-        className={`aev-canvas-area ${isPanning ? 'panning' : ''} ${isDrawing ? 'drawing' : ''}`}
+        className={`aev-canvas-area ${isPanning ? 'panning' : ''} ${isDrawing ? 'drawing' : ''} ${isSelecting ? 'selecting' : ''}`}
         ref={canvasRef}
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
@@ -861,7 +1180,9 @@ const Canvas = () => {
         <div
           className={`aev-canvas-board ${showGrid ? 'with-grid' : ''}`}
           style={{
-            transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`
+            transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
+            width: '12000px',
+            height: '12000px'
           }}
         >
           {elements.map((el) => {
@@ -869,19 +1190,19 @@ const Canvas = () => {
             if (!layer?.visible) return null;
 
             return (
-            <div
-              key={el.id}
-                className={`canvas-element ${selectedId === el.id ? 'selected' : ''} ${el.type}`}
-              style={{
-                left: el.x,
-                top: el.y,
+              <div
+                key={el.id}
+                className={`canvas-element ${selectedIds.has(el.id) ? 'selected' : ''} ${el.type}`}
+                style={{
+                  left: el.x,
+                  top: el.y,
                   transform: `rotate(${el.rotation}deg)`,
                   opacity: el.opacity,
                   pointerEvents: layer?.locked ? 'none' : 'auto',
                   ...(el.type === 'text' && {
-                color: el.color,
-                background: el.background,
-                fontFamily: el.fontFamily,
+                    color: el.color,
+                    background: el.background,
+                    fontFamily: el.fontFamily,
                     fontSize: el.fontSize,
                     textAlign: el.style?.align || 'left',
                     fontWeight: el.style?.bold ? 'bold' : 'normal',
@@ -900,13 +1221,13 @@ const Canvas = () => {
                   })
                 }}
                 onClick={(e) => handleElementClick(e, el)}
-              onMouseDown={(e) => handleDragElement(e, el)}
+                onMouseDown={(e) => handleDragElement(e, el)}
                 onContextMenu={(e) => handleContextMenu(e, el)}
               >
                 {el.type === 'text' ? (
                   <div
-              contentEditable
-              suppressContentEditableWarning
+                    contentEditable
+                    suppressContentEditableWarning
                     onBlur={(e) => updateElement(el.id, { content: e.target.innerText })}
                   >
                     {el.content}
@@ -935,6 +1256,18 @@ const Canvas = () => {
                 fill="none"
               />
             </svg>
+          )}
+          {isSelecting && selectionStart && (
+            <div
+              className="selection-box"
+              style={{
+                position: 'absolute',
+                left: Math.min(selectionStart.x, currentMousePos.x),
+                top: Math.min(selectionStart.y, currentMousePos.y),
+                width: Math.abs(currentMousePos.x - selectionStart.x),
+                height: Math.abs(currentMousePos.y - selectionStart.y)
+              }}
+            />
           )}
         </div>
       </div>
@@ -976,10 +1309,10 @@ const Canvas = () => {
       </div>
 
       {selectedId && (
-        <div className="aev-properties-panel">
+        <div className={`aev-properties-panel ${showPropertiesPanel ? 'visible' : ''}`}>
           <div className="panel-header">
             <h3>Propriétés</h3>
-            <button onClick={() => setSelectedId(null)}>×</button>
+            <button onClick={handleClosePropertiesPanel}>×</button>
           </div>
           <div className="properties-content">
             {elements.find(e => e.id === selectedId)?.type === 'text' && (
@@ -987,20 +1320,20 @@ const Canvas = () => {
                 <div className="property-header">Texte</div>
                 <label>
                   Contenu
-          <input
-            type="text"
-            value={elements.find(e => e.id === selectedId)?.content || ''}
+                  <input
+                    type="text"
+                    value={elements.find(e => e.id === selectedId)?.content || ''}
                     onChange={(e) => updateElement(selectedId, { content: e.target.value })}
                   />
                 </label>
                 <label>
                   Police
-          <select
-            value={elements.find(e => e.id === selectedId)?.fontFamily}
+                  <select
+                    value={elements.find(e => e.id === selectedId)?.fontFamily}
                     onChange={(e) => updateElement(selectedId, { fontFamily: e.target.value })}
-          >
-            <option value="Montserrat">Montserrat</option>
-            <option value="Arial">Arial</option>
+                  >
+                    <option value="Montserrat">Montserrat</option>
+                    <option value="Arial">Arial</option>
                     <option value="Times New Roman">Times New Roman</option>
                     <option value="Courier New">Courier New</option>
                   </select>
@@ -1039,20 +1372,20 @@ const Canvas = () => {
                     <option value={SHAPES.CIRCLE}>Cercle</option>
                     <option value={SHAPES.LINE}>Ligne</option>
                     <option value={SHAPES.ARROW}>Flèche</option>
-          </select>
+                  </select>
                 </label>
                 <label>
                   Couleur de remplissage
-          <input
-            type="color"
+                  <input
+                    type="color"
                     value={elements.find(e => e.id === selectedId)?.color || '#ffffff'}
                     onChange={(e) => updateElement(selectedId, { color: e.target.value })}
-          />
+                  />
                 </label>
                 <label>
                   Couleur de bordure
-          <input
-            type="color"
+                  <input
+                    type="color"
                     value={elements.find(e => e.id === selectedId)?.strokeColor || '#ffffff'}
                     onChange={(e) => updateElement(selectedId, { strokeColor: e.target.value })}
                   />
@@ -1067,8 +1400,8 @@ const Canvas = () => {
                     onChange={(e) => updateElement(selectedId, { strokeWidth: Number(e.target.value) })}
                   />
                 </label>
-        </div>
-      )}
+              </div>
+            )}
 
             <div className="property-group">
               <div className="property-header">Transformation</div>
