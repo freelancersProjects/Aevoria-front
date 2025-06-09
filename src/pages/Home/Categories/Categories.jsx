@@ -1,30 +1,39 @@
-import React from "react";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import useFetch from "../../../hooks/useFetch";
 import CategoryCard from "../../../components/AEV/AEV.CategoriesCard/CategoryCard";
 import "./Categories.scss";
 
-const categories = [
-  { title: "FPS", image: "/src/assets/images/photo-test.webp" },
-  { title: "Jeux solo", image: "/src/assets/images/photo-test.webp" },
-  { title: "Stratégie", image: "/src/assets/images/photo-test.webp" },
-  { title: "Simulation", image: "/src/assets/images/photo-test.webp" },
-  { title: "Sport", image: "/src/assets/images/photo-test.webp" },
-  { title: "Jeux Multijoueur", image: "/src/assets/images/photo-test.webp" },
-  { title: "Horreur", image: "/src/assets/images/photo-test.webp" },
-  { title: "Course", image: "/src/assets/images/photo-test.webp" },
-  { title: "RPG", image: "/src/assets/images/photo-test.webp" },
-  { title: "Aventure", image: "/src/assets/images/photo-test.webp" },
-  { title: "Action", image: "/src/assets/images/photo-test.webp" },
-  { title: "Combat", image: "/src/assets/images/photo-test.webp" },
-];
+function Categories() {
+  const navigate = useNavigate();
+  const { data, isLoading, error } = useFetch("/genres");
 
-const Categories = () => {
+  if (isLoading) {
+    return <div className="categories loading">Chargement des catégories...</div>;
+  }
+
+  if (error) {
+    return <div className="categories error">Erreur de chargement des catégories</div>;
+  }
+
+  const genres = data?.$values || [];
+
+  const handleCategoryClick = (genreId) => {
+    navigate(`/categorie/${genreId}`);
+  };
+
   return (
     <div className="categories">
-      {categories.map((cat, index) => (
-        <CategoryCard key={index} title={cat.title} image={cat.image} />
+      {genres.map((genre) => (
+        <CategoryCard
+          key={genre.genreId}
+          title={genre.name}
+          image={genre.imageUrl}
+          onClick={() => handleCategoryClick(genre.genreId)}
+        />
       ))}
     </div>
   );
-};
+}
 
 export default Categories;

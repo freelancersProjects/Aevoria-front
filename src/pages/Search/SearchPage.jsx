@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Skeleton from '../../components/AEV/AEV.Skeleton/Skeleton';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
-import Dropdown from '../../components/AEV/AEV.Dropdown/Dropdown';
-import NumberInput from '../../components/AEV/AEV.NumberInput/NumberInput';
-import CheckBox from '../../components/AEV/AEV.Checkbox/CheckBox';
+import GameFilters from '../../components/GameFilters/GameFilters';
 import './SearchPage.scss';
 import apiService from '../../services/apiService';
 
@@ -78,14 +76,12 @@ const SearchPage = () => {
         params.set('maxPrice', priceRange[1].toString());
         params.set('inStock', inStock.toString());
 
-        // Garder le paramètre q même s'il est vide
         if (!params.has('q')) {
             params.set('q', '');
         }
 
         navigate(`/search?${params.toString()}`, { replace: true });
 
-        // Calculer le nombre de filtres actifs
         let count = 0;
         if (selectedSort !== "Les plus pertinents") count++;
         if (selectedPlatform !== "Toutes les plateformes") count++;
@@ -124,7 +120,6 @@ const SearchPage = () => {
     useEffect(() => {
         let filtered = [...games];
 
-        // Filtre par plateforme
         if (selectedPlatform !== "Toutes les plateformes") {
             filtered = filtered.filter(game => {
                 switch (selectedPlatform) {
@@ -137,12 +132,10 @@ const SearchPage = () => {
             });
         }
 
-        // Filtre par genre
         if (selectedGenre !== "Tous les genres") {
             filtered = filtered.filter(game => game.genres?.includes(selectedGenre));
         }
 
-        // Filtre par disponibilité
         if (selectedAvailability !== "Tout") {
             filtered = filtered.filter(game => {
                 switch (selectedAvailability) {
@@ -154,18 +147,15 @@ const SearchPage = () => {
             });
         }
 
-        // Filtre par prix
         filtered = filtered.filter(game => {
             const finalPrice = game.price - (game.price * (game.percentageReduction || 0) / 100);
             return finalPrice >= priceRange[0] && finalPrice <= priceRange[1];
         });
 
-        // Filtre stock
         if (inStock) {
             filtered = filtered.filter(game => game.isInStock);
         }
 
-        // Tri
         filtered.sort((a, b) => {
             const priceA = a.price - (a.price * (a.percentageReduction || 0) / 100);
             const priceB = b.price - (b.price * (b.percentageReduction || 0) / 100);
@@ -209,7 +199,6 @@ const SearchPage = () => {
                 key={game.gameId}
                 image={game.thumbnailUrl}
                 title={game.title}
-                genres={[]} // À ajouter quand l'API fournira les genres
                 price={game.price}
                 percentage_reduction={game.percentageReduction}
                 isSteam={game.isAvailableOnSteam}
@@ -241,80 +230,22 @@ const SearchPage = () => {
                             </span>
                         </h1>
                     </div>
-                    <div className="search-filters">
-                        <div className="filters-row">
-                            <div className="filter-group">
-                                <label>Trier par</label>
-                                <Dropdown
-                                    value={selectedSort}
-                                    options={sortOptions}
-                                    onSelect={setSelectedSort}
-                                    variant="primary"
-                                />
-                            </div>
-                            <div className="filter-group">
-                                <label>Genre</label>
-                                <Dropdown
-                                    value={selectedGenre}
-                                    options={genreOptions}
-                                    onSelect={setSelectedGenre}
-                                    variant="primary"
-                                />
-                            </div>
-                            <div className="filter-group">
-                                <label>Plateforme</label>
-                                <Dropdown
-                                    value={selectedPlatform}
-                                    options={platformOptions}
-                                    onSelect={setSelectedPlatform}
-                                    variant="primary"
-                                />
-                            </div>
-                        </div>
-                        <div className="filters-row">
-                            <div className="filter-group">
-                                <label>Disponibilité</label>
-                                <Dropdown
-                                    value={selectedAvailability}
-                                    options={availabilityOptions}
-                                    onSelect={setSelectedAvailability}
-                                    variant="primary"
-                                />
-                            </div>
-                            <div className="filter-group price-filter">
-                                <label>Prix</label>
-                                <div className="price-inputs">
-                                    <NumberInput
-                                        value={priceRange[0].toString()}
-                                        onChange={(val) => {
-                                            const value = parseInt(val);
-                                            if (!isNaN(value) && value >= 0 && value <= priceRange[1]) {
-                                                setPriceRange([value, priceRange[1]]);
-                                            }
-                                        }}
-                                    />
 
-                                    <span className="price-separator">-</span>
-                                    <NumberInput
-                                        value={priceRange[1].toString()}
-                                        onChange={(val) => {
-                                            const value = parseInt(val);
-                                            if (!isNaN(value) && value >= priceRange[0]) {
-                                                setPriceRange([priceRange[0], value]);
-                                            }
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            <div className="filter-group stock-filter">
-                                <CheckBox
-                                    label="En stock uniquement"
-                                    checked={inStock}
-                                    onChange={setInStock}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <GameFilters
+                        selectedSort={selectedSort}
+                        setSelectedSort={setSelectedSort}
+                        selectedPlatform={selectedPlatform}
+                        setSelectedPlatform={setSelectedPlatform}
+                        selectedGenre={selectedGenre}
+                        setSelectedGenre={setSelectedGenre}
+                        selectedAvailability={selectedAvailability}
+                        setSelectedAvailability={setSelectedAvailability}
+                        priceRange={priceRange}
+                        setPriceRange={setPriceRange}
+                        inStock={inStock}
+                        setInStock={setInStock}
+                        showAllFilters={true}
+                    />
                 </div>
 
                 <div className="games-container">

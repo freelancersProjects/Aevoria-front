@@ -43,3 +43,13 @@
   flex: 1; /* Éléments flexibles */
   text-align: center; /* Centrer le texte */
 }
+
+.app-container.hide-layout > *:not(.content-container) {
+    display: none !important;
+}
+
+.app-container.hide-layout .content-container {
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}

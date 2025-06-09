@@ -1,32 +1,22 @@
-import { useState, useEffect } from "react";
+import { useQuery } from '@tanstack/react-query';
 import apiService from "../services/apiService";
 
-const useFetch = (endpoint) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+const useFetch = (endpoint, options = {}) => {
+    const {
+        enabled = true,
+        ...queryOptions
+    } = options;
 
-    useEffect(() => {
-        if(!endpoint) {
-            setLoading(false);
-            return;
-        }
-        const fetchData = async () => {
-            try {
-                const response = await apiService.get(endpoint);
-                setData(response);
-            } catch (err) {
-                console.error("Error fetching data:", err);
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [endpoint]);
-
-    return { data, loading, error };
+    return useQuery({
+        queryKey: [endpoint],
+        queryFn: async () => {
+            if (!endpoint) return null;
+            const response = await apiService.get(endpoint);
+            return response;
+        },
+        enabled: !!endpoint && enabled,
+        ...queryOptions
+    });
 };
 
 export default useFetch;

@@ -1,72 +1,122 @@
+$retro-blue: #00b7ff;
+$retro-blue-dark: #004455;
+$retro-blue-glow: rgba(0, 183, 255, 0.5);
+$retro-bg: #000810;
+
 .not-found-initial {
-    min-height: calc(100vh - 400px);
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--main-background);
+    background: var(--background-black);
     padding: 2rem;
     text-align: center;
-    margin-bottom: 2rem;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: 0;
+        right: 0;
+        height: 200%;
+        background:
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                rgba(32, 156, 255, 0.08) 2px,
+                transparent 4px
+            );
+        pointer-events: none;
+        animation: scanline 8s linear infinite;
+        opacity: 0.5;
+        z-index: 2;
+    }
 
     .content {
         max-width: 600px;
         padding: 2rem;
-        background: rgba(var(--blue-rgb), 0.05);
-        border-radius: 16px;
-        border: 1px solid rgba(var(--blue-rgb), 0.1);
-        box-shadow: 0 0 60px rgba(var(--blue-rgb), 0.15);
+        background: rgba(0, 8, 16, 0.95);
+        border: 4px solid $retro-blue;
+        box-shadow:
+            0 0 0 1px #000,
+            0 0 0 3px $retro-blue-dark,
+            0 0 20px $retro-blue-glow inset;
+        image-rendering: pixelated;
 
         .logo {
             width: 250px;
             margin-bottom: 2rem;
-            filter: drop-shadow(0 0 20px rgba(var(--blue-rgb), 0.3));
+            filter: brightness(0.9) sepia(1) hue-rotate(140deg) saturate(1.5);
         }
 
         h1 {
             font-size: 8rem;
             font-weight: bold;
-            background: linear-gradient(45deg, var(--blue) 0%, #00ffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(var(--blue-rgb), 0.3);
+            color: $retro-blue;
             margin-bottom: 1rem;
             font-family: 'Press Start 2P', monospace;
+            text-shadow:
+                4px 4px 0 #000,
+                -4px -4px 0 #000,
+                4px -4px 0 #000,
+                -4px 4px 0 #000,
+                0 0 20px $retro-blue-glow;
+            animation: glitch 3s infinite;
         }
 
         p {
             font-size: 1.5rem;
-            color: var(--light-text);
+            color: $retro-blue;
             margin-bottom: 3rem;
+            font-family: 'Press Start 2P', monospace;
+            text-shadow: 2px 2px 0 #000;
         }
 
         .space-counter {
             .press-space {
-                display: block;
-                color: var(--blue);
-                font-size: 1.1rem;
-                margin-bottom: 1rem;
+                color: $retro-blue;
                 font-family: 'Press Start 2P', monospace;
                 font-size: 0.8rem;
                 text-transform: uppercase;
                 letter-spacing: 1px;
-                animation: blink 1s infinite;
+                animation: blink 1s steps(2) infinite;
+                text-shadow: 2px 2px 0 #000;
             }
 
             .progress-bar {
                 width: 100%;
                 height: 20px;
-                background: rgba(var(--blue-rgb), 0.1);
-                border-radius: 10px;
+                background: #000;
+                border: 2px solid $retro-blue;
+                margin-top: 1rem;
+                position: relative;
                 overflow: hidden;
-                border: 2px solid var(--blue);
 
                 .progress {
                     height: 100%;
-                    background: linear-gradient(90deg, var(--blue), #00ffff);
-                    transition: width 0.3s ease;
-                    box-shadow: 0 0 10px rgba(var(--blue-rgb), 0.5);
+                    background: $retro-blue;
+                    transition: width 0.3s steps(10);
+                    box-shadow: 0 0 10px $retro-blue-glow;
+                    position: relative;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: repeating-linear-gradient(
+                            45deg,
+                            transparent,
+                            transparent 10px,
+                            rgba(0, 0, 0, 0.3) 10px,
+                            rgba(0, 0, 0, 0.3) 20px
+                        );
+                    }
                 }
             }
         }
@@ -111,24 +161,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 8, 16, 0.95);
             z-index: 10;
             backdrop-filter: blur(5px);
 
             .game-intro {
                 text-align: center;
                 padding: 2rem;
-                background: rgba(var(--blue-rgb), 0.1);
-                border-radius: 16px;
-                border: 2px solid var(--blue);
-                box-shadow: 0 0 30px rgba(var(--blue-rgb), 0.3);
+                background: rgba(0, 8, 16, 0.95);
+                border: 4px solid $retro-blue;
+                box-shadow:
+                    0 0 0 1px #000,
+                    0 0 0 3px $retro-blue-dark,
+                    0 0 20px $retro-blue-glow inset;
+                image-rendering: pixelated;
 
                 h2 {
-                    font-family: 'Press Start 2P', monospace;
                     font-size: 3rem;
-                    color: var(--blue);
                     margin-bottom: 2rem;
-                    text-shadow: 0 0 10px rgba(var(--blue-rgb), 0.5);
+                    color: $retro-blue;
+                    text-shadow:
+                        4px 4px 0 #000,
+                        -4px -4px 0 #000,
+                        4px -4px 0 #000,
+                        -4px 4px 0 #000;
+                    animation: glitch 3s infinite;
                 }
 
                 .instructions {
@@ -136,9 +193,18 @@
                     font-size: 0.8rem;
 
                     p {
-                        color: #0f0;
-                        margin: 1rem 0;
-                        text-shadow: 0 0 5px #0f0;
+                        color: $retro-blue;
+                        text-shadow: 2px 2px 0 #000;
+                        position: relative;
+
+                        &::before {
+                            content: '>';
+                            position: absolute;
+                            left: -20px;
+                            opacity: 0;
+                            animation: blink 1s steps(2) infinite;
+                            color: $retro-blue;
+                        }
                     }
                 }
 
@@ -149,32 +215,140 @@
                     font-size: 0.8rem;
                     text-shadow: 0 0 5px var(--blue);
                 }
+
+                .difficulty-selector {
+                    display: flex;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    justify-content: center;
+
+                    .difficulty-btn {
+                        background: var(--dark-low-opacity);
+                        border: 2px solid var(--light-text);
+                        font-family: 'Press Start 2P', monospace;
+                        font-size: 0.7rem;
+                        padding: 1rem;
+                        position: relative;
+                        overflow: hidden;
+                        color: var(--light-text);
+                        text-shadow: 2px 2px 0 var(--black);
+                        transition: all 0.3s ease;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            background: var(--glow-blue);
+                            opacity: 0;
+                            transition: opacity 0.3s steps(5);
+                        }
+
+                        &:hover {
+                            transform: translateY(-2px);
+                            border-color: var(--blue-light);
+                            color: var(--blue-light);
+                            box-shadow: 0 0 20px var(--glow-blue);
+
+                            &::before {
+                                opacity: 0.1;
+                            }
+                        }
+
+                        &.selected {
+                            animation: selectedBtn 1s steps(2) infinite;
+                            transform: scale(1.1);
+                            background: var(--dark-low-opacity);
+                            border-color: var(--blue-light);
+                            color: var(--blue-light);
+                            text-shadow: 0 0 10px var(--glow-blue);
+                            box-shadow: 0 0 30px var(--glow-blue);
+
+                            &::after {
+                                content: '►';
+                                position: absolute;
+                                left: -20px;
+                                animation: blink 1s steps(2) infinite;
+                                color: var(--blue-light);
+                            }
+                        }
+                    }
+                }
+
+                .features {
+                    margin-top: 2rem;
+                    padding: 1rem;
+                    background: rgba(0, 8, 16, 0.95);
+                    border: 2px solid $retro-blue;
+
+                    p {
+                        color: $retro-blue;
+                        text-transform: uppercase;
+                        margin-bottom: 15px;
+                    }
+
+                    ul {
+                        list-style: none;
+                        padding: 0;
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 0.5rem;
+
+                        li {
+                            background: rgba(0, 183, 255, 0.1);
+                            border: 1px solid $retro-blue;
+                            color: $retro-blue;
+                            font-size: 0.6rem;
+                            padding: 0.5rem;
+                            text-shadow: 1px 1px 0 #000;
+                            position: relative;
+                            overflow: hidden;
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: -100%;
+                                width: 100%;
+                                height: 100%;
+                                background: linear-gradient(
+                                    90deg,
+                                    transparent,
+                                    $retro-blue-glow,
+                                    transparent
+                                );
+                                animation: shine 3s linear infinite;
+                            }
+                        }
+                    }
+                }
             }
 
             .game-end {
                 text-align: center;
                 padding: 3rem;
-                background: rgba(0, 0, 0, 0.9);
-                border-radius: 16px;
-                border: 2px solid var(--blue);
-                box-shadow: 0 0 50px rgba(var(--blue-rgb), 0.4);
+                background: rgba(0, 8, 16, 0.95);
+                border: 4px solid $retro-blue;
+                box-shadow:
+                    0 0 0 1px #000,
+                    0 0 0 3px $retro-blue-dark,
+                    0 0 20px $retro-blue-glow inset;
 
                 h2 {
-                    font-family: 'Press Start 2P', monospace;
-                    font-size: 2.5rem;
-                    margin-bottom: 2rem;
-                    background: linear-gradient(45deg, var(--blue) 0%, #00ffff 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    text-shadow: 0 0 20px rgba(var(--blue-rgb), 0.5);
+                    color: $retro-blue;
+                    text-shadow:
+                        4px 4px 0 #000,
+                        -4px -4px 0 #000,
+                        4px -4px 0 #000,
+                        -4px 4px 0 #000;
+                    background: none;
+                    -webkit-text-fill-color: $retro-blue;
                 }
 
                 .score-final {
                     font-family: 'Press Start 2P', monospace;
-                    color: #0f0;
-                    font-size: 1.2rem;
-                    margin-bottom: 2rem;
-                    text-shadow: 0 0 5px #0f0;
+                    color: $retro-blue;
+                    animation: blink 2s steps(2) infinite;
+                    text-shadow: 2px 2px 0 #000;
                 }
 
                 .end-buttons {
@@ -183,27 +357,44 @@
                     justify-content: center;
 
                     button {
+                        background: rgba(0, 8, 16, 0.95);
+                        border: 2px solid $retro-blue;
+                        color: $retro-blue;
                         font-family: 'Press Start 2P', monospace;
-                        font-size: 0.8rem;
+                        text-transform: uppercase;
                         padding: 1rem 2rem;
-                        border: 2px solid var(--blue);
-                        background: rgba(var(--blue-rgb), 0.1);
-                        color: var(--blue);
-                        border-radius: 4px;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
+                        position: relative;
+                        overflow: hidden;
+                        text-shadow: 2px 2px 0 #000;
 
                         &:hover {
-                            background: rgba(var(--blue-rgb), 0.2);
-                            transform: translateY(-2px);
-                            box-shadow: 0 0 20px rgba(var(--blue-rgb), 0.3);
+                            background: $retro-blue;
+                            color: #000;
+                            text-shadow: none;
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(
+                                90deg,
+                                transparent,
+                                $retro-blue-glow,
+                                transparent
+                            );
+                            animation: shine 2s linear infinite;
                         }
 
                         &.retry-btn {
-                            border-color: #0f0;
-                            color: #0f0;
+                            border-color: $retro-blue;
+                            color: $retro-blue;
                             &:hover {
-                                background: rgba(15, 255, 15, 0.1);
+                                background: $retro-blue;
+                                color: #000;
                             }
                         }
 
@@ -211,7 +402,8 @@
                             border-color: #ff4444;
                             color: #ff4444;
                             &:hover {
-                                background: rgba(255, 68, 68, 0.1);
+                                background: #ff4444;
+                                color: #000;
                             }
                         }
                     }
@@ -228,15 +420,15 @@
             gap: 3rem;
             z-index: 5;
             padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 8px;
-            border: 2px solid var(--blue);
+            background: rgba(0, 8, 16, 0.95);
+            border: 2px solid $retro-blue;
+            box-shadow: 0 0 10px $retro-blue-glow;
             font-family: 'Press Start 2P', monospace;
 
             span {
-                color: #0f0;
+                color: $retro-blue;
                 font-size: 1.2rem;
-                text-shadow: 0 0 5px #0f0;
+                text-shadow: 2px 2px 0 #000;
                 min-width: 120px;
                 text-align: center;
             }
@@ -313,8 +505,12 @@
     }
 
     @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
     }
 
     @keyframes gridMove {
@@ -333,5 +529,97 @@
         50% {
             opacity: 1;
         }
+    }
+}
+
+// Animations pour les power-ups
+@keyframes powerUpPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@keyframes comboPopup {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(50%);
+    }
+}
+
+@keyframes glitch {
+    0%, 100% {
+        text-shadow:
+            4px 4px 0 #000,
+            -4px -4px 0 #000,
+            4px -4px 0 #000,
+            -4px 4px 0 #000,
+            0 0 20px $retro-blue-glow;
+    }
+    25% {
+        text-shadow:
+            -4px -4px 0 #000,
+            4px 4px 0 #000,
+            -4px 4px 0 #000,
+            4px -4px 0 #000,
+            0 0 20px $retro-blue-glow;
+    }
+    50% {
+        text-shadow:
+            4px -4px 0 #000,
+            -4px 4px 0 #000,
+            4px 4px 0 #000,
+            -4px -4px 0 #000,
+            0 0 20px $retro-blue-glow;
+    }
+    75% {
+        text-shadow:
+            -4px 4px 0 #000,
+            4px -4px 0 #000,
+            -4px -4px 0 #000,
+            4px 4px 0 #000,
+            0 0 20px $retro-blue-glow;
+    }
+}
+
+@keyframes selectedBtn {
+    0%, 100% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    20% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
     }
 }

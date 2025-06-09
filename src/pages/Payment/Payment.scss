@@ -1,1 +1,405 @@
+.payment-container {
+  min-height: 100vh;
+  background: var(--background-black);
+  color: var(--white);
+  padding: 20px;
 
+  .step-container {
+    background: rgba(184, 202, 224, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+
+  .payment-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    padding: 20px 0;
+
+    .payment-left {
+      flex: 1;
+
+      .billing-address {
+        background: rgba(184, 202, 224, 0.05);
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 24px;
+
+        h2 {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 20px;
+        }
+
+        .address-form {
+          position: relative;
+
+          .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+
+            .form-group {
+              flex: 1;
+            }
+          }
+
+          .form-group {
+            margin-bottom: 16px;
+
+            label {
+              display: block;
+              font-size: 14px;
+              color: rgba(255, 255, 255, 0.7);
+              margin-bottom: 8px;
+            }
+
+            input, select {
+              width: 100%;
+              background: rgba(255, 255, 255, 0.03);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 6px;
+              padding: 12px;
+              color: var(--white);
+              font-size: 15px;
+
+              &:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+              }
+
+              &::placeholder {
+                color: rgba(255, 255, 255, 0.3);
+              }
+            }
+
+            select {
+              appearance: none;
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: right 12px center;
+              background-size: 16px;
+              padding-right: 40px;
+            }
+          }
+
+          .edit-address {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--blue);
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+
+            &:hover {
+              opacity: 1;
+            }
+
+            svg {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+
+      .payment-methods {
+        h2 {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 16px;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .methods-list {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          .method-wrapper {
+            .method-button {
+              display: flex;
+              align-items: center;
+              gap: 16px;
+              background: rgba(184, 202, 224, 0.05);
+              border: 1px solid transparent;
+              border-radius: 8px;
+              padding: 16px;
+              width: 100%;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              color: var(--white);
+
+              img {
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+              }
+
+              .method-name {
+                flex: 1;
+                text-align: left;
+                font-size: 15px;
+              }
+
+              .method-fee {
+                color: var(--blue);
+                font-size: 14px;
+              }
+
+              &:hover {
+                background: rgba(184, 202, 224, 0.08);
+              }
+
+              &.selected {
+                border-color: var(--blue);
+                background: rgba(0, 123, 255, 0.05);
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                border-bottom: none;
+              }
+            }
+
+            .card-form {
+              background: rgba(0, 123, 255, 0.05);
+              border: 1px solid var(--blue);
+              border-top: none;
+              border-bottom-left-radius: 8px;
+              border-bottom-right-radius: 8px;
+              padding: 20px;
+              margin-top: -1px;
+
+              .form-group {
+                margin-bottom: 16px;
+
+                &:last-child {
+                  margin-bottom: 0;
+                }
+
+                label {
+                  display: block;
+                  font-size: 14px;
+                  color: rgba(255, 255, 255, 0.7);
+                  margin-bottom: 8px;
+                }
+
+                input[type="text"] {
+                  width: 100%;
+                  background: rgba(24, 26, 27, 0.5);
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  border-radius: 6px;
+                  padding: 12px;
+                  color: var(--white);
+                  font-size: 15px;
+                  transition: all 0.2s ease;
+
+                  &:focus {
+                    outline: none;
+                    border-color: var(--blue);
+                    background: rgba(0, 123, 255, 0.05);
+                  }
+
+                  &::placeholder {
+                    color: rgba(255, 255, 255, 0.3);
+                  }
+                }
+
+                &.checkbox {
+                  label {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+                    margin: 0;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.7);
+
+                    input[type="checkbox"] {
+                      width: 18px;
+                      height: 18px;
+                      margin: 0;
+                      cursor: pointer;
+                    }
+                  }
+                }
+              }
+
+              .form-row {
+                display: flex;
+                gap: 16px;
+                margin-bottom: 16px;
+
+                .form-group {
+                  flex: 1;
+                  margin-bottom: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .payment-right {
+      width: 400px;
+
+      .order-summary {
+        background: rgba(184, 202, 224, 0.05);
+        border-radius: 8px;
+        padding: 24px;
+
+        h2 {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 20px;
+        }
+
+        .summary-items {
+          margin-bottom: 24px;
+
+          .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .item-info {
+              flex: 1;
+
+              .item-name {
+                font-size: 14px;
+                margin-bottom: 4px;
+              }
+
+              .item-platform {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.6);
+              }
+            }
+
+            .item-quantity {
+              font-size: 14px;
+              color: rgba(255, 255, 255, 0.6);
+            }
+
+            .item-price {
+              font-size: 15px;
+              font-weight: 500;
+              color: var(--blue);
+            }
+          }
+        }
+
+        .summary-totals {
+          padding-top: 16px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+          .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+
+            &.final {
+              font-size: 18px;
+              font-weight: 600;
+              color: var(--white);
+              margin-top: 16px;
+              padding-top: 16px;
+              border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+          }
+        }
+
+        .gift-info {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin: 24px 0;
+          padding: 12px;
+          background: rgba(184, 202, 224, 0.03);
+          border-radius: 6px;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.7);
+
+          svg {
+            color: var(--blue);
+            flex-shrink: 0;
+          }
+        }
+
+        .terms-agreement {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 24px;
+          line-height: 1.5;
+
+          a {
+            color: var(--blue);
+            text-decoration: none;
+            margin: 0 4px;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .pay-button {
+          width: 100%;
+          background: #ff6b3d;
+          color: white;
+          border: none;
+          padding: 14px;
+          border-radius: 6px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover:not(:disabled) {
+            background: #ff835d;
+          }
+
+          &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .payment-container {
+    padding: 16px;
+
+    .payment-content {
+      flex-direction: column;
+
+      .payment-right {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -87,6 +87,8 @@ const Register = () => {
     try {
       const response = await apiService.post("/users", userData);
       if (response) {
+        await apiService.postQuery(`/cart/create?userId=${response.userId}`);
+
         navigate("/login");
       } else {
         setError("Error during registration. Please try again.");
@@ -96,6 +98,7 @@ const Register = () => {
     } finally {
       setIsRegistering(false);
     }
+
   };
 
   const handleSocialRegister = (provider) => {

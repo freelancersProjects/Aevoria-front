@@ -3,6 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import './NotFound.scss';
 import Logo from '../../../assets/images/notfound.png';
 
+const DIFFICULTY_LEVELS = {
+    EASY: { speed: 7, aiSpeed: 6, name: "FACILE", color: "#00ff00" },
+    MEDIUM: { speed: 9, aiSpeed: 8, name: "MOYEN", color: "#ffff00" },
+    HARD: { speed: 11, aiSpeed: 10, name: "DIFFICILE", color: "#ff6600" },
+    IMPOSSIBLE: { speed: 13, aiSpeed: 12, name: "IMPOSSIBLE", color: "#ff0000" }
+};
+
+const POWER_UPS = {
+    SPEED_UP: { type: 'SPEED_UP', color: '#ff0000', duration: 5000 },
+    SLOW_DOWN: { type: 'SLOW_DOWN', color: '#00ff00', duration: 5000 },
+    ENLARGE_PADDLE: { type: 'ENLARGE_PADDLE', color: '#0088ff', duration: 7000 },
+    SHRINK_AI: { type: 'SHRINK_AI', color: '#ff00ff', duration: 5000 }
+};
+
 const NotFound = () => {
     const canvasRef = useRef(null);
     const navigate = useNavigate();
@@ -14,16 +28,22 @@ const NotFound = () => {
     const [showGame, setShowGame] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [winner, setWinner] = useState(null);
+    const [selectedDifficulty, setSelectedDifficulty] = useState('MEDIUM');
+    const [activePowerUps, setActivePowerUps] = useState([]);
+    const [combo, setCombo] = useState(0);
 
     const WINNING_SCORE = 5;
+    document.querySelector('.app-container')?.classList.add('hide-layout');
 
     const gameStateRef = useRef({
-        player: { y: 0, height: 100, width: 15, speed: 8 },
-        ai: { y: 0, height: 100, width: 15, speed: 6 },
-        ball: { x: 0, y: 0, size: 10, dx: 0, dy: 0, speed: 7, isPerfect: false, perfectTimer: 0 },
+        player: { y: 0, height: 100, width: 15, speed: 8, originalHeight: 100 },
+        ai: { y: 0, height: 100, width: 15, speed: 8, originalHeight: 100 },
+        ball: { x: 0, y: 0, size: 10, dx: 0, dy: 0, speed: DIFFICULTY_LEVELS[selectedDifficulty].speed, isPerfect: false, perfectTimer: 0 },
         particles: [],
+        powerUps: [],
         keys: { ArrowUp: false, ArrowDown: false, Escape: false },
-        lastTime: 0
+        lastTime: 0,
+        powerUpTimer: 0
     });
 
     // Définition des dimensions par défaut
@@ -54,7 +74,7 @@ const NotFound = () => {
         setWinner(null);
         setGameStarted(false);
         const state = gameStateRef.current;
-        state.ball.speed = 7;
+        state.ball.speed = DIFFICULTY_LEVELS[selectedDifficulty].speed;
     };
 
     useEffect(() => {
@@ -256,11 +276,110 @@ const NotFound = () => {
             ctx.restore();
         };
 
+        const spawnPowerUp = () => {
+            const types = Object.values(POWER_UPS);
+            const powerUp = types[Math.floor(Math.random() * types.length)];
+            const canvas = canvasRef.current;
+
+            gameStateRef.current.powerUps.push({
+                ...powerUp,
+                x: Math.random() * (canvas.width - 30) + 15,
+                y: Math.random() * (canvas.height - 30) + 15,
+                radius: 10,
+                active: true
+            });
+        };
+
+        const applyPowerUp = (powerUp) => {
+            const state = gameStateRef.current;
+
+            switch (powerUp.type) {
+                case 'SPEED_UP':
+                    state.ball.speed *= 1.5;
+                    setTimeout(() => {
+                        state.ball.speed /= 1.5;
+                    }, powerUp.duration);
+                    break;
+                case 'SLOW_DOWN':
+                    state.ball.speed *= 0.7;
+                    setTimeout(() => {
+                        state.ball.speed /= 0.7;
+                    }, powerUp.duration);
+                    break;
+                case 'ENLARGE_PADDLE':
+                    state.player.height *= 1.5;
+                    setTimeout(() => {
+                        state.player.height = state.player.originalHeight;
+                    }, powerUp.duration);
+                    break;
+                case 'SHRINK_AI':
+                    state.ai.height *= 0.7;
+                    setTimeout(() => {
+                        state.ai.height = state.ai.originalHeight;
+                    }, powerUp.duration);
+                    break;
+            }
+
+            setActivePowerUps(prev => [...prev, { type: powerUp.type, endTime: Date.now() + powerUp.duration }]);
+            setTimeout(() => {
+                setActivePowerUps(prev => prev.filter(p => p.endTime > Date.now()));
+            }, powerUp.duration);
+        };
+
+        const drawPowerUps = (ctx) => {
+            const state = gameStateRef.current;
+            state.powerUps.forEach((powerUp, index) => {
+                if (!powerUp.active) return;
+
+                ctx.beginPath();
+                ctx.arc(powerUp.x, powerUp.y, powerUp.radius, 0, Math.PI * 2);
+                ctx.fillStyle = powerUp.color;
+                ctx.fill();
+
+                // Effet de lueur
+                ctx.shadowColor = powerUp.color;
+                ctx.shadowBlur = 15;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                // Animation de pulsation
+                powerUp.radius = 10 + Math.sin(Date.now() * 0.005) * 2;
+            });
+        };
+
+        const checkPowerUpCollision = () => {
+            const state = gameStateRef.current;
+            const { ball } = state;
+
+            state.powerUps.forEach((powerUp, index) => {
+                if (!powerUp.active) return;
+
+                const dx = ball.x - powerUp.x;
+                const dy = ball.y - powerUp.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < ball.size + powerUp.radius) {
+                    powerUp.active = false;
+                    applyPowerUp(powerUp);
+                    state.powerUps.splice(index, 1);
+                }
+            });
+        };
+
         const update = (deltaTime) => {
             const state = gameStateRef.current;
             const { player, ai, ball } = state;
 
-            // Mise à jour du timer perfect
+            // Spawn power-up periodically
+            state.powerUpTimer += deltaTime;
+            if (state.powerUpTimer > 5000) { // Every 5 seconds
+                state.powerUpTimer = 0;
+                if (Math.random() < 0.3) { // 30% chance
+                    spawnPowerUp();
+                }
+            }
+
+            // Update perfect timer
             if (ball.perfectTimer > 0) {
                 ball.perfectTimer -= deltaTime;
                 if (ball.perfectTimer <= 0) {
@@ -268,41 +387,53 @@ const NotFound = () => {
                 }
             }
 
-            // Mise à jour de la position du joueur
+            // Update player position
             if (state.keys.ArrowUp) player.y = Math.max(0, player.y - player.speed);
             if (state.keys.ArrowDown) player.y = Math.min(canvas.height - player.height, player.y + player.speed);
 
-            // IA
+            // AI with difficulty-based speed
+            const aiSpeed = DIFFICULTY_LEVELS[selectedDifficulty].aiSpeed;
             const aiCenter = ai.y + ai.height / 2;
             const ballCenter = ball.y;
-            if (aiCenter < ballCenter - 10) ai.y += ai.speed;
-            if (aiCenter > ballCenter + 10) ai.y -= ai.speed;
+            const aiReactionDelay = selectedDifficulty === 'IMPOSSIBLE' ? 0 : 10;
+
+            if (aiCenter < ballCenter - aiReactionDelay) ai.y += aiSpeed;
+            if (aiCenter > ballCenter + aiReactionDelay) ai.y -= aiSpeed;
             ai.y = Math.max(0, Math.min(canvas.height - ai.height, ai.y));
 
-            // Mise à jour de la balle
+            // Ball movement
             if (gameStarted) {
                 ball.x += ball.dx;
                 ball.y += ball.dy;
 
-                // Collision avec les raquettes
+                // Check power-up collisions
+                checkPowerUpCollision();
+
+                // Paddle collisions with improved effects
                 if (ball.x <= player.width && ball.y >= player.y && ball.y <= player.y + player.height) {
                     const hitPosition = (ball.y - player.y) / player.height;
                     const isPerfectHit = hitPosition > 0.4 && hitPosition < 0.6;
 
                     if (isPerfectHit) {
                         ball.isPerfect = true;
-                        ball.perfectTimer = 1000; // 1 seconde
-                        ball.dx = Math.abs(ball.dx) * 1.2; // 20% plus rapide
+                        ball.perfectTimer = 1000;
+                        ball.dx = Math.abs(ball.dx) * 1.2;
+                        setCombo(prev => prev + 1);
+                        if (combo > 2) {
+                            setMessage(`COMBO x${combo}!`);
+                        }
                     } else {
                         ball.isPerfect = false;
                         ball.dx = Math.abs(ball.dx) * 1.1;
+                        setCombo(0);
                     }
 
-                    ball.dy += (ball.y - (player.y + player.height / 2)) * 0.1;
+                    ball.dy += (ball.y - (player.y + player.height / 2)) * 0.2;
 
-                    const particleColor = ball.isPerfect ? '#ff0000' : '#0088ff';
-                    for (let i = 0; i < 5; i++) {
-                        state.particles.push(createParticle(ball.x, ball.y, particleColor));
+                    // Particle effects
+                    const particleCount = isPerfectHit ? 10 : 5;
+                    for (let i = 0; i < particleCount; i++) {
+                        state.particles.push(createParticle(ball.x, ball.y, ball.isPerfect ? '#ff0000' : '#0088ff'));
                     }
                 }
 
@@ -472,6 +603,21 @@ const NotFound = () => {
 
             drawBall();
 
+            // Afficher les power-ups actifs
+            drawPowerUps(ctx);
+
+            // Afficher les power-ups actifs en HUD
+            ctx.save();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(10, 10, 200, 30 * activePowerUps.length);
+            activePowerUps.forEach((powerUp, index) => {
+                const timeLeft = Math.max(0, (powerUp.endTime - Date.now()) / 1000).toFixed(1);
+                ctx.fillStyle = POWER_UPS[powerUp.type].color;
+                ctx.font = '16px Arial';
+                ctx.fillText(`${powerUp.type}: ${timeLeft}s`, 20, 30 + (index * 30));
+            });
+            ctx.restore();
+
             update(deltaTime);
             animationFrameId = requestAnimationFrame(render);
         };
@@ -553,12 +699,33 @@ const NotFound = () => {
                     <div className="game-overlay">
                         <div className="game-intro">
                             <h2>PONG 404</h2>
+                            <div className="difficulty-selector">
+                                {Object.entries(DIFFICULTY_LEVELS).map(([key, level]) => (
+                                    <button
+                                        key={key}
+                                        className={`difficulty-btn ${selectedDifficulty === key ? 'selected' : ''}`}
+                                        style={{ '--difficulty-color': level.color }}
+                                        onClick={() => setSelectedDifficulty(key)}
+                                    >
+                                        {level.name}
+                                    </button>
+                                ))}
+                            </div>
                             <div className="instructions">
                                 <p>↑ / ↓ : Déplacer la raquette</p>
                                 <p>ESPACE : Commencer</p>
                                 <p>ÉCHAP : Quitter</p>
                             </div>
                             <div className="objective">Premier à {WINNING_SCORE} points gagne !</div>
+                            <div className="features">
+                                <p>Caractéristiques :</p>
+                                <ul>
+                                    <li>Power-ups aléatoires</li>
+                                    <li>Système de combo</li>
+                                    <li>Effets visuels dynamiques</li>
+                                    <li>4 niveaux de difficulté</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 )}

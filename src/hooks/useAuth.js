@@ -4,15 +4,16 @@ import { jwtDecode } from "jwt-decode";
 
 const useAuth = () => {
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
-            const token = localStorage.getItem("token");
+            const storedToken = localStorage.getItem("token");
             const userId = localStorage.getItem("userId");
 
-            if (!token || !userId) {
+            if (!storedToken || !userId) {
                 setLoading(false);
                 return;
             }
@@ -20,12 +21,13 @@ const useAuth = () => {
             try {
                 const res = await apiService.get(`/users/${userId}`, {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${storedToken}`
                     }
                 });
 
                 if (res) {
                     setUser(res);
+                    setToken(storedToken);
                 } else {
                     throw new Error("Utilisateur introuvable.");
                 }
@@ -57,6 +59,7 @@ const useAuth = () => {
 
             localStorage.setItem("token", res.token);
             localStorage.setItem("userId", userId);
+            setToken(res.token);
 
             return { token: res.token, userId };
         } catch (err) {
@@ -69,9 +72,11 @@ const useAuth = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         setUser(null);
+        setToken(null); // ← CLEAR TOKEN
     };
 
-    return { login, logout, user, loading, error };
+    return { login, logout, user, token, loading, error };
 };
+
 
 export default useAuth;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FaFolder } from 'react-icons/fa';
+import { FaUpload } from 'react-icons/fa';
 import './UploadBox.scss';
 
-const UploadBox = ({ onUpload, accept = '*' }) => {
+const UploadBox = ({ onUpload, accept = '*', maxSize = '5MB', acceptedFormats = ['PNG', 'JPG', 'WEBP'] }) => {
     const [dragOver, setDragOver] = useState(false);
     const [file, setFile] = useState(null);
 
@@ -31,23 +31,54 @@ const UploadBox = ({ onUpload, accept = '*' }) => {
             onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
             onDragLeave={() => setDragOver(false)}
             onDrop={handleDrop}
+            onClick={() => document.getElementById('file-upload').click()}
         >
             {file ? (
                 <div className="file-preview">
                     {file.type.startsWith('image/') ? (
-                        <img src={URL.createObjectURL(file)} alt="preview" />
+                        <>
+                            <div className="preview-circle">
+                                <img src={URL.createObjectURL(file)} alt="preview" />
+                            </div>
+                            <div className="file-info">
+                                <h3>{file.name}</h3>
+                                <p>Cliquez pour changer d'image</p>
+                            </div>
+                        </>
                     ) : (
-                        <p>{file.name}</p>
+                        <>
+                            <div className="preview-circle">
+                                <FaUpload className="upload-icon" />
+                            </div>
+                            <div className="file-info">
+                                <h3>{file.name}</h3>
+                                <p>Cliquez pour changer de fichier</p>
+                            </div>
+                        </>
                     )}
-                    <span className="change-label">Click to replace</span>
                 </div>
             ) : (
-                <div className="upload-instructions">
-                    <p><FaFolder /> Drag and drop here</p>
-                    <p className="sub">or click to browse</p>
-                </div>
+                <>
+                    <div className="upload-circle">
+                        <FaUpload className="upload-icon" />
+                    </div>
+                    <div className="upload-text">
+                        <h3>Glissez et déposez votre fichier ici</h3>
+                        <p>ou cliquez pour parcourir vos fichiers</p>
+                    </div>
+                    <div className="upload-info">
+                        <span>Formats acceptés : {acceptedFormats.join(', ')}</span>
+                        <span>Taille maximale : {maxSize}</span>
+                    </div>
+                </>
             )}
-            <input type="file" onChange={handleFileChange} accept={accept} />
+            <input
+                type="file"
+                id="file-upload"
+                onChange={handleFileChange}
+                accept={accept}
+                style={{ display: 'none' }}
+            />
         </div>
     );
 };
@@ -55,6 +86,8 @@ const UploadBox = ({ onUpload, accept = '*' }) => {
 UploadBox.propTypes = {
     onUpload: PropTypes.func.isRequired,
     accept: PropTypes.string,
+    maxSize: PropTypes.string,
+    acceptedFormats: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default UploadBox;

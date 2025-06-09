@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,77 +11,88 @@
 }
 
 .aev-popup-v2 {
-  background: var(--second-background);
-  border-radius: 14px;
+  background: linear-gradient(135deg, #02090D, rgba(32, 156, 255, 0.15));
+  border-radius: 20px;
   width: 100%;
-  max-width: 360px;
-  padding: 24px 26px;
+  max-width: 400px;
+  padding: 32px;
   text-align: center;
-  border: 1px solid var(--blue);
-  animation: popupScale 0.25s ease;
-  font-family: "Montserrat", sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  animation: fadeInUp 0.3s ease;
 }
 
 .popup-icon {
-  font-size: 40px;
+  font-size: 42px;
   color: var(--blue);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+
+  svg {
+    filter: drop-shadow(0 0 10px rgba(32, 156, 255, 0.3));
+  }
 }
 
 .popup-message {
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--white);
-  margin-bottom: 22px;
+  margin-bottom: 28px;
+  line-height: 1.5;
 }
 
 .popup-buttons {
   display: flex;
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
 
   button {
-    flex: 1;
-    padding: 10px 0;
+    min-width: 120px;
+    padding: 12px 24px;
     font-size: 0.95rem;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: inherit;
   }
 
   .confirm {
-    background: var(--blue);
+    background: linear-gradient(135deg, var(--blue), rgba(32, 156, 255, 0.8));
     color: #fff;
+    box-shadow: 0 4px 15px rgba(32, 156, 255, 0.2);
 
     &:hover {
-      background: var(--blue-light);
-      box-shadow: 0 0 6px var(--blue-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(32, 156, 255, 0.3);
+    }
+
+    &:active {
+      transform: translateY(1px);
     }
   }
 
   .cancel {
-    background: var(--gray-background);
-    color: var(--lightgray);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--white);
 
     &:hover {
-      background: #1c1c1c;
-      color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(1px);
     }
   }
 }
 
-@keyframes popupScale {
+@keyframes fadeInUp {
   from {
-    transform: scale(0.95);
     opacity: 0;
+    transform: translateY(10px);
   }
-
   to {
-    transform: scale(1);
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -89,7 +100,6 @@
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }

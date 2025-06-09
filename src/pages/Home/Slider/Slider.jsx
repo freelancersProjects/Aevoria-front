@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import SteamIcon from "../../../assets/svg/steam.svg?react";
@@ -9,18 +7,44 @@ import ArrowRightSlider from "../../../assets/svg/chevron-right.svg?react";
 import ArrowLeftSlider from "../../../assets/svg/chevron-left.svg?react";
 import DefaultImageSlider from "../../../assets/images/photo-test.webp";
 import Button from "../../../components/AEV/AEV.Button/Button";
+import apiService from "../../../services/apiService";
+import { useNavigate } from "react-router-dom";
 import "./Slider.scss";
 
-const Slider = ({ slides, autoPlayInterval = 5000 }) => {
-    const [currentIndex, setCurrentIndex] = useState(1); // Commencer à 1 pour éviter l'effet de saut
+const Slider = ({ autoPlayInterval = 5000 }) => {
+    const [currentIndex, setCurrentIndex] = useState(1);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [recentGames, setRecentGames] = useState([]);
     const intervalRef = useRef(null);
     const sliderRef = useRef(null);
     const isMountedRef = useRef(true);
     const isVisibleRef = useRef(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchRecentGames = async () => {
+            try {
+                const response = await apiService.get('/games');
+                if (response?.$values) {
+                    // Trier les jeux par date de création (du plus récent au plus ancien)
+                    const sortedGames = response.$values.sort((a, b) =>
+                        new Date(b.createdAt) - new Date(a.createdAt)
+                    );
+                    // Prendre les 3 premiers jeux
+                    setRecentGames(sortedGames.slice(0, 3));
+                }
+            } catch (error) {
+                console.error('Error fetching recent games:', error);
+            }
+        };
+
+        fetchRecentGames();
+    }, []);
 
     // Étendre la liste des slides pour le bouclage infini
-    const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
+    const extendedSlides = recentGames.length > 0
+        ? [recentGames[recentGames.length - 1], ...recentGames, recentGames[0]]
+        : [];
 
     useLayoutEffect(() => {
         return () => {
@@ -128,7 +152,7 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
             if (sliderRef.current && isMountedRef.current) {
                 sliderRef.current.style.transition = "none";
             }
-            setCurrentIndex(() => slides.length);
+            setCurrentIndex(() => recentGames.length);
             setTimeout(() => {
                 if (sliderRef.current && isMountedRef.current) {
                     sliderRef.current.style.transition = "transform 0.5s ease-in-out";
@@ -142,77 +166,94 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
         setCurrentIndex(index + 1);
     };
 
+    const handleViewMore = (gameId) => {
+        const game = recentGames.find(g => g.gameId === gameId);
+        const safeTitle = game.title.toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '');
+        if (game) {
+            navigate(`/game/${safeTitle}/${gameId}`);
+        }
+    };
+
     return (
         <>
-            <div
-                className="slider-container"
-                onMouseEnter={stopAutoPlay}
-                onMouseLeave={() => {
-                    if (isMountedRef.current && isVisibleRef.current) {
-                        startAutoPlay();
-                    }
-                }}
-            >
+            {recentGames.length > 0 && (
                 <div
-                    ref={sliderRef}
-                    className="slider-wrapper"
-                    style={{
-                        transform: `translateX(-${currentIndex * 100}%)`,
-                        transition: isTransitioning ? "transform 0.5s ease-in-out" : "none",
+                    className="slider-container"
+                    onMouseEnter={stopAutoPlay}
+                    onMouseLeave={() => {
+                        if (isMountedRef.current && isVisibleRef.current) {
+                            startAutoPlay();
+                        }
                     }}
-                    onTransitionEnd={handleTransitionEnd}
                 >
-                    {extendedSlides.map((slide, index) => (
-                        <div className="slider-slide" key={index}>
-                            <div className="slider-image">
-                                <img src={slide.image || DefaultImageSlider} alt={slide.title} />
-                            </div>
+                    <div
+                        ref={sliderRef}
+                        className="slider-wrapper"
+                        style={{
+                            transform: `translateX(-${currentIndex * 100}%)`,
+                            transition: isTransitioning ? "transform 0.5s ease-in-out" : "none",
+                        }}
+                        onTransitionEnd={handleTransitionEnd}
+                    >
+                        {extendedSlides.map((game, index) => (
+                            <div className="slider-slide" key={index}>
+                                <div className="slider-image">
+                                    <img src={game.thumbnailUrl || DefaultImageSlider} alt={game.title} />
+                                </div>
 
-                            <div
-                                className="slider-info"
-                                style={{
-                                    backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(14, 46, 105, 0.9)), url(${slide.image || DefaultImageSlider})`,
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
-                                }}
-                            >
-                                <p className="release">Dernière Sortie</p>
-                                <h2 className="game-title">{slide.title}</h2>
-                                <p className="genres">{slide.genres.join(" - ")}</p>
-                                <div className="game-icons">
-                                    {slide.isSteam && <SteamIcon className="icon" />}
-                                    {slide.isEpic && <EpicIcon className="icon" />}
-                                    {slide.isPlaystation && <PlaystationIcon className="icon" />}
+                                <div
+                                    className="slider-info"
+                                    style={{
+                                        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(14, 46, 105, 0.9)), url(${game.thumbnailUrl || DefaultImageSlider})`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                    }}
+                                >
+                                    <p className="release">Dernière Sortie</p>
+                                    <h2 className="game-title">{game.title}</h2>
+                                    <p className="genres">{game.genres?.join(" - ") || "Aucun genre"}</p>
+                                    <div className="game-icons">
+                                        {game.isAvailableOnSteam && <SteamIcon className="icon" />}
+                                        {game.isAvailableOnEpic && <EpicIcon className="icon" />}
+                                        {game.isAvailableOnPlayStation && <PlaystationIcon className="icon" />}
+                                    </div>
+                                    <div className="game-pricing">
+                                        <span className="current-price">
+                                            {game.percentageReduction > 0
+                                                ? (game.price - (game.price * game.percentageReduction / 100)).toFixed(2)
+                                                : game.discount
+                                                    ? game.discount.toFixed(2)
+                                                    : game.price.toFixed(2)}€
+                                        </span>
+                                        {(game.percentageReduction > 0 || game.discount) && (
+                                            <span className="old-price">{game.price.toFixed(2)}€</span>
+                                        )}
+                                    </div>
+                                    <Button
+                                        text="Voir plus"
+                                        variant="outline"
+                                        size="medium"
+                                        className="button-more-slider"
+                                        onClick={() => handleViewMore(game.gameId)}
+                                    />
                                 </div>
-                                <div className="game-pricing">
-                                    <span className="current-price">{slide.price}€</span>
-                                    {slide.discount > 0 && (
-                                        <span className="old-price">{slide.oldPrice}€</span>
-                                    )}
-                                </div>
-                                <Button
-                                    text="Voir plus"
-                                    variant="outline"
-                                    size="medium"
-                                    className="button-more-slider"
-                                />
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                    <button className="prev-button" onClick={handlePrevClick}>
+                        <ArrowLeftSlider />
+                    </button>
+                    <button className="next-button" onClick={handleNextClick}>
+                        <ArrowRightSlider />
+                    </button>
                 </div>
-                <button className="prev-button" onClick={handlePrevClick}>
-                    <ArrowLeftSlider />
-                </button>
-                <button className="next-button" onClick={handleNextClick}>
-                    <ArrowRightSlider />
-                </button>
-            </div>
+            )}
 
             <div className="slider-indicators">
-                {slides.map((_, index) => (
+                {recentGames.map((_, index) => (
                     <div
                         key={index}
-                        className={`indicator ${index === (currentIndex - 1) % slides.length ? "active" : ""}`}
+                        className={`indicator ${index === (currentIndex - 1) % recentGames.length ? "active" : ""}`}
                         onClick={() => handleIndicatorClick(index)}
                     />
                 ))}
@@ -222,7 +263,6 @@ const Slider = ({ slides, autoPlayInterval = 5000 }) => {
 };
 
 Slider.propTypes = {
-    slides: PropTypes.array.isRequired,
     autoPlayInterval: PropTypes.number,
 };
 

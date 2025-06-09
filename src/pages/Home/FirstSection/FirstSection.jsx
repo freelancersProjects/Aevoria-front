@@ -7,7 +7,7 @@ import Skeleton from "../../../components/AEV/AEV.Skeleton/Skeleton";
 import "./FirstSection.scss";
 
 const FirstSection = () => {
-  const { data: mediaData, loading, error } = useFetch("/games/media/game-images");
+  const { data: mediaData, isLoading, error } = useFetch("/games/media/game-images");
 
   const randomizedImages = useMemo(() => {
     const imageArray = mediaData?.$values || mediaData || [];
@@ -23,6 +23,10 @@ const FirstSection = () => {
     }
     return result.slice(0, 20);
   }, [mediaData]);
+
+  if (isLoading) {
+    return <Skeleton count={20} />;
+  }
 
   return (
     <section className="first-section">
@@ -58,23 +62,13 @@ const FirstSection = () => {
         </div>
 
         <div className="images-gallery">
-          {loading ? (
-            <div className="image-grid">
-              {Array.from({ length: 18 }).map((_, index) => (
-                <div key={index} className="image-item">
-                  <Skeleton width="100%" height="100%" rounded />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="image-grid">
-              {randomizedImages.map((item, index) => (
-                <div key={index} className="image-item">
-                  <img src={item} alt={`Image ${index}`} loading="lazy" />
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="image-grid">
+            {randomizedImages.map((item, index) => (
+              <div key={index} className="image-item">
+                <img src={item} alt={`Image ${index}`} loading="lazy" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

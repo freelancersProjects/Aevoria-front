@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const apiService = {
     get: async (endpoint) => {
         try {
@@ -7,13 +7,18 @@ const apiService = {
 
             if (!response.ok) {
                 console.error(`GET Error (${response.status}) on ${url}`);
-                throw new Error("Error fetching data");
+                throw new Error(`Error fetching data: ${response.statusText}`);
             }
 
-            return await response.json();
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                return await response.json();
+            }
+            return null;
+
         } catch (error) {
             console.error("GET Error:", error);
-            return null;
+            throw error;
         }
     },
 
@@ -114,6 +119,32 @@ postQuery: async (endpoint, data = null) => {
         return null;
     }
 },
+
+putQuery: async (endpoint, data = null) => {
+    try {
+        const options = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+        };
+        if (data) options.body = JSON.stringify(data);
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+        const text = await response.text();
+        let json;
+        try {
+            json = JSON.parse(text);
+        }
+        catch {
+            json = { raw: text };
+        }
+        if (!response.ok) {
+            throw new Error(json?.message || `Erreur HTTP ${response.status}`);
+        }
+        return json;
+    } catch (error) {
+        console.error("PUT QUERY Error:", error);
+        return null;
+    }
+    },
 
 patchQuery: async (endpoint, data = null) => {
     try {

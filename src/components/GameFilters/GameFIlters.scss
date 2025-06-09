@@ -1,0 +1,77 @@
+.search-filters {
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 30px;
+
+    .filters-row {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 24px;
+        align-items: flex-end;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+        }
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 200px;
+
+        label {
+            display: inline-block;
+            margin-bottom: 10px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        &:hover label {
+            color: var(--white);
+            opacity: 1;
+        }
+    }
+
+    .price-filter {
+        .price-inputs {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            input {
+                width: 100%;
+                min-width: 80px;
+            }
+        }
+
+        .price-separator {
+            color: var(--light-text);
+            margin: 0;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+    }
+
+    .stock-filter {
+        display: flex;
+        align-items: flex-end;
+        min-width: auto;
+        flex: 0 0 auto;
+
+        label {
+            margin-bottom: 0;
+            text-transform: none;
+            letter-spacing: normal;
+            display: flex;
+        }
+    }
+}
