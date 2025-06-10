@@ -19,9 +19,11 @@ import Payment from './pages/Payment/Payment';
 import Terms from './pages/Legal/Terms/Terms';
 import SearchPage from './pages/Search/SearchPage';
 import NotFound from './pages/Error/NotFound/NotFound';
-import CategorieView from './pages/CategorieView/CategorieView';
+import gameview from './pages/ViewGame/ViewGame';
 
-const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/message/', '/legal/', '/payment'];
+
+
+const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/message/', '/legal/', '/payment', '/gameview'];
 
 function Layout({ children }) {
   const location = useLocation();
@@ -58,6 +60,7 @@ function App() {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/categorie/:genreId" element={<CategorieView />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/gameview" element={<ViewGame />} />
           </Routes>
         </Layout>
       </Router>

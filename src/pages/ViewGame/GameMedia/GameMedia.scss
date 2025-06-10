@@ -1,0 +1,372 @@
+@import '../../../global.scss';
+
+.game-media {
+  color: var(--white);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  // Background glow effects
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .video-player {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--background-black);
+
+      // Glowing border animation
+      &::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
+        border-radius: 22px;
+        z-index: -1;
+        animation: borderGlow 3s linear infinite;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: all 0.3s ease;
+        filter: brightness(0.9) contrast(1.1) saturate(1.2);
+
+        &:hover {
+          filter: brightness(1) contrast(1.2) saturate(1.3);
+        }
+      }
+
+      .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        .play-button {
+          width: 80px;
+          height: 80px;
+          border: 2px solid var(--blue-light);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+
+          &:hover {
+            box-shadow: 0 0 30px var(--glow-blue);
+            transform: scale(1.1);
+          }
+
+          svg {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+
+      .video-progress {
+        position: absolute;
+        bottom: 60px;
+        left: 20px;
+        right: 20px;
+
+        .progress-bar {
+          height: 4px;
+          background: var(--transparent-white);
+          border-radius: 2px;
+          overflow: hidden;
+
+          .progress-fill {
+            height: 100%;
+            width: 35%;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--glow-blue);
+          }
+        }
+      }
+
+      .video-info {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+
+        .video-time {
+          background: var(--dark-low-opacity);
+          padding: 8px 12px;
+          border-radius: 8px;
+          font-family: 'Monaco', 'Menlo', monospace;
+          font-size: 14px;
+          color: var(--blue-light);
+          border: 1px solid var(--blue-low-opacity);
+          backdrop-filter: blur(10px);
+        }
+      }
+
+      .video-controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, var(--dark-low-opacity));
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .controls-left {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          .video-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--white);
+            text-shadow: 0 0 10px var(--glow-blue);
+          }
+        }
+
+        .controls-right {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .control-btn {
+          border: 1px solid var(--transparent-white);
+          color: var(--light-text);
+          padding: 8px 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+          font-size: 16px;
+
+          &:hover {
+            border-color: var(--blue-light);
+            color: var(--blue-light);
+            box-shadow: 0 0 15px var(--glow-blue);
+          }
+
+          &.play-btn {
+            border-color: var(--blue-light);
+            color: var(--blue-light);
+          }
+        }
+      }
+    }
+  }
+
+  .thumbnail-nav {
+    position: relative;
+    margin-top: 3rem;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 2;
+
+    .nav-arrow {
+      width: 50px;
+      height: 50px;
+      background: var(--dark-low-opacity);
+      border: 2px solid var(--transparent-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        border-color: var(--blue-light);
+        background: var(--blue-low-opacity);
+        box-shadow: 0 0 20px var(--glow-blue);
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+        color: var(--light-text);
+        transition: color 0.3s ease;
+      }
+
+      &:hover svg {
+        color: var(--blue-light);
+      }
+    }
+
+    .thumbnail-container {
+      flex: 1;
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      padding: 10px 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .thumbnail {
+        position: relative;
+        flex-shrink: 0;
+        width: 200px;
+        height: 112px;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+
+        &:hover {
+          transform: scale(1.05);
+          border-color: var(--blue-low-opacity);
+          box-shadow: 0 0 20px var(--glow-blue);
+        }
+
+        &.active {
+          border-color: var(--blue-light);
+          box-shadow: 
+            0 0 25px var(--glow-blue),
+            inset 0 0 0 2px var(--blue-low-opacity);
+          transform: scale(1.1);
+
+          .thumbnail-overlay {
+            background: linear-gradient(transparent, var(--blue-low-opacity));
+          }
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: all 0.3s ease;
+        }
+
+        .thumbnail-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(transparent, var(--dark-low-opacity));
+          padding: 15px 12px 8px;
+          transition: all 0.3s ease;
+
+          .thumbnail-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--white);
+            text-shadow: 0 1px 3px var(--dark-low-opacity);
+          }
+        }
+
+        &.active::after {
+          content: '';
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          width: 8px;
+          height: 8px;
+          background: var(--blue-light);
+          border-radius: 50%;
+          box-shadow: 0 0 10px var(--blue-light);
+          animation: pulse 2s infinite;
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes borderGlow {
+  0% { 
+    background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
+  }
+  25% { 
+    background: linear-gradient(45deg, var(--red), var(--blue), var(--green), var(--blue-light));
+  }
+  50% { 
+    background: linear-gradient(45deg, var(--blue), var(--green), var(--blue-light), var(--red));
+  }
+  75% { 
+    background: linear-gradient(45deg, var(--green), var(--blue-light), var(--red), var(--blue));
+  }
+  100% { 
+    background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .game-media {
+    .video-player {
+      padding: 1rem;
+    }
+
+    .thumbnail-nav {
+      padding: 0 15px;
+      margin-top: 2rem;
+
+      .thumbnail-container {
+        .thumbnail {
+          width: 150px;
+          height: 84px;
+        }
+      }
+    }
+  }
+}
