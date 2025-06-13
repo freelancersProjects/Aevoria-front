@@ -19,6 +19,7 @@ import Payment from './pages/Payment/Payment';
 import Terms from './pages/Legal/Terms/Terms';
 import SearchPage from './pages/Search/SearchPage';
 import NotFound from './pages/Error/NotFound/NotFound';
+import CategorieView from './pages/CategorieView/CategorieView';
 import gameview from './pages/ViewGame/ViewGame';
 
 

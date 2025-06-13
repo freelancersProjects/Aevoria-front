@@ -29,7 +29,7 @@
     width: 100%;
     z-index: 1;
     position: relative;
-    background-color: rgba(17, 25, 40, 0.75);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 100%), linear-gradient(0deg, #272727 0%, rgba(39, 39, 39, 0.00) 70%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
@@ -193,13 +193,12 @@
 .like-btn {
     width: 48px;
     height: 48px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
+    border: none;
+    border-radius: 49px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    background-color: transparent;
+    background: #FFF;
     cursor: pointer;
     transition: all 0.2s ease;
 
@@ -208,6 +207,10 @@
         border-color: rgba(255, 99, 99, 0.5);
         color: #ff6363;
         transform: scale(1.05);
+
+        svg {
+            fill: var(--0D6EFD, #0D6EFD);
+        }
     }
 }
 

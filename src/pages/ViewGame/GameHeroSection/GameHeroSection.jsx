@@ -1,7 +1,9 @@
 import React from 'react';
 import './GameHeroSection.scss';
 import DefaultImage from '../../../assets/images/photo-test.webp';
-import { FaHeart, FaWindows, FaCheckCircle, FaDownload, FaTag, FaShoppingCart } from 'react-icons/fa';
+import { FaWindows, FaCheckCircle, FaDownload, FaTag } from 'react-icons/fa';
+import CartIcon from '../../../assets/svg/cart.svg';
+import HeartIcon from '../../../assets/svg/coeur.svg';
 
 const GameHeroSection = () => {
   return (
@@ -39,10 +41,10 @@ const GameHeroSection = () => {
               </div>
               <div className="gameview-actions-row">
                 <button className="like-btn" title="Ajouter aux favoris">
-                  <FaHeart />
+                  <img src={HeartIcon} alt="Heart" />
                 </button>
                 <button className="add-to-cart-btn">
-                  <FaShoppingCart /> Ajouter au panier
+                  <img src={CartIcon} alt="Cart" /> Ajouter au panier
                 </button>
               </div>
             </div>

@@ -7,6 +7,7 @@ import LiveStreamers from './LiveStreamers/LiveStreamers'
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard'
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle'
 import GameCommentaire from './GameCommentaire/GameCommentaire'
+import BlueCircle from '../../components/Visual/BlueCircle'
 import './ViewGame.scss'
 
 const games = [
@@ -75,10 +76,15 @@ const games = [
 const ViewGame = () => {
   return (
     <div className="viewgame-container">
+      <BlueCircle className="top-right-circle" />
+      <BlueCircle className="top-left-circle" />
+
+
       <GameHeroSection />
       <GameDescriptionSection />
       <GameMedia />
       <GameFeatures />
+      <BlueCircle className="bottom-right-circle" />
       <LiveStreamers />
       <div className="promotions-section">
       <SectionTitle text="Promotions" />
@@ -97,12 +103,10 @@ const ViewGame = () => {
           />
         ))}
       </div>
-      <GameCommentaire />
-      
+        <GameCommentaire />
       </div>
     </div>
   )
-
 }
 
 export default ViewGame;

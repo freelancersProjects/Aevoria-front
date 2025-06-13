@@ -8,6 +8,12 @@
     border-radius: 20px;
 }
 
+.viewgame-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
 .similar-products-grid  {
         display: flex;
         flex-wrap: wrap;
@@ -112,4 +118,30 @@
           }
         }
       }
+
+// CERCLE 1 — Haut droite (près du panier)
+.top-right-circle {
+  top: 400px;
+  right: -500px;
+  width: 500px;
+  height: 500px;
+}
+
+// CERCLE 2 — Haut gauche (près de "Description")
+.top-left-circle {
+  top: 400px;
+  left: -500px;
+  width: 600px;
+  height: 600px;
+}
+
+// CERCLE 3 — Bas droite (près de "Game Features")
+.bottom-right-circle {
+  top: 2400px;
+  bottom: 0;
+  right: -600px;
+  width: 620px;
+  height: 597px;
+}
+
   
