@@ -6,6 +6,12 @@
   position: relative;
   overflow: hidden;
 
+  .game-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
   // Background glow effects
   &::before {
     content: '';
@@ -75,6 +81,7 @@
         background: rgba(0, 0, 0, 0.3);
         opacity: 0;
         transition: opacity 0.3s ease;
+        z-index: 3;
 
         &:hover {
           opacity: 1;
@@ -109,6 +116,7 @@
         bottom: 60px;
         left: 20px;
         right: 20px;
+        z-index: 4;
 
         .progress-bar {
           height: 4px;
@@ -129,6 +137,7 @@
         position: absolute;
         top: 20px;
         left: 20px;
+        z-index: 5;
 
         .video-time {
           background: var(--dark-low-opacity);
@@ -152,6 +161,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        z-index: 4;
 
         .controls-left {
           display: flex;
@@ -197,124 +207,21 @@
     }
   }
 
-  .thumbnail-nav {
+  .slider-selector-nav {
     position: relative;
     margin-top: 3rem;
     padding: 0 30px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
     z-index: 2;
 
-    .nav-arrow {
-      width: 50px;
-      height: 50px;
-      background: var(--dark-low-opacity);
-      border: 2px solid var(--transparent-white);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-
-      &:hover {
-        border-color: var(--blue-light);
-        background: var(--blue-low-opacity);
-        box-shadow: 0 0 20px var(--glow-blue);
+    // Override some SliderSelector styles for better integration
+    .aev-slider-wrapper {
+      .aev-slider-container {
+        padding: 0 60px;
       }
 
-      svg {
-        width: 24px;
-        height: 24px;
-        color: var(--light-text);
-        transition: color 0.3s ease;
-      }
-
-      &:hover svg {
-        color: var(--blue-light);
-      }
-    }
-
-    .thumbnail-container {
-      flex: 1;
-      display: flex;
-      gap: 15px;
-      overflow-x: auto;
-      padding: 10px 0;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
-
-      .thumbnail {
-        position: relative;
-        flex-shrink: 0;
-        width: 200px;
-        height: 112px;
-        border-radius: 12px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-
-        &:hover {
-          transform: scale(1.05);
-          border-color: var(--blue-low-opacity);
-          box-shadow: 0 0 20px var(--glow-blue);
-        }
-
-        &.active {
-          border-color: var(--blue-light);
-          box-shadow: 
-            0 0 25px var(--glow-blue),
-            inset 0 0 0 2px var(--blue-low-opacity);
-          transform: scale(1.1);
-
-          .thumbnail-overlay {
-            background: linear-gradient(transparent, var(--blue-low-opacity));
-          }
-        }
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: all 0.3s ease;
-        }
-
-        .thumbnail-overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background: linear-gradient(transparent, var(--dark-low-opacity));
-          padding: 15px 12px 8px;
-          transition: all 0.3s ease;
-
-          .thumbnail-title {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--white);
-            text-shadow: 0 1px 3px var(--dark-low-opacity);
-          }
-        }
-
-        &.active::after {
-          content: '';
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          width: 8px;
-          height: 8px;
-          background: var(--blue-light);
-          border-radius: 50%;
-          box-shadow: 0 0 10px var(--blue-light);
-          animation: pulse 2s infinite;
-        }
+      .thumbnail-container {
+        gap: 20px;
+        padding: 10px 0;
       }
     }
   }
@@ -357,16 +264,9 @@
       padding: 1rem;
     }
 
-    .thumbnail-nav {
+    .slider-selector-nav {
       padding: 0 15px;
       margin-top: 2rem;
-
-      .thumbnail-container {
-        .thumbnail {
-          width: 150px;
-          height: 84px;
-        }
-      }
     }
   }
 }

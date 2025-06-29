@@ -1,147 +1,146 @@
 .promotions-section {
-    width: 100%;
-    padding: 20px 0;
-    position: relative;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 16px;
-    border-radius: 20px;
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  border-radius: 20px;
 }
 
 .viewgame-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
+position: relative;
+width: 100%;
+overflow: hidden;
 }
 
 .similar-products-grid  {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        justify-content: center;
-        width: 100%;
-        margin: 0 auto;
-    
-        .game-card {
-          border-radius: 10px;
-          overflow: hidden;
-          color: var(--white);
-          font-family: 'Montserrat', sans-serif;
-          transition: transform 0.2s ease-in-out;
-          flex: 0 0 calc(33.333% - 27px);
-          max-width: calc(33.333% - 27px);
-          margin: 0;
-    
-          &:hover {
-            transform: scale(1.05);
-          }
-    
-          .game-image {
-            width: 100%;
-            height: 267px;
-            object-fit: cover;
-          }
-    
-          .game-info {
-            padding: 15px;
-          }
-    
-          .game-title {
-            font-size: 24px;
-            margin-bottom: 5px;
-          }
-    
-          .game-genres {
-            font-size: 16px;
-            color: gray;
-            margin-bottom: 10px;
-          }
-    
-          .game-icons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-    
-            svg {
-              cursor: pointer;
-              fill: var(--white);
-              transition: opacity 0.15s ease-in-out;
-              opacity: 0.6;
-    
-              &:hover {
-                opacity: 1;
-              }
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      width: 100%;
+      margin: 0 auto;
+  
+      .game-card {
+        border-radius: 10px;
+        overflow: hidden;
+        color: var(--white);
+        font-family: 'Montserrat', sans-serif;
+        transition: transform 0.2s ease-in-out;
+        flex: 0 0 calc(33.333% - 27px);
+        max-width: calc(33.333% - 27px);
+        margin: 0;
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+  
+        .game-image {
+          width: 100%;
+          height: 267px;
+          object-fit: cover;
+        }
+  
+        .game-info {
+          padding: 15px;
+        }
+  
+        .game-title {
+          font-size: 24px;
+          margin-bottom: 5px;
+        }
+  
+        .game-genres {
+          font-size: 16px;
+          color: gray;
+          margin-bottom: 10px;
+        }
+  
+        .game-icons {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 20px;
+  
+          svg {
+            cursor: pointer;
+            fill: var(--white);
+            transition: opacity 0.15s ease-in-out;
+            opacity: 0.6;
+  
+            &:hover {
+              opacity: 1;
             }
           }
-    
-          .icon {
-            width: 20px;
-            height: 20px;
-          }
-    
-          .game-pricing {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-          }
-    
-          .current-price {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--white)
-          }
-    
-          .old-price {
-            font-size: 24px;
-            color: var(--transparent-white);
-            text-decoration: line-through;
-          }
         }
-    
-        @media (max-width: 1024px) {
-          gap: 30px;
-          padding: 0 40px;
-    
-          .game-card {
-            flex: 0 0 calc(50% - 15px);
-            max-width: calc(50% - 15px);
-          }
+  
+        .icon {
+          width: 20px;
+          height: 20px;
         }
-    
-        @media (max-width: 768px) {
-          gap: 20px;
-          padding: 0 20px;
-    
-          .game-card {
-            flex: 0 0 100%;
-            max-width: 100%;
-          }
+  
+        .game-pricing {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+  
+        .current-price {
+          font-size: 32px;
+          font-weight: bold;
+          color: var(--white)
+        }
+  
+        .old-price {
+          font-size: 24px;
+          color: var(--transparent-white);
+          text-decoration: line-through;
         }
       }
+  
+      @media (max-width: 1024px) {
+        gap: 30px;
+        padding: 0 40px;
+  
+        .game-card {
+          flex: 0 0 calc(50% - 15px);
+          max-width: calc(50% - 15px);
+        }
+      }
+  
+      @media (max-width: 768px) {
+        gap: 20px;
+        padding: 0 20px;
+  
+        .game-card {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    }
 
 // CERCLE 1 — Haut droite (près du panier)
 .top-right-circle {
-  top: 400px;
-  right: -500px;
-  width: 500px;
-  height: 500px;
+top: 400px;
+right: -500px;
+width: 500px;
+height: 500px;
 }
 
 // CERCLE 2 — Haut gauche (près de "Description")
 .top-left-circle {
-  top: 400px;
-  left: -500px;
-  width: 600px;
-  height: 600px;
+top: 400px;
+left: -500px;
+width: 600px;
+height: 600px;
 }
 
 // CERCLE 3 — Bas droite (près de "Game Features")
 .bottom-right-circle {
-  top: 2400px;
-  bottom: 0;
-  right: -600px;
-  width: 620px;
-  height: 597px;
+top: 2400px;
+bottom: 0;
+right: -600px;
+width: 620px;
+height: 597px;
 }
 
-  
