@@ -8,32 +8,94 @@
   }
 
   .aev-slider-container {
-    overflow: hidden;
     position: relative;
     border-radius: 16px;
     height: 100%;
+    padding: 0 60px; // Space for arrows
   }
 
-  .slider-track {
-    display: grid;
-    transition: transform 0.5s ease;
-  }
+  .thumbnail-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 30px;
+    padding: 10px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
-  .slide {
-    position: relative;
-    cursor: pointer;
-    padding: 4px;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.02);
+    &::-webkit-scrollbar {
+      display: none;
     }
 
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.15);
+    .thumbnail {
+      position: relative;
+      flex-shrink: 0;
+      aspect-ratio: 16/9;
+      width: 200px;
+      max-width: 200px;
+      min-width: 140px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      scroll-snap-align: start;
+
+      &:hover {
+        transform: scale(1.05);
+        border-color: var(--blue-low-opacity);
+        box-shadow: 0 0 20px var(--glow-blue);
+      }
+
+      &.active {
+        border-color: var(--blue-light);
+        box-shadow: 
+          0 0 25px var(--glow-blue),
+          inset 0 0 0 2px var(--blue-low-opacity);
+        transform: scale(1.1);
+
+        .thumbnail-overlay {
+          background: linear-gradient(transparent, var(--blue-low-opacity));
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          width: 8px;
+          height: 8px;
+          background: var(--blue-light);
+          border-radius: 50%;
+          box-shadow: 0 0 10px var(--blue-light);
+          animation: pulse 2s infinite;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .thumbnail-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, var(--dark-low-opacity));
+        padding: 15px 12px 8px;
+        transition: all 0.3s ease;
+
+        .thumbnail-title {
+          font-size: 12px;
+          font-weight: 500;
+          color: var(--white);
+          text-shadow: 0 1px 3px var(--dark-low-opacity);
+        }
+      }
     }
   }
 
@@ -41,32 +103,86 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 123, 255, 0.2);
-    color: white;
-    border: 1px solid var(--blue);
+    background: var(--dark-low-opacity);
+    color: var(--light-text);
+    border: 2px solid var(--transparent-white);
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
     z-index: 2;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(10px);
 
-    &:hover {
-      background: var(--blue);
-      box-shadow: 0 0 12px var(--blue);
+    &:hover:not(:disabled) {
+      border-color: var(--blue-light);
+      background: var(--blue-low-opacity);
+      color: var(--blue-light);
+      box-shadow: 0 0 20px var(--glow-blue);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
     }
 
     &.left {
-      left: 12px;
+      left: 0;
     }
 
     &.right {
-      right: 12px;
+      right: 0;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      transition: color 0.3s ease;
+    }
+  }
+}
+
+// Animations
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .aev-slider-wrapper {
+    .aev-slider-container {
+      padding: 0 50px;
+    }
+
+    .thumbnail-container {
+      gap: 15px;
+
+      .thumbnail {
+        width: 150px;
+        min-width: 120px;
+      }
+    }
+
+    .nav-arrow {
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

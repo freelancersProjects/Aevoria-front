@@ -76,18 +76,18 @@ const games = [
 const ViewGame = () => {
   return (
     <div className="viewgame-container">
-      <BlueCircle className="top-right-circle" />
-      <BlueCircle className="top-left-circle" />
+      <BlueCircle  top="400px" right="-500px" width="500px" height="500px" color="rgba(13, 110, 253, 0.6)" blur={160} />
+      <BlueCircle  top="400px" left="-500px" width="600px" height="600px" color="rgba(13, 110, 253, 0.6)" blur={160} />
 
 
       <GameHeroSection />
       <GameDescriptionSection />
       <GameMedia />
       <GameFeatures />
-      <BlueCircle className="bottom-right-circle" />
+      <BlueCircle  top="2400px" right="-600px" width="620px" height="597px" color="rgba(13, 110, 253, 0.6)" blur={160} />
       <LiveStreamers />
       <div className="promotions-section">
-      <SectionTitle text="Promotions" />
+      <SectionTitle text="Produits similaires" />
       <div className="similar-products-grid">
         {games.map((game, idx) => (
           <GameCard
