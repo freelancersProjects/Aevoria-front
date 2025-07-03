@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Header from './components/Layout/Header/Header';
 import Footer from './components/Layout/Footer/Footer';
 import { LanguageProvider } from './translations/LanguageContext';
+import { NotificationProvider } from './context/NotificationContext';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -20,50 +21,137 @@ import Terms from './pages/Legal/Terms/Terms';
 import SearchPage from './pages/Search/SearchPage';
 import NotFound from './pages/Error/NotFound/NotFound';
 import CategorieView from './pages/CategorieView/CategorieView';
-import gameview from './pages/ViewGame/ViewGame';
+import ProtectedRoute from './auth/ProtectedRoute';
+import { AuthProvider } from './auth/AuthContext';
 
-
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 const hiddenLayouts = ['/login', '/register', '/demo-form', '/cart', '/subscription', '/wishlist-view', '/profile', '/message/', '/legal/', '/payment', '/gameview'];
-
-function Layout({ children }) {
+const Layout = ({ children }) => {
   const location = useLocation();
-  const hideLayout = hiddenLayouts.some(path => location.pathname.startsWith(path));
+  const shouldHideLayout = hiddenLayouts.some(path => location.pathname.startsWith(path));
 
   return (
     <div className="app-container">
-      {!hideLayout && <Header onNotifClick={() => setDrawerOpen(true)} />}
-      <div className="content-container">{children}</div>
-      {!hideLayout && <Footer />}
+      {!shouldHideLayout && <Header />}
+      <main className="content-container">{children}</main>
+      {!shouldHideLayout && <Footer />}
     </div>
   );
-}
+};
 
 function App() {
   return (
     <LanguageProvider>
       <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/subscription" element={<Subscription />} />
-            <Route path="/demo-form" element={<DemoForm />} />
-            <Route path="/wishlist-view" element={<WishlistViewCanvas />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/game/:gameTitle/:gameId" element={<ViewGame />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/message/:userId/:friendId" element={<MessagePage />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/legal/terms" element={<Terms />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/categorie/:genreId" element={<CategorieView />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/gameview" element={<ViewGame />} />
-          </Routes>
-        </Layout>
+        <ScrollToTop />
+        <NotificationProvider>
+          <AuthProvider>
+            <Layout>
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/demo-form" element={<DemoForm />} />
+                <Route
+                  path="/cart"
+                  element={
+                    <ProtectedRoute>
+                      <Cart />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/sub"
+                  element={
+                    <ProtectedRoute>
+                      <Subscription />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/wishlist-view"
+                  element={
+                    <ProtectedRoute>
+                      <WishlistViewCanvas />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile/*"
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/game/:gameTitle/:gameId"
+                  element={
+                    <ProtectedRoute>
+                      <ViewGame />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/blog"
+                  element={
+                    <ProtectedRoute>
+                      <BlogPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/message/:conversationId/:messageId"
+                  element={
+                    <ProtectedRoute>
+                      <MessagePage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/payment"
+                  element={
+                    <ProtectedRoute>
+                      <Payment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/legal/terms"
+                  element={
+                    <ProtectedRoute>
+                      <Terms />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/search"
+                  element={
+                    <ProtectedRoute>
+                      <SearchPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/categorie/:genreId"
+                  element={
+                    <ProtectedRoute>
+                      <CategorieView />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Layout>
+          </AuthProvider>
+        </NotificationProvider>
       </Router>
     </LanguageProvider>
   );

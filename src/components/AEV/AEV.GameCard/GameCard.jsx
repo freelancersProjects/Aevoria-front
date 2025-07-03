@@ -10,10 +10,8 @@ import { BsThreeDots } from "react-icons/bs";
 import DefaultImage from "../../../assets/images/photo-test.webp";
 import DrawerNotif from '../../../pages/Home/Drawer/DrawerNotif/DrawerNotif';
 import apiService from '../../../services/apiService';
-import useAuth from "../../../hooks/useAuth";
+import { useAuthContext } from "../../../auth/AuthContext";
 import Tooltip from '@mui/material/Tooltip';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 
 import './GameCard.scss';
 
@@ -39,7 +37,7 @@ const GameCard = ({
     const [gameGenres, setGameGenres] = useState([]);
 
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user } = useAuthContext();
 
     const discountedPrice = discount
         ? discount
@@ -90,6 +88,7 @@ const GameCard = ({
             setToast({ show: false, message: '', type: '' });
             setTimeout(() => {
                 setToast({ show: true, message: "Veuillez vous connecter", type: "error" });
+                setTimeout(() => navigate('/login'), 2000);
             }, 10);
             return;
         }
@@ -151,54 +150,97 @@ const GameCard = ({
         setShowMenu(false);
     };
 
+    const handleAddToWishlist = async (e) => {
+        e.stopPropagation();
+
+        if (!user?.userId) {
+            setToast({ show: false, message: '', type: '' });
+            setTimeout(() => {
+                setToast({
+                    show: true,
+                    message: "Veuillez vous connecter pour ajouter aux favoris",
+                    type: "error"
+                });
+                setTimeout(() => navigate('/login'), 2000);
+            }, 10);
+            return;
+        }
+
+        try {
+            await apiService.postQuery(`/wishlist?userId=${user.userId}&gameId=${gameId}`);
+
+            setToast({ show: false, message: '', type: '' });
+            setTimeout(() => {
+                setToast({
+                    show: true,
+                    message: "Jeu ajouté à la wishlist",
+                    type: "success"
+                });
+            }, 10);
+            setShowMenu(false);
+        } catch (err) {
+            console.error("Erreur ajout wishlist :", err);
+            setToast({ show: false, message: '', type: '' });
+            setTimeout(() => {
+                setToast({
+                    show: true,
+                    message: "Erreur lors de l'ajout à la wishlist",
+                    type: "error"
+                });
+            }, 10);
+        }
+    };
+
+
     const displayedGenres = gameGenres.slice(0, 3);
     const remainingGenres = gameGenres.length > 3 ? gameGenres.slice(3) : [];
 
     return (
         <>
-        <div className="game-card" onClick={handleNavigate}>
-            {!isImageLoaded && (
-                <div className="skeleton-wrapper">
-                    <Skeleton height="200px" width="100%" />
-                    <Skeleton height="20px" width="80%" style={{ marginTop: "10px" }} />
-                    <Skeleton height="20px" width="60%" style={{ marginTop: "5px" }} />
-                </div>
-            )}
-
-            <div className="image-wrapper">
-                <img
-                    src={gameImage}
-                    alt={title}
-                    className="game-image"
-                    onLoad={handleImageLoad}
-                    style={{ display: isImageLoaded ? 'block' : 'none' }}
-                />
-
-                {isImageLoaded && (
-                    <div className="card-actions">
-                        <button
-                            className="menu-button"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setShowMenu(!showMenu);
-                            }}
-                        >
-                            <BsThreeDots className="menu-icon" />
-                        </button>
-
-                        {showMenu && (
-                            <div className="action-menu" onClick={(e) => e.stopPropagation()}>
-                                <button onClick={() => handleShare(title)}>Partager</button>
-                                    <button onClick={handleAddToCart}>Ajouter au panier</button>
-                            </div>
-                        )}
+            <div className="game-card" onClick={handleNavigate}>
+                {!isImageLoaded && (
+                    <div className="skeleton-wrapper">
+                        <Skeleton height="200px" width="100%" />
+                        <Skeleton height="20px" width="80%" style={{ marginTop: "10px" }} />
+                        <Skeleton height="20px" width="60%" style={{ marginTop: "5px" }} />
                     </div>
                 )}
-            </div>
 
-            {isImageLoaded && (
-                <div className="game-info">
-                    <h3 className="game-title">{title}</h3>
+                <div className="image-wrapper">
+                    <img
+                        src={gameImage}
+                        alt={title}
+                        className="game-image"
+                        onLoad={handleImageLoad}
+                        style={{ display: isImageLoaded ? 'block' : 'none' }}
+                    />
+
+                    {isImageLoaded && (
+                        <div className="card-actions">
+                            <button
+                                className="menu-button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowMenu(!showMenu);
+                                }}
+                            >
+                                <BsThreeDots className="menu-icon" />
+                            </button>
+
+                            {showMenu && (
+                                <div className="action-menu" onClick={(e) => e.stopPropagation()}>
+                                    <button onClick={() => handleShare(title)}>Partager</button>
+                                    <button onClick={handleAddToCart}>Ajouter au panier</button>
+                                    <button onClick={handleAddToWishlist}>Ajouter aux favoris</button>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                {isImageLoaded && (
+                    <div className="game-info">
+                        <h3 className="game-title">{title}</h3>
                         <div className="game-genres">
                             {displayedGenres.map((genre, index) => (
                                 <span key={genre.genreId} className="genre-tag">
@@ -213,19 +255,19 @@ const GameCard = ({
                                 </Tooltip>
                             )}
                         </div>
-                    <div className="game-icons">
-                        {isSteam && <SteamIcon className="icon" />}
-                        {isEpic && <EpicIcon className="icon" />}
-                        {isPlaystation && <PlaystationIcon className="icon" />}
+                        <div className="game-icons">
+                            {isSteam && <SteamIcon className="icon" />}
+                            {isEpic && <EpicIcon className="icon" />}
+                            {isPlaystation && <PlaystationIcon className="icon" />}
+                        </div>
+                        <div className="game-pricing">
+                            <span className="current-price">{discountedPrice}€</span>
+                            {(Number(discount) > 0 || Number(percentage_reduction) > 0) && (
+                                <span className="old-price">{price}€</span>
+                            )}
+                        </div>
                     </div>
-                    <div className="game-pricing">
-                        <span className="current-price">{discountedPrice}€</span>
-                        {(Number(discount) > 0 || Number(percentage_reduction) > 0) && (
-                            <span className="old-price">{price}€</span>
-                        )}
-                    </div>
-                </div>
-            )}
+                )}
 
                 <DrawerNotif
                     isOpen={drawerOpen}

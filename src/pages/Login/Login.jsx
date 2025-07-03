@@ -3,7 +3,7 @@ import { FaFacebookF, FaGoogle, FaApple, FaDiscord, FaEye, FaEyeSlash } from "re
 import { useNavigate } from "react-router-dom";
 import Checkbox from "../../components/AEV/AEV.Checkbox/CheckBox";
 import Logo from "../../assets/svg/logo.svg";
-import useAuth from "../../hooks/useAuth";
+import { useAuthContext } from "../../auth/AuthContext";
 import "./Login.scss";
 
 const RANDOM_IMAGES = [
@@ -23,7 +23,7 @@ const Login = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login } = useAuthContext();
 
   useEffect(() => {
     // Changer l'image de fond aléatoirement
@@ -57,7 +57,7 @@ const Login = () => {
         localStorage.removeItem('rememberedEmail');
       }
 
-      navigate("/");
+      window.location.href = "/";
 
     } catch (error) {
       console.error("Erreur de connexion:", error);

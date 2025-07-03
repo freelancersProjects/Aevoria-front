@@ -6,13 +6,11 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Logo and description */}
         <div className="footer-section logo-section">
           <img src={Logo} alt="Aevoria Logo" className="footer-logo" />
           <p>Get exclusive content and become a part of the Aevoria community</p>
         </div>
 
-        {/* Legal mentions */}
         <div className="footer-section">
           <h4>Mentions légales</h4>
           <ul>
@@ -23,7 +21,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Pages */}
         <div className="footer-section">
           <h4>Toutes Les Pages</h4>
           <ul>
@@ -34,7 +31,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* The company */}
         <div className="footer-section">
           <h4>L'entreprise</h4>
           <ul>
@@ -46,7 +42,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright */}
       <div className="footer-bottom">
         <p>Copyright © 2024, Aevoria</p>
       </div>

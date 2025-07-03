@@ -91,9 +91,13 @@ const apiService = {
 
 postQuery: async (endpoint, data = null) => {
     try {
+        const token = localStorage.getItem("token");
+
         const options = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+            ...(token && { Authorization: `Bearer ${token}` })
+             },
         };
 
         if (data) options.body = JSON.stringify(data);

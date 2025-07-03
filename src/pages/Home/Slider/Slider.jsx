@@ -15,6 +15,7 @@ const Slider = ({ autoPlayInterval = 5000 }) => {
     const [currentIndex, setCurrentIndex] = useState(1);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [recentGames, setRecentGames] = useState([]);
+    const [gamesWithGenres, setGamesWithGenres] = useState([]);
     const intervalRef = useRef(null);
     const sliderRef = useRef(null);
     const isMountedRef = useRef(true);
@@ -41,9 +42,33 @@ const Slider = ({ autoPlayInterval = 5000 }) => {
         fetchRecentGames();
     }, []);
 
+    useEffect(() => {
+        const fetchGenresForGames = async () => {
+            if (recentGames.length > 0) {
+                const gamesData = await Promise.all(
+                    recentGames.map(async (game) => {
+                        try {
+                            const genresResponse = await apiService.get(`/games/${game.gameId}/genres`);
+                            const genres = genresResponse?.$values || [];
+                            return { ...game, genres };
+                        } catch (error) {
+                            console.error(`Error fetching genres for game ${game.gameId}:`, error);
+                            return { ...game, genres: [] };
+                        }
+                    })
+                );
+                if (isMountedRef.current) {
+                    setGamesWithGenres(gamesData);
+                }
+            }
+        };
+
+        fetchGenresForGames();
+    }, [recentGames]);
+
     // Étendre la liste des slides pour le bouclage infini
-    const extendedSlides = recentGames.length > 0
-        ? [recentGames[recentGames.length - 1], ...recentGames, recentGames[0]]
+    const extendedSlides = gamesWithGenres.length > 0
+        ? [gamesWithGenres[gamesWithGenres.length - 1], ...gamesWithGenres, gamesWithGenres[0]]
         : [];
 
     useLayoutEffect(() => {
@@ -152,7 +177,7 @@ const Slider = ({ autoPlayInterval = 5000 }) => {
             if (sliderRef.current && isMountedRef.current) {
                 sliderRef.current.style.transition = "none";
             }
-            setCurrentIndex(() => recentGames.length);
+            setCurrentIndex(() => gamesWithGenres.length);
             setTimeout(() => {
                 if (sliderRef.current && isMountedRef.current) {
                     sliderRef.current.style.transition = "transform 0.5s ease-in-out";
@@ -211,7 +236,12 @@ const Slider = ({ autoPlayInterval = 5000 }) => {
                                 >
                                     <p className="release">Dernière Sortie</p>
                                     <h2 className="game-title">{game.title}</h2>
-                                    <p className="genres">{game.genres?.join(" - ") || "Aucun genre"}</p>
+                                    <p className="genres">
+                                        {game.genres && game.genres.length > 0
+                                            ? game.genres.slice(0, 2).map(g => g.name).join(' - ') +
+                                              (game.genres.length > 2 ? ` +${game.genres.length - 2}` : '')
+                                            : "Aucun genre"}
+                                    </p>
                                     <div className="game-icons">
                                         {game.isAvailableOnSteam && <SteamIcon className="icon" />}
                                         {game.isAvailableOnEpic && <EpicIcon className="icon" />}
@@ -250,10 +280,10 @@ const Slider = ({ autoPlayInterval = 5000 }) => {
             )}
 
             <div className="slider-indicators">
-                {recentGames.map((_, index) => (
+                {gamesWithGenres.map((_, index) => (
                     <div
                         key={index}
-                        className={`indicator ${index === (currentIndex - 1) % recentGames.length ? "active" : ""}`}
+                        className={`indicator ${index === (currentIndex - 1) % gamesWithGenres.length ? "active" : ""}`}
                         onClick={() => handleIndicatorClick(index)}
                     />
                 ))}

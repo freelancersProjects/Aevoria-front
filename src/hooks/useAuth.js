@@ -28,6 +28,10 @@ const useAuth = () => {
                 if (res) {
                     setUser(res);
                     setToken(storedToken);
+
+                    if (res.status === "Offline") {
+                        await apiService.patchQuery(`/users/${userId}/status?newStatus=Active`);
+                    }
                 } else {
                     throw new Error("Utilisateur introuvable.");
                 }
@@ -41,6 +45,34 @@ const useAuth = () => {
 
         fetchUser();
     }, []);
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            if (user?.userId) {
+                navigator.sendBeacon(`${import.meta.env.VITE_API_URL}/users/${user.userId}/status?newStatus=Offline`);
+            }
+        };
+
+        const handleVisibilityChange = () => {
+            if (user?.userId) {
+                if (document.hidden) {
+                    apiService.patchQuery(`/users/${user.userId}/status?newStatus=Offline`).catch(console.error);
+                } else {
+                    apiService.patchQuery(`/users/${user.userId}/status?newStatus=Active`).catch(console.error);
+                }
+            }
+        };
+
+        if (user?.userId) {
+            window.addEventListener('beforeunload', handleBeforeUnload);
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+        }
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [user]);
 
     const login = async ({ email, password }) => {
         try {
@@ -61,6 +93,8 @@ const useAuth = () => {
             localStorage.setItem("userId", userId);
             setToken(res.token);
 
+            await apiService.patchQuery(`/users/${userId}/status?newStatus=Active`);
+
             return { token: res.token, userId };
         } catch (err) {
             console.error("Erreur dans useAuth login:", err);
@@ -69,6 +103,9 @@ const useAuth = () => {
     };
 
     const logout = () => {
+        if (user?.userId) {
+            apiService.patchQuery(`/users/${user.userId}/status?newStatus=Offline`).catch(console.error);
+        }
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         setUser(null);

@@ -1,0 +1,113 @@
+.settings-root-wide {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.settings-upload-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.settings-upload-col {
+  flex: 1 1 0;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settings-upload-label {
+  color: #bfc1cd;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 18px 0 8px 2px;
+  letter-spacing: 0.01em;
+}
+
+.settings-upload-col .aev-upload-box {
+  width: 100%;
+  min-height: 170px;
+  max-width: 100%;
+}
+
+.settings-form-fields-wide {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.settings-save-btn {
+  width: 180px;
+  margin-top: 18px;
+  font-size: 17px;
+  align-self: flex-end;
+}
+
+// Style pour les inputs AEV
+.aev-textinput-wrapper, .aev-textarea-wrapper {
+  width: 100%;
+}
+.aev-label {
+  color: #bfc1cd;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.aev-textinput, .aev-textarea {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #2a3140;
+  color: #e6eaf1;
+  border-radius: 7px;
+  padding: 12px 14px;
+  font-size: 16px;
+  margin-bottom: 0;
+  transition: border 0.2s;
+}
+.aev-textinput:focus, .aev-textarea:focus {
+  border: 1.5px solid #0D6EFD;
+  outline: none;
+}
+
+.char-counter {
+  color: #7a8599;
+  font-size: 12px;
+  margin-top: 2px;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .settings-root-wide {
+    max-width: 100%;
+  }
+  .settings-upload-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .settings-upload-col {
+    min-width: 0;
+  }
+  .settings-form-fields-wide {
+    max-width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .settings-save-btn {
+    width: 100%;
+    font-size: 15px;
+  }
+}

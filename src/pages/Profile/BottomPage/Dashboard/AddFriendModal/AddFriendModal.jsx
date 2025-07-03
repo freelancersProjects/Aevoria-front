@@ -36,6 +36,14 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
         }
     };
 
+    const handleCancelRequest = async (friendId) => {
+        try {
+            await apiService.delete(`/friends?userId=${user.userId}&friendId=${friendId}`);
+            setSentRequests(prev => prev.filter(req => req.friendId !== friendId));
+        } catch (err) {
+        }
+    };
+
     useEffect(() => {
         if (!user || !user.userId || search.length < 2) {
             setFilteredUsers([]);
@@ -68,6 +76,22 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
             debouncedFetch.cancel && debouncedFetch.cancel();
         };
     }, [search, selectedTab, user]);
+
+    useEffect(() => {
+        if (!user || !user.userId) return;
+        // Récupérer toutes les relations d'amis et filtrer ceux en attente
+        const fetchSentRequests = async () => {
+            try {
+                const res = await apiService.get(`/friends/${user.userId}`);
+                const all = res.$values || res.values || [];
+                const pending = all.filter(f => f.status === 'Pending');
+                setSentRequests(pending);
+            } catch (err) {
+                setSentRequests([]);
+            }
+        };
+        fetchSentRequests();
+    }, [user]);
 
     const renderTabContent = () => (
         <div className="addfriend-content">
@@ -107,6 +131,32 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
         </div>
     );
 
+    const renderSentTabContent = () => (
+        <div className="addfriend-content">
+            <div className="user-list">
+                {sentRequests.length > 0 ? (
+                    sentRequests.map(req => (
+                        <div key={req.friendId} className="user-card-glow">
+                            <div className="info">
+                                <span className="name">{req.firstName || ''} {req.lastName || ''}</span>
+                                <span className="username">@{req.username || req.alias || 'Utilisateur inconnu'}</span>
+                            </div>
+                            <Button
+                                text="Annuler"
+                                className="add-friend-button"
+                                variant="outline"
+                                isDisabled={false}
+                                onClick={() => handleCancelRequest(req.friendId)}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <div className="no-user">Aucune demande envoyée</div>
+                )}
+            </div>
+        </div>
+    );
+
     return (
         <>
             {toast && (
@@ -121,7 +171,7 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
                 <TabSwitcher
                     tabs={[
                         { label: 'Tous', key: 'all', content: renderTabContent() },
-                        { label: 'Demande envoyée', key: 'sent', content: <div className="no-user">Aucune demande envoyée</div> },
+                        { label: 'Demande envoyée', key: 'sent', content: renderSentTabContent() },
                     ]}
                     onTabChange={key => setSelectedTab(key)}
                 />

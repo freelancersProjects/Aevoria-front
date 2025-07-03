@@ -4,8 +4,31 @@ import DefaultImage from '../../../assets/images/photo-test.webp';
 import { FaWindows, FaCheckCircle, FaDownload, FaTag } from 'react-icons/fa';
 import CartIcon from '../../../assets/svg/cart.svg';
 import HeartIcon from '../../../assets/svg/coeur.svg';
+import { useNavigate } from 'react-router-dom';
+import { useNotification } from '../../../context/NotificationContext';
+import { useAuthContext } from '../../../auth/AuthContext';
 
 const GameHeroSection = () => {
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+  const { addNotification } = useNotification();
+
+  const handleAction = (actionType) => {
+    if (!user) {
+      addNotification('Veuillez vous connecter pour continuer', 'error');
+      setTimeout(() => navigate('/login'), 2000);
+      return;
+    }
+
+    if(actionType === 'cart') {
+        console.log('Added to cart');
+        addNotification('Jeu ajouté au panier !', 'success');
+    } else if (actionType === 'wishlist') {
+        console.log('Added to wishlist');
+        addNotification('Jeu ajouté à la wishlist !', 'success');
+    }
+  };
+
   return (
     <>
       <div className="gameview-background-top" />
@@ -40,10 +63,10 @@ const GameHeroSection = () => {
                 <span className="badge"><FaDownload /> Téléchargement digital</span>
               </div>
               <div className="gameview-actions-row">
-                <button className="like-btn" title="Ajouter aux favoris">
+                <button className="like-btn" title="Ajouter aux favoris" onClick={() => handleAction('wishlist')}>
                   <img src={HeartIcon} alt="Heart" />
                 </button>
-                <button className="add-to-cart-btn">
+                <button className="add-to-cart-btn" onClick={() => handleAction('cart')}>
                   <img src={CartIcon} alt="Cart" /> Ajouter au panier
                 </button>
               </div>

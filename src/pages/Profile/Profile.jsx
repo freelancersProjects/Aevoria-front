@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderPage from "./HeaderPage/HeaderPage";
 import BottomPage from "./BottomPage/BottomPage";
+import Settings from "./HeaderPage/WishlistHeader/Settings/Settings";
 import "./Profile.scss";
 
 const Profile = () => {
-  return (
-<div className="profile-container">
-  <HeaderPage />
-  <div className="bottom-content-wrapper">
-    <BottomPage />
-  </div>
-</div>
+  const [activeSidebarTab, setActiveSidebarTab] = useState('profile');
 
+  return (
+    <div className="profile-container">
+      <HeaderPage activeSidebarTab={activeSidebarTab} setActiveSidebarTab={setActiveSidebarTab} />
+      <div className="bottom-content-wrapper">
+        {activeSidebarTab === 'settings' ? <Settings /> : <BottomPage />}
+      </div>
+    </div>
   );
 };
 

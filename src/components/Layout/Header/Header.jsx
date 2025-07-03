@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import { useNotification } from "../../../context/NotificationContext";
-import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close } from "@mui/icons-material";
+import { Search, NotificationsNone, ShoppingCartOutlined, Close } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
 import DrawerCart from "../../../pages/Home/Drawer/DrawerCart/DrawerCart";
 import apiService from "../../../services/apiService";
@@ -159,6 +159,10 @@ const Header = () => {
         setSearchQuery("");
     };
 
+    const handleProfileClick = () => {
+        navigate('/profile');
+    };
+
     return (
         <>
             <header className={`neo-header ${scrolled ? "scrolled" : ""}`}>
@@ -213,7 +217,16 @@ const Header = () => {
                         <Badge count={Array.isArray(cartItems) ? cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0) : 0}>
                             <ShoppingCartOutlined className="icon" onClick={() => setCartDrawerOpen(true)} />
                         </Badge>
-                        <Person className="icon" style={{ fontSize: '32px' }} />
+                        <div className="profile-avatar" onClick={handleProfileClick}>
+                            <img
+                                src={user?.profileImage || "/src/assets/images/avatar.png"}
+                                alt="Profile"
+                                className="profile-image"
+                                onError={(e) => {
+                                    e.target.src = "/src/assets/images/avatar.png";
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
             </header>

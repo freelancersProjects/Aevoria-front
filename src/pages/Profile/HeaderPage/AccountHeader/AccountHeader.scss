@@ -7,7 +7,7 @@
   position: relative;
 
   .banner {
-    height: 220px;
+    height: 305px;
 
     .banner-image {
       width: 100%;
@@ -16,9 +16,26 @@
     }
   }
 
+  .followers {
+    color: var(--light-text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 400;
+      margin-right: 10px;
+  }
+
+  .following {
+    color: var(--light-text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 400;
+  }
+
   .profile-avatar {
     position: absolute;
-    top: 160px;
+    top: 230px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50%;

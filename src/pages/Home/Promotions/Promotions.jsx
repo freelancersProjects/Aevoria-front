@@ -44,14 +44,22 @@ const promotionalGames = [
 }));
 
 const Promotions = () => {
-  // Utiliser useMemo pour éviter les re-calculs inutiles
-  const memoizedGames = useMemo(() => promotionalGames, []);
+  // Utiliser useMemo pour trier et sélectionner les 3 meilleures promotions
+  const top3PromotionalGames = useMemo(() => {
+    return promotionalGames
+      .sort((a, b) => {
+        const discountA = parseFloat(a.discount) || 0;
+        const discountB = parseFloat(b.discount) || 0;
+        return discountB - discountA;
+      })
+      .slice(0, 3);
+  }, []);
 
   return (
     <div className="promotions-section">
       <SectionTitle text="Promotions" />
       <div className="game-cards-container">
-        {memoizedGames.map((game) => (
+        {top3PromotionalGames.map((game) => (
           <GameCard
             key={game.id}
             title={game.title}
