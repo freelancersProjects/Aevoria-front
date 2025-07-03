@@ -530,8 +530,161 @@
   }
 }
 
+.burger-icon {
+  display: none;
+  cursor: pointer;
+
+  .icon {
+    font-size: 32px;
+    color: white;
+  }
+
+  @media (max-width: 991px) {
+    display: block;
+  }
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mobile-menu {
+  background: #0c1218;
+  width: 280px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px 0 20px 0;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mobile-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+
+  .icon {
+    font-size: 24px;
+    color: white;
+  }
+  input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 8px 0;
+    outline: none;
+    &::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+  }
+  .close-icon {
+    font-size: 22px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.mobile-nav-item {
+  .title {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .group {
+    h4 {
+      font-size: 14px;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 8px;
+
+        a {
+          color: white;
+          text-decoration: none;
+          font-size: 14px;
+
+          &:hover {
+            color: var(--blue);
+          }
+        }
+      }
+    }
+  }
+}
+
+.mobile-right {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: auto;
+
+  .icon {
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      color: var(--blue);
+      transform: scale(1.1);
+    }
+  }
+}
+
 @media (max-width: 991px) {
   .neo-header .nav-center-wrapper {
     display: none;
+  }
+
+  .burger-icon {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .mobile-nav {
+    gap: 10px;
+  }
+
+  .mobile-right {
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .mobile-search {
+    flex-direction: column;
+    gap: 8px;
   }
 }

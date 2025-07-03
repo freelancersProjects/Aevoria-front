@@ -47,6 +47,12 @@
             grid-template-columns: 1fr;
             padding: 20px;
         }
+
+        @media (min-width: 481px) and (max-width: 767px) {
+            padding: 12px;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
     }
 
     .cart-items {
@@ -147,6 +153,11 @@
                     }
                 }
             }
+        }
+
+        @media (min-width: 481px) and (max-width: 767px) {
+            flex-direction: column;
+            .item-image { width: 100%; height: 180px; }
         }
     }
 
@@ -266,6 +277,10 @@
                     background: var(--dark-blue);
                 }
             }
+        }
+
+        @media (min-width: 481px) and (max-width: 767px) {
+            padding: 12px;
         }
     }
 }

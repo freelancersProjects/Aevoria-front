@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/Logo.png";
 import Badge from "../../AEV/AEV.Badge/Badge";
 import { useNotification } from "../../../context/NotificationContext";
-import { Search, NotificationsNone, ShoppingCartOutlined, Close } from "@mui/icons-material";
+import { Search, NotificationsNone, ShoppingCartOutlined, Person, Close, Menu as MenuIcon } from "@mui/icons-material";
 import DrawerNotif from "../../../pages/Home/Drawer/DrawerNotif/DrawerNotif";
 import DrawerCart from "../../../pages/Home/Drawer/DrawerCart/DrawerCart";
 import apiService from "../../../services/apiService";
@@ -65,6 +65,8 @@ const Header = () => {
     const [notifDrawerOpen, setNotifDrawerOpen] = useState(false);
     const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
     const { unreadCount } = useNotification();
 
     const searchInputRef = useRef(null);
@@ -171,7 +173,9 @@ const Header = () => {
                         <img src={Logo} alt="Aevoria Logo" className="logo" />
                         <span className="brand-name">Aevoria<sup>®</sup></span>
                     </div>
-
+                    <div className="burger-icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                        <MenuIcon className="icon" />
+                    </div>
                     <div className="nav-center-wrapper">
                         <nav className="center">
                             {megaMenu.map((item, idx) => (
@@ -245,6 +249,64 @@ const Header = () => {
                 userId={user?.userId}
             />
 
+            {mobileMenuOpen && (
+                <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)}>
+                    <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+
+                        {/* Search */}
+                        <div className="mobile-search">
+                            <Search className="icon" />
+                            <input
+                                type="text"
+                                placeholder="Rechercher des jeux..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            {searchQuery && (
+                                <Close className="close-icon" onClick={() => setSearchQuery("")} />
+                            )}
+                        </div>
+
+                        {/* Mega menu items */}
+                        <div className="mobile-nav">
+                            {megaMenu.map((item, idx) => (
+                                <div key={idx} className="mobile-nav-item">
+                                    <div className="title">{item.title}</div>
+                                    {item.groups.map((group, gidx) => (
+                                        <div key={gidx} className="group">
+                                            <h4>{group.title}</h4>
+                                            <ul>
+                                                {group.links.map((link, lidx) => (
+                                                    <li key={lidx}>
+                                                        <a href="#" onClick={() => setMobileMenuOpen(false)}>{link}</a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Right icons */}
+                        <div className="mobile-right">
+                            <Badge count={unreadCount}>
+                                <NotificationsNone className="icon" onClick={() => {
+                                    setNotifDrawerOpen(true);
+                                    setMobileMenuOpen(false);
+                                }} />
+                            </Badge>
+                            <Badge count={Array.isArray(cartItems) ? cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0) : 0}>
+                                <ShoppingCartOutlined className="icon" onClick={() => {
+                                    setCartDrawerOpen(true);
+                                    setMobileMenuOpen(false);
+                                }} />
+                            </Badge>
+                            <Person className="icon" style={{ fontSize: '32px' }} />
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };

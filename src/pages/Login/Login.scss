@@ -404,3 +404,31 @@
     }
   }
 }
+
+// Responsive: Téléphone portrait
+@media (min-width: 481px) and (max-width: 767px) {
+  .login-wrapper {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    .login-container {
+      padding: 16px;
+      .login-form-container {
+        max-width: 100%;
+        h2 { font-size: 22px; }
+      }
+      .logo-container { margin-bottom: 30px; }
+      input { height: 40px; padding: 10px; }
+    }
+  }
+}
+
+// Responsive: Téléphone paysage
+@media (min-width: 481px) and (max-width: 767px) {
+  .login-wrapper {
+    .login-container {
+      padding: 24px;
+      .login-form-container { max-width: 90%; }
+    }
+  }
+}

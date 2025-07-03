@@ -403,3 +403,8 @@
     }
   }
 }
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .payment-container { padding: 10px; }
+  .payment-content { flex-direction: column; gap: 20px; padding: 0; }
+}

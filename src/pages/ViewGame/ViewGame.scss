@@ -144,3 +144,11 @@ width: 620px;
 height: 597px;
 }
 
+@media (min-width: 481px) and (max-width: 767px) {
+  .similar-products-grid {
+    gap: 20px;
+    .game-card { flex: 0 0 80%; max-width: 80%; }
+  }
+  .promotions-section { padding: 15px 0; }
+}
+
