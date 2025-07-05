@@ -147,3 +147,143 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .wishlist-wrapper {
+    width: 100%;
+    max-width: 220px;
+  }
+  
+  .menu {
+    padding: 20px 12px 12px 12px;
+    gap: 14px;
+    
+    .menu-item {
+      padding: 12px 0 12px 14px;
+      font-size: 15px;
+    }
+  }
+  
+  .wishlist {
+    padding: 8px;
+    
+    .wishlist-title {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    
+    .noFavorite {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    
+    .game {
+      .meta {
+        .type {
+          font-size: 14px;
+        }
+        
+        .title {
+          font-size: 16px;
+        }
+        
+        .views {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .wishlist-wrapper {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .menu {
+    padding: 16px 10px 10px 10px;
+    gap: 12px;
+    
+    .menu-item {
+      padding: 10px 0 10px 12px;
+      font-size: 14px;
+    }
+  }
+  
+  .wishlist {
+    padding: 6px;
+    
+    .wishlist-title {
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .noFavorite {
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .game {
+      .meta {
+        .type {
+          font-size: 13px;
+        }
+        
+        .title {
+          font-size: 15px;
+        }
+        
+        .views {
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .wishlist-wrapper {
+    width: 100%;
+  }
+  
+  .menu {
+    padding: 12px 8px 8px 8px;
+    gap: 10px;
+    
+    .menu-item {
+      padding: 8px 0 8px 10px;
+      font-size: 13px;
+    }
+  }
+  
+  .wishlist {
+    padding: 4px;
+    
+    .wishlist-title {
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+    
+    .noFavorite {
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+    
+    .game {
+      .meta {
+        .type {
+          font-size: 12px;
+        }
+        
+        .title {
+          font-size: 14px;
+        }
+        
+        .views {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}

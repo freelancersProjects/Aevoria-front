@@ -205,3 +205,243 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .dashboard {
+    padding-bottom: 40px;
+    
+    .stats-cards {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .title {
+      font-size: 20px;
+    }
+    
+    .friendsContainer {
+      max-height: 60vh;
+    }
+    
+    .friend-search-modal {
+      width: 95%;
+      max-width: 500px;
+      padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding-bottom: 30px;
+    
+    .stats-cards {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .title {
+      font-size: 18px;
+    }
+    
+    .title-friend-container {
+      margin-top: 15px;
+      
+      img {
+        width: 18px;
+        height: 18px;
+        margin-left: 8px;
+      }
+    }
+    
+    .friendsContainer {
+      max-height: 50vh;
+      padding-right: 5px;
+    }
+    
+    .friend-search-modal {
+      width: 98%;
+      padding: 16px;
+      max-height: 70vh;
+    }
+    
+    .modal-header {
+      margin-bottom: 15px;
+      
+      h3 {
+        font-size: 18px;
+      }
+      
+      .close-btn {
+        font-size: 20px;
+      }
+    }
+    
+    .search-input {
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .search-row {
+      padding: 8px 12px;
+      
+      .search-user-info {
+        gap: 8px;
+        
+        img {
+          width: 35px;
+          height: 35px;
+        }
+        
+        strong {
+          font-size: 14px;
+        }
+        
+        p {
+          font-size: 0.8rem;
+        }
+      }
+      
+      .add-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+    }
+    
+    .friendCard {
+      padding: 12px 0;
+    }
+    
+    .friendActions {
+      gap: 8px;
+    }
+    
+    .avatar {
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+    }
+    
+    .name {
+      font-size: 15px;
+    }
+    
+    .username {
+      font-size: 13px;
+    }
+    
+    .messageBtn {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding-bottom: 20px;
+    
+    .stats-cards {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    
+    .title {
+      font-size: 16px;
+    }
+    
+    .title-friend-container {
+      margin-top: 12px;
+      
+      img {
+        width: 16px;
+        height: 16px;
+        margin-left: 6px;
+      }
+    }
+    
+    .friendsContainer {
+      max-height: 45vh;
+      padding-right: 2px;
+    }
+    
+    .friend-search-modal {
+      width: 100%;
+      padding: 12px;
+      max-height: 60vh;
+    }
+    
+    .modal-header {
+      margin-bottom: 12px;
+      
+      h3 {
+        font-size: 16px;
+      }
+      
+      .close-btn {
+        font-size: 18px;
+      }
+    }
+    
+    .search-input {
+      padding: 6px;
+      margin-bottom: 12px;
+    }
+    
+    .search-row {
+      padding: 6px 8px;
+      
+      .search-user-info {
+        gap: 6px;
+        
+        img {
+          width: 30px;
+          height: 30px;
+        }
+        
+        strong {
+          font-size: 13px;
+        }
+        
+        p {
+          font-size: 0.75rem;
+        }
+      }
+      
+      .add-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+      }
+    }
+    
+    .friendCard {
+      padding: 10px 0;
+    }
+    
+    .friendActions {
+      gap: 6px;
+    }
+    
+    .avatar {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+    
+    .name {
+      font-size: 14px;
+    }
+    
+    .username {
+      font-size: 12px;
+    }
+    
+    .messageBtn {
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+  }
+}

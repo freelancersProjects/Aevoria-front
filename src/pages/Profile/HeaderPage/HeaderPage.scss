@@ -35,3 +35,28 @@
     margin-left: 20px;
   }
 }
+
+@media (max-width: 1024px) {
+  .header-layout {
+    flex-direction: column;
+    .wishlist-section {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .account-section {
+      margin-left: 0;
+    }
+  }
+}
+@media (max-width: 480px) {
+  .header-layout {
+    flex-direction: column;
+    .wishlist-section {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .account-section {
+      margin-left: 0;
+    }
+  }
+}

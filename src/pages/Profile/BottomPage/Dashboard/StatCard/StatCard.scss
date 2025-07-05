@@ -98,3 +98,125 @@
     text-decoration: underline;
   }
 }
+
+@media (max-width: 1024px) {
+  .stat-card {
+    padding: 20px;
+    height: 180px;
+    gap: 11px;
+    
+    .card-title {
+      font-size: 16px;
+    }
+    
+    .level-tag {
+      font-size: 14px;
+      
+      .level-bar {
+        width: 80px;
+      }
+    }
+    
+    .card-value {
+      font-size: 30px;
+    }
+    
+    .card-sub {
+      font-size: 13px;
+    }
+    
+    .affiliate-row {
+      .affiliate-url {
+        font-size: 13px;
+      }
+    }
+    
+    .affiliate-sub {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    padding: 16px;
+    height: 160px;
+    gap: 10px;
+    
+    .card-title {
+      font-size: 15px;
+    }
+    
+    .level-tag {
+      font-size: 13px;
+      
+      .level-bar {
+        width: 70px;
+      }
+    }
+    
+    .card-value {
+      font-size: 26px;
+    }
+    
+    .card-sub {
+      font-size: 12px;
+    }
+    
+    .affiliate-row {
+      .affiliate-url {
+        font-size: 12px;
+      }
+      
+      .copy-btn {
+        padding-left: 6px;
+      }
+    }
+    
+    .affiliate-sub {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card {
+    padding: 12px;
+    height: 140px;
+    gap: 8px;
+    
+    .card-title {
+      font-size: 14px;
+    }
+    
+    .level-tag {
+      font-size: 12px;
+      
+      .level-bar {
+        width: 60px;
+      }
+    }
+    
+    .card-value {
+      font-size: 22px;
+    }
+    
+    .card-sub {
+      font-size: 11px;
+    }
+    
+    .affiliate-row {
+      .affiliate-url {
+        font-size: 11px;
+      }
+      
+      .copy-btn {
+        padding-left: 4px;
+      }
+    }
+    
+    .affiliate-sub {
+      font-size: 11px;
+    }
+  }
+}

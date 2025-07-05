@@ -1,0 +1,12 @@
+.bottom-page-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 10px 2px;
+  }
+  @media (max-width: 480px) {
+    padding: 2px 0;
+  }
+}
