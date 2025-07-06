@@ -18,6 +18,7 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
     const [loading, setLoading] = useState(false);
     const [toast, setToast] = useState(null);
     const [sentRequests, setSentRequests] = useState([]);
+    const [sentRequestsDetails, setSentRequestsDetails] = useState([]);
 
     const handleAddFriend = async (targetUser) => {
         try {
@@ -40,6 +41,7 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
         try {
             await apiService.delete(`/friends?userId=${user.userId}&friendId=${friendId}`);
             setSentRequests(prev => prev.filter(req => req.friendId !== friendId));
+            setSentRequestsDetails(prev => prev.filter(req => req.userId !== friendId));
         } catch (err) {
         }
     };
@@ -86,8 +88,29 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
                 const all = res.$values || res.values || [];
                 const pending = all.filter(f => f.status === 'Pending');
                 setSentRequests(pending);
+
+                // Récupérer les détails complets des utilisateurs
+                const fetchUserDetails = async () => {
+                    try {
+                        const userDetailsPromises = pending.map(async (friendRelation) => {
+                            const friendData = await apiService.get(`/users/${friendRelation.friendId}`);
+                            return {
+                                ...friendData,
+                                relationFriendId: friendRelation.friendId,
+                                status: friendRelation.status,
+                            };
+                        });
+                        const userDetails = await Promise.all(userDetailsPromises);
+                        setSentRequestsDetails(userDetails);
+                    } catch (error) {
+                        console.error("Erreur lors de la récupération des détails des utilisateurs :", error);
+                    }
+                };
+
+                fetchUserDetails();
             } catch (err) {
                 setSentRequests([]);
+                setSentRequestsDetails([]);
             }
         };
         fetchSentRequests();
@@ -134,19 +157,19 @@ const AddFriendModal = ({ isOpen, onClose = () => { } }) => {
     const renderSentTabContent = () => (
         <div className="addfriend-content">
             <div className="user-list">
-                {sentRequests.length > 0 ? (
-                    sentRequests.map(req => (
-                        <div key={req.friendId} className="user-card-glow">
+                {sentRequestsDetails.length > 0 ? (
+                    sentRequestsDetails.map(user => (
+                        <div key={user.userId} className="user-card-glow">
                             <div className="info">
-                                <span className="name">{req.firstName || ''} {req.lastName || ''}</span>
-                                <span className="username">@{req.username || req.alias || 'Utilisateur inconnu'}</span>
+                                <span className="name">{user.firstName} {user.lastName}</span>
+                                <span className="username">@{user.username}</span>
                             </div>
                             <Button
                                 text="Annuler"
                                 className="add-friend-button"
                                 variant="outline"
                                 isDisabled={false}
-                                onClick={() => handleCancelRequest(req.friendId)}
+                                onClick={() => handleCancelRequest(user.userId)}
                             />
                         </div>
                     ))

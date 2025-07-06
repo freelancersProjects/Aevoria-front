@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import ChevronRight  from '../../../../assets/svg/arrow-wishlist.svg';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import LogoutIcon from '@mui/icons-material/Logout';
+import useAuth from '../../../../hooks/useAuth';
 import './WishlistHeader.scss';
 
 const WishlistHeader = ({ activeTab, setActiveTab }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const { logout } = useAuth();
 
   const wishlistGames = [
     { title: "Cyberpunk 2077", type: "RPG", views: "1.5k" },
@@ -13,6 +16,11 @@ const WishlistHeader = ({ activeTab, setActiveTab }) => {
     { title: "The Witcher 3", type: "RPG", views: "4.0k" },
     { title: "Hades", type: "Rogue-like", views: "1.2k" },
   ];
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = '/';
+  };
 
   return (
     <div className="wishlist-wrapper">
@@ -47,6 +55,12 @@ const WishlistHeader = ({ activeTab, setActiveTab }) => {
             <img src={ChevronRight} alt="chevron right" className="chevron" />
           </div>
         ))}
+      </div>
+      <div className="logout-section">
+        <button className="logout-button" onClick={handleLogout}>
+          <LogoutIcon className="logout-icon" />
+          <span>Déconnexion</span>
+        </button>
       </div>
     </div>
   );

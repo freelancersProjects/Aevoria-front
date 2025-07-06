@@ -27,17 +27,22 @@ function Dashboard() {
     const fetchFriendDetails = async () => {
       try {
         const friendRequests = data.$values.map(async (friendRelation) => {
-          const friendData = await apiService.get(
-            `/users/${friendRelation.friendId}`
-          );
-          return {
+          const amiId = friendRelation.userId === userId ? friendRelation.friendId : friendRelation.userId;
+          const friendData = await apiService.get(`/users/${amiId}`);
+          
+          // Normaliser les données pour gérer les différents formats possibles
+          const normalizedFriend = {
             ...friendData,
-            relationFriendId:
-              friendRelation.userId === userId
-                ? friendRelation.friendId
-                : friendRelation.userId,
+            relationFriendId: amiId,
             status: friendRelation.status,
+            // Gérer les différents formats de noms
+            firstName: friendData.firstName || friendData.first_name || '',
+            lastName: friendData.lastName || friendData.last_name || '',
+            username: friendData.username || friendData.userName || 'Utilisateur inconnu',
+            profilePicture: friendData.profilePicture || friendData.profile_picture || '',
           };
+          
+          return normalizedFriend;
         });
         const friendsData = await Promise.all(friendRequests);
         setFriendDetails(friendsData);
@@ -50,7 +55,7 @@ function Dashboard() {
     };
 
     fetchFriendDetails();
-  }, [data, shouldFetch]);
+  }, [data, shouldFetch, userId]);
 
   const handleUnfriend = async (friendId) => {
     if (!friendId) {
@@ -80,7 +85,7 @@ function Dashboard() {
         prevFriends.filter((friend) => friend.relationFriendId !== friendId)
       );
     } catch (error) {
-      console.error("Erreur lors de la suppression de l’ami :", error);
+      console.error("Erreur lors de la suppression de l'ami :", error);
     }
   };
 
@@ -91,12 +96,24 @@ function Dashboard() {
         ...res,
         relationFriendId: friendId,
         status: "Accepted",
+        // Normaliser les données
+        firstName: res.firstName || res.first_name || '',
+        lastName: res.lastName || res.last_name || '',
+        username: res.username || res.userName || 'Utilisateur inconnu',
+        profilePicture: res.profilePicture || res.profile_picture || '',
       };
 
       setFriendDetails((prev) => [...prev, enriched]);
     } catch (err) {
       console.error("Erreur lors de l'ajout dynamique d'un ami accepté :", err);
     }
+  };
+
+  const getDisplayName = (friend) => {
+    if (friend.firstName && friend.lastName) {
+      return `${friend.firstName} ${friend.lastName}`;
+    }
+    return friend.username;
   };
 
   if (loading) return <p>Chargement des amis...</p>;
@@ -136,14 +153,14 @@ function Dashboard() {
               <div className="friendInfo">
                 <img
                   src={
-                    friend.profile_picture || "https://via.placeholder.com/40"
+                    friend.profilePicture || "https://via.placeholder.com/40"
                   }
-                  alt={`${friend.first_name} ${friend.last_name}`}
+                  alt={getDisplayName(friend)}
                   className="avatar"
                 />
                 <div className="details">
                   <h3 className="name">
-                    {friend.first_name} {friend.last_name}
+                    {getDisplayName(friend)}
                   </h3>
                   <p className="username">@{friend.username}</p>
                 </div>

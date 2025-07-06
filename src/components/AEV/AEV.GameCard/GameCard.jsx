@@ -107,9 +107,10 @@ const GameCard = ({
                 return;
             }
 
-            const added = await apiService.postQuery(
-                `/cart/items?cartId=${finalCartId}&gameId=${gameId}&quantity=1`
-            );
+            const url = `/cart/items?cartId=${finalCartId}&gameId=${gameId}&quantity=1`;
+            const added = await apiService.post(url, null, {
+                headers: { 'Accept': 'text/plain' }
+            });
 
             if (added) {
                 setToast({ show: false, message: '', type: '' });
@@ -129,7 +130,7 @@ const GameCard = ({
             setTimeout(() => {
                 setToast({
                     show: true,
-                    message: "Erreur lors de l'ajout",
+                    message: err?.message || "Erreur lors de l'ajout : " + (err?.response?.data || ''),
                     type: "error"
                 });
             }, 10);

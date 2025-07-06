@@ -6,7 +6,8 @@ const StatusIndicator = ({
     status = "Active",
     className = "",
     onStatusChange = null,
-    isEditable = false
+    isEditable = false,
+    isLoading = false
 }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -25,13 +26,13 @@ const StatusIndicator = ({
     ];
 
     const handleStatusClick = () => {
-        if (isEditable) {
+        if (isEditable && !isLoading) {
             setIsDropdownOpen(!isDropdownOpen);
         }
     };
 
     const handleStatusSelect = (newStatus) => {
-        if (onStatusChange) {
+        if (onStatusChange && !isLoading) {
             onStatusChange(newStatus);
         }
         setIsDropdownOpen(false);
@@ -55,13 +56,21 @@ const StatusIndicator = ({
     return (
         <div className={`status-indicator-container ${className}`} ref={dropdownRef}>
             <span
-                className={`status-indicator ${normalizedStatus.toLowerCase()} ${isEditable ? 'editable' : ''}`}
+                className={`status-indicator ${normalizedStatus.toLowerCase()} ${isEditable ? 'editable' : ''} ${isLoading ? 'loading' : ''}`}
                 onClick={handleStatusClick}
             >
-                {statusText}
+                {isLoading ? (
+                    <div className="status-loader">
+                        <div className="loader-dot"></div>
+                        <div className="loader-dot"></div>
+                        <div className="loader-dot"></div>
+                    </div>
+                ) : (
+                    statusText
+                )}
             </span>
 
-            {isEditable && isDropdownOpen && (
+            {isEditable && isDropdownOpen && !isLoading && (
                 <div className="status-dropdown">
                     {statusOptions.map((option) => (
                         <div
@@ -83,7 +92,8 @@ StatusIndicator.propTypes = {
     status: PropTypes.string,
     className: PropTypes.string,
     onStatusChange: PropTypes.func,
-    isEditable: PropTypes.bool
+    isEditable: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
 
 export default StatusIndicator;

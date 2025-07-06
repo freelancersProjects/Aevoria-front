@@ -162,7 +162,7 @@ const Header = () => {
     };
 
     const handleProfileClick = () => {
-        navigate('/profile');
+        window.location.href = '/profile';
     };
 
     return (

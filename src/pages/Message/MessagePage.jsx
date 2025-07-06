@@ -23,23 +23,57 @@ const MessagePage = () => {
 
   useEffect(() => {
     if (!userId) return;
-    apiService.get(`/friends/${userId}`)
-      .then(data => {
-        const list = (data?.$values || data?.values || data || []).map(f => ({
-          id: f.friendId || f.userId,
-          username: f.username || f.alias || 'Utilisateur inconnu',
-          avatar: f.avatar || '',
-        }));
-        setFriends(list);
-      })
-      .catch(console.error);
+    
+    const fetchFriends = async () => {
+      try {
+        const data = await apiService.get(`/friends/${userId}`);
+        const friendRelations = data?.$values || data?.values || data || [];
+        
+        // Correction : toujours prendre l'ID de l'ami (pas le sien)
+        const friendsWithDetails = await Promise.all(
+          friendRelations
+            .filter(friend => friend.status === 'Accepted')
+            .map(async (friendRelation) => {
+              try {
+                const amiId = friendRelation.userId === userId ? friendRelation.friendId : friendRelation.userId;
+                const friendData = await apiService.get(`/users/${amiId}`);
+                return {
+                  id: amiId,
+                  username: friendData.username || 'Utilisateur inconnu',
+                  firstName: friendData.firstName || '',
+                  lastName: friendData.lastName || '',
+                  avatar: friendData.profilePicture || '',
+                  status: friendData.status || 'Offline'
+                };
+              } catch (error) {
+                console.error(`Erreur lors de la récupération des détails de l'ami`, error);
+                return {
+                  id: friendRelation.friendId,
+                  username: 'Utilisateur inconnu',
+                  firstName: '',
+                  lastName: '',
+                  avatar: '',
+                  status: 'Offline'
+                };
+              }
+            })
+        );
+        
+        setFriends(friendsWithDetails);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des amis:', error);
+        setFriends([]);
+      }
+    };
+
+    fetchFriends();
   }, [userId]);
 
   // Récupérer l'historique des messages avec l'ami sélectionné
   useEffect(() => {
     if (!selectedFriend || !userId) return;
     apiService.get(`/messages/${userId}/${selectedFriend.id}`)
-      .then(data => setMessages(data || []))
+      .then(data => setMessages(Array.isArray(data) ? data : []))
       .catch(console.error);
   }, [selectedFriend, userId]);
 
@@ -61,21 +95,21 @@ const MessagePage = () => {
   );
   const { sendMessage: sendSocketMessage } = useChatSocket({ onMessageReceived, userId });
 
-  // Envoi d'un message (API + socket)
+  // Envoi d'un message (API + socket) en query string
   const handleSend = async () => {
     if (!message.trim() || !selectedFriend) return;
-    const msgObj = {
+    const params = new URLSearchParams({
       senderId: userId,
       receiverId: selectedFriend.id,
       content: message,
       messageType: 'Text',
-    };
+    });
     try {
-      // Envoi API (persistance)
-      await apiService.post('/messages', msgObj);
+      // Envoi API (persistance) en query string
+      await apiService.post(`/messages?${params.toString()}`);
       // Envoi temps réel
       sendSocketMessage(selectedFriend.id, message);
-      setMessages(prev => [...prev, { ...msgObj, type: 'sent', createdAt: new Date().toISOString() }]);
+      setMessages(prev => [...prev, { senderId: userId, receiverId: selectedFriend.id, content: message, messageType: 'Text', type: 'sent', createdAt: new Date().toISOString() }]);
       setMessage('');
     } catch (err) {
       // Optionnel : toast d'erreur
@@ -94,6 +128,13 @@ const MessagePage = () => {
     }
   };
 
+  const getDisplayName = (friend) => {
+    if (friend.firstName && friend.lastName) {
+      return `${friend.firstName} ${friend.lastName}`;
+    }
+    return friend.username;
+  };
+
   return (
     <div className="messenger">
       <aside className="sidebar">
@@ -109,6 +150,7 @@ const MessagePage = () => {
         <div className="contacts">
           {friends
             .filter(friend =>
+              getDisplayName(friend).toLowerCase().includes(searchQuery.toLowerCase()) ||
               friend.username.toLowerCase().includes(searchQuery.toLowerCase())
             )
             .map((friend, idx) => (
@@ -118,15 +160,15 @@ const MessagePage = () => {
                 onClick={() => setSelectedFriend(friend)}
               >
                 <div className="contact-avatar">
-                  <img src={friend.avatar || `https://i.pravatar.cc/100?img=${idx + 2}`} alt={friend.username} />
-                  <span className={`status-dot online`} />
+                  <img src={friend.avatar || `https://i.pravatar.cc/100?img=${idx + 2}`} alt={getDisplayName(friend)} />
+                  <span className={`status-dot ${friend.status.toLowerCase()}`} />
                 </div>
                 <div className="contact-info">
                   <div className="contact-header">
-                    <h4>{friend.username}</h4>
+                    <h4>{getDisplayName(friend)}</h4>
                   </div>
                   <div className="contact-subheader">
-                    <p className="status">En ligne</p>
+                    <p className="status">{friend.status === 'Active' ? 'En ligne' : friend.status === 'Inactive' ? 'Inactif' : 'Hors ligne'}</p>
                   </div>
                 </div>
               </div>
@@ -137,12 +179,15 @@ const MessagePage = () => {
         <header className="chat-header">
           <div className="user-info">
             <div className="avatar-container">
-              <img src={selectedFriend?.avatar || 'https://i.pravatar.cc/100?img=2'} alt={selectedFriend?.username || ''} />
-              <span className="status-dot in-game" />
+              <img src={selectedFriend?.avatar || 'https://i.pravatar.cc/100?img=2'} alt={selectedFriend ? getDisplayName(selectedFriend) : ''} />
+              <span className={`status-dot ${selectedFriend?.status?.toLowerCase() || 'offline'}`} />
             </div>
             <div className="user-details">
-              <h3>{selectedFriend?.username || ''}</h3>
-              <span className="status">En ligne</span>
+              <h3>{selectedFriend ? getDisplayName(selectedFriend) : ''}</h3>
+              <span className="status">
+                {selectedFriend?.status === 'Active' ? 'En ligne' : 
+                 selectedFriend?.status === 'Inactive' ? 'Inactif' : 'Hors ligne'}
+              </span>
             </div>
           </div>
           <div className="header-actions">
@@ -155,14 +200,23 @@ const MessagePage = () => {
           <div className="date-separator">
             <span>Aujourd'hui</span>
           </div>
-          {messages.map((msg, i) => (
-            <div key={i} className={`message ${msg.senderId === userId ? 'sent' : 'received'}`}>
-              <div className="message-content">
-                <p>{msg.content}</p>
-                <span className="message-time">{msg.createdAt ? new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}</span>
+
+          {/* Affichage debug du contenu brut des messages */}
+          <pre style={{color: 'white', background: '#222', fontSize: 12, padding: 8, borderRadius: 8, marginBottom: 12}}>{JSON.stringify(messages, null, 2)}</pre>
+
+          {messages.map((msg, i) => {
+            // Mapping robuste pour le texte du message
+            const text = msg.content || msg.text || msg.body || msg.message || msg.messageText || '';
+            const sender = msg.senderId || msg.fromUserId || msg.sender || msg.userId;
+            return (
+              <div key={i} className={`message ${sender === userId ? 'sent' : 'received'}`}>
+                <div className="message-content">
+                  <p>{text}</p>
+                  <span className="message-time">{msg.createdAt ? new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <footer className="chat-footer">
           <div className="message-input-container message-input-centered">

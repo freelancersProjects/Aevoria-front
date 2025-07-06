@@ -11,6 +11,7 @@ import Toast from "../../../../components/AEV/AEV.Toast/Toast";
 const AccountHeader = () => {
   const { user } = useAuth();
   const [userStatus, setUserStatus] = useState("Offline");
+  const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
   const friends = [
@@ -26,6 +27,7 @@ const AccountHeader = () => {
   useEffect(() => {
     if (user?.userId) {
       const fetchUserStatus = async () => {
+        setIsLoading(true);
         try {
           const userData = await apiService.get(`/users/${user.userId}`);
           if (userData?.status) {
@@ -36,11 +38,14 @@ const AccountHeader = () => {
         } catch (error) {
           console.error("Erreur lors de la récupération du statut:", error);
           setUserStatus("Active");
+        } finally {
+          setIsLoading(false);
         }
       };
       fetchUserStatus();
     } else {
       setUserStatus("Offline");
+      setIsLoading(false);
     }
   }, [user]);
 
@@ -53,6 +58,7 @@ const AccountHeader = () => {
       return;
     }
 
+    setIsLoading(true);
     try {
       const response = await apiService.patchQuery(`/users/${user.userId}/status?newStatus=${newStatus}`);
 
@@ -71,6 +77,8 @@ const AccountHeader = () => {
         type: 'error',
         message: "Erreur lors de la mise à jour du statut. Veuillez réessayer."
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -135,6 +143,7 @@ const AccountHeader = () => {
               status={userStatus}
               isEditable={!!user?.userId}
               onStatusChange={handleStatusChange}
+              isLoading={isLoading}
             />
           </div>
 
