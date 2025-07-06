@@ -1,0 +1,48 @@
+.wishlist-arrows {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.wishlist-arrow {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(158, 196, 240, 0.10);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  color: #fff;
+  font-size: 1.5rem;
+  outline: none;
+
+  &:hover:not(:disabled) {
+    background: rgba(33, 150, 243, 0.25);
+    color: #2196f3;
+    box-shadow: 0 4px 16px rgba(33,150,243,0.10);
+    transform: scale(1.08);
+  }
+
+  &:active:not(:disabled) {
+    background: rgba(33, 150, 243, 0.35);
+    transform: scale(0.96);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(158, 196, 240, 0.05);
+    color: #bfc1cd;
+  }
+
+  svg {
+    font-size: 2rem;
+    color: inherit;
+  }
+} 

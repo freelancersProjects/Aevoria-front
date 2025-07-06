@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './MessagePage.scss';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -13,6 +14,8 @@ import useAuth from '../../hooks/useAuth';
 const MessagePage = () => {
   const { user } = useAuth();
   const userId = user?.userId;
+  const { friendId } = useParams();
+  const navigate = useNavigate();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [message, setMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -69,11 +72,53 @@ const MessagePage = () => {
     fetchFriends();
   }, [userId]);
 
+  // Sélection automatique de l'ami via l'URL ou le premier ami par défaut
+  useEffect(() => {
+    if (friends.length === 0) return;
+    // Si un friendId est dans l'URL, sélectionne cet ami
+    if (friendId) {
+      const found = friends.find(f => f.id === friendId);
+      if (found) {
+        setSelectedFriend(found);
+        return;
+      }
+    }
+    // Sinon, sélectionne le premier ami si rien n'est sélectionné
+    if (!selectedFriend) {
+      setSelectedFriend(friends[0]);
+    }
+  }, [friends, friendId]);
+
+  // Quand on clique sur un ami, on met à jour l'URL
+  const handleSelectFriend = (friend) => {
+    setSelectedFriend(friend);
+    navigate(`/messages/${friend.id}`);
+  };
+
   // Récupérer l'historique des messages avec l'ami sélectionné
   useEffect(() => {
     if (!selectedFriend || !userId) return;
     apiService.get(`/messages/${userId}/${selectedFriend.id}`)
-      .then(data => setMessages(Array.isArray(data) ? data : []))
+      .then(data => {
+        if (data && Array.isArray(data.$values)) {
+          setMessages(data.$values);
+        } else if (Array.isArray(data)) {
+          setMessages(data);
+        } else if (data && Array.isArray(data.messages)) {
+          setMessages(data.messages);
+        } else if (data && typeof data === 'object') {
+          const values = Object.values(data);
+          if (Array.isArray(values[0])) {
+            setMessages(values[0]);
+          } else if (values.length && typeof values[0] === 'object') {
+            setMessages(values);
+          } else {
+            setMessages([]);
+          }
+        } else {
+          setMessages([]);
+        }
+      })
       .catch(console.error);
   }, [selectedFriend, userId]);
 
@@ -157,7 +202,7 @@ const MessagePage = () => {
               <div
                 key={friend.id}
                 className={`contact ${selectedFriend && selectedFriend.id === friend.id ? 'active' : ''}`}
-                onClick={() => setSelectedFriend(friend)}
+                onClick={() => handleSelectFriend(friend)}
               >
                 <div className="contact-avatar">
                   <img src={friend.avatar || `https://i.pravatar.cc/100?img=${idx + 2}`} alt={getDisplayName(friend)} />
@@ -200,9 +245,6 @@ const MessagePage = () => {
           <div className="date-separator">
             <span>Aujourd'hui</span>
           </div>
-
-          {/* Affichage debug du contenu brut des messages */}
-          <pre style={{color: 'white', background: '#222', fontSize: 12, padding: 8, borderRadius: 8, marginBottom: 12}}>{JSON.stringify(messages, null, 2)}</pre>
 
           {messages.map((msg, i) => {
             // Mapping robuste pour le texte du message
