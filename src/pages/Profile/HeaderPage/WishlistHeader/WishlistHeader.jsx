@@ -7,6 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import useAuth from '../../../../hooks/useAuth';
 import apiService from '../../../../services/apiService';
 import './WishlistHeader.scss';
+import Skeleton from '../../../../components/AEV/AEV.Skeleton/Skeleton';
 
 const MAX_WISHLIST_DISPLAY = 5;
 
@@ -22,22 +23,20 @@ const WishlistHeader = ({ activeTab, setActiveTab }) => {
       if (!user?.userId) return;
       setLoading(true);
       try {
-        const res = await apiService.get(`/wishlist/${user.userId}`);
-        const wishlist = res?.$values || [];
-        const gamesDetails = await Promise.all(
-          wishlist.map(async (item) => {
-            try {
-              const game = await apiService.get(`/games/${item.gameId}`);
-              return {
-                ...item,
-                gameTitle: game?.title || game?.name || '',
-                gamePrice: game?.price || '',
-              };
-            } catch {
-              return { ...item, gameTitle: '', gamePrice: '' };
-            }
-          })
-        );
+        const [wishlistRes, gamesRes] = await Promise.all([
+          apiService.get(`/wishlist/${user.userId}`),
+          apiService.get('/games')
+        ]);
+        const wishlist = wishlistRes?.$values || [];
+        const allGames = gamesRes?.$values || gamesRes || [];
+        const gamesDetails = wishlist.map(item => {
+          const found = allGames.find(g => g.gameId === item.gameId);
+          return {
+            ...item,
+            gameTitle: found?.title || found?.name || 'Nom inconnu',
+            gamePrice: found?.price || '',
+          };
+        });
         setWishlistGames(gamesDetails);
       } catch (err) {
         setWishlistGames([]);
@@ -85,7 +84,18 @@ const WishlistHeader = ({ activeTab, setActiveTab }) => {
       <div className="wishlist">
         <h3 className="wishlist-title"> <FavoriteBorderIcon className='icon'/> Wishlist</h3>
         {loading ? (
-          <div className="noFavorite">Chargement...</div>
+          <div className="wishlist-list-animated">
+            {Array.from({ length: MAX_WISHLIST_DISPLAY }).map((_, i) => (
+              <div className="game" key={i} style={{ opacity: 0.7 }}>
+                <div className="meta mb-1">
+                  <span className="type"><Skeleton width={50} height={16} /></span>
+                  <span className="title"><Skeleton width={110} height={22} /></span>
+                  <span className="views"><Skeleton width={40} height={16} /></span>
+                </div>
+                <Skeleton width={18} height={18} style={{ borderRadius: 8 }} />
+              </div>
+            ))}
+          </div>
         ) : wishlistGames.length === 0 ? (
           <div className="noFavorite">Aucun jeu en favori</div>
         ) : (

@@ -1,62 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LiveStreamers.scss';
 import { FaTwitch, FaYoutube } from 'react-icons/fa';
 import { BsEyeFill, BsHeartFill, BsShareFill } from 'react-icons/bs';
 
-const streamers = [
-  {
-    id: 1,
-    username: "Gaming_303",
-    avatar: "https://picsum.photos/seed/streamer1/50/50",
-    thumbnail: "https://picsum.photos/seed/stream1/400/225",
-    viewers: "2.5K",
-    platform: "twitch",
-    isLive: true,
-    title: "Epic Battle Royale - Road to Victory!",
-    game: "Night City Warriors",
-    duration: "2h 15m"
-  },
-  {
-    id: 2,
-    username: "ProGamer_XZ",
-    avatar: "https://picsum.photos/seed/streamer2/50/50",
-    thumbnail: "https://picsum.photos/seed/stream2/400/225",
-    viewers: "1.8K",
-    platform: "youtube",
-    isLive: true,
-    title: "Ranked Climbing Stream",
-    game: "Night City Warriors",
-    duration: "45m"
-  },
-  {
-    id: 3,
-    username: "NeonStreamer",
-    avatar: "https://picsum.photos/seed/streamer3/50/50",
-    thumbnail: "https://picsum.photos/seed/stream3/400/225",
-    viewers: "892",
-    platform: "twitch",
-    isLive: true,
-    title: "Chill Gaming Session",
-    game: "Night City Warriors",
-    duration: "1h 30m"
-  },
-  {
-    id: 4,
-    username: "CyberNinja_YT",
-    avatar: "https://picsum.photos/seed/streamer4/50/50",
-    thumbnail: "https://picsum.photos/seed/stream4/400/225",
-    viewers: "654",
-    platform: "youtube",
-    isLive: true,
-    title: "New Player Learning the Game",
-    game: "Night City Warriors",
-    duration: "3h 02m"
-  }
-];
-
-const LiveStreamers = () => {
-  const [selectedStream, setSelectedStream] = useState(streamers[0]);
+const LiveStreamers = ({ streamers = [], chatMessages = [] }) => {
+  const [selectedStream, setSelectedStream] = useState(streamers[0] || null);
   const [chatMessage, setChatMessage] = useState('');
+
+  useEffect(() => {
+    setSelectedStream(streamers[0] || null);
+  }, [streamers]);
 
   const handleStreamSelect = (streamer) => {
     setSelectedStream(streamer);
@@ -65,7 +18,7 @@ const LiveStreamers = () => {
   const handleChatSubmit = (e) => {
     e.preventDefault();
     if (chatMessage.trim()) {
-      console.log('Chat message:', chatMessage);
+      // Ici tu peux brancher l'envoi du message
       setChatMessage('');
     }
   };
@@ -80,6 +33,10 @@ const LiveStreamers = () => {
         return <FaTwitch />;
     }
   };
+
+  if (!streamers.length) {
+    return <div className="live-streamers"><div className="main-stream"><div className="stream-container"><div className="no-stream">Aucun live en cours pour ce jeu.</div></div></div></div>;
+  }
 
   return (
     <div className="live-streamers">
@@ -144,18 +101,14 @@ const LiveStreamers = () => {
           </div>
           
           <div className="chat-messages">
-            <div className="chat-message">
-              <span className="chat-user">CyberFan123:</span>
-              <span className="chat-text">Amazing gameplay! 🔥</span>
-            </div>
-            <div className="chat-message">
-              <span className="chat-user">GameMaster:</span>
-              <span className="chat-text">Nice shot!</span>
-            </div>
-            <div className="chat-message">
-              <span className="chat-user">NeonGamer:</span>
-              <span className="chat-text">What's your setup?</span>
-            </div>
+            {chatMessages.length > 0 ? chatMessages.map((msg, i) => (
+              <div className="chat-message" key={i}>
+                <span className="chat-user">{msg.user}:</span>
+                <span className="chat-text">{msg.text}</span>
+              </div>
+            )) : (
+              <div className="chat-message"><span className="chat-text">Aucun message pour ce live.</span></div>
+            )}
           </div>
 
           <form className="chat-input" onSubmit={handleChatSubmit}>
@@ -182,7 +135,7 @@ const LiveStreamers = () => {
         </h3>
         
         <div className="streams-grid">
-          {streamers.filter(s => s.id !== selectedStream.id).map((streamer) => (
+          {streamers.filter(s => s.id !== selectedStream.id).length > 0 ? streamers.filter(s => s.id !== selectedStream.id).map((streamer) => (
             <div
               key={streamer.id}
               className="stream-card"
@@ -218,7 +171,7 @@ const LiveStreamers = () => {
                 </div>
               </div>
             </div>
-          ))}
+          )) : <div className="no-stream">Aucun autre live</div>}
         </div>
       </div>
     </div>

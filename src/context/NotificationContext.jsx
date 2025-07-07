@@ -26,15 +26,7 @@ export const NotificationProvider = ({ children }) => {
     useEffect(() => {
         if (!user?.userId) return;
 
-        // Initial fetch
         fetchUnread();
-
-        // Polling toutes les 15 secondes
-        const interval = setInterval(() => {
-            fetchUnread();
-        }, 15000);
-
-        return () => clearInterval(interval);
     }, [user]);
 
     const markAsRead = async (notificationId) => {

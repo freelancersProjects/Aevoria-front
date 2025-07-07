@@ -4,38 +4,49 @@ import { FaUser, FaStar, FaShareAlt, FaFlag } from 'react-icons/fa';
 import TooltipChips from '../../../components/AEV//AEV.TooltipChips/TooltipChips';
 import LogoVueJeu from '../../../assets/svg/logo-vue-jeu.svg';
 
-const GameDescriptionSection = () => {
+const GameDescriptionSection = ({
+  userCount,
+  tags = [],
+  description,
+  genres = [],
+  features = [],
+  developer,
+  publisher,
+  releaseDate,
+  platform,
+  refundType,
+  note,
+  reviewCount
+}) => {
   return (
     <section className="game-wrapper">
       <div className="game-description">
         <div className="left-content">
           <div className="user-count">
-            <img src={LogoVueJeu} alt="User icon" /> <span>149 utilisateurs sur cette page</span>
+            <img src={LogoVueJeu} alt="User icon" /> <span>{userCount ? `${userCount} utilisateurs sur cette page` : 'Aucun utilisateur en ligne'}</span>
           </div>
 
           <div className="tags">
-            <TooltipChips label="Compatible Steam Deck" tooltipText="Ce jeu fonctionne sur Steam Deck" />
-            <TooltipChips label="Protagoniste féminine" tooltipText="Le personnage principal est une femme" />
-            <TooltipChips label="Écran partagé" tooltipText="Jouez à plusieurs sur le même écran" />
-            <TooltipChips label="Coop" tooltipText="Mode coopération disponible" />
+            {tags.length > 0 ? tags.map((tag, i) => (
+              <TooltipChips key={i} label={tag.name} tooltipText={tag.description || ''} />
+            )) : <TooltipChips label="Aucun tag" />}
           </div>
 
           <h2>Description</h2>
           <p className="description-text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum...
+            {description || 'Aucune description disponible pour ce jeu.'}
           </p>
           <a href="#" className="see-more">Voir plus</a>
 
           <div className="info-columns">
             <div>
               <h4>Genres:</h4>
-              <TooltipChips label="Action" />
-              <TooltipChips label="Adventure" />
+              {genres.length > 0 ? genres.map((g, i) => <TooltipChips key={i} label={g.name || g} />) : <TooltipChips label="Aucun genre" />}
             </div>
             <div>
               <h4>Features:</h4>
               <div className="pills">
-                <span>Single Player</span>
+                {features.length > 0 ? features.map((f, i) => <span key={i}>{f}</span>) : <span>Aucune feature</span>}
               </div>
             </div>
           </div>
@@ -43,13 +54,11 @@ const GameDescriptionSection = () => {
 
         <aside className="right-content">
           <ul className="game-meta">
-            <li><span>Refer a Friend</span><a href="#">share it to earn money!</a></li>
-            <li><span>Developer</span><strong>Banana Gamers LLC</strong></li>
-            <li><span>Publisher</span><strong>Blue Ocean Publishing</strong></li>
-            <li><span>Release Date</span><strong>06/08/25</strong></li>
-            <li><span>Platform</span><strong>Xbox</strong></li>
-            <li><span>Refund Type</span><strong>Save 5% Back</strong></li>
-            <li><span>See All Editions and Add-Ons</span></li>
+            <li><span>Developer</span><strong>{developer || 'Inconnu'}</strong></li>
+            <li><span>Publisher</span><strong>{publisher || 'Inconnu'}</strong></li>
+            <li><span>Release Date</span><strong>{releaseDate || 'Non renseignée'}</strong></li>
+            <li><span>Platform</span><strong>{platform || 'Non renseignée'}</strong></li>
+            <li><span>Refund Type</span><strong>{refundType || 'Non renseigné'}</strong></li>
           </ul>
 
           <div className="action-buttons">
@@ -61,14 +70,14 @@ const GameDescriptionSection = () => {
 
       <div className="bottom-note">
         <div className="score">
-          <span className="circle">10</span>
+          <span className="circle">{note || '-'}</span>
           <div>
-            <div className="stars"><FaStar /><FaStar /><FaStar /><FaStar /><FaStar /> Verified Customers</div>
+            <div className="stars"><FaStar /><FaStar /><FaStar /><FaStar /><FaStar /> {reviewCount ? `${reviewCount} avis` : 'Aucun avis'}</div>
           </div>
         </div>
         <div className="note-detail">
           <strong>Note du jeu</strong>
-          <p>basé sur 3 tests, toutes langues confondues</p>
+          <p>{reviewCount ? `basé sur ${reviewCount} tests, toutes langues confondues` : 'Aucun test pour ce jeu.'}</p>
         </div>
         <button className="write-review">✏️ Rédiger votre test sur ce jeu</button>
       </div>

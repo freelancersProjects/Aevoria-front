@@ -7,12 +7,16 @@ import useAuth from "../../../../hooks/useAuth";
 import apiService from "../../../../services/apiService";
 import { useState, useEffect } from "react";
 import Toast from "../../../../components/AEV/AEV.Toast/Toast";
+import Skeleton from '../../../../components/AEV/AEV.Skeleton/Skeleton';
+import { useNavigate } from 'react-router-dom';
 
 const AccountHeader = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [userStatus, setUserStatus] = useState("Offline");
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const friends = [
     { name: "Eliot Hawke", avatarUrl: defaultProfile },
@@ -97,77 +101,91 @@ const AccountHeader = () => {
 
   return (
     <div className="account-header">
-      <div className="banner">
-        <img className="banner-image" src={bannerImage} alt="Profile banner" />
-      </div>
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <>
+          <div className="banner">
+            <img className="banner-image" src={bannerImage} alt="Profile banner" />
+          </div>
 
-      <div className="profile-info">
-        <div className="profile-avatar">
-          <img src={profileImage} alt={displayUser.username} />
-        </div>
+          <div className="profile-info">
+            <div className="profile-avatar">
+              <img src={profileImage} alt={displayUser.username} />
+            </div>
 
-        <div className="profile-details">
-          <div className="user-header">
-            <div className="user-container-flex d-flex ml-5">
-              <div className="user-info ml-2">
-                <h1 className="full-name">{displayUser.name}</h1>
-                <span className="username">@{displayUser.username}</span>
+            <div className="profile-details">
+              <div className="user-header">
+                <div className="user-container-flex d-flex ml-5">
+                  <div className="user-info ml-2">
+                    <h1 className="full-name">{displayUser.name}</h1>
+                    <span className="username">@{displayUser.username}</span>
+                  </div>
+                  <div className="level-tag ml-2">
+                    <span>Level {displayUser.level}</span>
+                    <div className="level-bar">
+                      <div className="progress" style={{ width: "40%" }} />
+                    </div>
+                  </div>
+                  <div className="follow-btn-container" style={{ marginLeft: 24 }}>
+                    <button
+                      className={`follow-btn ${isFollowing ? 'unfollow' : 'follow'}`}
+                      onClick={() => setIsFollowing(f => !f)}
+                    >
+                      {isFollowing ? 'Se désabonner' : "S'abonner"}
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="level-tag ml-2">
-                <span>Level {displayUser.level}</span>
-                <div className="level-bar">
-                  <div className="progress" style={{ width: "40%" }} />
+
+              <div className="user-stats">
+                <div className="followers" style={{cursor: 'pointer'}} onClick={() => navigate(`/profile/${user?.userId}/followers`)}>
+                  <span className="count">{displayUser.followers}</span> followers
+                </div>
+                <div className="following" style={{cursor: 'pointer'}} onClick={() => navigate(`/profile/${user?.userId}/following`)}>
+                  <span className="count">{displayUser.following}</span> following
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="user-stats">
-            <div className="followers">
-              <span className="count">{displayUser.followers}</span> followers
+          <div className="profile-dashboard">
+            <div className="profile-header-row">
+              <div className="title-block">
+                <h2>
+                  Profile Dashboard <img src={ArrowProfileDashboard} alt="Arrow" />
+                </h2>
+                <StatusIndicator
+                  status={userStatus}
+                  isEditable={!!user?.userId}
+                  onStatusChange={handleStatusChange}
+                  isLoading={isLoading}
+                />
+              </div>
+
+              <div className="profile-actions">
+                <button className="share-btn">Share</button>
+                <button className="more-btn">···</button>
+              </div>
             </div>
-            <div className="following">
-              <span className="count">{displayUser.following}</span> following
+
+            <div className="friends-list">
+              {friends.slice(0, 5).map((friend, index) => (
+                <img
+                  key={index}
+                  className="friend-avatar"
+                  src={friend.avatarUrl}
+                  alt={friend.name}
+                  title={friend.name}
+                />
+              ))}
+              {friends.length > 5 && (
+                <span className="more-friends">+{friends.length - 5} others</span>
+              )}
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="profile-dashboard">
-        <div className="profile-header-row">
-          <div className="title-block">
-            <h2>
-              Profile Dashboard <img src={ArrowProfileDashboard} alt="Arrow" />
-            </h2>
-            <StatusIndicator
-              status={userStatus}
-              isEditable={!!user?.userId}
-              onStatusChange={handleStatusChange}
-              isLoading={isLoading}
-            />
-          </div>
-
-          <div className="profile-actions">
-            <button className="share-btn">Share</button>
-            <button className="more-btn">···</button>
-          </div>
-        </div>
-
-        <div className="friends-list">
-          {friends.slice(0, 5).map((friend, index) => (
-            <img
-              key={index}
-              className="friend-avatar"
-              src={friend.avatarUrl}
-              alt={friend.name}
-              title={friend.name}
-            />
-          ))}
-          {friends.length > 5 && (
-            <span className="more-friends">+{friends.length - 5} others</span>
-          )}
-        </div>
-      </div>
+        </>
+      )}
 
       {toast && (
         <Toast

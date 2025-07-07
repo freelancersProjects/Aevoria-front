@@ -1,6 +1,5 @@
 import React from 'react';
 import './GameHeroSection.scss';
-import DefaultImage from '../../../assets/images/photo-test.webp';
 import { FaWindows, FaCheckCircle, FaDownload, FaTag } from 'react-icons/fa';
 import CartIcon from '../../../assets/svg/cart.svg';
 import HeartIcon from '../../../assets/svg/coeur.svg';
@@ -8,7 +7,18 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../../context/NotificationContext';
 import { useAuthContext } from '../../../auth/AuthContext';
 
-const GameHeroSection = () => {
+const GameHeroSection = ({
+  image,
+  title,
+  discount,
+  oldPrice,
+  price,
+  platforms = [],
+  badges = [],
+  inStock = true,
+  onAddToCart,
+  onAddToWishlist
+}) => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const { addNotification } = useNotification();
@@ -19,13 +29,12 @@ const GameHeroSection = () => {
       setTimeout(() => navigate('/login'), 2000);
       return;
     }
-
     if(actionType === 'cart') {
-        console.log('Added to cart');
-        addNotification('Jeu ajouté au panier !', 'success');
+      if (onAddToCart) onAddToCart();
+      addNotification('Jeu ajouté au panier !', 'success');
     } else if (actionType === 'wishlist') {
-        console.log('Added to wishlist');
-        addNotification('Jeu ajouté à la wishlist !', 'success');
+      if (onAddToWishlist) onAddToWishlist();
+      addNotification('Jeu ajouté à la wishlist !', 'success');
     }
   };
 
@@ -37,30 +46,36 @@ const GameHeroSection = () => {
           <div className="gameview-content">
             {/* Image du jeu */}
             <div className="gameview-image-block">
-              <img src={DefaultImage} alt="Game" className="gameview-image" />
+              <img src={image || require('../../../assets/images/photo-test.webp')} alt={title || 'Game'} className="gameview-image" />
             </div>
             {/* Infos principales */}
             <div className="gameview-info-block">
-              <h2 className="gameview-title">Valorant</h2>
+              <h2 className="gameview-title">{title || 'Nom du jeu inconnu'}</h2>
               <div className="gameview-pricing-row">
                 <div className="discount-line">
                   <FaTag />
-                  <span className="percentage-reduction">-18%</span>
-                  <span className="old-price">$54</span>
+                  <span className="percentage-reduction">{discount ? `-${discount}%` : '-0%'}</span>
+                  <span className="old-price">{oldPrice ? `${oldPrice}€` : ''}</span>
                 </div>
-                <span className="new-price">$44.45</span>
+                <span className="new-price">{price ? `${price}€` : 'Prix inconnu'}</span>
               </div>
               <div className="gameview-platform-select">
                 <select>
-                  <option>XBox Series X/S</option>
-                  <option>PC</option>
-                  <option>PlayStation 5</option>
+                  {platforms.length > 0 ? platforms.map((p, i) => (
+                    <option key={i}>{p}</option>
+                  )) : <option>Plateforme inconnue</option>}
                 </select>
               </div>
               <div className="gameview-badges">
-                <span className="badge"><FaWindows /> Microsoft Store</span>
-                <span className="badge"><FaCheckCircle /> En stock</span>
-                <span className="badge"><FaDownload /> Téléchargement digital</span>
+                {badges.length > 0 ? badges.map((badge, i) => (
+                  <span className="badge" key={i}>{badge.icon} {badge.text}</span>
+                )) : (
+                  <>
+                    <span className="badge"><FaWindows /> Microsoft Store</span>
+                    <span className="badge"><FaCheckCircle /> {inStock ? 'En stock' : 'Rupture'}</span>
+                    <span className="badge"><FaDownload /> Téléchargement digital</span>
+                  </>
+                )}
               </div>
               <div className="gameview-actions-row">
                 <button className="like-btn" title="Ajouter aux favoris" onClick={() => handleAction('wishlist')}>
@@ -73,7 +88,6 @@ const GameHeroSection = () => {
             </div>
           </div>
         </div>
-        {/* Infos secondaires (à droite, à faire plus tard si besoin) */}
       </section>
     </>
   );

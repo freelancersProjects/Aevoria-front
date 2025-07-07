@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import apiService from "../services/apiService";
 import { jwtDecode } from "jwt-decode";
 
+const ENABLE_STATUS_PATCH = false; // Passe à true si tu veux garder la feature de statut
+
 const useAuth = () => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
@@ -29,15 +31,17 @@ const useAuth = () => {
                     setUser(res);
                     setToken(storedToken);
 
-                    if (res.status === "Offline") {
-                        await apiService.patchQuery(`/users/${userId}/status?newStatus=Active`);
+                    if (ENABLE_STATUS_PATCH && res.status === "Offline") {
+                        try {
+                            await apiService.patchQuery(`/users/${userId}/status?newStatus=Active`);
+                        } catch (e) {/* ignore */}
                     }
                 } else {
                     throw new Error("Utilisateur introuvable.");
                 }
             } catch (err) {
                 console.error("Erreur d'auth :", err);
-                logout();
+                setError("Erreur d'authentification. Veuillez réessayer.");
             } finally {
                 setLoading(false);
             }
@@ -55,10 +59,12 @@ const useAuth = () => {
 
         const handleVisibilityChange = () => {
             if (user?.userId) {
-                if (document.hidden) {
-                    apiService.patchQuery(`/users/${user.userId}/status?newStatus=Offline`).catch(console.error);
-                } else {
-                    apiService.patchQuery(`/users/${user.userId}/status?newStatus=Active`).catch(console.error);
+                if (ENABLE_STATUS_PATCH) {
+                    if (document.hidden) {
+                        apiService.patchQuery(`/users/${user.userId}/status?newStatus=Offline`).catch(() => {});
+                    } else {
+                        apiService.patchQuery(`/users/${user.userId}/status?newStatus=Active`).catch(() => {});
+                    }
                 }
             }
         };
@@ -93,7 +99,11 @@ const useAuth = () => {
             localStorage.setItem("userId", userId);
             setToken(res.token);
 
-            await apiService.patchQuery(`/users/${userId}/status?newStatus=Active`);
+            if (ENABLE_STATUS_PATCH) {
+                try {
+                    await apiService.patchQuery(`/users/${userId}/status?newStatus=Active`);
+                } catch (e) {/* ignore */}
+            }
 
             return { token: res.token, userId };
         } catch (err) {

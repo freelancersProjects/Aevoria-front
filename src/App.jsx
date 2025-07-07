@@ -23,6 +23,7 @@ import NotFound from './pages/Error/NotFound/NotFound';
 import CategorieView from './pages/CategorieView/CategorieView';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { AuthProvider } from './auth/AuthContext';
+import ProfileSocial from './pages/Profile/ProfileSocial';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -147,6 +148,7 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route path="/profile/:userId/:type" element={<ProfileSocial />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Layout>
