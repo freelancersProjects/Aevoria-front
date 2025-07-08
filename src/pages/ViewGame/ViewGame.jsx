@@ -55,7 +55,7 @@ const ViewGame = () => {
   useEffect(() => {
     if (!gameId) return;
     setLoading(true);
-    apiService.get(`/api/games/${gameId}`)
+    apiService.get(`/games/${gameId}`)
       .then(data => {
         setGame(data);
         setLoading(false);
