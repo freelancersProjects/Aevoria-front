@@ -7,25 +7,24 @@ import Skeleton from "../../../components/AEV/AEV.Skeleton/Skeleton";
 import "./FirstSection.scss";
 
 const FirstSection = () => {
-  const { data: mediaData, isLoading, error } = useFetch("/games/media/game-images");
+  const { data: gamesData, isLoading, error } = useFetch("/games");
 
   const randomizedImages = useMemo(() => {
-    const imageArray = mediaData?.$values || mediaData || [];
-    if (!Array.isArray(imageArray) || imageArray.length === 0) return [];
-    if (error) {
-      Toast.error("Erreur lors du chargement des images.");
-      return [];
-    }
-    const shuffled = [...imageArray].sort(() => 0.5 - Math.random());
-    const result = [];
-    while (result.length < 20) {
-      result.push(...shuffled);
-    }
-    return result.slice(0, 20);
-  }, [mediaData]);
+    const gamesArray = gamesData?.$values || gamesData || [];
+    if (!Array.isArray(gamesArray) || gamesArray.length === 0) return [];
+    // Filtrer les jeux qui ont un thumbnailUrl
+    const withThumb = gamesArray.filter(g => g.thumbnailUrl);
+    // Mélanger et prendre 20 jeux différents
+    const shuffled = [...withThumb].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 20).map(game => game.thumbnailUrl);
+  }, [gamesData]);
 
   if (isLoading) {
     return <Skeleton count={20} />;
+  }
+  if (error) {
+    Toast.error("Erreur lors du chargement des jeux.");
+    return null;
   }
 
   return (

@@ -256,9 +256,33 @@ const GameCard = ({
                             )}
                         </div>
                         <div className="game-icons">
-                            {isSteam && <SteamIcon className="icon" />}
-                            {isEpic && <EpicIcon className="icon" />}
-                            {isPlaystation && <PlaystationIcon className="icon" />}
+                            {isSteam && (
+                                <span
+                                    className="icon-link"
+                                    onClick={e => { e.stopPropagation(); navigate('/platform/steam'); }}
+                                    title="Voir les jeux Steam"
+                                >
+                                    <SteamIcon className="icon" />
+                                </span>
+                            )}
+                            {isEpic && (
+                                <span
+                                    className="icon-link"
+                                    onClick={e => { e.stopPropagation(); navigate('/platform/epic'); }}
+                                    title="Voir les jeux Epic Games"
+                                >
+                                    <EpicIcon className="icon" />
+                                </span>
+                            )}
+                            {isPlaystation && (
+                                <span
+                                    className="icon-link"
+                                    onClick={e => { e.stopPropagation(); navigate('/platform/playstation'); }}
+                                    title="Voir les jeux PlayStation"
+                                >
+                                    <PlaystationIcon className="icon" />
+                                </span>
+                            )}
                         </div>
                         <div className="game-pricing">
                             <span className="current-price">{discountedPrice}€</span>

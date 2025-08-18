@@ -23,6 +23,7 @@ import NotFound from './pages/Error/NotFound/NotFound';
 import CategorieView from './pages/CategorieView/CategorieView';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { AuthProvider } from './auth/AuthContext';
+import PlatformPage from './pages/Platform/PlatformPage';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -59,6 +60,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/demo-form" element={<DemoForm />} />
+                <Route path="/platform/:platform" element={<PlatformPage />} />
                 <Route
                   path="/cart"
                   element={

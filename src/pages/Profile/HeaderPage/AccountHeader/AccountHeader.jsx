@@ -115,10 +115,10 @@ const AccountHeader = () => {
           </div>
 
           <div className="user-stats">
-            <div className="followers">
+            <div className="followers font-montserrat">
               <span className="count">{displayUser.followers}</span> followers
             </div>
-            <div className="following">
+            <div className="following font-montserrat">
               <span className="count">{displayUser.following}</span> following
             </div>
           </div>

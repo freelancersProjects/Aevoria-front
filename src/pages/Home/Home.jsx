@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../../components/AEV/AEV.Button/Button';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
-import TabFilters from '../../components/AEV/AEV.TabFilters/TabFilters';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import Slider from './Slider/Slider';
 import Categories from "./Categories/Categories";
@@ -9,127 +7,205 @@ import Promotions from "./Promotions/Promotions";
 import FirstSection from './FirstSection/FirstSection';
 import './Home.scss';
 import Banner from './Banner/Banner';
-
 import apiService from '../../services/apiService';
+import Skeleton from '../../components/AEV/AEV.Skeleton/Skeleton';
 
-const tabs = ["Tendance", "Meilleure Vente", "Précommande", "Promotion", "Carte cadeaux"];
+// Composant custom pour le bouton "Voir plus" (traits latéraux sur toute la largeur)
+const VoirPlusCustom = ({ onClick }) => (
+  <div className="voir-plus-custom voir-plus-hr" onClick={onClick}>
+    <span className="plus">+</span>
+    <span className="line line-left"></span>
+    <span className="line line-right"></span>
+  </div>
+);
 
-
-const sampleGame = {
-  // image: "https://via.placeholder.com/300x180",
-  title: "Kingdom Come Deliverance II",
-  genres: ["Action", "Aventure"],
-  price: 59.99,
-  discount: 20,
-  isSteam: true,
-  isEpic: true,
-  isPlaystation: false,
-};
-
-const slideData = [
-  {
-    title: "LEGO Horizon Adventures",
-    genres: ["Action", "Aventure"],
-    price: 49.99,
-    oldPrice: 59.99,
-    discount: 20,
-    isSteam: true,
-    isEpic: true,
-    isPlaystation: true,
-  },
-  {
-    title: "Cyberpunk 2077",
-    genres: ["RPG", "Action"],
-    price: 39.99,
-    oldPrice: 59.99,
-    discount: 33,
-    isSteam: true,
-    isEpic: false,
-    isPlaystation: true,
-  },
-  {
-    title: "Assassins Creed Valhalla",
-    genres: ["RPG", "Action"],
-    price: 79.99,
-    oldPrice: 99.99,
-    discount: 33,
-    isSteam: true,
-    isEpic: false,
-    isPlaystation: true,
-  },
-];
+const PAGE_SIZE = 20;
 
 const Home = () => {
   const [games, setGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [allGamesPage, setAllGamesPage] = useState(1);
 
   useEffect(() => {
     const fetchGames = async () => {
+      setIsLoading(true);
       try {
         const response = await apiService.get('/games');
         const data = response?.$values || response;
         if (!Array.isArray(data)) throw new Error('Format des données incorrect');
         setGames(data);
       } catch (err) {
-        setToast({ show: true, message: `Erreur : ${err.message}`, type: 'error' });
+        // Optionnel : toast d'erreur
+      } finally {
+        setIsLoading(false);
       }
     };
-
     fetchGames();
   }, []);
+
+  // Helpers pour les dates
+  const today = new Date();
+  const parseDate = (d) => d ? new Date(d) : new Date(0);
+
+  // Filtres dynamiques
+  const newReleases = [...games]
+    .filter(g => g.releaseDate)
+    .sort((a, b) => parseDate(b.releaseDate) - parseDate(a.releaseDate))
+    .slice(0, 8);
+
+  const preorders = games.filter(g => parseDate(g.releaseDate) > today).slice(0, 8);
+
+  const bestSellers = [...games]
+    .filter(g => g.discount > 0)
+    .sort((a, b) => (b.discount || 0) - (a.discount || 0))
+    .slice(0, 8);
+
+  const promotions = games.filter(g => g.discount > 0).slice(0, 8);
+
+  // Pagination pour tous les jeux
+  const allGamesToShow = games.slice(0, allGamesPage * PAGE_SIZE);
+  const hasMoreGames = allGamesToShow.length < games.length;
+
+  const handleVoirPlus = () => {
+    setAllGamesPage((prev) => prev + 1);
+  };
 
   return (
     <>
       <FirstSection />
-      <Slider slides={slideData} />
+      <Slider slides={[]} />
       <div className='container'>
         <p className="title-center mt-3">Une sélection infinie de jeux à portée de clic,
           pour chaque envie et chaque joueur.</p>
-        <TabFilters tabs={tabs} />
       </div>
 
+      {bestSellers.length > 0 && (
+        <div className='container-fluid'>
+          <SectionTitle text="Meilleures ventes" />
+          <div className="game-cards-container">
+            {isLoading ? <Skeleton count={8} /> : bestSellers.map((game) => (
+              <GameCard
+                key={game.gameId}
+                image={game.thumbnailUrl}
+                title={game.title}
+                price={game.price}
+                discount={game.discount}
+                percentage_reduction={game.percentageReduction}
+                isSteam={game.isAvailableOnSteam}
+                isEpic={game.isAvailableOnEpic}
+                isPlaystation={game.isAvailableOnPlayStation}
+                gameId={game.gameId}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {newReleases.length > 0 && (
+        <div className='container-fluid'>
+          <SectionTitle text="Nouveautés" />
+          <div className="game-cards-container">
+            {isLoading ? <Skeleton count={8} /> : newReleases.map((game) => (
+              <GameCard
+                key={game.gameId}
+                image={game.thumbnailUrl}
+                title={game.title}
+                price={game.price}
+                discount={game.discount}
+                percentage_reduction={game.percentageReduction}
+                isSteam={game.isAvailableOnSteam}
+                isEpic={game.isAvailableOnEpic}
+                isPlaystation={game.isAvailableOnPlayStation}
+                gameId={game.gameId}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {preorders.length > 0 && (
+        <div className='container-fluid'>
+          <SectionTitle text="Précommandes" />
+          <div className="game-cards-container">
+            {isLoading ? <Skeleton count={8} /> : preorders.map((game) => (
+              <GameCard
+                key={game.gameId}
+                image={game.thumbnailUrl}
+                title={game.title}
+                price={game.price}
+                discount={game.discount}
+                percentage_reduction={game.percentageReduction}
+                isSteam={game.isAvailableOnSteam}
+                isEpic={game.isAvailableOnEpic}
+                isPlaystation={game.isAvailableOnPlayStation}
+                gameId={game.gameId}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {promotions.length > 0 && (
+        <div className='container-fluid'>
+          <SectionTitle text="Promotions" />
+          <div className="game-cards-container">
+            {isLoading ? <Skeleton count={8} /> : promotions.map((game) => (
+              <GameCard
+                key={game.gameId}
+                image={game.thumbnailUrl}
+                title={game.title}
+                price={game.price}
+                discount={game.discount}
+                percentage_reduction={game.percentageReduction}
+                isSteam={game.isAvailableOnSteam}
+                isEpic={game.isAvailableOnEpic}
+                isPlaystation={game.isAvailableOnPlayStation}
+                gameId={game.gameId}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className='container-fluid'>
-        <SectionTitle text="Meilleure Vente" url="test" />
+        <SectionTitle text="Tous les jeux" />
         <div className="game-cards-container">
-          {games.map((game) => (
+          {isLoading ? <Skeleton count={20} /> : allGamesToShow.map((game) => (
             <GameCard
-            key={game.gameId}
-            image={game.thumbnailUrl}
-            title={game.title}
-            // genres={game.genreId}
-            price={game.price}
-            discount={game.discount}
-            percentage_reduction={game.percentageReduction}
-            isSteam={game.isAvailableOnSteam}
-            isEpic={game.isAvailableOnEpic}
-            isPlaystation={game.isAvailableOnPlayStation}
-            gameId={game.gameId}
+              key={game.gameId}
+              image={game.thumbnailUrl}
+              title={game.title}
+              price={game.price}
+              discount={game.discount}
+              percentage_reduction={game.percentageReduction}
+              isSteam={game.isAvailableOnSteam}
+              isEpic={game.isAvailableOnEpic}
+              isPlaystation={game.isAvailableOnPlayStation}
+              gameId={game.gameId}
             />
           ))}
         </div>
-        <div className="btn-container">
-          <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
-        </div>
+        {!isLoading && hasMoreGames && (
+          <div className="btn-container">
+            <VoirPlusCustom onClick={handleVoirPlus} />
+          </div>
+        )}
       </div>
+
       <div className='container-fluid'>
         <Banner />
       </div>
       <div className='container-fluid'>
         <SectionTitle text="Par Categories" />
         <Categories />
-        <div className="btn-container">
-          <Button text="Voir plus" variant="solid" size="medium" onClick={() => alert("Solid Button Clicked")} />
-        </div>
       </div>
       <div className='container-promo'>
         <div className='container container-promo-text'>
-          <p className="title-center text-up-promo">
-            Des promotions exceptionnelles sur une sélection de jeux
-          </p>
-          <p className="title-center text-down-promo">
-            Découvrez vos futurs favoris à prix réduit
+          <p className="title-center text-up-promo mb-2">
+            Profitez de promotions exclusives sur une sélection de jeux incontournables.
           </p>
 
-          <p className="text-light text-to-date font-montserrat">Jusqu'au <span className="blue text-bold">25 Janvier 2003</span></p>
+          <p className="text-light text-to-date font-montserrat mb-1 mt-2">Jusqu'au <span className="blue text-bold">25 Janvier 2003</span></p>
         </div>
 
         <div className='container-fluid'>

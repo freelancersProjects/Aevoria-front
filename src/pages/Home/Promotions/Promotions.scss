@@ -1,1 +1,126 @@
+.promotions-section {
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
 
+  .game-cards-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+.promo-card {
+  background: linear-gradient(135deg, #10141e 90%, #1a233a 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  overflow: hidden;
+  width: 370px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  border: 2px solid var(--blue);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 16px 48px rgba(0,123,255,0.12);
+    border-color: var(--blue-light, #3fa9f5);
+  }
+}
+
+.promo-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #0a0e18;
+}
+
+.promo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0 0 0 0;
+}
+
+.promo-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 6px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.12);
+  z-index: 2;
+  letter-spacing: 1px;
+}
+
+.promo-discount {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: #fff;
+  color: var(--blue);
+  font-weight: 800;
+  font-size: 1.2rem;
+  padding: 6px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+  z-index: 2;
+  letter-spacing: 1px;
+}
+
+.promo-info {
+  padding: 24px 24px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.promo-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.promo-prices {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.promo-price {
+  color: var(--blue);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.promo-old-price {
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+  .promo-cards-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .promo-card {
+    width: 98vw;
+    max-width: 420px;
+  }
+}

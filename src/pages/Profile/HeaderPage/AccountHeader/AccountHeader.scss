@@ -18,8 +18,7 @@
 
   .followers {
     color: var(--light-text);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
+      font-size: rem-calc(15);
       font-style: normal;
       font-weight: 400;
       margin-right: 10px;
@@ -28,7 +27,7 @@
   .following {
     color: var(--light-text);
       font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
+      font-size: rem-calc(15);
       font-style: normal;
       font-weight: 400;
   }

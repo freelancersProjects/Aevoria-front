@@ -1,80 +1,45 @@
 import React, { useMemo } from "react";
+import useFetch from "../../../hooks/useFetch";
 import GameCard from "../../../components/AEV/AEV.GameCard/GameCard";
+import Skeleton from "../../../components/AEV/AEV.Skeleton/Skeleton";
 import "./Promotions.scss";
-import SectionTitle from "../../../components/AEV/AEV.SectionTitle/SectionTitle";
-
-// Déplacer les données en dehors du composant
-const promotionalGames = [
-  {
-    id: "game1", // Ajouter des IDs uniques
-    title: "Kingdom come deliverance II",
-    genres: ["Action", "Aventure"],
-    price: 49.99,
-    oldPrice: 59.99,
-    isSteam: true,
-    isEpic: true,
-    isPlaystation: true,
-    image: "/src/assets/images/photo-test.webp"
-  },
-  {
-    id: "game2",
-    title: "The Witcher 3",
-    genres: ["Action", "Aventure"],
-    price: 49.99,
-    oldPrice: 59.99,
-    isSteam: true,
-    isEpic: true,
-    isPlaystation: true,
-    image: "/src/assets/images/photo-test.webp"
-  },
-  {
-    id: "game3",
-    title: "Minecraft",
-    genres: ["Action", "Aventure"],
-    price: 49.99,
-    oldPrice: 59.99,
-    isSteam: true,
-    isEpic: true,
-    isPlaystation: true,
-    image: "/src/assets/images/photo-test.webp"
-  }
-].map(game => ({
-  ...game,
-  discount: ((game.oldPrice - game.price) / game.oldPrice * 100).toFixed(0)
-}));
 
 const Promotions = () => {
-  // Utiliser useMemo pour trier et sélectionner les 3 meilleures promotions
-  const top3PromotionalGames = useMemo(() => {
-    return promotionalGames
-      .sort((a, b) => {
-        const discountA = parseFloat(a.discount) || 0;
-        const discountB = parseFloat(b.discount) || 0;
-        return discountB - discountA;
-      })
+  const { data: gamesData, isLoading } = useFetch("/games");
+
+  // Top 3 promotions par discount décroissant
+  const topPromos = useMemo(() => {
+    const arr = gamesData?.$values || gamesData || [];
+    return arr
+      .filter(g => g.discount > 0)
+      .sort((a, b) => (b.discount || 0) - (a.discount || 0))
       .slice(0, 3);
-  }, []);
+  }, [gamesData]);
 
   return (
     <div className="promotions-section">
-      <SectionTitle text="Promotions" />
       <div className="game-cards-container">
-        {top3PromotionalGames.map((game) => (
-          <GameCard
-            key={game.id}
-            title={game.title}
-            genres={game.genres}
-            price={game.price}
-            discount={game.discount}
-            isSteam={game.isSteam}
-            isEpic={game.isEpic}
-            isPlaystation={game.isPlaystation}
-            image={game.image}
-          />
-        ))}
+        {isLoading ? (
+          <Skeleton count={3} />
+        ) : (
+          topPromos.map((game) => (
+            <GameCard
+              key={game.gameId}
+              image={game.thumbnailUrl}
+              title={game.title}
+              price={game.price}
+              discount={game.discount}
+              percentage_reduction={game.percentageReduction}
+              isSteam={game.isAvailableOnSteam}
+              isEpic={game.isAvailableOnEpic}
+              isPlaystation={game.isAvailableOnPlayStation}
+              gameId={game.gameId}
+            />
+          ))
+        )}
       </div>
     </div>
   );
 };
 
-export default React.memo(Promotions);
+export default Promotions;

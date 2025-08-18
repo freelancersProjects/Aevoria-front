@@ -86,7 +86,7 @@ const ViewGame = () => {
       <GameFeatures />
       <BlueCircle  top="2400px" right="-600px" width="620px" height="597px" color="rgba(13, 110, 253, 0.6)" blur={160} />
       <LiveStreamers />
-      <div className="promotions-section">
+      <div className="promotions-section-view">
       <SectionTitle text="Produits similaires" />
       <div className="similar-products-grid">
         {games.map((game, idx) => (
