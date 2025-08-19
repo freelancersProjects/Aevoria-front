@@ -13,14 +13,14 @@
   .input-field {
     background: transparent;
     border: none;
-    border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1.5px solid rgb(255 255 255 / 15%);
     padding: 10px 4px;
     font-size: 1rem;
     color: var(--white);
     transition: border-color 0.3s ease;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.3);
+      color: rgb(255 255 255 / 30%);
     }
 
     &:focus {

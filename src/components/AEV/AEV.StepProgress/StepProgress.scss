@@ -20,8 +20,8 @@
     height: 36px;
     border-radius: 50%;
     background: #2a2f35;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgb(255 255 255 / 10%);
+    color: rgb(255 255 255 / 50%);
     font-weight: 600;
     font-size: 0.9rem;
     z-index: 2;
@@ -35,21 +35,21 @@
     background: var(--blue);
     color: var(--white);
     border-color: var(--blue);
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 10px rgb(0 123 255 / 50%);
   }
 
   .step-circle.active {
     background: #02090D;
     border: 2px solid var(--blue);
     color: var(--blue);
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 0 8px rgb(0 123 255 / 30%);
   }
 
   .step-line {
     position: absolute;
     height: 2px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 10%);
     top: 50%;
     left: 50%;
     transform: translateX(18px);
@@ -58,7 +58,7 @@
 
   .step-line.completed {
     background: var(--blue);
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 0 8px rgb(0 123 255 / 40%);
   }
 
   .step-line.active {

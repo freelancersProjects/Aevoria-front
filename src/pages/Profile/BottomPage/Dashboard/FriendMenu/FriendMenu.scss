@@ -2,7 +2,7 @@
     position: relative;
 
     .menuBtn {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgb(255 255 255 / 8%);
         border: none;
         padding: 6px;
         border-radius: 6px;
@@ -10,7 +10,7 @@
         color: white;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgb(255 255 255 / 15%);
         }
     }
 
@@ -19,7 +19,7 @@
         right: 0;
         top: calc(100% + 6px);
         background: var(--second-background);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgb(255 255 255 / 10%);
         border-radius: 8px;
         padding: 10px;
         width: 180px;
@@ -35,7 +35,7 @@
             cursor: pointer;
 
             &:hover {
-                background: rgba(255, 255, 255, 0.06);
+                background: rgb(255 255 255 / 6%);
                 color: white;
             }
         }
@@ -49,7 +49,7 @@
                 flex: 1;
                 padding: 6px;
                 background: transparent;
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                border: 1px solid rgb(255 255 255 / 20%);
                 color: white;
                 border-radius: 6px;
             }

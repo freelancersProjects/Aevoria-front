@@ -1,7 +1,7 @@
 .wishlist-wrapper {
   width: 220px;
   color: white;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Segoe UI, sans-serif;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -9,7 +9,7 @@
 .menu {
   display: flex;
   flex-direction: column;
-  padding: 24px 16px 16px 16px;
+  padding: 24px 16px 16px;
   gap: 18px;
 
   .menu-item {
@@ -27,12 +27,13 @@
     border: none;
 
     &.active {
-      background: rgba(158, 196, 240, 0.20);
+      background: rgb(158 196 240 / 20%);
       color: #fff;
       box-shadow: none;
     }
+
     &:hover {
-      background: rgba(13,110,253,0.08);
+      background: rgb(13 110 253 / 8%);
       color: #fff;
     }
   }
@@ -54,7 +55,7 @@
   }
 
   .noFavorite {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgb(255 255 255 / 80%);
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 12px;
@@ -93,6 +94,7 @@
       }
 
       .meta {
+
         .type {
           color: var(--blue);
           transform: translateY(-2px);

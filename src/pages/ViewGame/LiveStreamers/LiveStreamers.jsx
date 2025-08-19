@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './LiveStreamers.scss';
 import { FaTwitch, FaYoutube } from 'react-icons/fa';
 import { BsEyeFill, BsHeartFill, BsShareFill } from 'react-icons/bs';
@@ -6,52 +6,52 @@ import { BsEyeFill, BsHeartFill, BsShareFill } from 'react-icons/bs';
 const streamers = [
   {
     id: 1,
-    username: "Gaming_303",
-    avatar: "https://picsum.photos/seed/streamer1/50/50",
-    thumbnail: "https://picsum.photos/seed/stream1/400/225",
-    viewers: "2.5K",
-    platform: "twitch",
+    username: 'Gaming_303',
+    avatar: 'https://picsum.photos/seed/streamer1/50/50',
+    thumbnail: 'https://picsum.photos/seed/stream1/400/225',
+    viewers: '2.5K',
+    platform: 'twitch',
     isLive: true,
-    title: "Epic Battle Royale - Road to Victory!",
-    game: "Night City Warriors",
-    duration: "2h 15m"
+    title: 'Epic Battle Royale - Road to Victory!',
+    game: 'Night City Warriors',
+    duration: '2h 15m',
   },
   {
     id: 2,
-    username: "ProGamer_XZ",
-    avatar: "https://picsum.photos/seed/streamer2/50/50",
-    thumbnail: "https://picsum.photos/seed/stream2/400/225",
-    viewers: "1.8K",
-    platform: "youtube",
+    username: 'ProGamer_XZ',
+    avatar: 'https://picsum.photos/seed/streamer2/50/50',
+    thumbnail: 'https://picsum.photos/seed/stream2/400/225',
+    viewers: '1.8K',
+    platform: 'youtube',
     isLive: true,
-    title: "Ranked Climbing Stream",
-    game: "Night City Warriors",
-    duration: "45m"
+    title: 'Ranked Climbing Stream',
+    game: 'Night City Warriors',
+    duration: '45m',
   },
   {
     id: 3,
-    username: "NeonStreamer",
-    avatar: "https://picsum.photos/seed/streamer3/50/50",
-    thumbnail: "https://picsum.photos/seed/stream3/400/225",
-    viewers: "892",
-    platform: "twitch",
+    username: 'NeonStreamer',
+    avatar: 'https://picsum.photos/seed/streamer3/50/50',
+    thumbnail: 'https://picsum.photos/seed/stream3/400/225',
+    viewers: '892',
+    platform: 'twitch',
     isLive: true,
-    title: "Chill Gaming Session",
-    game: "Night City Warriors",
-    duration: "1h 30m"
+    title: 'Chill Gaming Session',
+    game: 'Night City Warriors',
+    duration: '1h 30m',
   },
   {
     id: 4,
-    username: "CyberNinja_YT",
-    avatar: "https://picsum.photos/seed/streamer4/50/50",
-    thumbnail: "https://picsum.photos/seed/stream4/400/225",
-    viewers: "654",
-    platform: "youtube",
+    username: 'CyberNinja_YT',
+    avatar: 'https://picsum.photos/seed/streamer4/50/50',
+    thumbnail: 'https://picsum.photos/seed/stream4/400/225',
+    viewers: '654',
+    platform: 'youtube',
     isLive: true,
-    title: "New Player Learning the Game",
-    game: "Night City Warriors",
-    duration: "3h 02m"
-  }
+    title: 'New Player Learning the Game',
+    game: 'Night City Warriors',
+    duration: '3h 02m',
+  },
 ];
 
 const LiveStreamers = () => {
@@ -71,13 +71,13 @@ const LiveStreamers = () => {
   };
 
   const getPlatformIcon = (platform) => {
-    switch(platform) {
-      case 'twitch':
-        return <FaTwitch />;
-      case 'youtube':
-        return <FaYoutube />;
-      default:
-        return <FaTwitch />;
+    switch (platform) {
+    case 'twitch':
+      return <FaTwitch />;
+    case 'youtube':
+      return <FaYoutube />;
+    default:
+      return <FaTwitch />;
     }
   };
 
@@ -88,7 +88,7 @@ const LiveStreamers = () => {
         <div className="stream-container">
           <div className="stream-video">
             <img src={selectedStream.thumbnail} alt={selectedStream.title} />
-            
+
             {/* Live indicator */}
             <div className="live-indicator">
               <span className="live-dot"></span>
@@ -120,7 +120,7 @@ const LiveStreamers = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="stream-actions">
               <button className="action-btn follow-btn">
                 <BsHeartFill />
@@ -142,7 +142,7 @@ const LiveStreamers = () => {
               {selectedStream.viewers} watching
             </div>
           </div>
-          
+
           <div className="chat-messages">
             <div className="chat-message">
               <span className="chat-user">CyberFan123:</span>
@@ -154,7 +154,7 @@ const LiveStreamers = () => {
             </div>
             <div className="chat-message">
               <span className="chat-user">NeonGamer:</span>
-              <span className="chat-text">What's your setup?</span>
+              <span className="chat-text">Whats your setup?</span>
             </div>
           </div>
 
@@ -180,7 +180,7 @@ const LiveStreamers = () => {
           <span className="live-dot-section"></span>
           Other Live Streams
         </h3>
-        
+
         <div className="streams-grid">
           {streamers.filter(s => s.id !== selectedStream.id).map((streamer) => (
             <div
@@ -190,7 +190,7 @@ const LiveStreamers = () => {
             >
               <div className="stream-thumbnail">
                 <img src={streamer.thumbnail} alt={streamer.title} />
-                
+
                 {/* Live overlay */}
                 <div className="stream-overlay">
                   <div className="live-badge">

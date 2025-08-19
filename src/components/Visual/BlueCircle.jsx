@@ -1,8 +1,8 @@
-import React from "react";
-import "./BlueCircle.scss";
-import PropTypes from "prop-types";
 
-const BlueCircle = ({ className = "", top, left , right , bottom, color = "rgba(13, 110, 253, 0.6)", blur = 160, size = 500 }) => {
+import './BlueCircle.scss';
+import PropTypes from 'prop-types';
+
+const BlueCircle = ({ className = '', top, left , right , bottom, color = 'rgba(13, 110, 253, 0.6)', blur = 160, size = 500 }) => {
   return <div className={`blue-circle ${className}`} style={{ top, left, right, bottom, background: color, filter: `blur(${blur}px)`, width: size, height: size }} />;
 };
 
@@ -14,7 +14,7 @@ BlueCircle.propTypes = {
   bottom: PropTypes.string,
   color: PropTypes.string,
   blur: PropTypes.number,
-  size: PropTypes.number
+  size: PropTypes.number,
 };
 
-export default BlueCircle; 
+export default BlueCircle;

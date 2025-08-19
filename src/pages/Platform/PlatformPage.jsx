@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import apiService from '../../services/apiService';
@@ -10,31 +10,31 @@ const PLATFORM_INFO = {
     name: 'Steam',
     logo: '/src/assets/svg/steam.svg',
     color: '#171a21',
-    description: "Découvrez tous les jeux disponibles sur Steam. Plateforme incontournable du jeu PC, Steam propose des milliers de titres pour tous les goûts !",
+    description: 'Découvrez tous les jeux disponibles sur Steam. Plateforme incontournable du jeu PC, Steam propose des milliers de titres pour tous les goûts !',
   },
   epic: {
     name: 'Epic Games',
     logo: '/src/assets/svg/epic.svg',
     color: '#313131',
-    description: "Retrouvez les meilleurs jeux Epic Games Store, la plateforme qui bouscule le marché avec ses exclusivités et ses jeux gratuits chaque semaine !",
+    description: 'Retrouvez les meilleurs jeux Epic Games Store, la plateforme qui bouscule le marché avec ses exclusivités et ses jeux gratuits chaque semaine !',
   },
   playstation: {
     name: 'PlayStation',
     logo: '/src/assets/svg/playstation.svg',
     color: '#003087',
-    description: "Les incontournables de la PlayStation, pour tous les fans de la console de Sony. Aventures, exclusivités et blockbusters au rendez-vous !",
+    description: 'Les incontournables de la PlayStation, pour tous les fans de la console de Sony. Aventures, exclusivités et blockbusters au rendez-vous !',
   },
   xbox: {
     name: 'Xbox',
     logo: '/src/assets/svg/xbox.svg',
     color: '#107C10',
-    description: "Découvrez la sélection Xbox : action, sport, aventure et bien plus, pour profiter au maximum de votre console Microsoft !",
+    description: 'Découvrez la sélection Xbox : action, sport, aventure et bien plus, pour profiter au maximum de votre console Microsoft !',
   },
   nintendo: {
     name: 'Nintendo',
     logo: '/src/assets/svg/nintendo.svg',
     color: '#E60012',
-    description: "L'univers Nintendo : fun, famille et exclusivités cultes. Redécouvrez Mario, Zelda, Pokémon et tous les classiques !",
+    description: 'L\'univers Nintendo : fun, famille et exclusivités cultes. Redécouvrez Mario, Zelda, Pokémon et tous les classiques !',
   },
 };
 
@@ -53,26 +53,26 @@ const PlatformPage = () => {
         const data = response?.$values || response;
         let filtered = [];
         switch (platform) {
-          case 'steam':
-            filtered = data.filter(g => g.isAvailableOnSteam);
-            break;
-          case 'epic':
-            filtered = data.filter(g => g.isAvailableOnEpic);
-            break;
-          case 'playstation':
-            filtered = data.filter(g => g.isAvailableOnPlayStation);
-            break;
-          case 'xbox':
-            filtered = data.filter(g => g.isAvailableOnXbox);
-            break;
-          case 'nintendo':
-            filtered = data.filter(g => g.isAvailableOnNintendo);
-            break;
-          default:
-            filtered = data;
+        case 'steam':
+          filtered = data.filter(g => g.isAvailableOnSteam);
+          break;
+        case 'epic':
+          filtered = data.filter(g => g.isAvailableOnEpic);
+          break;
+        case 'playstation':
+          filtered = data.filter(g => g.isAvailableOnPlayStation);
+          break;
+        case 'xbox':
+          filtered = data.filter(g => g.isAvailableOnXbox);
+          break;
+        case 'nintendo':
+          filtered = data.filter(g => g.isAvailableOnNintendo);
+          break;
+        default:
+          filtered = data;
         }
         setGames(filtered);
-      } catch (err) {
+      } catch {
         setGames([]);
       } finally {
         setIsLoading(false);

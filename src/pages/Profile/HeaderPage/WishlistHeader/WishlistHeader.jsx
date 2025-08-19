@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ChevronRight  from '../../../../assets/svg/arrow-wishlist.svg';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './WishlistHeader.scss';
@@ -7,11 +7,11 @@ const WishlistHeader = ({ activeTab, setActiveTab }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const wishlistGames = [
-    { title: "Cyberpunk 2077", type: "RPG", views: "1.5k" },
-    { title: "Baldur's Gate 3", type: "RPG", views: "2.3k" },
-    { title: "Elden Ring", type: "Action RPG", views: "3.1k" },
-    { title: "The Witcher 3", type: "RPG", views: "4.0k" },
-    { title: "Hades", type: "Rogue-like", views: "1.2k" },
+    { title: 'Cyberpunk 2077', type: 'RPG', views: '1.5k' },
+    { title: 'Baldur\'s Gate 3', type: 'RPG', views: '2.3k' },
+    { title: 'Elden Ring', type: 'Action RPG', views: '3.1k' },
+    { title: 'The Witcher 3', type: 'RPG', views: '4.0k' },
+    { title: 'Hades', type: 'Rogue-like', views: '1.2k' },
   ];
 
   return (

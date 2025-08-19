@@ -110,7 +110,7 @@
     width: 50px;
     height: 50px;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
     z-index: 2;
     transition: all 0.3s ease;
@@ -149,10 +149,12 @@
 
 // Animations
 @keyframes pulse {
+
   0%, 100% { 
     opacity: 1;
     transform: scale(1);
   }
+
   50% { 
     opacity: 0.7;
     transform: scale(1.2);
@@ -160,8 +162,10 @@
 }
 
 // Responsive
-@media (max-width: 768px) {
+@media (width <= 768px) {
+
   .aev-slider-wrapper {
+
     .aev-slider-container {
       padding: 0 50px;
     }

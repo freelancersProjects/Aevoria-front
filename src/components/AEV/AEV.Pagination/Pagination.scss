@@ -3,13 +3,13 @@
   gap: 10px;
   justify-content: center;
   align-items: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   margin-top: 20px;
 
   .nav-btn,
   .page-btn {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1.5px solid rgba(0, 123, 255, 0.3);
+    background: rgb(255 255 255 / 4%);
+    border: 1.5px solid rgb(0 123 255 / 30%);
     color: var(--white);
     padding: 8px 14px;
     border-radius: 10px;
@@ -31,7 +31,7 @@
     &.active {
       background: var(--blue);
       box-shadow: 0 0 12px var(--glow-blue);
-      font-weight: bold;
+      font-weight: 700;
     }
   }
 }

@@ -47,7 +47,7 @@ const Layout = ({ children }) => {
   );
 };
 
-function App() {
+function App () {
   return (
     <LanguageProvider>
       <Router>

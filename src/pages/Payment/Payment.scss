@@ -5,7 +5,7 @@
   padding: 20px;
 
   .step-container {
-    background: rgba(184, 202, 224, 0.05);
+    background: rgb(184 202 224 / 5%);
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 30px;
@@ -24,7 +24,7 @@
       flex: 1;
 
       .billing-address {
-        background: rgba(184, 202, 224, 0.05);
+        background: rgb(184 202 224 / 5%);
         border-radius: 8px;
         padding: 24px;
         margin-bottom: 24px;
@@ -54,14 +54,14 @@
             label {
               display: block;
               font-size: 14px;
-              color: rgba(255, 255, 255, 0.7);
+              color: rgb(255 255 255 / 70%);
               margin-bottom: 8px;
             }
 
             input, select {
               width: 100%;
-              background: rgba(255, 255, 255, 0.03);
-              border: 1px solid rgba(255, 255, 255, 0.1);
+              background: rgb(255 255 255 / 3%);
+              border: 1px solid rgb(255 255 255 / 10%);
               border-radius: 6px;
               padding: 12px;
               color: var(--white);
@@ -73,7 +73,7 @@
               }
 
               &::placeholder {
-                color: rgba(255, 255, 255, 0.3);
+                color: rgb(255 255 255 / 30%);
               }
             }
 
@@ -116,11 +116,12 @@
       }
 
       .payment-methods {
+
         h2 {
           font-size: 18px;
           font-weight: 600;
           margin-bottom: 16px;
-          color: rgba(255, 255, 255, 0.9);
+          color: rgb(255 255 255 / 90%);
         }
 
         .methods-list {
@@ -129,11 +130,12 @@
           gap: 12px;
 
           .method-wrapper {
+
             .method-button {
               display: flex;
               align-items: center;
               gap: 16px;
-              background: rgba(184, 202, 224, 0.05);
+              background: rgb(184 202 224 / 5%);
               border: 1px solid transparent;
               border-radius: 8px;
               padding: 16px;
@@ -160,12 +162,12 @@
               }
 
               &:hover {
-                background: rgba(184, 202, 224, 0.08);
+                background: rgb(184 202 224 / 8%);
               }
 
               &.selected {
                 border-color: var(--blue);
-                background: rgba(0, 123, 255, 0.05);
+                background: rgb(0 123 255 / 5%);
                 border-bottom-left-radius: 0;
                 border-bottom-right-radius: 0;
                 border-bottom: none;
@@ -173,7 +175,7 @@
             }
 
             .card-form {
-              background: rgba(0, 123, 255, 0.05);
+              background: rgb(0 123 255 / 5%);
               border: 1px solid var(--blue);
               border-top: none;
               border-bottom-left-radius: 8px;
@@ -191,14 +193,14 @@
                 label {
                   display: block;
                   font-size: 14px;
-                  color: rgba(255, 255, 255, 0.7);
+                  color: rgb(255 255 255 / 70%);
                   margin-bottom: 8px;
                 }
 
                 input[type="text"] {
                   width: 100%;
-                  background: rgba(24, 26, 27, 0.5);
-                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  background: rgb(24 26 27 / 50%);
+                  border: 1px solid rgb(255 255 255 / 10%);
                   border-radius: 6px;
                   padding: 12px;
                   color: var(--white);
@@ -208,15 +210,16 @@
                   &:focus {
                     outline: none;
                     border-color: var(--blue);
-                    background: rgba(0, 123, 255, 0.05);
+                    background: rgb(0 123 255 / 5%);
                   }
 
                   &::placeholder {
-                    color: rgba(255, 255, 255, 0.3);
+                    color: rgb(255 255 255 / 30%);
                   }
                 }
 
                 &.checkbox {
+
                   label {
                     display: flex;
                     align-items: center;
@@ -224,7 +227,7 @@
                     cursor: pointer;
                     margin: 0;
                     font-size: 14px;
-                    color: rgba(255, 255, 255, 0.7);
+                    color: rgb(255 255 255 / 70%);
 
                     input[type="checkbox"] {
                       width: 18px;
@@ -256,7 +259,7 @@
       width: 400px;
 
       .order-summary {
-        background: rgba(184, 202, 224, 0.05);
+        background: rgb(184 202 224 / 5%);
         border-radius: 8px;
         padding: 24px;
 
@@ -274,7 +277,7 @@
             align-items: center;
             gap: 12px;
             padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgb(255 255 255 / 10%);
 
             &:last-child {
               border-bottom: none;
@@ -290,13 +293,13 @@
 
               .item-platform {
                 font-size: 13px;
-                color: rgba(255, 255, 255, 0.6);
+                color: rgb(255 255 255 / 60%);
               }
             }
 
             .item-quantity {
               font-size: 14px;
-              color: rgba(255, 255, 255, 0.6);
+              color: rgb(255 255 255 / 60%);
             }
 
             .item-price {
@@ -309,14 +312,14 @@
 
         .summary-totals {
           padding-top: 16px;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-top: 1px solid rgb(255 255 255 / 10%);
 
           .total-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgb(255 255 255 / 70%);
             margin-bottom: 12px;
 
             &.final {
@@ -325,7 +328,7 @@
               color: var(--white);
               margin-top: 16px;
               padding-top: 16px;
-              border-top: 1px solid rgba(255, 255, 255, 0.1);
+              border-top: 1px solid rgb(255 255 255 / 10%);
             }
           }
         }
@@ -336,10 +339,10 @@
           gap: 12px;
           margin: 24px 0;
           padding: 12px;
-          background: rgba(184, 202, 224, 0.03);
+          background: rgb(184 202 224 / 3%);
           border-radius: 6px;
           font-size: 13px;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgb(255 255 255 / 70%);
 
           svg {
             color: var(--blue);
@@ -349,7 +352,7 @@
 
         .terms-agreement {
           font-size: 13px;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgb(255 255 255 / 60%);
           margin-bottom: 24px;
           line-height: 1.5;
 
@@ -390,7 +393,8 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
+
   .payment-container {
     padding: 16px;
 
@@ -404,7 +408,7 @@
   }
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (width >= 481px) and (width <= 767px) {
   .payment-container { padding: 10px; }
   .payment-content { flex-direction: column; gap: 20px; padding: 0; }
 }

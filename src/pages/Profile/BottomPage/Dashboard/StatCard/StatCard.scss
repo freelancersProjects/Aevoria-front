@@ -7,8 +7,8 @@
   height: 208px;
   flex: 1 0 0;
   border-radius: 16px;
-  border: 1.5px solid rgba(255, 255, 255, 0);
-  background: rgba(184, 202, 224, 0.12);
+  border: 1.5px solid rgb(255 255 255 / 0%);
+  background: rgb(184 202 224 / 12%);
   color: var(--white);
 
   .card-title {
@@ -56,7 +56,7 @@
   .progress-bar {
     width: 100%;
     height: 4px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgb(255 255 255 / 20%);
     border-radius: 2px;
     overflow: hidden;
 

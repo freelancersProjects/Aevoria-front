@@ -1,7 +1,7 @@
 .aev-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
   backdrop-filter: blur(12px);
   z-index: 999;
   display: flex;
@@ -23,7 +23,7 @@
 
 
 .aev-modal-v3 {
-  background: linear-gradient(135deg, #02090D, rgba(32, 156, 255, 0.15));
+  background: linear-gradient(135deg, #02090D, rgb(32 156 255 / 15%));
   border-radius: 20px;
   padding: 32px;
   max-width: 700px;
@@ -33,9 +33,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgb(255 255 255 / 5%);
   color: var(--white);
-
   scrollbar-width: thin;
   scrollbar-color: var(--blue) transparent;
 
@@ -50,7 +49,7 @@
   &::-webkit-scrollbar-thumb {
     background-color: var(--blue);
     border-radius: 4px;
-    box-shadow: inset 0 0 4px rgba(0, 123, 255, 0.3);
+    box-shadow: inset 0 0 4px rgb(0 123 255 / 30%);
   }
 }
 
@@ -60,10 +59,12 @@
 }
 
 @keyframes fadeInUp {
+
   0% {
     opacity: 0;
     transform: translateY(12px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);

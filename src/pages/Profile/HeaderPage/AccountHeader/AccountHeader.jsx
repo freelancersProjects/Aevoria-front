@@ -1,26 +1,26 @@
-import "./AccountHeader.scss";
-import defaultBanner from "../../../../assets/images/17776072l.jpg";
-import ArrowProfileDashboard from "../../../../assets/svg/arrow-profile-dashboard.svg";
-import StatusIndicator from "../../../../components/AEV/AEV.StatusIndicator/StatusIndicator";
-import defaultProfile from "../../../../assets/images/avatar.png";
-import useAuth from "../../../../hooks/useAuth";
-import apiService from "../../../../services/apiService";
-import { useState, useEffect } from "react";
-import Toast from "../../../../components/AEV/AEV.Toast/Toast";
+import './AccountHeader.scss';
+import defaultBanner from '../../../../assets/images/17776072l.jpg';
+import ArrowProfileDashboard from '../../../../assets/svg/arrow-profile-dashboard.svg';
+import StatusIndicator from '../../../../components/AEV/AEV.StatusIndicator/StatusIndicator';
+import defaultProfile from '../../../../assets/images/avatar.png';
+import useAuth from '../../../../hooks/useAuth';
+import apiService from '../../../../services/apiService';
+import { useState, useEffect } from 'react';
+import Toast from '../../../../components/AEV/AEV.Toast/Toast';
 
 const AccountHeader = () => {
   const { user } = useAuth();
-  const [userStatus, setUserStatus] = useState("Offline");
+  const [userStatus, setUserStatus] = useState('Offline');
   const [toast, setToast] = useState(null);
 
   const friends = [
-    { name: "Eliot Hawke", avatarUrl: defaultProfile },
-    { name: "Mila Stone", avatarUrl: defaultProfile },
-    { name: "Jaron Cruz", avatarUrl: defaultProfile },
-    { name: "Ayla Moon", avatarUrl: defaultProfile },
-    { name: "Kai Rivers", avatarUrl: defaultProfile },
-    { name: "Luna Ray", avatarUrl: defaultProfile },
-    { name: "Theo Knight", avatarUrl: defaultProfile },
+    { name: 'Eliot Hawke', avatarUrl: defaultProfile },
+    { name: 'Mila Stone', avatarUrl: defaultProfile },
+    { name: 'Jaron Cruz', avatarUrl: defaultProfile },
+    { name: 'Ayla Moon', avatarUrl: defaultProfile },
+    { name: 'Kai Rivers', avatarUrl: defaultProfile },
+    { name: 'Luna Ray', avatarUrl: defaultProfile },
+    { name: 'Theo Knight', avatarUrl: defaultProfile },
   ];
 
   useEffect(() => {
@@ -31,16 +31,16 @@ const AccountHeader = () => {
           if (userData?.status) {
             setUserStatus(userData.status);
           } else {
-            setUserStatus("Active");
+            setUserStatus('Active');
           }
         } catch (error) {
-          console.error("Erreur lors de la récupération du statut:", error);
-          setUserStatus("Active");
+          console.error('Erreur lors de la récupération du statut:', error);
+          setUserStatus('Active');
         }
       };
       fetchUserStatus();
     } else {
-      setUserStatus("Offline");
+      setUserStatus('Offline');
     }
   }, [user]);
 
@@ -48,7 +48,7 @@ const AccountHeader = () => {
     if (!user?.userId) {
       setToast({
         type: 'error',
-        message: "Vous devez être connecté pour changer votre statut"
+        message: 'Vous devez être connecté pour changer votre statut',
       });
       return;
     }
@@ -60,25 +60,25 @@ const AccountHeader = () => {
         setUserStatus(newStatus);
         setToast({
           type: 'success',
-          message: `Statut mis à jour vers ${newStatus === 'Active' ? 'Actif' : 'Inactif'}`
+          message: `Statut mis à jour vers ${newStatus === 'Active' ? 'Actif' : 'Inactif'}`,
         });
       } else {
-        throw new Error("Aucune réponse de l'API");
+        throw new Error('Aucune réponse de l\'API');
       }
     } catch (error) {
-      console.error("Erreur lors de la mise à jour du statut:", error);
+      console.error('Erreur lors de la mise à jour du statut:', error);
       setToast({
         type: 'error',
-        message: "Erreur lors de la mise à jour du statut. Veuillez réessayer."
+        message: 'Erreur lors de la mise à jour du statut. Veuillez réessayer.',
       });
     }
   };
 
   const displayUser = {
-    name: user ? `${user.firstName} ${user.lastName}` : "Utilisateur",
-    username: user?.username || "username",
-    profilePicture: user?.profilePicture || "",
-    profileBanner: user?.profileBanner || "",
+    name: user ? `${user.firstName} ${user.lastName}` : 'Utilisateur',
+    username: user?.username || 'username',
+    profilePicture: user?.profilePicture || '',
+    profileBanner: user?.profileBanner || '',
     followers: user?.followersCount || 0,
     following: user?.followingCount || 0,
     level: user?.level || 1,
@@ -108,7 +108,7 @@ const AccountHeader = () => {
               <div className="level-tag ml-2">
                 <span>Level {displayUser.level}</span>
                 <div className="level-bar">
-                  <div className="progress" style={{ width: "40%" }} />
+                  <div className="progress" style={{ width: '40%' }} />
                 </div>
               </div>
             </div>

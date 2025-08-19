@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import CheckIcon from "@mui/icons-material/Check";
+import { useState } from 'react';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CheckIcon from '@mui/icons-material/Check';
 
-import WalletIcon from "../../../../../assets/svg/profile-dashboard/wallet.svg";
-import SavedIcon from "../../../../../assets/svg/profile-dashboard/total-saved.svg";
-import RankingIcon from "../../../../../assets/svg/profile-dashboard/ranking.svg";
-import LinkIcon from "../../../../../assets/svg/profile-dashboard/affiliate-link.svg";
+import WalletIcon from '../../../../../assets/svg/profile-dashboard/wallet.svg';
+import SavedIcon from '../../../../../assets/svg/profile-dashboard/total-saved.svg';
+import RankingIcon from '../../../../../assets/svg/profile-dashboard/ranking.svg';
+import LinkIcon from '../../../../../assets/svg/profile-dashboard/affiliate-link.svg';
 
-import "./StatCard.scss";
+import './StatCard.scss';
 
 const StatCard = ({ type }) => {
   const [copied, setCopied] = useState(false);
-  const affiliateUrl = "https://www.aevoria.com/?igr=gamer-abab898";
+  const affiliateUrl = 'https://www.aevoria.com/?igr=gamer-abab898';
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(affiliateUrl).then(() => {
@@ -22,30 +22,30 @@ const StatCard = ({ type }) => {
 
   const renderIcon = () => {
     switch (type) {
-      case "saved":
-        return <img src={SavedIcon} alt="saved" />;
-      case "wallet":
-        return <img src={WalletIcon} alt="wallet" />;
-      case "ranking":
-        return <img src={RankingIcon} alt="ranking" />;
-      case "affiliate":
-        return <img src={LinkIcon} alt="link" />;
-      default:
-        return null;
+    case 'saved':
+      return <img src={SavedIcon} alt="saved" />;
+    case 'wallet':
+      return <img src={WalletIcon} alt="wallet" />;
+    case 'ranking':
+      return <img src={RankingIcon} alt="ranking" />;
+    case 'affiliate':
+      return <img src={LinkIcon} alt="link" />;
+    default:
+      return null;
     }
   };
 
   return (
     <div className="stat-card">
       {renderIcon()}
-      {type === "saved" && (
+      {type === 'saved' && (
         <>
           <div className="card-title">Total saved</div>
           <div className="card-value">$250</div>
           <div className="card-sub">+5%</div>
         </>
       )}
-      {type === "wallet" && (
+      {type === 'wallet' && (
         <>
           <div className="card-title">Wallet</div>
           <div className="card-value">$0</div>
@@ -54,18 +54,18 @@ const StatCard = ({ type }) => {
           </div>
         </>
       )}
-      {type === "ranking" && (
+      {type === 'ranking' && (
         <>
           <div className="card-title mb-1">Ranking</div>
           <div className="level-tag">
             <span>Level 3</span>
             <div className="level-bar">
-              <div className="progress" style={{ width: "40%" }} />
+              <div className="progress" style={{ width: '40%' }} />
             </div>
           </div>
         </>
       )}
-      {type === "affiliate" && (
+      {type === 'affiliate' && (
         <>
           <div className="card-title">Affiliate Link</div>
           <div className="affiliate-row">

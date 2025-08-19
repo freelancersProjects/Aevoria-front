@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 14px;
   color: var(--white);
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
 
   .radio-option {
     display: flex;
@@ -20,7 +20,7 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid rgb(255 255 255 / 20%);
       background: transparent;
       position: relative;
       transition: border-color 0.3s ease;

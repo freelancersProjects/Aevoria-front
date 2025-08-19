@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { FaFacebookF, FaGoogle, FaApple, FaDiscord, FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import Checkbox from "../../components/AEV/AEV.Checkbox/CheckBox";
-import Logo from "../../assets/svg/logo.svg";
-import { useAuthContext } from "../../auth/AuthContext";
-import "./Login.scss";
+import { useState, useEffect } from 'react';
+import { FaFacebookF, FaGoogle, FaApple, FaDiscord, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import Checkbox from '../../components/AEV/AEV.Checkbox/CheckBox';
+import Logo from '../../assets/svg/logo.svg';
+import { useAuthContext } from '../../auth/AuthContext';
+import './Login.scss';
 
 const RANDOM_IMAGES = [
-  "https://images.pexels.com/photos/907240/pexels-photo-907240.jpeg?auto=compress&w=1200&q=80",
-  "https://images.pexels.com/photos/1293261/pexels-photo-1293261.jpeg?auto=compress&w=1200&q=80",
-  "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&w=1200&q=80",
-  "https://images.pexels.com/photos/1174746/pexels-photo-1174746.jpeg?auto=compress&w=1200&q=80",
-  "https://images.pexels.com/photos/400959/pexels-photo-400959.jpeg?auto=compress&w=1200&q=80"
+  'https://images.pexels.com/photos/907240/pexels-photo-907240.jpeg?auto=compress&w=1200&q=80',
+  'https://images.pexels.com/photos/1293261/pexels-photo-1293261.jpeg?auto=compress&w=1200&q=80',
+  'https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&w=1200&q=80',
+  'https://images.pexels.com/photos/1174746/pexels-photo-1174746.jpeg?auto=compress&w=1200&q=80',
+  'https://images.pexels.com/photos/400959/pexels-photo-400959.jpeg?auto=compress&w=1200&q=80',
 ];
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState('');
   const navigate = useNavigate();
   const { login } = useAuthContext();
 
@@ -46,7 +46,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoggingIn(true);
-    setLoginError("");
+    setLoginError('');
 
     try {
       await login({ email, password });
@@ -57,11 +57,10 @@ const Login = () => {
         localStorage.removeItem('rememberedEmail');
       }
 
-      window.location.href = "/";
+      window.location.href = '/';
 
-    } catch (error) {
-      console.error("Erreur de connexion:", error);
-      setLoginError("Email ou mot de passe incorrect");
+    } catch {
+      setLoginError('Email ou mot de passe incorrect');
     } finally {
       setIsLoggingIn(false);
     }
@@ -71,11 +70,11 @@ const Login = () => {
     <div className="login-wrapper">
       <div className="login-container">
         <div className="logo-container">
-          <img onClick={() => navigate("/")} src={Logo} alt="Logo" className="login-logo" />
+          <img onClick={() => navigate('/')} src={Logo} alt="Logo" className="login-logo" />
         </div>
         <div className="login-form-container">
           <h2>Se connecter</h2>
-          <p className="login-subtitle">Pas encore de compte? <a onClick={() => navigate("/register")}>Créer un compte</a></p>
+          <p className="login-subtitle">Pas encore de compte? <a onClick={() => navigate('/register')}>Créer un compte</a></p>
 
           {loginError && <div className="error-message">{loginError}</div>}
 
@@ -89,7 +88,7 @@ const Login = () => {
             />
             <div className="password-container">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -114,7 +113,7 @@ const Login = () => {
             </div>
 
             <button type="submit" className="login-btn" disabled={isLoggingIn}>
-              {isLoggingIn ? "Connexion..." : "Se connecter"}
+              {isLoggingIn ? 'Connexion...' : 'Se connecter'}
             </button>
           </form>
 

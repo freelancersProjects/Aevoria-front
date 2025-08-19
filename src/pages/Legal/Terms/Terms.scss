@@ -12,8 +12,8 @@
     width: 100%;
     height: 100%;
     background:
-      radial-gradient(circle at 20% 20%, rgba(0, 123, 255, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(0, 89, 255, 0.05) 0%, transparent 50%);
+      radial-gradient(circle at 20% 20%, rgb(0 123 255 / 5%) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgb(0 89 255 / 5%) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
@@ -29,8 +29,8 @@
 
   .terms-sidebar {
     width: 360px;
-    background: rgba(255, 255, 255, 0.02);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgb(255 255 255 / 2%);
+    border-right: 1px solid rgb(255 255 255 / 5%);
     padding: 40px;
     position: sticky;
     top: 0;
@@ -54,14 +54,14 @@
         left: 24px;
         top: 50%;
         transform: translateY(-50%);
-        color: rgba(255, 255, 255, 0.4);
+        color: rgb(255 255 255 / 40%);
         font-size: 20px;
       }
 
       input {
         width: 100%;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 3%);
+        border: 1px solid rgb(255 255 255 / 10%);
         color: var(--white);
         padding: 15px 15px 15px 48px;
         border-radius: 12px;
@@ -71,12 +71,12 @@
         &:focus {
           outline: none;
           border-color: var(--blue);
-          background: rgba(0, 123, 255, 0.05);
-          box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+          background: rgb(0 123 255 / 5%);
+          box-shadow: 0 0 0 4px rgb(0 123 255 / 10%);
         }
 
         &::placeholder {
-          color: rgba(255, 255, 255, 0.4);
+          color: rgb(255 255 255 / 40%);
         }
       }
     }
@@ -92,16 +92,16 @@
       }
 
       &::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.02);
+        background: rgb(255 255 255 / 2%);
         border-radius: 3px;
       }
 
       &::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
         border-radius: 3px;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.2);
+          background: rgb(255 255 255 / 20%);
         }
       }
 
@@ -110,14 +110,14 @@
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgb(255 255 255 / 40%);
         margin-bottom: 16px;
         padding: 0 12px;
       }
 
       .nav-item {
         display: block;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgb(255 255 255 / 70%);
         text-decoration: none;
         padding: 12px 16px;
         margin: 2px 0;
@@ -128,7 +128,7 @@
 
         &:hover {
           color: var(--blue);
-          background: rgba(0, 123, 255, 0.1);
+          background: rgb(0 123 255 / 10%);
         }
       }
     }
@@ -153,22 +153,22 @@
         width: 100%;
         height: 1px;
         background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0.1),
-            rgba(0, 123, 255, 0.2),
-            rgba(255, 255, 255, 0.1));
+            rgb(255 255 255 / 10%),
+            rgb(0 123 255 / 20%),
+            rgb(255 255 255 / 10%));
       }
 
       h1 {
         font-size: 2.5rem;
         font-weight: 700;
-        background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
-        -webkit-background-clip: text;
+        background: linear-gradient(90deg, #fff, rgb(255 255 255 / 80%));
+        background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 16px;
       }
 
       .last-updated {
-        color: rgba(255, 255, 255, 0.4);
+        color: rgb(255 255 255 / 40%);
         font-size: 14px;
         display: flex;
         align-items: center;
@@ -187,8 +187,8 @@
     }
 
     .terms-content {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgb(255 255 255 / 2%);
+      border: 1px solid rgb(255 255 255 / 5%);
       border-radius: 20px;
       padding: 40px;
       backdrop-filter: blur(10px);
@@ -208,7 +208,7 @@
           height: 1px;
           background: linear-gradient(90deg,
               transparent,
-              rgba(255, 255, 255, 0.05),
+              rgb(255 255 255 / 5%),
               transparent);
         }
 
@@ -238,7 +238,7 @@
         }
 
         p {
-          color: rgba(255, 255, 255, 0.8);
+          color: rgb(255 255 255 / 80%);
           line-height: 1.8;
           font-size: 16px;
           margin: 0;
@@ -262,11 +262,11 @@
       .no-results {
         text-align: center;
         padding: 60px 40px;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgb(255 255 255 / 40%);
         font-size: 18px;
-        background: rgba(255, 255, 255, 0.02);
+        background: rgb(255 255 255 / 2%);
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgb(255 255 255 / 5%);
         backdrop-filter: blur(5px);
 
         &::before {
@@ -281,16 +281,20 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (width <= 1200px) {
+
   .terms-container {
+
     .terms-main {
       padding: 32px;
     }
   }
 }
 
-@media (max-width: 992px) {
+@media (width <= 992px) {
+
   .terms-container {
+
     .terms-layout {
       flex-direction: column;
     }
@@ -300,7 +304,7 @@
       height: auto;
       position: relative;
       border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgb(255 255 255 / 5%);
       padding: 24px;
 
       .terms-navigation {

@@ -1,12 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import useFetch from "../../../hooks/useFetch";
-import CategoryCard from "../../../components/AEV/AEV.CategoriesCard/CategoryCard";
-import "./Categories.scss";
 
-function Categories() {
+import { useNavigate } from 'react-router-dom';
+import useFetch from '../../../hooks/useFetch';
+import CategoryCard from '../../../components/AEV/AEV.CategoriesCard/CategoryCard';
+import './Categories.scss';
+
+function Categories () {
   const navigate = useNavigate();
-  const { data, isLoading, error } = useFetch("/genres");
+  const { data, isLoading, error } = useFetch('/genres');
 
   if (isLoading) {
     return <div className="categories loading">Chargement des catégories...</div>;

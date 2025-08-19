@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from '../../components/AEV/AEV.Modal/Modal';
 import Dropdown from '../../components/AEV/AEV.Dropdown/Dropdown';
 import TextInput from '../../components/AEV/AEV.TextInput/TextInput';
@@ -34,7 +34,7 @@ import HoverReveal from '../../components/AEV/AEV.HoverReveal/HoverReveal';
 import CurrencyInput from '../../components/AEV/AEV.CurrencyInput/CurrencyInput';
 import Rating from '../../components/AEV/AEV.Rating/Rating';
 import RadioGroup from '../../components/AEV/AEV.RadioGroup/RadioGroup';
-import EmailForm from '../../components/AEV/AEV.EmailForm/EmailForm';
+
 import DestinataireInput from '../../components/AEV/AEV.DestinataireInput/DestinataireInput';
 import Pagination from '../../components/AEV/AEV.Pagination/Pagination';
 
@@ -58,7 +58,6 @@ const DemoForm = () => {
   const [game, setGame] = useState('');
   const [intensity, setIntensity] = useState(4);
   const [qty, setQty] = useState(1);
-  const [uploadedFile, setUploadedFile] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [bio, setBio] = useState('');
@@ -68,9 +67,9 @@ const DemoForm = () => {
   const [price, setPrice] = useState('');
   const [rating, setRating] = useState(3.5);
   const [selectedPlatform, setSelectedPlatform] = useState('pc');
-  const [to, setTo] = useState([]);
   const [recipients, setRecipients] = useState([]);
   const [page, setPage] = useState(1);
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   // Données diverses
   const steps = ['Account Info', 'Preferences', 'Verification', 'Finish', 'Payment', 'Review', 'Confirmation', 'Complete'];
@@ -91,19 +90,19 @@ const DemoForm = () => {
     { label: 'All', value: 'all' },
     { label: 'Popular', value: 'popular' },
     { label: 'New', value: 'new' },
-    { label: 'XP+', value: 'xp' }
+    { label: 'XP+', value: 'xp' },
   ];
   const classOptions = [
     { label: 'Warrior', value: 'warrior', icon: <FaShieldAlt /> },
     { label: 'Mage', value: 'mage', icon: <FaMagic /> },
-    { label: 'Rogue', value: 'rogue', icon: <FaFighterJet /> }
+    { label: 'Rogue', value: 'rogue', icon: <FaFighterJet /> },
   ];
   const optionsDrop = [
     { label: 'Elden Ring', value: 'elden' },
     { label: 'Valorant', value: 'valorant' },
     { label: 'Cyberpunk 2077', value: 'cyberpunk' },
     { label: 'Baldur’s Gate 3', value: 'bg3' },
-    { label: 'Skyrim', value: 'skyrim' }
+    { label: 'Skyrim', value: 'skyrim' },
   ];
   const slides = [
     { image: 'https://picsum.photos/seed/1/400/250', title: 'Game One' },
@@ -156,7 +155,7 @@ const DemoForm = () => {
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
-            onSearch={(val) => console.log("Search:", val)}
+            onSearch={(val) => console.log('Search:', val)}
             placeholder="Search for games, friends, or events..."
           />
           <CodeInput
@@ -227,7 +226,7 @@ const DemoForm = () => {
             clickable={true}
           />
           <Pagination currentPage={page} totalPages={5} onPageChange={setPage} />
-          </div>
+        </div>
       ),
     },
     {
@@ -236,6 +235,12 @@ const DemoForm = () => {
         <div className="tab-section">
           <h3>Upload</h3>
           <UploadBox onUpload={setUploadedFile} accept="image/*" />
+          {uploadedFile && (
+            <div className="uploaded-file-preview">
+              <h4>Fichier uploadé :</h4>
+              <pre>{JSON.stringify(uploadedFile, null, 2)}</pre>
+            </div>
+          )}
         </div>
       ),
     },
@@ -279,7 +284,7 @@ const DemoForm = () => {
           </Drawer>
         </div>
       ),
-    }
+    },
   ];
 
   return (

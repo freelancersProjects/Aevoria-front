@@ -1,8 +1,8 @@
-import React from 'react'
-import HeaderSectionImage from '../../components/Layout/HeaderSectionImage/HeaderSectionImage'
-import SubscribeCard from './SubscribeCard/SubscribeCard'
-import FAQ from './FAQ/FAQ'
-import './Subscription.scss'
+
+import HeaderSectionImage from '../../components/Layout/HeaderSectionImage/HeaderSectionImage';
+import SubscribeCard from './SubscribeCard/SubscribeCard';
+import FAQ from './FAQ/FAQ';
+import './Subscription.scss';
 
 const Subscription = () => {
   return (
@@ -19,7 +19,7 @@ const Subscription = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Subscription
+export default Subscription;

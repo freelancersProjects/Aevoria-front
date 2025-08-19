@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import HeaderPage from "./HeaderPage/HeaderPage";
-import BottomPage from "./BottomPage/BottomPage";
-import Settings from "./HeaderPage/WishlistHeader/Settings/Settings";
-import "./Profile.scss";
+import { useState } from 'react';
+import HeaderPage from './HeaderPage/HeaderPage';
+import BottomPage from './BottomPage/BottomPage';
+import Settings from './HeaderPage/WishlistHeader/Settings/Settings';
+import './Profile.scss';
 
 const Profile = () => {
   const [activeSidebarTab, setActiveSidebarTab] = useState('profile');

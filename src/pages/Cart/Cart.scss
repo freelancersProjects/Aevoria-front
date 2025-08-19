@@ -12,10 +12,7 @@
         &::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: url('/images/city-skyline.png') repeat-x bottom;
             opacity: 0.2;
         }
@@ -43,12 +40,12 @@
         grid-template-columns: 1fr 350px;
         gap: 40px;
 
-        @media (max-width: 1200px) {
+        @media (width <= 1200px) {
             grid-template-columns: 1fr;
             padding: 20px;
         }
 
-        @media (min-width: 481px) and (max-width: 767px) {
+        @media (width >= 481px) and (width <= 767px) {
             padding: 12px;
             grid-template-columns: 1fr;
             gap: 20px;
@@ -64,10 +61,10 @@
     .cart-item {
         display: flex;
         gap: 20px;
-        background: rgba(12, 18, 24, 0.85);
+        background: rgb(12 18 24 / 85%);
         border-radius: 12px;
         padding: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgb(255 255 255 / 5%);
 
         .item-image {
             width: 120px;
@@ -111,7 +108,7 @@
             }
 
             .edition {
-                color: rgba(255, 255, 255, 0.6);
+                color: rgb(255 255 255 / 60%);
                 font-size: 14px;
             }
 
@@ -125,7 +122,7 @@
                     display: flex;
                     align-items: center;
                     gap: 12px;
-                    background: rgba(255, 255, 255, 0.05);
+                    background: rgb(255 255 255 / 5%);
                     padding: 8px 16px;
                     border-radius: 8px;
 
@@ -155,17 +152,17 @@
             }
         }
 
-        @media (min-width: 481px) and (max-width: 767px) {
+        @media (width >= 481px) and (width <= 767px) {
             flex-direction: column;
             .item-image { width: 100%; height: 180px; }
         }
     }
 
     .order-summary {
-        background: rgba(12, 18, 24, 0.85);
+        background: rgb(12 18 24 / 85%);
         border-radius: 16px;
         padding: 30px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgb(255 255 255 / 5%);
         height: fit-content;
 
         h2 {
@@ -181,7 +178,7 @@
         .summary-row {
             display: flex;
             justify-content: space-between;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgb(255 255 255 / 80%);
             margin-bottom: 15px;
             font-size: 15px;
 
@@ -191,7 +188,7 @@
                 font-weight: 600;
                 padding-top: 15px;
                 margin-top: 15px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-top: 1px solid rgb(255 255 255 / 10%);
             }
         }
 
@@ -215,9 +212,9 @@
 
         .proceed-btn {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgb(255 255 255 / 5%);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgb(255 255 255 / 10%);
             padding: 15px;
             border-radius: 25px;
             font-size: 16px;
@@ -227,14 +224,14 @@
             transition: all 0.3s ease;
 
             &:hover {
-                background: rgba(255, 255, 255, 0.1);
+                background: rgb(255 255 255 / 10%);
                 border-color: var(--blue);
             }
         }
 
         .payment-info {
             text-align: center;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgb(255 255 255 / 60%);
             font-size: 14px;
             margin-bottom: 25px;
         }
@@ -246,15 +243,15 @@
 
             input {
                 flex: 1;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgb(255 255 255 / 5%);
+                border: 1px solid rgb(255 255 255 / 10%);
                 border-radius: 8px;
                 padding: 12px 15px;
                 color: white;
                 font-size: 14px;
 
                 &::placeholder {
-                    color: rgba(255, 255, 255, 0.4);
+                    color: rgb(255 255 255 / 40%);
                 }
 
                 &:focus {
@@ -279,7 +276,7 @@
             }
         }
 
-        @media (min-width: 481px) and (max-width: 767px) {
+        @media (width >= 481px) and (width <= 767px) {
             padding: 12px;
         }
     }

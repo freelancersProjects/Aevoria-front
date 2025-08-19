@@ -1,0 +1,61 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types:
+      - completed
+    branches: [ main ]
+
+jobs:
+  deploy-front:
+    name: Deploy Aevoria Front
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' || github.ref == 'refs/heads/main'
+    needs: []
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download front build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: aevoria-front-build
+          path: dist/
+
+      - name: Deploy to production
+        # Ici tu peux ajouter ton script de déploiement
+        # Par exemple pour Vercel, Netlify, ou ton propre serveur
+        run: |
+          echo "Deploying Aevoria Front..."
+          # Exemple pour Vercel :
+          # npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+          #
+          # Exemple pour Netlify :
+          # npx netlify-cli deploy --prod --dir=dist
+          #
+          # Exemple pour un serveur SSH :
+          # rsync -avz dist/ user@server:/path/to/production/
+
+  deploy-panel:
+    name: Deploy Aevoria Panel
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' || github.ref == 'refs/heads/main'
+    needs: []
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download panel build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: aevoria-panel-build
+          path: panel-dist/
+
+      - name: Deploy to production
+        run: |
+          echo "Deploying Aevoria Panel..."
+          # Ici tu peux ajouter ton script de déploiement spécifique au panel
+

@@ -1,8 +1,6 @@
 .promotions-section-view {
   width: 100%;
-  padding: 20px 0;
   position: relative;
-  margin: 0 auto;
   padding: 0 16px;
   border-radius: 20px;
   margin: auto;
@@ -29,7 +27,7 @@ overflow: hidden;
         border-radius: 10px;
         overflow: hidden;
         color: var(--white);
-        font-family: 'Montserrat', sans-serif;
+        font-family: Montserrat, sans-serif;
         transition: transform 0.2s ease-in-out;
         flex: 0 0 calc(33.333% - 27px);
         max-width: calc(33.333% - 27px);
@@ -90,7 +88,7 @@ overflow: hidden;
 
         .current-price {
           font-size: 32px;
-          font-weight: bold;
+          font-weight: 700;
           color: var(--white)
         }
 
@@ -101,7 +99,7 @@ overflow: hidden;
         }
       }
 
-      @media (max-width: 1024px) {
+      @media (width <= 1024px) {
         gap: 30px;
         padding: 0 40px;
 
@@ -111,7 +109,7 @@ overflow: hidden;
         }
       }
 
-      @media (max-width: 768px) {
+      @media (width <= 768px) {
         gap: 20px;
         padding: 0 20px;
 
@@ -123,6 +121,7 @@ overflow: hidden;
     }
 
 // CERCLE 1 — Haut droite (près du panier)
+
 .top-right-circle {
 top: 400px;
 right: -500px;
@@ -131,6 +130,7 @@ height: 500px;
 }
 
 // CERCLE 2 — Haut gauche (près de "Description")
+
 .top-left-circle {
 top: 400px;
 left: -500px;
@@ -139,6 +139,7 @@ height: 600px;
 }
 
 // CERCLE 3 — Bas droite (près de "Game Features")
+
 .bottom-right-circle {
 top: 2400px;
 bottom: 0;
@@ -147,7 +148,8 @@ width: 620px;
 height: 597px;
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (width >= 481px) and (width <= 767px) {
+
   .similar-products-grid {
     gap: 20px;
     .game-card { flex: 0 0 80%; max-width: 80%; }

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './GameFeatures.scss';
 import UserIcon from '../../../assets/svg/user.svg';
 
@@ -34,11 +34,11 @@ const GameFeatures = () => {
         {/* System Requirements Section */}
         <div className="requirements-section">
           <h2 className="section-title">System Requirements</h2>
-          
+
           <div className="requirements-content">
             <div className="minimum-requirements">
               <h3 className="requirements-subtitle">Minimum:</h3>
-              
+
               <div className="platform-requirements">
                 <div className="platform">
                   <h4 className="platform-title">Windows</h4>

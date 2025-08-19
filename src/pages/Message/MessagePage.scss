@@ -1,15 +1,15 @@
-@import '../../global.scss';
+@import '../../global';
 
 .messenger {
   display: flex;
   height: 100vh;
   background: var(--main-background);
   color: var(--white);
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
 
   .sidebar {
     width: 360px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgb(255 255 255 / 10%);
     display: flex;
     flex-direction: column;
     background: var(--second-background);
@@ -29,8 +29,8 @@
       input {
         width: 100%;
         padding: 12px 12px 12px 40px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 5%);
+        border: 1px solid rgb(255 255 255 / 10%);
         border-radius: 8px;
         color: var(--white);
         font-size: 14px;
@@ -42,7 +42,7 @@
         &:focus {
           outline: none;
           border-color: var(--blue);
-          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+          box-shadow: 0 0 0 2px rgb(0 123 255 / 10%);
         }
       }
     }
@@ -71,12 +71,12 @@
         transition: all 0.2s ease;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.05);
+          background: rgb(255 255 255 / 5%);
         }
 
         &.active {
-          background: rgba(0, 123, 255, 0.1);
-          border: 1px solid rgba(0, 123, 255, 0.2);
+          background: rgb(0 123 255 / 10%);
+          border: 1px solid rgb(0 123 255 / 20%);
         }
 
         .contact-avatar {
@@ -185,7 +185,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgb(255 255 255 / 10%);
       background: var(--second-background);
 
       .user-info {
@@ -219,6 +219,7 @@
         }
 
         .user-details {
+
           h3 {
             margin: 0;
             font-size: 16px;
@@ -232,6 +233,7 @@
       }
 
       .header-actions {
+
         .action-btn {
           background: none;
           border: none;
@@ -242,7 +244,7 @@
           transition: all 0.2s ease;
 
           &:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgb(255 255 255 / 10%);
             color: var(--white);
           }
         }
@@ -277,7 +279,7 @@
           top: 50%;
           width: 100%;
           height: 1px;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgb(255 255 255 / 10%);
         }
 
         span {
@@ -299,7 +301,7 @@
           align-self: flex-start;
 
           .message-content {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgb(255 255 255 / 5%);
             border-radius: 16px 16px 16px 4px;
           }
         }
@@ -309,11 +311,11 @@
 
           .message-content {
             background: var(--blue);
-            border-radius: 16px 16px 4px 16px;
+            border-radius: 16px 16px 4px;
           }
 
           .message-time {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgb(255 255 255 / 70%);
           }
         }
 
@@ -335,10 +337,11 @@
         }
 
         .image-container {
+
           img {
             max-width: 100%;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgb(255 255 255 / 10%);
           }
         }
       }
@@ -353,10 +356,10 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        background: rgba(255, 255, 255, 0.05);
+        background: rgb(255 255 255 / 5%);
         padding: 8px 16px;
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgb(255 255 255 / 10%);
 
         .action-btn {
           background: none;
@@ -368,7 +371,7 @@
           transition: all 0.2s ease;
 
           &:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgb(255 255 255 / 10%);
             color: var(--white);
           }
         }
@@ -405,7 +408,7 @@
           }
 
           &:disabled {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgb(255 255 255 / 10%);
             color: var(--transparent-white);
             cursor: not-allowed;
             transform: none;
@@ -428,7 +431,7 @@
   max-width: 900px;
   margin: 40px auto;
   border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 18%);
   background: linear-gradient(135deg, #232526 0%, #414345 100%);
   overflow: hidden;
   min-height: 80vh;
@@ -437,14 +440,14 @@
 .sidebar {
   background: #23272f;
   border-radius: 18px 0 0 18px;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+  box-shadow: 2px 0 8px rgb(0 0 0 / 4%);
 }
 
 .contacts .contact {
   margin-bottom: 12px;
   padding: 14px 10px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.02);
+  background: rgb(255 255 255 / 2%);
   transition: background 0.2s;
 }
 
@@ -466,7 +469,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 32px 32px 16px 32px;
+  padding: 32px 32px 16px;
   background: #232526;
   min-height: 300px;
   overflow-y: auto;
@@ -477,13 +480,13 @@
   margin-bottom: 18px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
 }
 
 .message.sent .message-content {
   background: linear-gradient(135deg, #2d8cff 0%, #6dd5ed 100%);
   color: #fff;
-  border-radius: 18px 18px 4px 18px;
+  border-radius: 18px 18px 4px;
   align-self: flex-end;
 }
 
@@ -510,9 +513,9 @@
 
 .chat-footer-centered {
   background: #232526;
-  border-radius: 0 0 18px 0;
+  border-radius: 0 0 18px;
   padding: 18px 32px;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 -2px 8px rgb(0 0 0 / 4%);
 }
 
 .message-input-centered {
@@ -550,7 +553,7 @@
   align-items: center;
   justify-content: center;
   font-size: 22px;
-  box-shadow: 0 2px 8px rgba(45,140,255,0.12);
+  box-shadow: 0 2px 8px rgb(45 140 255 / 12%);
   transition: background 0.2s, transform 0.1s;
   cursor: pointer;
   margin-left: 8px;

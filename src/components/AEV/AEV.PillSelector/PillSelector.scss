@@ -9,15 +9,15 @@
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 600;
-  font-family: "Montserrat", sans-serif;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(145, 166, 182, 0.2);
+  font-family: Montserrat, sans-serif;
+  background: rgb(255 255 255 / 5%);
+  border: 1.5px solid rgb(145 166 182 / 20%);
   color: var(--white);
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(0, 123, 255, 0.08);
+    background: rgb(0 123 255 / 8%);
     border-color: var(--blue-low-opacity);
   }
 
@@ -25,6 +25,6 @@
     background: var(--blue);
     color: var(--white);
     border-color: var(--blue);
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 0 8px rgb(0 123 255 / 40%);
   }
 }

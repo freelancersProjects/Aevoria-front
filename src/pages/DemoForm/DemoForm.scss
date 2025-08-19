@@ -12,11 +12,10 @@
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 20px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), #fff);
+    background: linear-gradient(90deg, rgb(255 255 255 / 60%), #fff);
     background-clip: text;
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: "Instrument Sans", sans-serif;
+    font-family: Instrument Sans, sans-serif;
   }
 }
 
@@ -39,8 +38,8 @@
 }
 
 .component-block {
-  background: rgba(255, 255, 255, 0.015);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgb(255 255 255 / 1.5%);
+  border: 1px solid rgb(255 255 255 / 4%);
   border-radius: 12px;
   padding: 24px;
   display: flex;

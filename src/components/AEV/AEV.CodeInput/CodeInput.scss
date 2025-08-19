@@ -9,15 +9,15 @@
     text-align: center;
     font-size: 1.8rem;
     font-weight: 600;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgb(255 255 255 / 10%);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgb(255 255 255 / 4%);
     color: var(--white);
-    font-family: "Montserrat", sans-serif;
+    font-family: Montserrat, sans-serif;
     transition: border 0.2s ease, box-shadow 0.2s ease;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.2);
+      color: rgb(255 255 255 / 20%);
     }
 
     &:focus {

@@ -16,7 +16,7 @@
 .promo-card {
   background: linear-gradient(135deg, #10141e 90%, #1a233a 100%);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 18%);
   overflow: hidden;
   width: 370px;
   max-width: 95vw;
@@ -29,7 +29,7 @@
 
   &:hover {
     transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 16px 48px rgba(0,123,255,0.12);
+    box-shadow: 0 16px 48px rgb(0 123 255 / 12%);
     border-color: var(--blue-light, #3fa9f5);
   }
 }
@@ -47,7 +47,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 0 0 0 0;
+  border-radius: 0;
 }
 
 .promo-badge {
@@ -60,7 +60,7 @@
   font-size: 1rem;
   padding: 6px 18px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,123,255,0.12);
+  box-shadow: 0 2px 8px rgb(0 123 255 / 12%);
   z-index: 2;
   letter-spacing: 1px;
 }
@@ -75,13 +75,13 @@
   font-size: 1.2rem;
   padding: 6px 16px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+  box-shadow: 0 2px 8px rgb(0 123 255 / 10%);
   z-index: 2;
   letter-spacing: 1px;
 }
 
 .promo-info {
-  padding: 24px 24px 18px 24px;
+  padding: 24px 24px 18px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -113,12 +113,14 @@
   opacity: 0.5;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
+
   .promo-cards-container {
     flex-direction: column;
     align-items: center;
     gap: 24px;
   }
+
   .promo-card {
     width: 98vw;
     max-width: 420px;

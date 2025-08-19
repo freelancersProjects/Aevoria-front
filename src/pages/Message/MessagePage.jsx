@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import './MessagePage.scss';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -57,7 +57,7 @@ const MessagePage = () => {
         setMessages(prev => [...prev, { senderId: fromUserId, content, type: 'received', createdAt: new Date().toISOString() }]);
       }
     },
-    [selectedFriend]
+    [selectedFriend],
   );
   const { sendMessage: sendSocketMessage } = useChatSocket({ onMessageReceived, userId });
 
@@ -77,7 +77,7 @@ const MessagePage = () => {
       sendSocketMessage(selectedFriend.id, message);
       setMessages(prev => [...prev, { ...msgObj, type: 'sent', createdAt: new Date().toISOString() }]);
       setMessage('');
-    } catch (err) {
+    } catch {
       // Optionnel : toast d'erreur
     }
   };
@@ -109,7 +109,7 @@ const MessagePage = () => {
         <div className="contacts">
           {friends
             .filter(friend =>
-              friend.username.toLowerCase().includes(searchQuery.toLowerCase())
+              friend.username.toLowerCase().includes(searchQuery.toLowerCase()),
             )
             .map((friend, idx) => (
               <div
@@ -119,7 +119,7 @@ const MessagePage = () => {
               >
                 <div className="contact-avatar">
                   <img src={friend.avatar || `https://i.pravatar.cc/100?img=${idx + 2}`} alt={friend.username} />
-                  <span className={`status-dot online`} />
+                  <span className={'status-dot online'} />
                 </div>
                 <div className="contact-info">
                   <div className="contact-header">

@@ -1,4 +1,4 @@
-@import "../../../global.scss";
+@import "../../../global";
 
 .aev-table {
   display: flex;
@@ -7,7 +7,7 @@
   background: $second-background;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgb(255 255 255 / 5%);
 
   .aev-table-header {
     display: flex;
@@ -18,7 +18,7 @@
 
     .header-cell {
       flex: 1;
-      font-weight: bold;
+      font-weight: 700;
       color: $white;
       font-size: 14px;
       text-transform: uppercase;
@@ -43,12 +43,13 @@
         }
       }
     }
+
     .delete-button {
       color: $white;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgb(255 255 255 / 10%);
 
       &:hover {
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: rgb(255 255 255 / 30%);
       }
     }
   }
@@ -59,19 +60,20 @@
 
     .aev-table-row {
       display: flex;
-      padding: 20px 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-top: 1px solid rgb(255 255 255 / 5%);
       transition: background 0.2s ease;
 
       &:nth-child(odd) {
         background-color: var(--semi-black);
       }
+
       &:nth-child(even) {
         background-color: var(--background-black);
       }
 
       &:hover {
-        background: rgba(0, 123, 255, 0.05);
+        background: rgb(0 123 255 / 5%);
       }
 
       .aev-table-cell {

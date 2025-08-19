@@ -1,6 +1,5 @@
-import React from 'react';
 import './GameDescriptionSection.scss';
-import { FaUser, FaStar, FaShareAlt, FaFlag } from 'react-icons/fa';
+import { FaStar, FaShareAlt, FaFlag } from 'react-icons/fa';
 import TooltipChips from '../../../components/AEV//AEV.TooltipChips/TooltipChips';
 import LogoVueJeu from '../../../assets/svg/logo-vue-jeu.svg';
 
