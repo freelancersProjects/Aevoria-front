@@ -1,8 +1,8 @@
 .aev-context-menu {
     position: fixed;
     background: #0c1119;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 12px rgba(0, 123, 255, 0.2);
+    border: 1px solid rgb(255 255 255 / 8%);
+    box-shadow: 0 0 12px rgb(0 123 255 / 20%);
     border-radius: 10px;
     z-index: 1000;
     padding: 8px;
@@ -16,7 +16,7 @@
       font-size: 14px;
   
       &:hover {
-        background: rgba(0, 123, 255, 0.2);
+        background: rgb(0 123 255 / 20%);
       }
     }
   }

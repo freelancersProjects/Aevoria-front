@@ -4,10 +4,10 @@
   display: flex;
   background: #0a0f18;
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(0, 136, 255, 0.1) 0%, transparent 50%),
-    linear-gradient(45deg, rgba(0, 0, 0, 0.9) 0%, rgba(10, 15, 24, 0.9) 100%);
+    radial-gradient(circle at 50% 50%, rgb(0 136 255 / 10%) 0%, transparent 50%),
+    linear-gradient(45deg, rgb(0 0 0 / 90%) 0%, rgb(10 15 24 / 90%) 100%);
   overflow: hidden;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   position: relative;
   color: #fff;
 
@@ -16,24 +16,28 @@
   }
 
   &.tool-text {
+
     .aev-canvas-area {
       cursor: text;
     }
   }
 
   &.tool-draw {
+
     .aev-canvas-area {
       cursor: crosshair;
     }
   }
 
   &.tool-eraser {
+
     .aev-canvas-area {
       cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M16.24 3.56l4.95 4.94c.78.79.78 2.05 0 2.84L12 20.53a4.008 4.008 0 01-5.66 0L2.81 17c-.78-.79-.78-2.05 0-2.84l10.6-10.6c.79-.78 2.05-.78 2.83 0zM4.22 15.58l3.54 3.53c.78.79 2.04.79 2.83 0l7.07-7.07-6.37-6.37-7.07 7.07c-.79.79-.79 2.05 0 2.84z"/></svg>') 12 12, auto;
     }
   }
 
   &.tool-shape {
+
     .aev-canvas-area {
       cursor: crosshair;
     }
@@ -50,8 +54,8 @@
 
   .aev-modal-header {
     padding: 24px 32px;
-    background: rgba(13, 13, 13, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(13 13 13 / 95%);
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -72,7 +76,7 @@
 
     .tab {
       padding: 8px 16px;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgb(255 255 255 / 60%);
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
@@ -89,40 +93,41 @@
 
       &:hover {
         color: #fff;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
       }
 
       &.active {
         color: #fff;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
       }
     }
   }
 
   .aev-modal-content {
     padding: 32px;
-    background: rgba(13, 13, 13, 0.95);
+    background: rgb(13 13 13 / 95%);
     max-height: calc(90vh - 180px);
     overflow-y: auto;
 
     .upload-zone {
+
       .upload-area {
-        border: 2px dashed rgba(255, 255, 255, 0.2);
+        border: 2px dashed rgb(255 255 255 / 20%);
         border-radius: 16px;
         padding: 48px;
         text-align: center;
         cursor: pointer;
         transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.03);
+        background: rgb(255 255 255 / 3%);
 
         &:hover {
           border-color: var(--blue);
-          background: rgba(0, 136, 255, 0.05);
+          background: rgb(0 136 255 / 5%);
           transform: translateY(-2px);
 
           .upload-circle {
             border-color: var(--blue);
-            background: rgba(0, 136, 255, 0.1);
+            background: rgb(0 136 255 / 10%);
 
             .upload-icon {
               color: var(--blue);
@@ -134,7 +139,7 @@
         .upload-circle {
           width: 80px;
           height: 80px;
-          border: 2px dashed rgba(255, 255, 255, 0.2);
+          border: 2px dashed rgb(255 255 255 / 20%);
           border-radius: 50%;
           margin: 0 auto 24px;
           display: flex;
@@ -144,7 +149,7 @@
 
           .upload-icon {
             font-size: 2rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgb(255 255 255 / 70%);
             transition: all 0.3s ease;
           }
         }
@@ -161,7 +166,7 @@
 
           p {
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgb(255 255 255 / 70%);
             margin: 0;
           }
         }
@@ -171,12 +176,13 @@
           gap: 16px;
           justify-content: center;
           font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.5);
+          color: rgb(255 255 255 / 50%);
         }
       }
     }
 
     .games-section {
+
       .loading-state {
         text-align: center;
         padding: 64px 0;
@@ -184,7 +190,7 @@
         .loading-spinner {
           width: 48px;
           height: 48px;
-          border: 3px solid rgba(255, 255, 255, 0.1);
+          border: 3px solid rgb(255 255 255 / 10%);
           border-top-color: var(--blue);
           border-radius: 50%;
           margin: 0 auto 16px;
@@ -193,7 +199,7 @@
 
         span {
           font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgb(255 255 255 / 70%);
         }
       }
 
@@ -216,12 +222,12 @@
 
         p {
           font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgb(255 255 255 / 70%);
           margin: 0 0 24px;
         }
 
         button {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgb(255 255 255 / 10%);
           border: none;
           padding: 12px 24px;
           border-radius: 8px;
@@ -232,7 +238,7 @@
           transition: all 0.3s ease;
 
           &:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgb(255 255 255 / 20%);
             transform: translateY(-2px);
           }
         }
@@ -286,7 +292,7 @@
             .game-overlay {
               position: absolute;
               inset: 0;
-              background: rgba(0, 0, 0, 0.5);
+              background: rgb(0 0 0 / 50%);
               display: flex;
               align-items: center;
               justify-content: center;
@@ -307,7 +313,7 @@
                 opacity: 0;
 
                 &:hover {
-                  background: lighten(#0088ff, 10%);
+                  background: lighten(#08f, 10%);
                   transform: translateY(-2px);
                 }
               }
@@ -322,7 +328,7 @@
 
         .empty-icon {
           font-size: 3rem;
-          color: rgba(255, 255, 255, 0.2);
+          color: rgb(255 255 255 / 20%);
           margin-bottom: 16px;
         }
 
@@ -335,7 +341,7 @@
 
         p {
           font-size: 1.1rem;
-          color: rgba(255, 255, 255, 0.7);
+          color: rgb(255 255 255 / 70%);
           margin: 0;
         }
       }
@@ -353,12 +359,12 @@
     z-index: 100;
 
     .sidebar-group {
-      background: rgba(17, 24, 39, 0.95);
+      background: rgb(17 24 39 / 95%);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgb(255 255 255 / 10%);
       border-radius: 12px;
       padding: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
 
       & + .sidebar-group {
         margin-top: 8px;
@@ -371,15 +377,15 @@
         align-items: center;
         justify-content: center;
         border: none;
-        background: rgba(255, 255, 255, 0.06);
-        color: rgba(255, 255, 255, 0.7);
+        background: rgb(255 255 255 / 6%);
+        color: rgb(255 255 255 / 70%);
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.2s ease;
         position: relative;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgb(255 255 255 / 10%);
           color: #fff;
           transform: translateY(-1px);
 
@@ -395,7 +401,7 @@
           left: 100%;
           top: 50%;
           transform: translateX(0) translateY(-50%);
-          background: rgba(0, 0, 0, 0.8);
+          background: rgb(0 0 0 / 80%);
           color: white;
           padding: 6px 12px;
           border-radius: 6px;
@@ -404,19 +410,19 @@
           pointer-events: none;
           opacity: 0;
           transition: all 0.2s ease;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
         }
 
         &.active {
           background: var(--blue);
           color: white;
-          box-shadow: 0 0 20px rgba(0, 136, 255, 0.3);
+          box-shadow: 0 0 20px rgb(0 136 255 / 30%);
         }
 
         svg {
           width: 20px;
           height: 20px;
-          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%));
         }
       }
     }
@@ -435,16 +441,16 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgb(255 255 255 / 5%);
     }
 
     &::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgb(255 255 255 / 20%);
       border-radius: 6px;
-      border: 3px solid rgba(0, 0, 0, 0.2);
+      border: 3px solid rgb(0 0 0 / 20%);
 
       &:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgb(255 255 255 / 30%);
       }
     }
 
@@ -469,8 +475,8 @@
 
     &.with-grid {
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(rgb(255 255 255 / 5%) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(255 255 255 / 5%) 1px, transparent 1px);
       background-size: 40px 40px;
 
       &::before {
@@ -478,8 +484,8 @@
         position: absolute;
         inset: 0;
         background-image:
-          linear-gradient(rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+          linear-gradient(rgb(255 255 255 / 10%) 2px, transparent 2px),
+          linear-gradient(90deg, rgb(255 255 255 / 10%) 2px, transparent 2px);
         background-size: 200px 200px;
         pointer-events: none;
       }
@@ -489,7 +495,7 @@
   .selection-box {
     position: absolute;
     border: 2px solid var(--blue);
-    background: rgba(0, 136, 255, 0.1);
+    background: rgb(0 136 255 / 10%);
     pointer-events: none;
     z-index: 100;
     mix-blend-mode: difference;
@@ -505,21 +511,21 @@
 
     &.text {
       padding: 12px 16px;
-      background: rgba(20, 30, 48, 0.9);
+      background: rgb(20 30 48 / 90%);
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgb(255 255 255 / 10%);
+      box-shadow: 0 4px 20px rgb(0 0 0 / 20%);
 
       &:focus-within {
         border-color: var(--blue);
-        box-shadow: 0 0 20px rgba(0, 136, 255, 0.3);
+        box-shadow: 0 0 20px rgb(0 136 255 / 30%);
       }
     }
 
     &.image {
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px rgb(0 0 0 / 20%);
 
       img {
         pointer-events: none;
@@ -546,7 +552,7 @@
     }
 
     &:hover:not(.selected) {
-      outline: 1px solid rgba(255, 255, 255, 0.3);
+      outline: 1px solid rgb(255 255 255 / 30%);
       outline-offset: 2px;
     }
 
@@ -583,13 +589,12 @@
     position: fixed;
     right: 20px;
     top: 50%;
-    transform: translateY(-50%);
     width: 320px;
-    background: rgba(17, 24, 39, 0.95);
+    background: rgb(17 24 39 / 95%);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(255 255 255 / 10%);
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
     z-index: 100;
     opacity: 0;
     visibility: hidden;
@@ -604,7 +609,7 @@
 
     .panel-header {
       padding: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgb(255 255 255 / 10%);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -621,7 +626,7 @@
       button {
         background: none;
         border: none;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgb(255 255 255 / 60%);
         font-size: 1.4rem;
         padding: 8px;
         cursor: pointer;
@@ -633,7 +638,7 @@
 
         &:hover {
           color: #fff;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgb(255 255 255 / 10%);
           transform: rotate(90deg);
         }
       }
@@ -648,7 +653,7 @@
         gap: 16px;
 
         .option-group {
-          background: rgba(255, 255, 255, 0.05);
+          background: rgb(255 255 255 / 5%);
           border-radius: 12px;
           padding: 16px;
 
@@ -656,7 +661,7 @@
             margin: 0 0 12px;
             font-size: 0.9rem;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgb(255 255 255 / 90%);
           }
 
           .option-grid {
@@ -666,8 +671,8 @@
 
             button {
               aspect-ratio: 1;
-              border: 1px solid rgba(255, 255, 255, 0.1);
-              background: rgba(255, 255, 255, 0.06);
+              border: 1px solid rgb(255 255 255 / 10%);
+              background: rgb(255 255 255 / 6%);
               border-radius: 8px;
               color: white;
               cursor: pointer;
@@ -677,7 +682,7 @@
               justify-content: center;
 
               &:hover {
-                background: rgba(255, 255, 255, 0.1);
+                background: rgb(255 255 255 / 10%);
                 transform: translateY(-2px);
               }
 
@@ -702,26 +707,26 @@
           label {
             flex: 1;
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgb(255 255 255 / 90%);
           }
 
           input[type="range"] {
             flex: 2;
-            -webkit-appearance: none;
+            appearance: none;
             height: 4px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgb(255 255 255 / 10%);
             border-radius: 2px;
             outline: none;
 
             &::-webkit-slider-thumb {
-              -webkit-appearance: none;
+              appearance: none;
               width: 16px;
               height: 16px;
               background: var(--blue);
               border-radius: 50%;
               cursor: pointer;
               transition: all 0.2s ease;
-              box-shadow: 0 0 10px rgba(0, 136, 255, 0.3);
+              box-shadow: 0 0 10px rgb(0 136 255 / 30%);
 
               &:hover {
                 transform: scale(1.2);
@@ -748,7 +753,7 @@
         gap: 8px;
 
         &:hover {
-          background: lighten(#0088ff, 5%);
+          background: lighten(#08f, 5%);
           transform: translateY(-2px);
         }
 
@@ -769,22 +774,22 @@
   display: flex;
   gap: 8px;
   padding: 8px;
-  background: rgba(20, 30, 48, 0.95);
+  background: rgb(20 30 48 / 95%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
   z-index: 100;
 
   .separator {
     width: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 10%);
     margin: 0 4px;
   }
 
   button {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 6%);
+    border: 1px solid rgb(255 255 255 / 10%);
     padding: 8px;
     font-size: 1rem;
     border-radius: 8px;
@@ -798,13 +803,13 @@
     min-height: 32px;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgb(255 255 255 / 10%);
       transform: translateY(-1px);
     }
 
     &.active {
       background: var(--blue);
-      box-shadow: 0 0 20px rgba(0, 136, 255, 0.3);
+      box-shadow: 0 0 20px rgb(0 136 255 / 30%);
     }
   }
 }
@@ -812,11 +817,11 @@
 .aev-canvas-toolbar {
   position: absolute;
   z-index: 20;
-  background: rgba(20, 30, 48, 0.95);
+  background: rgb(20 30 48 / 95%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
 
   &.main {
     top: 20px;
@@ -840,7 +845,7 @@
         transform: translateY(-50%);
         height: 24px;
         width: 1px;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
       }
     }
   }
@@ -861,7 +866,7 @@
         font-size: 1.2rem;
         font-weight: 600;
         color: var(--blue);
-        text-shadow: 0 0 10px rgba(0, 136, 255, 0.5);
+        text-shadow: 0 0 10px rgb(0 136 255 / 50%);
       }
 
       .zoom-buttons {
@@ -871,7 +876,7 @@
 
         button {
           font-size: 1.2rem;
-          font-weight: bold;
+          font-weight: 700;
           height: 32px;
           width: 32px;
           padding: 0;
@@ -884,8 +889,8 @@
   }
 
   button {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 6%);
+    border: 1px solid rgb(255 255 255 / 10%);
     padding: 10px;
     font-size: 1.2rem;
     border-radius: 8px;
@@ -905,13 +910,13 @@
       position: absolute;
       inset: -1px;
       border-radius: inherit;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      background: linear-gradient(45deg, transparent, rgb(255 255 255 / 10%), transparent);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgb(255 255 255 / 10%);
       transform: translateY(-1px);
 
       &::before {
@@ -921,11 +926,11 @@
 
     &.active {
       background: var(--blue);
-      box-shadow: 0 0 20px rgba(0, 136, 255, 0.3);
+      box-shadow: 0 0 20px rgb(0 136 255 / 30%);
       border-color: var(--blue);
 
       &::before {
-        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        background: linear-gradient(45deg, transparent, rgb(255 255 255 / 20%), transparent);
         opacity: 1;
       }
     }
@@ -937,7 +942,7 @@
     }
 
     svg {
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%));
     }
   }
 }
@@ -947,12 +952,12 @@
   bottom: 20px;
   left: 20px;
   width: 320px;
-  background: rgba(20, 30, 48, 0.95);
+  background: rgb(20 30 48 / 95%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
 
   .panel-header {
     display: flex;
@@ -960,7 +965,7 @@
     align-items: center;
     margin-bottom: 16px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
 
     h3 {
       margin: 0;
@@ -969,7 +974,7 @@
       color: var(--blue);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      text-shadow: 0 0 10px rgba(0, 136, 255, 0.5);
+      text-shadow: 0 0 10px rgb(0 136 255 / 50%);
     }
 
     button {
@@ -978,11 +983,11 @@
       font-size: 1.5rem;
       padding: 0;
       border-radius: 6px;
-      background: rgba(0, 136, 255, 0.2);
+      background: rgb(0 136 255 / 20%);
       border-color: var(--blue);
 
       &:hover {
-        background: rgba(0, 136, 255, 0.3);
+        background: rgb(0 136 255 / 30%);
       }
     }
   }
@@ -1001,18 +1006,18 @@
       gap: 12px;
       padding: 12px;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgb(255 255 255 / 5%);
       cursor: pointer;
       transition: all 0.3s ease;
       border: 1px solid transparent;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
         transform: translateX(4px);
       }
 
       &.selected {
-        background: rgba(0, 136, 255, 0.2);
+        background: rgb(0 136 255 / 20%);
         border-color: var(--blue);
       }
 
@@ -1050,7 +1055,7 @@
 
         .layer-details {
           font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgb(255 255 255 / 60%);
         }
       }
 
@@ -1078,11 +1083,11 @@
   top: 20px;
   right: 20px;
   width: 300px;
-  background: rgba(17, 24, 39, 0.95);
+  background: rgb(17 24 39 / 95%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
   overflow: hidden;
   transform: translateX(320px);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1093,8 +1098,8 @@
 
   .panel-header {
     padding: 20px;
-    background: rgba(13, 13, 13, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(13 13 13 / 95%);
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1106,7 +1111,7 @@
       color: var(--blue);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      text-shadow: 0 0 10px rgba(0, 136, 255, 0.5);
+      text-shadow: 0 0 10px rgb(0 136 255 / 50%);
     }
 
     button {
@@ -1114,7 +1119,7 @@
       height: 32px;
       background: none;
       border: none;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgb(255 255 255 / 60%);
       font-size: 1.4rem;
       cursor: pointer;
       border-radius: 8px;
@@ -1125,7 +1130,7 @@
 
       &:hover {
         color: #fff;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
         transform: rotate(90deg);
       }
     }
@@ -1137,10 +1142,11 @@
     overflow-y: auto;
 
     .property-group {
+
       & + .property-group {
         margin-top: 24px;
         padding-top: 24px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgb(255 255 255 / 10%);
       }
 
       .property-header {
@@ -1164,7 +1170,7 @@
         flex-direction: column;
         gap: 8px;
         font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgb(255 255 255 / 80%);
         margin-bottom: 16px;
 
         &:last-child {
@@ -1172,8 +1178,8 @@
         }
 
         input, select {
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgb(255 255 255 / 6%);
+          border: 1px solid rgb(255 255 255 / 10%);
           border-radius: 8px;
           padding: 10px 12px;
           color: white;
@@ -1183,7 +1189,7 @@
           &:focus {
             outline: none;
             border-color: var(--blue);
-            box-shadow: 0 0 15px rgba(0, 136, 255, 0.2);
+            box-shadow: 0 0 15px rgb(0 136 255 / 20%);
           }
         }
 
@@ -1196,34 +1202,34 @@
           padding-right: 40px;
 
           option {
-            background: rgb(17, 24, 39);
+            background: rgb(17 24 39);
             color: white;
             padding: 8px;
           }
         }
 
         input[type="range"] {
-          -webkit-appearance: none;
+          appearance: none;
           height: 4px;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgb(255 255 255 / 10%);
           border-radius: 2px;
           outline: none;
           padding: 0;
           margin: 10px 0;
 
           &::-webkit-slider-thumb {
-            -webkit-appearance: none;
+            appearance: none;
             width: 18px;
             height: 18px;
             background: var(--blue);
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 136, 255, 0.3);
+            box-shadow: 0 0 10px rgb(0 136 255 / 30%);
 
             &:hover {
               transform: scale(1.2);
-              box-shadow: 0 0 15px rgba(0, 136, 255, 0.4);
+              box-shadow: 0 0 15px rgb(0 136 255 / 40%);
             }
           }
         }
@@ -1250,7 +1256,7 @@
       gap: 12px;
       margin-top: 24px;
       padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgb(255 255 255 / 10%);
 
       button {
         flex: 1;
@@ -1259,8 +1265,8 @@
         justify-content: center;
         gap: 8px;
         padding: 12px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 6%);
+        border: 1px solid rgb(255 255 255 / 10%);
         border-radius: 8px;
         color: white;
         font-size: 0.95rem;
@@ -1269,23 +1275,23 @@
         transition: all 0.3s ease;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgb(255 255 255 / 10%);
           transform: translateY(-2px);
         }
 
         &.delete {
-          background: rgba(255, 59, 48, 0.1);
+          background: rgb(255 59 48 / 10%);
           color: #ff3b30;
-          border-color: rgba(255, 59, 48, 0.2);
+          border-color: rgb(255 59 48 / 20%);
 
           &:hover {
-            background: rgba(255, 59, 48, 0.2);
+            background: rgb(255 59 48 / 20%);
           }
         }
 
         svg {
           font-size: 1.1rem;
-          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%));
         }
       }
     }
@@ -1294,13 +1300,13 @@
 
 .context-menu {
   position: fixed;
-  background: rgba(20, 30, 48, 0.95);
+  background: rgb(20 30 48 / 95%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 8px;
   padding: 8px;
   min-width: 200px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 30%);
   z-index: 1000;
 
   .menu-item {
@@ -1314,14 +1320,14 @@
     transition: all 0.2s ease;
 
     &:hover {
-      background: rgba(0, 136, 255, 0.2);
+      background: rgb(0 136 255 / 20%);
     }
 
     &.danger {
       color: #ff3b30;
 
       &:hover {
-        background: rgba(255, 59, 48, 0.1);
+        background: rgb(255 59 48 / 10%);
       }
     }
 
@@ -1332,20 +1338,23 @@
 
   .separator {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 10%);
     margin: 4px 0;
   }
 }
 
 @keyframes pulse {
+
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 136, 255, 0.4);
+    box-shadow: 0 0 0 0 rgb(0 136 255 / 40%);
   }
+
   70% {
-    box-shadow: 0 0 0 10px rgba(0, 136, 255, 0);
+    box-shadow: 0 0 0 10px rgb(0 136 255 / 0%);
   }
+
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 136, 255, 0);
+    box-shadow: 0 0 0 0 rgb(0 136 255 / 0%);
   }
 }
 
@@ -1355,21 +1364,22 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgb(255 255 255 / 5%);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 136, 255, 0.3);
+  background: rgb(0 136 255 / 30%);
   border-radius: 4px;
-  border: 2px solid rgba(20, 30, 48, 0.95);
+  border: 2px solid rgb(20 30 48 / 95%);
 
   &:hover {
-    background: rgba(0, 136, 255, 0.5);
+    background: rgb(0 136 255 / 50%);
   }
 }
 
 @keyframes spin {
+
   to {
     transform: rotate(360deg);
   }
@@ -1378,7 +1388,7 @@
 .canvas-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0 0 0 / 70%);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -1395,7 +1405,7 @@
 }
 
 .canvas-modal {
-  background: rgb(17, 24, 39);
+  background: rgb(17 24 39);
   border-radius: 16px;
   width: 90%;
   max-width: 1400px;
@@ -1403,8 +1413,8 @@
   min-height: 700px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 50%);
+  border: 1px solid rgb(255 255 255 / 10%);
   transform: translateY(20px);
   opacity: 0;
   transition: all 0.3s ease;
@@ -1419,8 +1429,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(17, 24, 39, 0.95);
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+    background: rgb(17 24 39 / 95%);
 
     h2 {
       margin: 0;
@@ -1433,7 +1443,7 @@
     .close-btn {
       background: none;
       border: none;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgb(255 255 255 / 60%);
       font-size: 1.4rem;
       padding: 8px;
       cursor: pointer;
@@ -1447,7 +1457,7 @@
 
       &:hover {
         color: #fff;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
         transform: rotate(90deg);
       }
     }
@@ -1457,14 +1467,14 @@
     padding: 0 24px;
     display: flex;
     gap: 24px;
-    background: rgba(17, 24, 39, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(17 24 39 / 95%);
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
 
     .tab {
       background: none;
       border: none;
       padding: 16px 4px;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgb(255 255 255 / 60%);
       font-size: 0.95rem;
       font-weight: 500;
       cursor: pointer;
@@ -1508,7 +1518,7 @@
     padding: 24px;
     overflow-y: auto;
     flex: 1;
-    background: rgb(17, 24, 39);
+    background: rgb(17 24 39);
 
     .games-grid {
       height: 100%;
@@ -1530,7 +1540,7 @@
         border-radius: 12px;
         overflow: hidden;
         cursor: pointer;
-        background: rgb(31, 41, 55);
+        background: rgb(31 41 55);
         transition: all 0.3s ease;
 
         &:hover {
@@ -1555,7 +1565,7 @@
         .game-overlay {
           position: absolute;
           inset: 0;
-          background: rgba(17, 24, 39, 0.75);
+          background: rgb(17 24 39 / 75%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1575,7 +1585,7 @@
             pointer-events: auto;
 
             &:hover {
-              background: lighten(#0088ff, 10%);
+              background: lighten(#08f, 10%);
               transform: translateY(-2px);
             }
           }
@@ -1586,7 +1596,7 @@
 
           .game-overlay {
             opacity: 1;
-            background: rgba(17, 24, 39, 0.4);
+            background: rgb(17 24 39 / 40%);
 
             .select-btn {
               background: #2ecc71;
@@ -1607,13 +1617,13 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgb(255 255 255 / 70%);
       min-height: 500px;
 
       .loading-spinner {
         width: 40px;
         height: 40px;
-        border: 3px solid rgba(255, 255, 255, 0.1);
+        border: 3px solid rgb(255 255 255 / 10%);
         border-top-color: var(--blue);
         border-radius: 50%;
         animation: spin 1s linear infinite;
@@ -1645,12 +1655,12 @@
 
       p {
         font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgb(255 255 255 / 70%);
         margin: 0 0 24px;
       }
 
       button {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgb(255 255 255 / 10%);
         border: none;
         padding: 12px 24px;
         border-radius: 8px;
@@ -1661,7 +1671,7 @@
         transition: all 0.2s ease;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.2);
+          background: rgb(255 255 255 / 20%);
           transform: translateY(-2px);
         }
       }
@@ -1679,7 +1689,7 @@
 
       .empty-icon {
         font-size: 3rem;
-        color: rgba(255, 255, 255, 0.2);
+        color: rgb(255 255 255 / 20%);
         margin-bottom: 16px;
       }
 
@@ -1692,7 +1702,7 @@
 
       p {
         font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgb(255 255 255 / 70%);
         margin: 0;
       }
     }
@@ -1700,19 +1710,23 @@
 }
 
 @keyframes fadeIn {
+
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
 @keyframes slideUp {
+
   from {
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -1720,6 +1734,7 @@
 }
 
 @keyframes spin {
+
   to {
     transform: rotate(360deg);
   }
@@ -1728,7 +1743,7 @@
 .selection-box {
   position: absolute;
   border: 2px solid var(--blue);
-  background: rgba(0, 136, 255, 0.1);
+  background: rgb(0 136 255 / 10%);
   pointer-events: none;
   z-index: 100;
   mix-blend-mode: difference;

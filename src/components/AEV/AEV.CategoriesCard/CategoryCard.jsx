@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./CategoryCard.scss";
-import ArrowCategorie from "../../../assets/svg/arrowCategorie.svg";
+
+import PropTypes from 'prop-types';
+import './CategoryCard.scss';
+import ArrowCategorie from '../../../assets/svg/arrowCategorie.svg';
 
 const CategoryCard = ({ image, title, onClick }) => {
   return (
@@ -20,7 +20,7 @@ const CategoryCard = ({ image, title, onClick }) => {
 CategoryCard.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default CategoryCard;

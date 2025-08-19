@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StepProgress from '../../components/AEV/AEV.StepProgress/StepProgress';
 import './Payment.scss';
@@ -11,24 +11,24 @@ const Payment = () => {
     expiry: '',
     cvv: '',
     name: '',
-    saveCard: false
+    saveCard: false,
   });
 
   // Exemple de données de commande (à remplacer par les vraies données)
   const orderSummary = {
     items: [
-      { id: 1, name: "Pro Cycling Manager 25(PC) - Europe, U", price: 27.49, platform: "Steam", quantity: 2 }
+      { id: 1, name: 'Pro Cycling Manager 25(PC) - Europe, U', price: 27.49, platform: 'Steam', quantity: 2 },
     ],
     subtotal: 27.49,
     tax: 0,
-    total: 27.49
+    total: 27.49,
   };
 
   const paymentMethods = [
     {
       id: 'revolut',
       name: 'Revolut Pay',
-      icon: '/assets/images/payment/revolut.png'
+      icon: '/assets/images/payment/revolut.png',
     },
     {
       id: 'card',
@@ -88,20 +88,20 @@ const Payment = () => {
             </label>
           </div>
         </div>
-      )
+      ),
     },
     {
       id: 'paypal',
       name: 'Paypal',
       icon: '/assets/images/payment/paypal.png',
-      fee: '+1.15 €'
+      fee: '+1.15 €',
     },
     {
       id: 'paysafecard',
       name: 'paysafecard',
       icon: '/assets/images/payment/paysafecard.png',
-      fee: '+4.95 €'
-    }
+      fee: '+4.95 €',
+    },
   ];
 
   const handlePaymentMethodSelect = (methodId) => {
@@ -126,7 +126,7 @@ const Payment = () => {
 
     setCardFields(prev => ({
       ...prev,
-      [field]: formattedValue
+      [field]: formattedValue,
     }));
   };
 

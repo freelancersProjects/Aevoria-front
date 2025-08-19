@@ -58,15 +58,18 @@
 }
 
 // Style pour les inputs AEV
+
 .aev-textinput-wrapper, .aev-textarea-wrapper {
   width: 100%;
 }
+
 .aev-label {
   color: #bfc1cd;
   font-size: 15px;
   font-weight: 500;
   margin-bottom: 6px;
 }
+
 .aev-textinput, .aev-textarea {
   width: 100%;
   background: transparent;
@@ -78,6 +81,7 @@
   margin-bottom: 0;
   transition: border 0.2s;
 }
+
 .aev-textinput:focus, .aev-textarea:focus {
   border: 1.5px solid #0D6EFD;
   outline: none;
@@ -90,22 +94,28 @@
   text-align: right;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
+
   .settings-root-wide {
     max-width: 100%;
   }
+
   .settings-upload-row {
     flex-direction: column;
     gap: 18px;
   }
+
   .settings-upload-col {
     min-width: 0;
   }
+
   .settings-form-fields-wide {
     max-width: 100%;
   }
 }
-@media (max-width: 600px) {
+
+@media (width <= 600px) {
+
   .settings-save-btn {
     width: 100%;
     font-size: 15px;

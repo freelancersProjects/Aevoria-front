@@ -20,7 +20,8 @@
   }
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (width >= 481px) and (width <= 767px) {
+
   .subscription-section {
     padding: 50px 0;
     .subscription-container { padding: 0 10px; }

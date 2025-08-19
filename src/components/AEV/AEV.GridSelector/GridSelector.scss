@@ -17,25 +17,25 @@
   .grid-item {
     padding: 20px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgb(255 255 255 / 3%);
     border: 1.5px solid transparent;
     color: var(--white);
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
+    font-family: Montserrat, sans-serif;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
 
     &:hover {
-      border-color: rgba(0, 123, 255, 0.5);
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+      border-color: rgb(0 123 255 / 50%);
+      box-shadow: 0 0 8px rgb(0 123 255 / 20%);
     }
 
     &.selected {
       border-color: var(--blue);
       box-shadow: 0 0 12px var(--blue);
-      background: rgba(0, 123, 255, 0.08);
+      background: rgb(0 123 255 / 8%);
     }
 
     .icon {
@@ -45,7 +45,7 @@
 
     .label {
       font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgb(255 255 255 / 90%);
     }
   }
 }

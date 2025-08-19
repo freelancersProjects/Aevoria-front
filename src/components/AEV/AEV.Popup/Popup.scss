@@ -1,7 +1,7 @@
 .aev-popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
   backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
@@ -11,13 +11,13 @@
 }
 
 .aev-popup-v2 {
-  background: linear-gradient(135deg, #02090D, rgba(32, 156, 255, 0.15));
+  background: linear-gradient(135deg, #02090D, rgb(32 156 255 / 15%));
   border-radius: 20px;
   width: 100%;
   max-width: 400px;
   padding: 32px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgb(255 255 255 / 5%);
   animation: fadeInUp 0.3s ease;
 }
 
@@ -27,7 +27,7 @@
   margin-bottom: 20px;
 
   svg {
-    filter: drop-shadow(0 0 10px rgba(32, 156, 255, 0.3));
+    filter: drop-shadow(0 0 10px rgb(32 156 255 / 30%));
   }
 }
 
@@ -56,13 +56,13 @@
   }
 
   .confirm {
-    background: linear-gradient(135deg, var(--blue), rgba(32, 156, 255, 0.8));
+    background: linear-gradient(135deg, var(--blue), rgb(32 156 255 / 80%));
     color: #fff;
-    box-shadow: 0 4px 15px rgba(32, 156, 255, 0.2);
+    box-shadow: 0 4px 15px rgb(32 156 255 / 20%);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(32, 156, 255, 0.3);
+      box-shadow: 0 6px 20px rgb(32 156 255 / 30%);
     }
 
     &:active {
@@ -71,11 +71,11 @@
   }
 
   .cancel {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgb(255 255 255 / 5%);
     color: var(--white);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgb(255 255 255 / 10%);
       transform: translateY(-2px);
     }
 
@@ -86,10 +86,12 @@
 }
 
 @keyframes fadeInUp {
+
   from {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -97,9 +99,11 @@
 }
 
 @keyframes fadeIn {
+
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

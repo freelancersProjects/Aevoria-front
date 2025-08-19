@@ -1,7 +1,7 @@
 .choice-switch {
   display: inline-flex;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgb(255 255 255 / 5%);
   padding: 4px;
   gap: 4px;
   max-width: fit-content;
@@ -20,17 +20,17 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: "Montserrat", sans-serif;
+    font-family: Montserrat, sans-serif;
     white-space: nowrap;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgb(255 255 255 / 5%);
     }
 
     &.active {
       background: var(--blue);
       color: var(--white);
-      box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+      box-shadow: 0 0 12px rgb(0 123 255 / 50%);
     }
   }
 }

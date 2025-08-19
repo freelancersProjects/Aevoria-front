@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
-import useFetch from "../../../hooks/useFetch";
-import GameCard from "../../../components/AEV/AEV.GameCard/GameCard";
-import Skeleton from "../../../components/AEV/AEV.Skeleton/Skeleton";
-import "./Promotions.scss";
+import { useMemo } from 'react';
+import useFetch from '../../../hooks/useFetch';
+import GameCard from '../../../components/AEV/AEV.GameCard/GameCard';
+import Skeleton from '../../../components/AEV/AEV.Skeleton/Skeleton';
+import './Promotions.scss';
 
 const Promotions = () => {
-  const { data: gamesData, isLoading } = useFetch("/games");
+  const { data: gamesData, isLoading } = useFetch('/games');
 
   // Top 3 promotions par discount décroissant
   const topPromos = useMemo(() => {

@@ -1,7 +1,7 @@
 .aev-back-button {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgb(255 255 255 / 3%);
+  border: 1px solid rgb(255 255 255 / 10%);
   padding: 12px 20px;
   cursor: pointer;
   overflow: hidden;
@@ -11,11 +11,12 @@
   min-width: 120px;
 
   &:hover {
-    background: rgba(0, 123, 255, 0.05);
-    border-color: rgba(0, 123, 255, 0.2);
+    background: rgb(0 123 255 / 5%);
+    border-color: rgb(0 123 255 / 20%);
     transform: translateX(-6px);
 
     .button-content {
+
       .icon-container {
         transform: translateX(-4px);
 
@@ -62,7 +63,7 @@
 
     .icon {
       font-size: 20px;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgb(255 255 255 / 70%);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
     }
@@ -71,15 +72,16 @@
   .label {
     font-size: 15px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgb(255 255 255 / 70%);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &:active {
     transform: translateX(-2px);
-    background: rgba(0, 123, 255, 0.08);
+    background: rgb(0 123 255 / 8%);
 
     .button-content {
+
       .icon-container {
         transform: translateX(-2px);
       }

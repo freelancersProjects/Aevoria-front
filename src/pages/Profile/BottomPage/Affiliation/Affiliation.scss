@@ -9,7 +9,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px 64px 32px;
+  padding: 0 32px 64px;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -33,16 +33,16 @@
   gap: 24px;
   padding: 36px 40px;
   border-radius: 18px;
-  border: 1.5px solid rgba(145, 166, 182, 0.20);
+  border: 1.5px solid rgb(145 166 182 / 20%);
   background: #02070D;
   height: 260px;
   box-sizing: border-box;
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 8%);
 }
 
 .affiliation-card-title {
   color: #FFF;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 2.1rem;
   font-weight: 600;
   margin-bottom: 8px;
@@ -50,7 +50,7 @@
 
 .affiliation-card-amount {
   color: #FFF;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 2.7rem;
   font-weight: 700;
   margin-top: 8px;
@@ -68,7 +68,7 @@
   padding: 16px 0;
   cursor: pointer;
   transition: background 0.2s;
-  box-shadow: 0 2px 8px 0 rgba(13,110,253,0.10);
+  box-shadow: 0 2px 8px 0 rgb(13 110 253 / 10%);
 }
 
 .affiliation-wallet-btn {
@@ -82,7 +82,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px 0 rgba(13,110,253,0.10);
+  box-shadow: 0 2px 8px 0 rgb(13 110 253 / 10%);
   transition: background 0.2s;
 }
 
@@ -97,7 +97,7 @@
   min-width: 0;
   border-radius: 15px;
   background: #141B28;
-  padding: 40px 36px 36px 36px;
+  padding: 40px 36px 36px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -108,13 +108,13 @@
   background: #00050D;
   border-radius: 15px;
   border: none;
-  box-shadow: 0 0 0 1px rgba(13, 110, 253, 0.08);
+  box-shadow: 0 0 0 1px rgb(13 110 253 / 8%);
   gap: 18px;
 }
 
 .affiliation-block-title {
   color: #D7DFE4;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 12px;
@@ -135,7 +135,7 @@
 
 .affiliation-link-text {
   color: #D7DFE4;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 1.15rem;
   flex: 1;
   overflow: hidden;
@@ -152,7 +152,7 @@
   color: #FFF;
   border: none;
   padding: 15px 19px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   cursor: pointer;
@@ -168,7 +168,7 @@
 .affiliation-link-desc {
   color: #D7DFE4;
   font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   margin-top: 8px;
 }
 
@@ -181,7 +181,7 @@
   color: #0D6EFD;
   border: 1.5px solid #0D6EFD;
   padding: 15px 28px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
@@ -200,7 +200,7 @@
 
 .affiliation-tips-list {
   color: #D7DFE4;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 1.1rem;
   padding-left: 0;
   margin: 0;
@@ -218,7 +218,7 @@
 
 .affiliation-app-block {
   background: #141B28;
-  padding: 36px 36px 36px 36px;
+  padding: 36px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -242,7 +242,7 @@
 .affiliation-app-desc {
   color: #D7DFE4;
   font-size: 1.1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   margin-top: 8px;
 }
 
@@ -255,7 +255,7 @@
   color: #FFF;
   border: none;
   padding: 15px 28px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
@@ -270,7 +270,7 @@
 
 .affiliation-purchases-block {
   background: #141B28;
-  padding: 36px 36px 36px 36px;
+  padding: 36px;
   border-radius: 15px;
   margin-top: 0;
 }
@@ -278,25 +278,29 @@
 .affiliation-purchases-empty {
   color: #7a8599;
   font-size: 1.1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   margin-top: 18px;
   text-align: center;
 }
 
-@media (max-width: 1100px) {
+@media (width <= 1100px) {
+
   .affiliation-content {
     max-width: 100%;
-    padding: 0 10px 40px 10px;
+    padding: 0 10px 40px;
   }
+
   .affiliation-top-cards, .affiliation-row-2blocks {
     flex-direction: column;
     gap: 18px;
   }
+
   .affiliation-app-content {
     flex-direction: column;
     gap: 18px;
     align-items: flex-start;
   }
+
   .affiliation-app-img {
     width: 100%;
     max-width: 320px;

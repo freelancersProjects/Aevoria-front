@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './GameCommentaire.scss';
 
 const StarRating = ({ rating }) => {
@@ -7,7 +7,7 @@ const StarRating = ({ rating }) => {
     stars.push(
       <span key={i} className={i < rating ? 'star filled' : 'star'}>
         ★
-      </span>
+      </span>,
     );
   }
   return <div className="star-rating">{stars}</div>;
@@ -28,10 +28,10 @@ const GameCommentaire = () => {
       isVerified: true,
       gamesCount: 109,
       reviewsCount: 1,
-      content: "Unlike most other horror games, Amnesia knows that an endless succession of jump scares is not how you really get under someone's skin. After playing this game for a while, I really felt what can only be called a sense of dread - it is more of an atmosphere that makes you fearful there is just something nasty around every corner. The lack of any weapons also imposes a sense of vulnerability you don't often get in any game.",
-      additionalContent: "The story puzzles are not so, and I once or twice had glitches with the monster behavior which rather broke my immersion. For sheer atmosphere however I would certainly recommend this. Just make sure you play with the lights off - if you can handle it.",
+      content: 'Unlike most other horror games, Amnesia knows that an endless succession of jump scares is not how you really get under someone\'s skin. After playing this game for a while, I really felt what can only be called a sense of dread - it is more of an atmosphere that makes you fearful there is just something nasty around every corner. The lack of any weapons also imposes a sense of vulnerability you don\'t often get in any game.',
+      additionalContent: 'The story puzzles are not so, and I once or twice had glitches with the monster behavior which rather broke my immersion. For sheer atmosphere however I would certainly recommend this. Just make sure you play with the lights off - if you can handle it.',
       helpfulCount: 216,
-      totalVotes: 248
+      totalVotes: 248,
     },
     {
       id: 2,
@@ -43,9 +43,9 @@ const GameCommentaire = () => {
       isVerified: true,
       gamesCount: 109,
       reviewsCount: 1,
-      content: "Unlike most other horror games, Amnesia knows that an endless succession of jump scares is not how you really get under someone's skin. After playing this game for a while, I really felt what can only be called a sense of dread - it is more of an atmosphere that makes you fearful there is just something nasty around every corner. The lack of any weapons also imposes a sense of vulnerability you don't often get in any game.",
+      content: 'Unlike most other horror games, Amnesia knows that an endless succession of jump scares is not how you really get under someone\'s skin. After playing this game for a while, I really felt what can only be called a sense of dread - it is more of an atmosphere that makes you fearful there is just something nasty around every corner. The lack of any weapons also imposes a sense of vulnerability you don\'t often get in any game.',
       helpfulCount: 216,
-      totalVotes: 248
+      totalVotes: 248,
     },
     {
       id: 3,
@@ -57,23 +57,23 @@ const GameCommentaire = () => {
       isVerified: true,
       gamesCount: 109,
       reviewsCount: 1,
-      content: "Unlike most other horror games, Amnesia knows that an endless succession of jump scares is not how you really get under someone's skin. After playing this game for a while, I really felt what can only be called a sense of dread - it is more of an atmosphere that makes you fearful there is just something nasty around every corner. The lack of any weapons also imposes a sense of vulnerability you don't often get in any game.",
+      content: 'Unlike most other horror games, Amnesia knows that an endless succession of jump scares is not how you really get under someone\'s skin. After playing this game for a while, I really felt what can only be called a sense of dread - it is more of an atmosphere that makes you fearful there is just something nasty around every corner. The lack of any weapons also imposes a sense of vulnerability you don\'t often get in any game.',
       helpfulCount: 216,
-      totalVotes: 248
-    }
+      totalVotes: 248,
+    },
   ];
 
   const handleVote = (reviewId, isHelpful) => {
     setHelpfulVotes(prev => ({
       ...prev,
-      [reviewId]: isHelpful
+      [reviewId]: isHelpful,
     }));
   };
 
   return (
     <div className="game-commentaire">
       <h2 className="section-title">Overall most helpful review</h2>
-      
+
       <div className="reviews-container">
         {reviews.map(review => (
           <div key={review.id} className="review-card">
@@ -89,7 +89,7 @@ const GameCommentaire = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="review-content">
               <div className="review-header">
                 <div className="rating-title">
@@ -101,23 +101,23 @@ const GameCommentaire = () => {
                   {review.isVerified && <span className="verified">• Verified owner</span>}
                 </div>
               </div>
-              
+
               <div className="review-text">
                 <p>{review.content}</p>
                 {review.additionalContent && <p>{review.additionalContent}</p>}
               </div>
-              
+
               <div className="review-actions">
                 <div className="helpful-question">
                   <span>Is this helpful to you?</span>
                   <div className="vote-buttons">
-                    <button 
+                    <button
                       className={`yes ${helpfulVotes[review.id] === true ? 'active' : ''}`}
                       onClick={() => handleVote(review.id, true)}
                     >
                       yes
                     </button>
-                    <button 
+                    <button
                       className={`no ${helpfulVotes[review.id] === false ? 'active' : ''}`}
                       onClick={() => handleVote(review.id, false)}
                     >
@@ -133,7 +133,7 @@ const GameCommentaire = () => {
           </div>
         ))}
       </div>
-      
+
       <div className="newsletter">
         <h3>Stay in the loop</h3>
         <p>Subscribe to receive the latest news and updates about DTA.</p>

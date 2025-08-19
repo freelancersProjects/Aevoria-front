@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './ContextMenuAbsolute.scss';
 
 const ContextMenuAbsolute = ({ x, y, actions, onClose }) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UploadBox from '../../../../../components/AEV/AEV.UploadBox/UploadBox';
 import TextInput from '../../../../../components/AEV/AEV.TextInput/TextInput';
 import TextArea from '../../../../../components/AEV/AEV.TextArea/TextArea';
@@ -12,13 +12,13 @@ const Settings = () => {
     firstName: '',
     lastName: '',
     password: '',
-    bio: ''
+    bio: '',
   });
 
   const handleInputChange = (field) => (value) => {
     setFormData(prev => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 

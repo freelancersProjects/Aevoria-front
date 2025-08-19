@@ -1,6 +1,6 @@
 .aev-colorpicker {
   position: relative;
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
 
   .color-preview {
     display: flex;
@@ -8,8 +8,8 @@
     gap: 10px;
     padding: 10px 16px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgb(255 255 255 / 10%);
+    background: rgb(255 255 255 / 3%);
     cursor: pointer;
     color: var(--white);
     transition: all 0.2s ease;
@@ -27,8 +27,8 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      border: 2px solid #ffffff22;
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+      border: 2px solid #fff2;
+      box-shadow: 0 0 8px rgb(0 123 255 / 30%);
     }
   }
 
@@ -36,9 +36,9 @@
     position: absolute;
     top: calc(100% + 10px);
     left: 0;
-    background: rgba(2, 9, 13, 0.98);
-    border: 1px solid rgba(0, 123, 255, 0.2);
-    box-shadow: 0 0 12px rgba(0, 123, 255, 0.1);
+    background: rgb(2 9 13 / 98%);
+    border: 1px solid rgb(0 123 255 / 20%);
+    box-shadow: 0 0 12px rgb(0 123 255 / 10%);
     padding: 16px;
     border-radius: 14px;
     z-index: 10;
@@ -63,7 +63,7 @@
 
     &:hover {
       transform: scale(1.1);
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+      box-shadow: 0 0 8px rgb(0 123 255 / 50%);
     }
 
     &.selected {
@@ -74,8 +74,8 @@
 
   .color-hex-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 5%);
+    border: 1px solid rgb(255 255 255 / 10%);
     border-radius: 8px;
     padding: 8px 12px;
     color: var(--white);
@@ -83,7 +83,7 @@
     outline: none;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.4);
+      color: rgb(255 255 255 / 40%);
     }
 
     &:focus {
@@ -94,10 +94,12 @@
 }
 
 @keyframes fadeInUp {
+
   0% {
     opacity: 0;
     transform: translateY(8px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);

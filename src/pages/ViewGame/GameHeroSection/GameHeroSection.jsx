@@ -1,4 +1,3 @@
-import React from 'react';
 import './GameHeroSection.scss';
 import DefaultImage from '../../../assets/images/photo-test.webp';
 import { FaWindows, FaCheckCircle, FaDownload, FaTag } from 'react-icons/fa';
@@ -20,12 +19,12 @@ const GameHeroSection = () => {
       return;
     }
 
-    if(actionType === 'cart') {
-        console.log('Added to cart');
-        addNotification('Jeu ajouté au panier !', 'success');
+    if (actionType === 'cart') {
+      console.log('Added to cart');
+      addNotification('Jeu ajouté au panier !', 'success');
     } else if (actionType === 'wishlist') {
-        console.log('Added to wishlist');
-        addNotification('Jeu ajouté à la wishlist !', 'success');
+      console.log('Added to wishlist');
+      addNotification('Jeu ajouté à la wishlist !', 'success');
     }
   };
 

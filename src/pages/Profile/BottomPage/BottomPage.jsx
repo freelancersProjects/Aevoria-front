@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Dashboard from './Dashboard/Dashboard';
 import Order from './Order/Order';
 import Affiliation from './Affiliation/Affiliation';
@@ -6,7 +5,6 @@ import TabSwitcher from '../../../components/AEV/AEV.TabSwitcher/TabSwitcher';
 import './BottomPage.scss';
 
 const BottomPage = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
 
   const tabs = [
     { label: 'Dashboard', key: 'dashboard', content: <Dashboard /> },
@@ -18,7 +16,7 @@ const BottomPage = () => {
     <div className="bottom-page-container">
       <TabSwitcher
         tabs={tabs}
-        onTabChange={setActiveTab}
+        onTabChange={() => {}}
         alignLeft={true}
       />
     </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import './Canvas.scss';
 import {
   FaHandPaper, FaFont, FaPencilAlt, FaEraser, FaDownload, FaUndo, FaRedo,
@@ -6,7 +6,7 @@ import {
   FaCopy, FaImage, FaTrash, FaPlus, FaMinus, FaRuler, FaShapes,
   FaAlignLeft, FaAlignCenter, FaAlignRight, FaBold, FaItalic, FaUnderline,
   FaUpload, FaTimes, FaGamepad, FaSitemap, FaProjectDiagram,
-  FaMagic, FaCircleNotch
+  FaMagic, FaCircleNotch,
 } from 'react-icons/fa';
 import { BiGridAlt } from 'react-icons/bi';
 import useFetch from '../../../hooks/useFetch';
@@ -18,7 +18,7 @@ const TOOLS = {
   DRAW: 'draw',
   ERASER: 'eraser',
   SHAPE: 'shape',
-  IMAGE: 'image'
+  IMAGE: 'image',
 };
 
 const SHAPES = {
@@ -28,7 +28,7 @@ const SHAPES = {
   ARROW: 'arrow',
   TRIANGLE: 'triangle',
   STAR: 'star',
-  HEXAGON: 'hexagon'
+  HEXAGON: 'hexagon',
 };
 
 const DEFAULT_GAME_IMAGE = '/assets/images/default-game.jpg';
@@ -38,7 +38,7 @@ const TREE_TYPES = {
   HORIZONTAL: 'horizontal',
   RADIAL: 'radial',
   MINDMAP: 'mindmap',
-  ORGANIC: 'organic'
+  ORGANIC: 'organic',
 };
 
 const Canvas = () => {
@@ -46,29 +46,28 @@ const Canvas = () => {
   const canvasRef = useRef(null);
   const [elements, setElements] = useState([]);
   const [tool, setTool] = useState(TOOLS.MOVE);
-  const [selectedShape, setSelectedShape] = useState(SHAPES.RECTANGLE);
+  const [selectedShape] = useState(SHAPES.RECTANGLE);
   const [selectedId, setSelectedId] = useState(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [dragStart, setDragStart] = useState(null);
-  const [isPanning, setIsPanning] = useState(false);
+  const [offset] = useState({ x: 0, y: 0 });
+  const [isPanning] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [contextMenu, setContextMenu] = useState(null);
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [clipboard, setClipboard] = useState(null);
+
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showGrid, setShowGrid] = useState(true);
   const [showRulers, setShowRulers] = useState(true);
   const [layers, setLayers] = useState([
-    { id: 1, name: 'Calque 1', visible: true, locked: false, elements: [] }
+    { id: 1, name: 'Calque 1', visible: true, locked: false, elements: [] },
   ]);
   const [selectedLayer, setSelectedLayer] = useState(1);
   const [isDrawing, setIsDrawing] = useState(false);
   const [drawingPoints, setDrawingPoints] = useState([]);
   const [currentPath, setCurrentPath] = useState(null);
-  const [brushSize, setBrushSize] = useState(2);
-  const [brushColor, setBrushColor] = useState('#ffffff');
-  const [isDragging, setIsDragging] = useState(false);
+  const [brushSize] = useState(2);
+  const [brushColor] = useState('#ffffff');
+  const [isDragging] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [activeTab, setActiveTab] = useState('games');
   const { data: gamesData, loading: isLoading, error: gamesError } = useFetch(showImageModal && activeTab === 'games' ? '/api/games' : null);
@@ -113,7 +112,7 @@ const Canvas = () => {
       name: `Calque ${layers.length + 1}`,
       visible: true,
       locked: false,
-      elements: []
+      elements: [],
     };
     setLayers([...layers, newLayer]);
     setSelectedLayer(newLayer.id);
@@ -121,13 +120,13 @@ const Canvas = () => {
 
   const toggleLayerVisibility = (layerId) => {
     setLayers(layers.map(layer =>
-      layer.id === layerId ? { ...layer, visible: !layer.visible } : layer
+      layer.id === layerId ? { ...layer, visible: !layer.visible } : layer,
     ));
   };
 
   const toggleLayerLock = (layerId) => {
     setLayers(layers.map(layer =>
-      layer.id === layerId ? { ...layer, locked: !layer.locked } : layer
+      layer.id === layerId ? { ...layer, locked: !layer.locked } : layer,
     ));
   };
 
@@ -160,13 +159,13 @@ const Canvas = () => {
         bold: false,
         italic: false,
         underline: false,
-        align: 'left'
+        align: 'left',
       },
       effects: {
         shadow: false,
         blur: 0,
-        glow: false
-      }
+        glow: false,
+      },
     };
     const newElements = [...elements, newElement];
     setElements(newElements);
@@ -179,32 +178,32 @@ const Canvas = () => {
       rectangle: {
         width: 100,
         height: 100,
-        style: {}
+        style: {},
       },
       circle: {
         width: 100,
         height: 100,
-        style: { borderRadius: '50%' }
+        style: { borderRadius: '50%' },
       },
       triangle: {
         width: 100,
         height: 100,
-        style: { clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }
+        style: { clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' },
       },
       star: {
         width: 100,
         height: 100,
-        style: { clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)' }
+        style: { clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)' },
       },
       hexagon: {
         width: 100,
         height: 100,
-        style: { clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' }
+        style: { clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' },
       },
       line: {
         width: 100,
         height: 2,
-        style: {}
+        style: {},
       },
       arrow: {
         width: 100,
@@ -218,10 +217,10 @@ const Canvas = () => {
             transform: 'translateY(-50%)',
             borderLeft: '10px solid #fff',
             borderTop: '5px solid transparent',
-            borderBottom: '5px solid transparent'
-          }
-        }
-      }
+            borderBottom: '5px solid transparent',
+          },
+        },
+      },
     };
 
     const props = shapeProps[selectedShape] || shapeProps.rectangle;
@@ -242,8 +241,8 @@ const Canvas = () => {
       effects: {
         shadow: false,
         blur: 0,
-        glow: false
-      }
+        glow: false,
+      },
     };
 
     const newElements = [...elements, newElement];
@@ -270,8 +269,8 @@ const Canvas = () => {
           shadow: false,
           blur: 0,
           brightness: 100,
-          contrast: 100
-        }
+          contrast: 100,
+        },
       };
       const newElements = [...elements, newElement];
       setElements(newElements);
@@ -304,8 +303,8 @@ const Canvas = () => {
         minX: x,
         maxX: x,
         minY: y,
-        maxY: y
-      }
+        maxY: y,
+      },
     };
     setCurrentPath(newPath);
   };
@@ -325,13 +324,13 @@ const Canvas = () => {
         minX: Math.min(currentPath.bounds.minX, x),
         maxX: Math.max(currentPath.bounds.maxX, x),
         minY: Math.min(currentPath.bounds.minY, y),
-        maxY: Math.max(currentPath.bounds.maxY, y)
+        maxY: Math.max(currentPath.bounds.maxY, y),
       };
 
       setCurrentPath({
         ...currentPath,
         points: newPoints,
-        bounds
+        bounds,
       });
     }
   };
@@ -346,7 +345,7 @@ const Canvas = () => {
 
     const adjustedPoints = currentPath.points.map(([x, y]) => [
       x - bounds.minX,
-      y - bounds.minY
+      y - bounds.minY,
     ]);
 
     const finalPath = {
@@ -355,7 +354,7 @@ const Canvas = () => {
       y: bounds.minY,
       width,
       height,
-      points: adjustedPoints
+      points: adjustedPoints,
     };
 
     const newElements = [...elements, finalPath];
@@ -370,32 +369,16 @@ const Canvas = () => {
   // Canvas controls
   const handleWheel = (e) => {
     if (e.ctrlKey) {
-    e.preventDefault();
+      e.preventDefault();
       const delta = e.deltaY > 0 ? 0.9 : 1.1;
       setZoom(prev => Math.min(5, Math.max(0.1, prev * delta)));
     }
   };
 
-  const startPan = (e) => {
-    if (tool !== TOOLS.MOVE) return;
-    setIsPanning(true);
-    setDragStart({ x: e.clientX, y: e.clientY });
-  };
-
-  const onPan = (e) => {
-    if (!isPanning || !dragStart) return;
-    const dx = e.clientX - dragStart.x;
-    const dy = e.clientY - dragStart.y;
-    setOffset(prev => ({ x: prev.x + dx, y: prev.y + dy }));
-    setDragStart({ x: e.clientX, y: e.clientY });
-  };
-
-  const stopPan = () => setIsPanning(false);
-
   // Element manipulation
   const updateElement = (id, updates) => {
     const newElements = elements.map(el =>
-      el.id === id ? { ...el, ...updates } : el
+      el.id === id ? { ...el, ...updates } : el,
     );
     setElements(newElements);
     addToHistory(newElements);
@@ -438,7 +421,7 @@ const Canvas = () => {
       ...element,
       id: Date.now(),
       x: element.x + 20,
-      y: element.y + 20
+      y: element.y + 20,
     };
     const newElements = [...elements, newElement];
     setElements(newElements);
@@ -450,7 +433,7 @@ const Canvas = () => {
   const exportCanvas = () => {
     const data = {
       elements,
-      layers
+      layers,
     };
     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -459,21 +442,6 @@ const Canvas = () => {
     a.download = 'canvas.json';
     a.click();
     URL.revokeObjectURL(url);
-  };
-
-  const importCanvas = (file) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const data = JSON.parse(e.target.result);
-        setElements(data.elements || []);
-        setLayers(data.layers || []);
-        addToHistory(data.elements || []);
-      } catch (error) {
-        console.error('Erreur lors de l\'import:', error);
-      }
-    };
-    reader.readAsText(file);
   };
 
   // Add fullscreen handling
@@ -506,14 +474,13 @@ const Canvas = () => {
   // Handle context menu
   const handleContextMenu = (e, element = null) => {
     e.preventDefault();
-    const rect = canvasRef.current.getBoundingClientRect();
     const x = e.clientX;
     const y = e.clientY;
 
-      setContextMenu({
+    setContextMenu({
       x,
       y,
-      element
+      element,
     });
   };
 
@@ -624,7 +591,7 @@ const Canvas = () => {
         x: Math.min(selectionStart.x, x),
         y: Math.min(selectionStart.y, y),
         width: Math.abs(x - selectionStart.x),
-        height: Math.abs(y - selectionStart.y)
+        height: Math.abs(y - selectionStart.y),
       };
 
       const newSelectedIds = new Set([...selectedIds]);
@@ -702,7 +669,7 @@ const Canvas = () => {
         <button onClick={exportCanvas} title="Exporter">
           <FaDownload />
         </button>
-        <button onClick={toggleFullscreen} title={isFullscreen ? "Quitter le plein écran" : "Plein écran"}>
+        <button onClick={toggleFullscreen} title={isFullscreen ? 'Quitter le plein écran' : 'Plein écran'}>
           {isFullscreen ? <FaCompress /> : <FaExpand />}
         </button>
       </div>
@@ -735,7 +702,7 @@ const Canvas = () => {
       <div className="text-formatting-toolbar">
         <button
           onClick={() => updateElement(selectedId, {
-            style: { ...selectedElement.style, bold: !selectedElement.style.bold }
+            style: { ...selectedElement.style, bold: !selectedElement.style.bold },
           })}
           className={selectedElement.style.bold ? 'active' : ''}
         >
@@ -743,7 +710,7 @@ const Canvas = () => {
         </button>
         <button
           onClick={() => updateElement(selectedId, {
-            style: { ...selectedElement.style, italic: !selectedElement.style.italic }
+            style: { ...selectedElement.style, italic: !selectedElement.style.italic },
           })}
           className={selectedElement.style.italic ? 'active' : ''}
         >
@@ -751,7 +718,7 @@ const Canvas = () => {
         </button>
         <button
           onClick={() => updateElement(selectedId, {
-            style: { ...selectedElement.style, underline: !selectedElement.style.underline }
+            style: { ...selectedElement.style, underline: !selectedElement.style.underline },
           })}
           className={selectedElement.style.underline ? 'active' : ''}
         >
@@ -760,7 +727,7 @@ const Canvas = () => {
         <div className="separator" />
         <button
           onClick={() => updateElement(selectedId, {
-            style: { ...selectedElement.style, align: 'left' }
+            style: { ...selectedElement.style, align: 'left' },
           })}
           className={selectedElement.style.align === 'left' ? 'active' : ''}
         >
@@ -768,7 +735,7 @@ const Canvas = () => {
         </button>
         <button
           onClick={() => updateElement(selectedId, {
-            style: { ...selectedElement.style, align: 'center' }
+            style: { ...selectedElement.style, align: 'center' },
           })}
           className={selectedElement.style.align === 'center' ? 'active' : ''}
         >
@@ -776,7 +743,7 @@ const Canvas = () => {
         </button>
         <button
           onClick={() => updateElement(selectedId, {
-            style: { ...selectedElement.style, align: 'right' }
+            style: { ...selectedElement.style, align: 'right' },
           })}
           className={selectedElement.style.align === 'right' ? 'active' : ''}
         >
@@ -795,7 +762,7 @@ const Canvas = () => {
         className="context-menu"
         style={{
           top: contextMenu.y,
-          left: contextMenu.x
+          left: contextMenu.x,
         }}
       >
         {contextMenu.element ? (
@@ -849,8 +816,8 @@ const Canvas = () => {
       effects: {
         shadow: false,
         blur: 0,
-        glow: false
-      }
+        glow: false,
+      },
     };
 
     const newElements = [...elements, newElement];
@@ -971,7 +938,7 @@ const Canvas = () => {
         strokeWidth: 2,
         layer: selectedLayer,
         content: 'Double-click to edit',
-        isTreeNode: true
+        isTreeNode: true,
       };
 
       nodes.push(node);
@@ -981,10 +948,10 @@ const Canvas = () => {
           id: Date.now() + Math.random(),
           type: 'path',
           points: [[parentId.x + parentId.width / 2, parentId.y + parentId.height],
-                   [x + node.width / 2, y]],
+            [x + node.width / 2, y]],
           color: '#0088ff',
           width: 2,
-          layer: selectedLayer
+          layer: selectedLayer,
         });
       }
 
@@ -1182,7 +1149,7 @@ const Canvas = () => {
           style={{
             transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
             width: '12000px',
-            height: '12000px'
+            height: '12000px',
           }}
         >
           {elements.map((el) => {
@@ -1207,18 +1174,18 @@ const Canvas = () => {
                     textAlign: el.style?.align || 'left',
                     fontWeight: el.style?.bold ? 'bold' : 'normal',
                     fontStyle: el.style?.italic ? 'italic' : 'normal',
-                    textDecoration: el.style?.underline ? 'underline' : 'none'
+                    textDecoration: el.style?.underline ? 'underline' : 'none',
                   }),
                   ...(el.type === 'image' && {
                     width: el.width,
-                    height: el.height
+                    height: el.height,
                   }),
                   ...(el.type === 'shape' && {
                     width: el.width,
                     height: el.height,
                     backgroundColor: el.color,
-                    border: `${el.strokeWidth}px solid ${el.strokeColor}`
-                  })
+                    border: `${el.strokeWidth}px solid ${el.strokeColor}`,
+                  }),
                 }}
                 onClick={(e) => handleElementClick(e, el)}
                 onMouseDown={(e) => handleDragElement(e, el)}
@@ -1265,7 +1232,7 @@ const Canvas = () => {
                 left: Math.min(selectionStart.x, currentMousePos.x),
                 top: Math.min(selectionStart.y, currentMousePos.y),
                 width: Math.abs(currentMousePos.x - selectionStart.x),
-                height: Math.abs(currentMousePos.y - selectionStart.y)
+                height: Math.abs(currentMousePos.y - selectionStart.y),
               }}
             />
           )}

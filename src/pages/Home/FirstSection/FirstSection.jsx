@@ -1,13 +1,13 @@
-import React, { useMemo } from "react";
-import useFetch from "../../../hooks/useFetch";
-import Icon from "../../../components/AEV/AEV.Icon/Icon";
-import Button from "../../../components/AEV/AEV.Button/Button";
-import Toast from "../../../components/AEV/AEV.Toast/Toast";
-import Skeleton from "../../../components/AEV/AEV.Skeleton/Skeleton";
-import "./FirstSection.scss";
+import { useMemo } from 'react';
+import useFetch from '../../../hooks/useFetch';
+import Icon from '../../../components/AEV/AEV.Icon/Icon';
+import Button from '../../../components/AEV/AEV.Button/Button';
+import Toast from '../../../components/AEV/AEV.Toast/Toast';
+import Skeleton from '../../../components/AEV/AEV.Skeleton/Skeleton';
+import './FirstSection.scss';
 
 const FirstSection = () => {
-  const { data: gamesData, isLoading, error } = useFetch("/games");
+  const { data: gamesData, isLoading, error } = useFetch('/games');
 
   const randomizedImages = useMemo(() => {
     const gamesArray = gamesData?.$values || gamesData || [];
@@ -23,7 +23,7 @@ const FirstSection = () => {
     return <Skeleton count={20} />;
   }
   if (error) {
-    Toast.error("Erreur lors du chargement des jeux.");
+    Toast.error('Erreur lors du chargement des jeux.');
     return null;
   }
 
@@ -35,7 +35,7 @@ const FirstSection = () => {
         <div className="content-area">
           <div className="badge">
             <span className="badge-content">
-              <Icon name="catalogue_game" size={18} style={{ marginRight: "8px" }} />
+              <Icon name="catalogue_game" size={18} style={{ marginRight: '8px' }} />
               Nouveau catalogue de jeux
             </span>
           </div>
@@ -55,7 +55,7 @@ const FirstSection = () => {
               text="Voir catalogue"
               variant="transparent"
               size="medium"
-              onClick={() => console.log("Catalogue clicked")}
+              onClick={() => console.log('Catalogue clicked')}
             />
           </div>
         </div>

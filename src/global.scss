@@ -1,57 +1,57 @@
 :root {
-  --dark-low-opacity: rgba(0, 5, 13, 0.9);
-  --white: #ffffff;
+  --dark-low-opacity: rgb(0 5 13 / 90%);
+  --white: #fff;
   --main-background: linear-gradient(135deg, #00050D 0%, #00050D 50%, #011221 100%);
   --background-black: #00050d;
   --semi-black: #141B28;
-  --transparent-white: rgba(255, 255, 255, 0.6);
+  --transparent-white: rgb(255 255 255 / 60%);
   --second-background: #000711;
   --light-text: #D7DFE4;
   --dark-background: #02090D;
   --lightgray: #c9cbcc;
-  --gray-background: #111111;
-  --blue: rgba(0, 123, 255, 1);
-  --blue-hover: rgb(8, 98, 194);
-  --blue-low-opacity: rgba(0, 123, 255, 0.5);
+  --gray-background: #111;
+  --blue: rgb(0 123 255 / 100%);
+  --blue-hover: rgb(8 98 194);
+  --blue-low-opacity: rgb(0 123 255 / 50%);
   --dark-blue: #000C1F;
   --dark-red: #1A0000;
-  --white: #ffffff;
-  --black: #000000;
+  --white: #fff;
+  --black: #000;
   --hover-white: #c9c6c6;
   --color-background: #00050D;
-  --color-transparent: rgba(0, 5, 13, 0.00);
-  --glow-blue: rgba(32, 156, 255, 0.90);
+  --color-transparent: rgb(0 5 13 / 0%);
+  --glow-blue: rgb(32 156 255 / 90%);
   --blue-light: #209cff;
   --red: #db0707;
   --green: #00ff91;
-  --cyan: #00ffff;
-  --blue-rgb: rgba(0, 123, 255, 1);
+  --cyan: #0ff;
+  --blue-rgb: rgb(0 123 255 / 100%);
 }
 
 $background-black: #00050d;
-$transparent-white: rgba(255, 255, 255, 0.6);
+$transparent-white: rgb(255 255 255 / 60%);
 $second-background: #000711;
 $light-text: #D7DFE4;
 $dark-background: #02090D;
 $lightgray: #c9cbcc;
-$gray-background: #111111;
+$gray-background: #111;
 $blue: #0D6EFD;
-$blue-low-opacity: rgba(0, 123, 255, 0.7);
+$blue-low-opacity: rgb(0 123 255 / 70%);
 $dark-blue: #000C1F;
 $dark-red: #1A0000;
-$white: #ffffff;
-$black: #000000;
+$white: #fff;
+$black: #000;
 $hover-white: #c9c6c6;
 $color-background: #00050D;
-$color-transparent: rgba(0, 5, 13, 0.00);
-$glow-blue: rgba(32, 156, 255, 0.90);
+$color-transparent: rgb(0 5 13 / 0%);
+$glow-blue: rgb(32 156 255 / 90%);
 $blue-light: #209cff;
 $red: #db0707;
 $hover-red: #bd0b0b;
 $base-font-size: 16px;
 
 @function rem-calc($px) {
-  @return math.div($px, $base-font-size) * 1rem;
+  @return math.div($px, ) * 1rem;
 }
 
 h1,
@@ -173,7 +173,7 @@ a{
 }
 
 .font-montserrat {
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .blue {
@@ -187,7 +187,6 @@ a{
   cursor: pointer;
   color: white;
   transition: color 0.3s ease;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -233,11 +232,10 @@ a{
 
 .title-center {
   text-align: center;
-  font-family: "Instrument Sans", sans-serif;
-  background: linear-gradient(270deg, rgba(255, 255, 255, 0.6) 0%, #fff 100%);
-  background-clip: text;
+  font-family: Instrument Sans, sans-serif;
+  background: linear-gradient(270deg, rgb(255 255 255 / 60%) 0%, #fff 100%);
   font-size: 56px;
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 20px;
   font-weight: 600;
@@ -258,5 +256,5 @@ a{
 }
 
 .instrument-sans {
-  font-family: "Instrument Sans", sans-serif;
+  font-family: Instrument Sans, sans-serif;
 }

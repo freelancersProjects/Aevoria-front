@@ -1,30 +1,30 @@
 .game-card {
-  background: linear-gradient(145deg, rgba(16, 20, 30, 0.95), rgba(8, 12, 20, 0.95));
+  background: linear-gradient(145deg, rgb(16 20 30 / 95%), rgb(8 12 20 / 95%));
   border-radius: 16px;
   overflow: hidden;
   color: var(--white);
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   position: relative;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
   min-width: 280px;
   max-width: 400px;
   margin: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgb(255 255 255 / 5%);
   backdrop-filter: blur(10px);
   display: inline-block;
   vertical-align: top;
   cursor: pointer;
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     width: calc(50% - 20px);
   }
 
-  @media (min-width: 1024px) {
+  @media (width >= 1024px) {
     width: calc(33.333% - 20px);
   }
 
-  @media (min-width: 1440px) {
+  @media (width >= 1440px) {
     width: calc(25% - 20px);
   }
 
@@ -38,8 +38,8 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     .menu-button {
-      background: rgba(0, 0, 0, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgb(0 0 0 / 75%);
+      border: 1px solid rgb(255 255 255 / 10%);
       backdrop-filter: blur(8px);
       border-radius: 8px;
       color: white;
@@ -52,7 +52,7 @@
       transition: all 0.2s ease-in-out;
 
       &:hover {
-        background: rgba(0, 123, 255, 0.15);
+        background: rgb(0 123 255 / 15%);
         border-color: var(--blue);
         transform: translateY(-2px);
       }
@@ -60,9 +60,9 @@
 
     .action-menu {
       margin-top: 8px;
-      background: rgba(8, 12, 20, 0.95);
+      background: rgb(8 12 20 / 95%);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 123, 255, 0.15);
+      border: 1px solid rgb(0 123 255 / 15%);
       border-radius: 12px;
       padding: 6px;
       position: absolute;
@@ -73,7 +73,7 @@
       pointer-events: none;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       transform: translateY(-5px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px rgb(0 0 0 / 20%);
 
       button {
         background: transparent;
@@ -88,7 +88,7 @@
         font-size: 0.9rem;
 
         &:hover {
-          background: rgba(0, 123, 255, 0.1);
+          background: rgb(0 123 255 / 10%);
           color: var(--blue);
         }
       }
@@ -120,7 +120,7 @@
     padding: 20px;
     position: relative;
     z-index: 1;
-    background: linear-gradient(to top, rgba(8, 12, 20, 1), rgba(8, 12, 20, 0));
+    background: linear-gradient(to top, rgb(8 12 20 / 100%), rgb(8 12 20 / 0%));
     transform: translateY(0);
     transition: transform 0.4s ease;
   }
@@ -130,19 +130,19 @@
     margin-bottom: 12px;
     font-weight: 700;
     background: linear-gradient(90deg, #fff, #e0e0e0);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 1.3;
   }
 
   .game-genres {
     margin-bottom: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgb(255 255 255 / 80%);
     font-size: 0.9rem;
 
     .genre-tag {
       display: inline;
-      color: rgba(255, 255, 255, 0.60);
+      color: rgb(255 255 255 / 60%);
       font-size: 16px;
       font-weight: 500;
       transition: all 0.2s ease;
@@ -151,16 +151,16 @@
         color: var(--blue);
 
         &.badge {
-          background: rgba(12, 48, 77, 0.1);
-          border: 1px solid rgba(32, 156, 255, 0.2);
+          background: rgb(12 48 77 / 10%);
+          border: 1px solid rgb(32 156 255 / 20%);
           padding: 2px 6px;
           border-radius: 12px;
           font-size: 0.8rem;
           margin-left: 8px;
 
           &:hover {
-            background: rgba(2, 32, 56, 0.2);
-            border-color: rgba(32, 156, 255, 0.3);
+            background: rgb(2 32 56 / 20%);
+            border-color: rgb(32 156 255 / 30%);
           }
         }
       }
@@ -174,7 +174,7 @@
         bottom: 100%;
         left: 50%;
         transform: translateX(-50%) translateY(5px);
-        background: rgba(8, 12, 20, 0.95);
+        background: rgb(8 12 20 / 95%);
         padding: 8px 12px;
         border-radius: 6px;
         font-size: 0.85rem;
@@ -184,8 +184,8 @@
         visibility: hidden;
         transition: all 0.2s ease;
         z-index: 10;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgb(255 255 255 / 10%);
+        box-shadow: 0 4px 12px rgb(0 0 0 / 20%);
         backdrop-filter: blur(8px);
 
         &::after {
@@ -195,7 +195,7 @@
           left: 50%;
           transform: translateX(-50%);
           border: 6px solid transparent;
-          border-top-color: rgba(8, 12, 20, 0.95);
+          border-top-color: rgb(8 12 20 / 95%);
         }
       }
     }
@@ -205,8 +205,8 @@
     display: flex;
     gap: 12px;
     margin-bottom: 20px;
-    padding: 8px 0 18px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 8px 0 18px;
+    border-bottom: 1px solid rgb(255 255 255 / 5%);
   }
 
   .icon {
@@ -238,7 +238,7 @@
   }
 
   .old-price {
-    color: rgba(255, 255, 255, 0.60);
+    color: rgb(255 255 255 / 60%);
     font-family: Montserrat;
     font-size: 24px;
     font-style: normal;
@@ -247,13 +247,13 @@
     text-decoration-line: line-through;
   }
 
-  &:before {
+  &::before {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(145deg,
-        rgba(0, 123, 255, 0.1),
-        rgba(0, 123, 255, 0));
+        rgb(0 123 255 / 10%),
+        rgb(0 123 255 / 0%));
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: 1;
@@ -261,10 +261,10 @@
 
   &:hover {
     transform: translateY(-5px);
-    border-color: rgba(0, 123, 255, 0.3);
+    border-color: rgb(0 123 255 / 30%);
     box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(0, 123, 255, 0.1);
+      0 10px 30px rgb(0 0 0 / 20%),
+      0 0 0 1px rgb(0 123 255 / 10%);
 
     .game-image {
       transform: scale(1.02);
@@ -274,32 +274,34 @@
       transform: translateY(0);
     }
 
-    &:before {
+    &::before {
       opacity: 1;
     }
   }
 
   // Style spécial pour les promotions
+
   &.promotion {
-    background: linear-gradient(145deg, rgba(20, 24, 35, 0.95), rgba(12, 16, 25, 0.95));
-    border: 1px solid rgba(0, 123, 255, 0.15);
+    background: linear-gradient(145deg, rgb(20 24 35 / 95%), rgb(12 16 25 / 95%));
+    border: 1px solid rgb(0 123 255 / 15%);
     position: relative;
     overflow: hidden;
 
-    &:before {
+    &::before {
       content: "";
       position: absolute;
       inset: -2px;
       background: linear-gradient(145deg,
-          rgba(0, 123, 255, 0.5),
-          rgba(0, 89, 255, 0.2));
+          rgb(0 123 255 / 50%),
+          rgb(0 89 255 / 20%));
       z-index: -1;
       opacity: 0.1;
       transition: opacity 0.4s ease;
     }
 
     // Badge promotion
-    &:after {
+
+    &::after {
       content: "Promotion";
       position: absolute;
       top: 16px;
@@ -310,25 +312,25 @@
       font-size: 0.85rem;
       font-weight: 600;
       transform: rotate(-45deg);
-      box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+      box-shadow: 0 2px 10px rgb(0 123 255 / 30%);
       z-index: 3;
     }
 
     .game-info {
       background: linear-gradient(to top,
-          rgba(12, 16, 25, 1),
-          rgba(12, 16, 25, 0.8) 50%,
-          rgba(12, 16, 25, 0));
+          rgb(12 16 25 / 100%),
+          rgb(12 16 25 / 80%) 50%,
+          rgb(12 16 25 / 0%));
     }
 
     .game-pricing {
       position: relative;
       background: linear-gradient(90deg,
-          rgba(0, 123, 255, 0.1),
-          rgba(0, 123, 255, 0));
+          rgb(0 123 255 / 10%),
+          rgb(0 123 255 / 0%));
       margin: 16px -20px -20px;
       padding: 16px 20px;
-      border-top: 1px solid rgba(0, 123, 255, 0.1);
+      border-top: 1px solid rgb(0 123 255 / 10%);
 
       .current-price {
         color: #fff;
@@ -336,7 +338,7 @@
         display: inline-flex;
         align-items: center;
 
-        &:after {
+        &::after {
           content: attr(data-discount);
           position: absolute;
           right: -50px;
@@ -353,16 +355,16 @@
 
       .old-price {
         position: relative;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgb(255 255 255 / 40%);
 
-        &:before {
+        &::before {
           content: "";
           position: absolute;
           top: 50%;
           left: -2px;
           right: -2px;
           height: 2px;
-          background: rgba(255, 59, 59, 0.6);
+          background: rgb(255 59 59 / 60%);
           transform: rotate(-8deg);
         }
       }
@@ -372,11 +374,11 @@
       transform: translateY(-5px);
       border-color: var(--blue);
       box-shadow:
-        0 10px 30px rgba(0, 123, 255, 0.2),
-        0 0 0 1px rgba(0, 123, 255, 0.2),
-        0 0 20px rgba(0, 123, 255, 0.15);
+        0 10px 30px rgb(0 123 255 / 20%),
+        0 0 0 1px rgb(0 123 255 / 20%),
+        0 0 20px rgb(0 123 255 / 15%);
 
-      &:before {
+      &::before {
         opacity: 0.2;
       }
 
@@ -385,26 +387,27 @@
       }
 
       .current-price {
-        text-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+        text-shadow: 0 0 20px rgb(0 123 255 / 50%);
       }
     }
 
     // Animation de pulse sur le badge de réduction
     @keyframes pulseShadow {
+
       0% {
-        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+        box-shadow: 0 0 0 0 rgb(0 123 255 / 40%);
       }
 
       70% {
-        box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+        box-shadow: 0 0 0 10px rgb(0 123 255 / 0%);
       }
 
       100% {
-        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+        box-shadow: 0 0 0 0 rgb(0 123 255 / 0%);
       }
     }
 
-    .current-price:after {
+    .current-price::after {
       animation: pulseShadow 2s infinite;
     }
   }

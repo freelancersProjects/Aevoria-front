@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import SectionTitle from '../../components/AEV/AEV.SectionTitle/SectionTitle';
 import GameCard from '../../components/AEV/AEV.GameCard/GameCard';
 import Slider from './Slider/Slider';
-import Categories from "./Categories/Categories";
-import Promotions from "./Promotions/Promotions";
+import Categories from './Categories/Categories';
+import Promotions from './Promotions/Promotions';
 import FirstSection from './FirstSection/FirstSection';
 import './Home.scss';
 import Banner from './Banner/Banner';
@@ -34,7 +34,7 @@ const Home = () => {
         const data = response?.$values || response;
         if (!Array.isArray(data)) throw new Error('Format des données incorrect');
         setGames(data);
-      } catch (err) {
+      } catch {
         // Optionnel : toast d'erreur
       } finally {
         setIsLoading(false);
@@ -202,7 +202,7 @@ const Home = () => {
       <div className='container-promo'>
         <div className='container container-promo-text'>
           <p className="title-center text-up-promo mb-2">
-            Profitez de promotions exclusives sur une sélection de jeux incontournables.
+              Profitez de promotions exclusives sur une sélection de jeux incontournables.
           </p>
 
           <p className="text-light text-to-date font-montserrat mb-1 mt-2">Jusqu'au <span className="blue text-bold">25 Janvier 2003</span></p>

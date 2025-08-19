@@ -4,7 +4,7 @@
   gap: 28px;
   width: 100%;
   padding-bottom: 20px;
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
   color: var(--white);
 }
 
@@ -39,13 +39,13 @@
   cursor: pointer;
 
   &:hover {
-    background: rgba(0, 123, 255, 0.1);
+    background: rgb(0 123 255 / 10%);
     border-color: var(--blue);
   }
 }
 
 .message-item {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(0, 123, 255, 0.02));
+  background: linear-gradient(135deg, rgb(255 255 255 / 2%), rgb(0 123 255 / 2%));
   border-left: 3px solid transparent;
   margin-bottom: 12px;
   border-radius: 12px;
@@ -66,7 +66,7 @@
   }
 
   &.open {
-    background: rgba(0, 123, 255, 0.05);
+    background: rgb(0 123 255 / 5%);
   }
 
   &:is(.read):is(.open) {
@@ -74,14 +74,15 @@
   }
 
   &.important {
+
     &.unread {
       border-left-color: var(--red) !important;
-      background: linear-gradient(135deg, rgba(255, 0, 0, 0.08), rgba(255, 0, 0, 0.03));
-      box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.15), 0 4px 14px rgba(255, 0, 0, 0.4);
+      background: linear-gradient(135deg, rgb(255 0 0 / 8%), rgb(255 0 0 / 3%));
+      box-shadow: 0 0 0 3px rgb(255 0 0 / 15%), 0 4px 14px rgb(255 0 0 / 40%);
     }
 
     &.open {
-      background: rgba(255, 0, 0, 0.05);
+      background: rgb(255 0 0 / 5%);
     }
 
     &:is(.read):is(.open) {
@@ -109,7 +110,7 @@
         gap: 8px;
 
         .important-icon {
-          color: #ff3333;
+          color: #f33;
           font-size: 18px;
         }
       }
@@ -128,7 +129,7 @@
 
     .delete-icon {
       font-size: 25px;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgb(255 255 255 / 40%);
       cursor: pointer;
       opacity: 0;
       transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
@@ -136,6 +137,7 @@
     }
 
     &:hover {
+
       .delete-icon {
         opacity: 1;
       }
@@ -150,9 +152,9 @@
     margin-top: 10px;
     font-size: 0.88rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgb(255 255 255 / 85%);
     padding-top: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgb(255 255 255 / 6%);
   }
 }
 
@@ -160,7 +162,7 @@
   font-size: 1rem;
   font-weight: 600;
   padding-bottom: 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
   color: var(--white);
   margin-top: 12px;
 }

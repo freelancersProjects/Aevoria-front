@@ -1,15 +1,15 @@
 .aev-hr {
     border: none;
     height: 1px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgb(255 255 255 / 8%);
     margin: 24px 0;
 
     &.light {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgb(255 255 255 / 4%);
     }
 
     &.dashed {
-        border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        border-top: 1px dashed rgb(255 255 255 / 10%);
         background: none;
     }
 }

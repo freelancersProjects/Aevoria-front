@@ -9,6 +9,7 @@
   transition: transform 0.3s ease;
 
   &:hover {
+
     .hover-overlay {
       opacity: 1;
       transform: translateY(0);
@@ -31,7 +32,7 @@
   .hover-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(2, 9, 13, 0.2) 0%, rgba(0, 123, 255, 0.8) 100%);
+    background: linear-gradient(180deg, rgb(2 9 13 / 20%) 0%, rgb(0 123 255 / 80%) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,7 +47,7 @@
   .hover-content {
     color: white;
     font-size: 1rem;
-    font-family: "Montserrat", sans-serif;
+    font-family: Montserrat, sans-serif;
     text-align: center;
     font-weight: 600;
   }

@@ -1,5 +1,5 @@
 .aev-destinataire-input {
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
   width: 100%;
   color: var(--white);
   position: relative;
@@ -28,7 +28,7 @@
       color: var(--white);
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.3);
+        color: rgb(255 255 255 / 30%);
       }
 
       &:focus {
@@ -38,7 +38,7 @@
 
     .dropdown-icon {
       font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgb(255 255 255 / 50%);
       cursor: pointer;
     }
 
@@ -53,7 +53,7 @@
       font-size: 0.85rem;
 
       .remove {
-        font-weight: bold;
+        font-weight: 700;
         cursor: pointer;
 
         &:hover {
@@ -73,14 +73,14 @@
 
   .dropdown-panel {
     margin-top: 10px;
-    background: linear-gradient(135deg, #02090D, rgba(0, 123, 255, 0.06));
-    border: 1px solid rgba(0, 123, 255, 0.15);
+    background: linear-gradient(135deg, #02090D, rgb(0 123 255 / 6%));
+    border: 1px solid rgb(0 123 255 / 15%);
     border-radius: 12px;
     padding: 8px;
     position: absolute;
     width: 100%;
     z-index: 999;
-    box-shadow: 0 0 14px rgba(0, 123, 255, 0.2);
+    box-shadow: 0 0 14px rgb(0 123 255 / 20%);
 
     .dropdown-item {
       padding: 10px 12px;

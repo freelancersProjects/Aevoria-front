@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 8px;
   position: relative;
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .aev-label {
@@ -15,8 +15,8 @@
 .aev-textarea {
   resize: vertical;
   min-height: 100px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgb(255 255 255 / 3%);
+  border: 1px solid rgb(255 255 255 / 10%);
   padding: 14px 16px;
   border-radius: 10px;
   color: var(--white);
@@ -26,7 +26,7 @@
   font-family: inherit;
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgb(255 255 255 / 40%);
   }
 
   &:focus {
@@ -37,6 +37,6 @@
 .char-counter {
   align-self: flex-end;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(255 255 255 / 50%);
   margin-top: 4px;
 }

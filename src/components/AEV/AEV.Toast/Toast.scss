@@ -14,8 +14,8 @@
   backdrop-filter: blur(8px);
   transition: all 0.4s ease-in-out;
   border: 1px solid transparent;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
-  font-family: "Montserrat", sans-serif;
+  box-shadow: 0 0 10px rgb(0 123 255 / 10%);
+  font-family: Montserrat, sans-serif;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -29,7 +29,7 @@
     border: none;
     color: inherit;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
     padding: 0;
     width: 20px;
@@ -43,7 +43,7 @@
 
     &:hover {
       opacity: 1;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgb(255 255 255 / 10%);
     }
   }
 }
@@ -57,29 +57,29 @@
 }
 
 .toast-success {
-  background: rgba(0, 255, 123, 0.1);
-  border-color: rgba(0, 255, 123, 0.2);
-  box-shadow: 0 0 10px rgba(0, 255, 123, 0.3);
+  background: rgb(0 255 123 / 10%);
+  border-color: rgb(0 255 123 / 20%);
+  box-shadow: 0 0 10px rgb(0 255 123 / 30%);
   color: #6affd0;
 }
 
 .toast-error {
-  background: rgba(255, 50, 50, 0.08);
-  border-color: rgba(255, 50, 50, 0.25);
-  box-shadow: 0 0 10px rgba(255, 80, 80, 0.25);
+  background: rgb(255 50 50 / 8%);
+  border-color: rgb(255 50 50 / 25%);
+  box-shadow: 0 0 10px rgb(255 80 80 / 25%);
   color: #ff8080;
 }
 
 .toast-warning {
-  background: rgba(255, 200, 0, 0.08);
-  border-color: rgba(255, 200, 0, 0.2);
-  box-shadow: 0 0 10px rgba(255, 220, 0, 0.25);
+  background: rgb(255 200 0 / 8%);
+  border-color: rgb(255 200 0 / 20%);
+  box-shadow: 0 0 10px rgb(255 220 0 / 25%);
   color: #ffe27a;
 }
 
 .toast-info {
-  background: rgba(0, 123, 255, 0.1);
-  border-color: rgba(0, 123, 255, 0.2);
+  background: rgb(0 123 255 / 10%);
+  border-color: rgb(0 123 255 / 20%);
   box-shadow: 0 0 10px var(--blue-low-opacity);
   color: var(--blue);
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import fr from './fr.json';
 import en from './en.json';
 
@@ -10,9 +10,9 @@ export const LanguageProvider = ({ children }) => {
   const detectBrowserLanguage = () => {
     const browserLang = navigator.language || navigator.languages[0]; // Langue du navigateur
     if (browserLang.startsWith('fr')) {
-      return 'fr'; 
+      return 'fr';
     }
-    return 'en'; 
+    return 'en';
   };
 
   const [language, setLanguage] = useState(detectBrowserLanguage());
@@ -21,7 +21,7 @@ export const LanguageProvider = ({ children }) => {
 
   const changeLanguage = (lang) => {
     setLanguage(lang);
-    localStorage.setItem('language', lang); 
+    localStorage.setItem('language', lang);
   };
 
   useEffect(() => {
@@ -36,4 +36,4 @@ export const LanguageProvider = ({ children }) => {
       {children}
     </LanguageContext.Provider>
   );
-}; 
+};

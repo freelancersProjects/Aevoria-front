@@ -1,4 +1,4 @@
-@import '../../../global.scss';
+@import '../../../global';
 
 .game-media {
   color: var(--white);
@@ -13,13 +13,11 @@
   }
 
   // Background glow effects
+
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     pointer-events: none;
     z-index: 0;
   }
@@ -44,13 +42,11 @@
       background: var(--background-black);
 
       // Glowing border animation
+
       &::before {
         content: '';
         position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
+        inset: -2px;
         background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
         border-radius: 22px;
         z-index: -1;
@@ -71,14 +67,11 @@
 
       .video-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgb(0 0 0 / 30%);
         opacity: 0;
         transition: opacity 0.3s ease;
         z-index: 3;
@@ -143,7 +136,7 @@
           background: var(--dark-low-opacity);
           padding: 8px 12px;
           border-radius: 8px;
-          font-family: 'Monaco', 'Menlo', monospace;
+          font-family: Monaco, Menlo, monospace;
           font-size: 14px;
           color: var(--blue-light);
           border: 1px solid var(--blue-low-opacity);
@@ -214,7 +207,9 @@
     z-index: 2;
 
     // Override some SliderSelector styles for better integration
+
     .aev-slider-wrapper {
+
       .aev-slider-container {
         padding: 0 60px;
       }
@@ -229,28 +224,35 @@
 
 // Animations
 @keyframes borderGlow {
+
   0% { 
     background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
   }
+
   25% { 
     background: linear-gradient(45deg, var(--red), var(--blue), var(--green), var(--blue-light));
   }
+
   50% { 
     background: linear-gradient(45deg, var(--blue), var(--green), var(--blue-light), var(--red));
   }
+
   75% { 
     background: linear-gradient(45deg, var(--green), var(--blue-light), var(--red), var(--blue));
   }
+
   100% { 
     background: linear-gradient(45deg, var(--blue-light), var(--red), var(--blue), var(--green));
   }
 }
 
 @keyframes pulse {
+
   0%, 100% { 
     opacity: 1;
     transform: scale(1);
   }
+
   50% { 
     opacity: 0.7;
     transform: scale(1.2);
@@ -258,8 +260,10 @@
 }
 
 // Responsive
-@media (max-width: 768px) {
+@media (width <= 768px) {
+
   .game-media {
+
     .video-player {
       padding: 1rem;
     }

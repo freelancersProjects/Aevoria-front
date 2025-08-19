@@ -26,7 +26,7 @@
 
   .following {
     color: var(--light-text);
-      font-family: 'Montserrat', sans-serif;
+      font-family: Montserrat, sans-serif;
       font-size: rem-calc(15);
       font-style: normal;
       font-weight: 400;
@@ -117,7 +117,7 @@
       .username {
         font-size: 15px;
         font-weight: 600;
-        color: rgba(209, 221, 235, 0.62);
+        color: rgb(209 221 235 / 62%);
         margin-bottom: 4px;
       }
 

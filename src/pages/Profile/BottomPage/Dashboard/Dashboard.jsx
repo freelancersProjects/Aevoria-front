@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import useFetch from "../../../../hooks/useFetch";
-import useAuth from "../../../../hooks/useAuth";
-import FriendMenu from "./FriendMenu/FriendMenu";
-import apiService from "../../../../services/apiService";
-import AddFriendModal from "./AddFriendModal/AddFriendModal";
-import addFriend from "../../../../assets/svg/add-friend.svg";
-import HR from "../../../../components/AEV/AEV.HR/HR";
-import DashboardPendingFriends from "./DashboardPendingFriend/DashboardPendingFriends";
-import StatCard from "./StatCard/StatCard";
-import "./Dashboard.scss";
+import { useEffect, useState } from 'react';
+import useFetch from '../../../../hooks/useFetch';
+import useAuth from '../../../../hooks/useAuth';
+import FriendMenu from './FriendMenu/FriendMenu';
+import apiService from '../../../../services/apiService';
+import AddFriendModal from './AddFriendModal/AddFriendModal';
+import addFriend from '../../../../assets/svg/add-friend.svg';
+import HR from '../../../../components/AEV/AEV.HR/HR';
+import DashboardPendingFriends from './DashboardPendingFriend/DashboardPendingFriends';
+import StatCard from './StatCard/StatCard';
+import './Dashboard.scss';
 
-function Dashboard() {
+function Dashboard () {
   const { user } = useAuth();
   const userId = user?.userId;
   const shouldFetch = !!userId;
 
   const [friendDetails, setFriendDetails] = useState([]);
   const { data, loading, error, refetch } = useFetch(
-    shouldFetch ? `/friends/${userId}` : null
+    shouldFetch ? `/friends/${userId}` : null,
   );
   const [showSearchModal, setShowSearchModal] = useState(false);
 
@@ -28,7 +28,7 @@ function Dashboard() {
       try {
         const friendRequests = data.$values.map(async (friendRelation) => {
           const friendData = await apiService.get(
-            `/users/${friendRelation.friendId}`
+            `/users/${friendRelation.friendId}`,
           );
           return {
             ...friendData,
@@ -43,8 +43,8 @@ function Dashboard() {
         setFriendDetails(friendsData);
       } catch (error) {
         console.error(
-          "Erreur lors de la récupération des détails des amis :",
-          error
+          'Erreur lors de la récupération des détails des amis :',
+          error,
         );
       }
     };
@@ -54,7 +54,7 @@ function Dashboard() {
 
   const handleUnfriend = async (friendId) => {
     if (!friendId) {
-      console.error("friendId manquant !");
+      console.error('friendId manquant !');
       return;
     }
 
@@ -63,24 +63,24 @@ function Dashboard() {
         (rel.userId.toLowerCase() === userId.toLowerCase() &&
           rel.friendId.toLowerCase() === friendId.toLowerCase()) ||
         (rel.userId.toLowerCase() === friendId.toLowerCase() &&
-          rel.friendId.toLowerCase() === userId.toLowerCase())
+          rel.friendId.toLowerCase() === userId.toLowerCase()),
     );
 
     if (!relation) {
-      console.error("Relation d'amitié non trouvée");
+      console.error('Relation d\'amitié non trouvée');
       return;
     }
 
     try {
       await apiService.delete(
-        `/friends?userId=${relation.userId}&friendId=${relation.friendId}`
+        `/friends?userId=${relation.userId}&friendId=${relation.friendId}`,
       );
 
       setFriendDetails((prevFriends) =>
-        prevFriends.filter((friend) => friend.relationFriendId !== friendId)
+        prevFriends.filter((friend) => friend.relationFriendId !== friendId),
       );
     } catch (error) {
-      console.error("Erreur lors de la suppression de l’ami :", error);
+      console.error('Erreur lors de la suppression de l’ami :', error);
     }
   };
 
@@ -90,12 +90,12 @@ function Dashboard() {
       const enriched = {
         ...res,
         relationFriendId: friendId,
-        status: "Accepted",
+        status: 'Accepted',
       };
 
       setFriendDetails((prev) => [...prev, enriched]);
     } catch (err) {
-      console.error("Erreur lors de l'ajout dynamique d'un ami accepté :", err);
+      console.error('Erreur lors de l\'ajout dynamique d\'un ami accepté :', err);
     }
   };
 
@@ -130,13 +130,13 @@ function Dashboard() {
         />
         <HR />
         {friendDetails
-          .filter((friend) => friend.status === "Accepted")
+          .filter((friend) => friend.status === 'Accepted')
           .map((friend) => (
             <div key={friend.relationFriendId} className="friendCard">
               <div className="friendInfo">
                 <img
                   src={
-                    friend.profile_picture || "https://via.placeholder.com/40"
+                    friend.profile_picture || 'https://via.placeholder.com/40'
                   }
                   alt={`${friend.first_name} ${friend.last_name}`}
                   className="avatar"

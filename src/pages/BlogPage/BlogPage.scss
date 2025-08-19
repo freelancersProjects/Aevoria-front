@@ -10,25 +10,26 @@
         grid-template-columns: 1fr 350px;
         gap: 40px;
 
-        @media (max-width: 1200px) {
+        @media (width <= 1200px) {
             grid-template-columns: 1fr;
+
             .sidebar {
                 display: none;
             }
         }
 
-        @media (min-width: 481px) and (max-width: 767px) {
+        @media (width >= 481px) and (width <= 767px) {
             padding: 12px;
             gap: 20px;
         }
     }
 
     .featured-article {
-        background: rgba(12, 18, 24, 0.85);
+        background: rgb(12 18 24 / 85%);
         border-radius: 16px;
         overflow: hidden;
         margin-bottom: 40px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgb(255 255 255 / 5%);
         transition: transform 0.3s ease;
 
         &:hover {
@@ -64,7 +65,7 @@
             .article-meta {
                 display: flex;
                 gap: 20px;
-                color: rgba(255, 255, 255, 0.6);
+                color: rgb(255 255 255 / 60%);
                 margin-bottom: 20px;
                 font-size: 14px;
 
@@ -76,7 +77,7 @@
             }
 
             p {
-                color: rgba(255, 255, 255, 0.8);
+                color: rgb(255 255 255 / 80%);
                 line-height: 1.6;
                 margin-bottom: 20px;
             }
@@ -103,6 +104,7 @@
     }
 
     .trending-articles {
+
         h2 {
             font-size: 24px;
             color: white;
@@ -116,10 +118,10 @@
         }
 
         .article-card {
-            background: rgba(12, 18, 24, 0.85);
+            background: rgb(12 18 24 / 85%);
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgb(255 255 255 / 5%);
             transition: transform 0.3s ease;
 
             &:hover {
@@ -155,7 +157,7 @@
                 .article-meta {
                     display: flex;
                     gap: 15px;
-                    color: rgba(255, 255, 255, 0.6);
+                    color: rgb(255 255 255 / 60%);
                     font-size: 13px;
 
                     span {
@@ -169,11 +171,12 @@
     }
 
     .sidebar {
+
         .popular-posts {
-            background: rgba(12, 18, 24, 0.85);
+            background: rgb(12 18 24 / 85%);
             border-radius: 16px;
             padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgb(255 255 255 / 5%);
 
             h2 {
                 font-size: 20px;
@@ -185,7 +188,7 @@
                 display: flex;
                 gap: 15px;
                 padding: 15px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid rgb(255 255 255 / 5%);
                 transition: transform 0.3s ease;
 
                 &:hover {
@@ -216,6 +219,7 @@
                 }
 
                 .post-info {
+
                     h3 {
                         font-size: 16px;
                         color: white;
@@ -224,7 +228,7 @@
 
                     .post-meta {
                         font-size: 13px;
-                        color: rgba(255, 255, 255, 0.6);
+                        color: rgb(255 255 255 / 60%);
 
                         span {
                             display: flex;
@@ -255,10 +259,10 @@
         }
 
         .offer-card {
-            background: rgba(12, 18, 24, 0.85);
+            background: rgb(12 18 24 / 85%);
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgb(255 255 255 / 5%);
             transition: transform 0.3s ease;
 
             &:hover {

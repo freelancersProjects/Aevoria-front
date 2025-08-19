@@ -4,12 +4,12 @@
 
 .aev-context-menu.always-visible {
   position: relative;
-  background: linear-gradient(145deg, rgba(0, 14, 27, 0.95), rgba(0, 5, 13, 0.95));
+  background: linear-gradient(145deg, rgb(0 14 27 / 95%), rgb(0 5 13 / 95%));
   border-radius: 16px;
   padding: 20px;
   width: 100%;
   max-width: 360px;
-  border: 1px solid rgba(0, 123, 255, 0.25);
+  border: 1px solid rgb(0 123 255 / 25%);
   backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
@@ -18,12 +18,12 @@
 
 
 .aev-context-menu {
-  background: linear-gradient(145deg, rgba(0, 14, 27, 0.95), rgba(0, 5, 13, 0.95));
+  background: linear-gradient(145deg, rgb(0 14 27 / 95%), rgb(0 5 13 / 95%));
   border-radius: 16px;
   padding: 20px;
   min-width: 280px;
   z-index: 999;
-  border: 1px solid rgba(0, 123, 255, 0.25);
+  border: 1px solid rgb(0 123 255 / 25%);
   backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@
   font-size: 1rem;
   font-weight: 700;
   color: var(--white);
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
   margin-bottom: 6px;
 }
 
@@ -64,21 +64,21 @@
   }
 
   li {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgb(255 255 255 / 5%);
+    border: 1px solid rgb(255 255 255 / 8%);
     border-radius: 8px;
     padding: 10px 14px;
     color: var(--white);
     font-size: 0.9rem;
-    font-family: "Montserrat", sans-serif;
+    font-family: Montserrat, sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.2s ease;
 
     &:hover {
-      background: rgba(0, 123, 255, 0.25);
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+      background: rgb(0 123 255 / 25%);
+      box-shadow: 0 0 8px rgb(0 123 255 / 20%);
     }
 
     button {
@@ -99,17 +99,17 @@
 
   input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgb(255 255 255 / 4%);
+    border: 1px solid rgb(255 255 255 / 12%);
     padding: 8px 12px;
     border-radius: 8px;
     color: var(--white);
-    font-family: "Montserrat", sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 0.85rem;
     outline: none;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.4);
+      color: rgb(255 255 255 / 40%);
     }
   }
 
@@ -123,6 +123,6 @@
     color: var(--white);
     cursor: pointer;
     box-shadow: 0 0 6px var(--blue);
-    font-family: "Montserrat", sans-serif;
+    font-family: Montserrat, sans-serif;
   }
 }

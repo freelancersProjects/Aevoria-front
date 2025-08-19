@@ -22,7 +22,7 @@
   overflow: hidden;
   position: relative;
   margin-bottom: -48px;
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 6%);
 }
 
 .settings-banner-wrapper .aev-upload-box {
@@ -64,7 +64,7 @@
   background: none;
   border-radius: 14px;
   box-shadow: none;
-  padding: 32px 0 0 0;
+  padding: 32px 0 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -73,7 +73,7 @@
 
 .settings-form-title {
   color: #D7DFE4;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 12px;
@@ -95,15 +95,18 @@
 }
 
 // Style pour les inputs AEV
+
 .aev-textinput-wrapper, .aev-textarea-wrapper {
   width: 100%;
 }
+
 .aev-label {
   color: #bfc1cd;
   font-size: 15px;
   font-weight: 500;
   margin-bottom: 6px;
 }
+
 .aev-textinput, .aev-textarea {
   width: 100%;
   background: transparent;
@@ -115,6 +118,7 @@
   margin-bottom: 0;
   transition: border 0.2s;
 }
+
 .aev-textinput:focus, .aev-textarea:focus {
   border: 1.5px solid #0D6EFD;
   outline: none;
@@ -127,25 +131,30 @@
   text-align: right;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
+
   .settings-banner-wrapper, .settings-form-card {
     max-width: 100%;
   }
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
+
   .settings-form-title {
     font-size: 20px;
   }
+
   .settings-form-card {
-    padding: 10px 0 0 0;
+    padding: 10px 0 0;
     border-radius: 8px;
   }
+
   .settings-banner-wrapper {
     height: 70px;
     min-height: 70px;
     border-radius: 8px 8px 0 0;
   }
+
   .settings-pp-border .aev-upload-box {
     width: 54px;
     height: 54px;
